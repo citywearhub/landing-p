@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AutoMossos automatitza el registre de viatgers dels Mossos. Els hostes omplen el formulari sols, des del mòbil, sense que el propietari faci res.">
+  <title>AutoMossos — Registre de viatgers automàtic per a allotjaments turístics</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-dark: #1e2e6e;
+      --accent: #059669;
+      --accent-light: #10b981;
+      --bg: #f8fafc;
+      --white: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 16px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+      text-decoration: none;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--accent); }
+    .btn-header {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-header:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(140deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: white;
+      padding: 60px 20px 52px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-content { position: relative; max-width: 700px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 22px;
+      color: rgba(255,255,255,0.9);
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -1px;
+      margin-bottom: 18px;
+    }
+    .hero h1 em { font-style: normal; color: #6ee7b7; }
+    .hero-sub {
+      font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+      color: rgba(255,255,255,0.78);
+      max-width: 520px;
+      margin: 0 auto 28px;
+      line-height: 1.65;
+    }
+    .hero-sub strong { color: white; font-weight: 700; }
+
+    /* ── Mockup telèfon al hero ── */
+    .hero-phone {
+      display: inline-block;
+      background: white;
+      border-radius: 18px;
+      padding: 14px 16px;
+      margin-bottom: 28px;
+      max-width: 300px;
+      width: 100%;
+      text-align: left;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+    }
+    .phone-topbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .phone-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #ffbd2e; }
+    .dot-g { background: #28ca41; }
+    .phone-title { font-size: 0.75rem; color: #888; margin-left: 4px; font-weight: 500; }
+    .phone-msg {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+    .phone-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .phone-bubble {
+      background: #f3f4f6;
+      border-radius: 12px 12px 12px 4px;
+      padding: 10px 12px;
+      font-size: 0.78rem;
+      color: #1a1a2e;
+      line-height: 1.5;
+      flex: 1;
+    }
+    .phone-bubble strong { color: var(--accent); }
+    .phone-time { font-size: 0.7rem; color: #aaa; text-align: right; margin-top: 4px; }
+    .phone-link {
+      display: block;
+      background: linear-gradient(135deg, var(--primary), #3b82f6);
+      color: white;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      margin-top: 4px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 16px 32px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(5,150,105,0.4);
+    }
+    .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(5,150,105,0.5); }
+    .btn-ghost {
+      background: transparent;
+      color: white;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: 50px;
+      padding: 15px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: white; background: rgba(255,255,255,0.08); }
+    .trust-strip {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.72);
+    }
+    .trust-item .check { color: #6ee7b7; font-weight: 700; }
+
+    /* ── BEFORE / AFTER ── */
+    .before-after { padding: 48px 20px; background: white; }
+    .ba-header { text-align: center; margin-bottom: 28px; }
+    .ba-header p { font-size: 1.05rem; color: var(--text-muted); }
+    .ba-header strong { color: var(--text); }
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .ba-card {
+      border-radius: var(--radius);
+      padding: 24px 20px;
+    }
+    .ba-before {
+      background: #fff5f5;
+      border: 1.5px solid #fecaca;
+    }
+    .ba-after {
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+    }
+    .ba-label {
+      font-weight: 800;
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+    .ba-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .ba-card li { font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; display: flex; gap: 6px; }
+    .ba-before li::before { content: "✗"; color: #ef4444; font-weight: 700; flex-shrink: 0; }
+    .ba-after li::before { content: "✓"; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+    /* ── SECTIONS ── */
+    .section { padding: 64px 20px; }
+    .section-alt { background: white; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.65rem, 4vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 1.02rem;
+      max-width: 560px;
+      margin: 0 auto 48px;
+      line-height: 1.65;
+    }
+
+    /* ── STEPS ── */
+    .steps { display: grid; gap: 18px; }
+    @media (min-width: 768px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+
+    .step {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 22px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .step:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(30,58,138,0.10); }
+    .step-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .step-icon { font-size: 1.8rem; line-height: 1; }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      background: var(--primary);
+      color: white;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .step p { font-size: 0.93rem; color: var(--text-muted); line-height: 1.68; }
+
+    /* ── FEATURES ── */
+    .features { display: grid; gap: 16px; }
+    @media (min-width: 768px) { .features { grid-template-columns: repeat(3, 1fr); } }
+
+    .feature {
+      padding: 28px 24px;
+      border-radius: var(--radius);
+      background: white;
+      border: 1.5px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(30,58,138,0.08); }
+    .feature-icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 14px;
+    }
+    .icon-blue { background: #eff6ff; }
+    .icon-green { background: #f0fdf4; }
+    .icon-purple { background: #faf5ff; }
+    .feature h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+    .feature p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ── PROPERTY CALLOUT ── */
+    .property-callout {
+      background: linear-gradient(135deg, #f0f9ff, #ecfdf5);
+      border: 1.5px solid #bae6fd;
+      border-radius: var(--radius);
+      padding: 40px 28px;
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .property-callout .big-icon { font-size: 2.8rem; margin-bottom: 14px; display: block; }
+    .property-callout h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; color: var(--primary); }
+    .property-callout p { color: var(--text-muted); font-size: 0.98rem; line-height: 1.7; max-width: 500px; margin: 0 auto; }
+    .property-items {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 18px;
+    }
+    .property-pill {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 13px;
+      font-size: 0.83rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ── PRICING ── */
+    .pricing-grid { display: grid; gap: 18px; }
+    @media (min-width: 768px) { .pricing-grid { grid-template-columns: repeat(3, 1fr); align-items: start; } }
+
+    .pricing-card {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 30px 24px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(30,58,138,0.10); }
+    .pricing-card.featured { border-color: var(--accent); }
+    @media (min-width: 768px) { .pricing-card.featured { transform: scale(1.03); } }
+    @media (min-width: 768px) { .pricing-card.featured:hover { transform: scale(1.03) translateY(-4px); } }
+    /* Featured first on mobile */
+    @media (max-width: 767px) { .pricing-card.featured { order: -1; } }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .badge-limited { background: #fef3c7; color: #92400e; }
+    .badge-popular { background: #d1fae5; color: #065f46; }
+    .badge-pro { background: #ede9fe; color: #5b21b6; }
+    .price-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .price-amount {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--primary);
+      line-height: 1;
+      letter-spacing: -1px;
+      margin-bottom: 4px;
+    }
+    .price-amount span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
+    .price-desc { font-size: 0.86rem; color: var(--text-muted); margin-bottom: 20px; }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 24px; }
+    .price-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.91rem;
+      color: var(--text);
+    }
+    .price-features li::before { content: "✓"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .btn-plan {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      text-align: center;
+      text-decoration: none;
+    }
+    .btn-plan-primary { background: var(--accent); color: white; }
+    .btn-plan-primary:hover { background: var(--accent-light); }
+    .btn-plan-outline { background: transparent; border: 2px solid var(--border); color: var(--text); }
+    .btn-plan-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── CTA FINAL ── */
+    .cta-section {
+      background: linear-gradient(140deg, var(--primary-dark), var(--primary));
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-size: clamp(1.6rem, 4vw, 2.3rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .cta-section p {
+      color: rgba(255,255,255,0.72);
+      font-size: 1.02rem;
+      margin-bottom: 32px;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .email-form {
+      display: flex;
+      gap: 10px;
+      max-width: 440px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .email-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 15px 20px;
+      border-radius: 50px;
+      border: none;
+      font-size: 0.97rem;
+      outline: none;
+      color: var(--text);
+    }
+    .btn-submit {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 15px 28px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .btn-submit:hover { background: var(--accent-light); transform: translateY(-1px); }
+    .form-note { font-size: 0.78rem; color: rgba(255,255,255,0.42); margin-top: 12px; }
+    .success-msg {
+      display: none;
+      padding: 18px 28px;
+      background: rgba(255,255,255,0.14);
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 12px;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0f172a;
+      color: rgba(255,255,255,0.5);
+      padding: 28px 20px;
+      text-align: center;
+      font-size: 0.86rem;
+      line-height: 1.9;
+    }
+    footer strong { color: rgba(255,255,255,0.85); }
+
+    /* ══════════════════════════════
+       MÒBIL — millores específiques
+       ══════════════════════════════ */
+    @media (max-width: 600px) {
+      /* Header */
+      .logo { font-size: 1.2rem; }
+
+      /* Hero */
+      .hero { padding: 44px 18px 44px; }
+      .hero h1 { font-size: 2rem; letter-spacing: -0.5px; }
+      .hero-sub { font-size: 1rem; }
+
+      /* Mockup telèfon: visible al mòbil */
+      .hero-phone { max-width: 100%; }
+
+      /* Botons hero full-width */
+      .hero-cta { flex-direction: column; gap: 10px; }
+      .btn-primary, .btn-ghost { width: 100%; text-align: center; padding: 17px 24px; font-size: 1.05rem; }
+
+      /* Trust strip: 2 per fila */
+      .trust-strip { gap: 10px; }
+      .trust-item { font-size: 0.8rem; }
+
+      /* Before/after */
+      .before-after { padding: 36px 16px; }
+      .ba-grid { grid-template-columns: 1fr; gap: 12px; }
+
+      /* Seccions */
+      .section { padding: 48px 16px; }
+      .section-title { font-size: 1.65rem; }
+      .section-sub { font-size: 0.97rem; margin-bottom: 32px; }
+
+      /* Steps: horitzontal a mòbil (icona+núm esquerra, text dreta) */
+      .step {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 22px 18px;
+      }
+      .step-head {
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+      .step-icon { font-size: 1.6rem; }
+      .step-num { width: 30px; height: 30px; font-size: 0.9rem; }
+      .step-body { flex: 1; }
+      .step h3 { font-size: 1rem; margin-bottom: 6px; }
+      .step p { font-size: 0.9rem; }
+
+      /* Pricing: featured primer */
+      .pricing-grid { display: flex; flex-direction: column; }
+      .pricing-card.featured { order: -1; }
+      .price-amount { font-size: 2.4rem; }
+
+      /* Email form full-width a mòbil */
+      .email-form { flex-direction: column; }
+      .email-input, .btn-submit { width: 100%; border-radius: 14px; }
+
+      /* Property callout */
+      .property-callout { padding: 28px 18px; }
+      .property-callout h3 { font-size: 1.15rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo"><span>Auto</span>Mossos</a>
+    <a href="#beta" class="btn-header">1 mes gratis →</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      🏛️ Obligatori per llei a Catalunya
+    </div>
+    <h1>Els teus hostes es registren sols,<br><em>des del seu mòbil</em></h1>
+    <p class="hero-sub">
+      En fer la reserva, l'hoste rep un missatge automàtic. Omple les seves dades.
+      <strong>Tu no truques a ningú. Tu no fas res.</strong>
+    </p>
+
+    <!-- Mockup: com ho veu l'hoste -->
+    <div class="hero-phone">
+      <div class="phone-topbar">
+        <div class="phone-dot dot-r"></div>
+        <div class="phone-dot dot-y"></div>
+        <div class="phone-dot dot-g"></div>
+        <span class="phone-title">Missatge rebut per l'hoste</span>
+      </div>
+      <div class="phone-msg">
+        <div class="phone-avatar">🏠</div>
+        <div>
+          <div class="phone-bubble">
+            Benvingut/da a <strong>Can Alegre</strong>! 👋<br>
+            Abans d'arribar, omple el registre obligatori des del mòbil. Triga menys de 2 minuts.
+            <div class="phone-time">Avui · 14:32</div>
+          </div>
+          <a class="phone-link" href="#">📝 Omplir el registre ara →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <a href="#beta" class="btn-primary">Aconsegueix 1 mes gratis</a>
+      <a href="#com-funciona" class="btn-ghost">Com funciona ↓</a>
+    </div>
+    <div class="trust-strip">
+      <div class="trust-item"><span class="check">✓</span> Sense app per l'hoste</div>
+      <div class="trust-item"><span class="check">✓</span> 100% des del mòbil</div>
+      <div class="trust-item"><span class="check">✓</span> Compleix la llei</div>
+      <div class="trust-item"><span class="check">✓</span> Document oficial generat sol</div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section class="before-after">
+  <div class="ba-header">
+    <p><strong>Avui, sense AutoMossos</strong> vs. <strong>amb AutoMossos</strong></p>
+  </div>
+  <div class="ba-grid">
+    <div class="ba-card ba-before">
+      <div class="ba-label">❌ Avui</div>
+      <ul>
+        <li>Escrius tu a cada hoste per demanar-li el DNI</li>
+        <li>Esperes que et respongui (de vegades no ho fa)</li>
+        <li>Transcrius les dades a mà, un per un</li>
+        <li>Si t'equivoques, pots rebre una multa</li>
+      </ul>
+    </div>
+    <div class="ba-card ba-after">
+      <div class="ba-label">✅ Amb AutoMossos</div>
+      <ul>
+        <li>L'hoste rep el link automàticament al fer la reserva</li>
+        <li>Omple les seves dades en 2 minuts des del mòbil</li>
+        <li>Tu reps un avís quan tot està llest</li>
+        <li>Cliques un botó. Document enviat als Mossos.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- COM FUNCIONA -->
+<section class="section" id="com-funciona">
+  <div class="container">
+    <div class="section-label">Com funciona</div>
+    <h2 class="section-title">3 passos. Cap trucada. Cap paper.</h2>
+    <p class="section-sub">Configures la teva propietat una sola vegada. Després, tot passa sol.</p>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-head">
+          <span class="step-icon">📲</span>
+          <div class="step-num">1</div>
+        </div>
+        <div class="step-body">
+          <h3>L'hoste reserva i rep un missatge automàtic</h3>
+          <p>En confirmar la reserva a Booking, Airbnb o qualsevol plataforma, el teu sistema envia automàticament un missatge de benvinguda amb un link. Sense que tu facis absolutament res.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head">
+          <span class="step-icon">📝</span>
+          <div class="step-num">2</div>
+        </div>
+        <div class="step-body">
+          <h3>L'hoste omple les seves dades des del mòbil</h3>
+          <p>Obre el link, escriu el seu nom, document d'identitat i les dades que la llei demana. Pot passar el link als companys per WhatsApp perquè cadascú ompli el seu. No cal baixar cap aplicació.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-head">
+          <span class="step-icon">✅</span>
+          <div class="step-num">3</div>
+        </div>
+        <div class="step-body">
+          <h3>Tu reps l'avís i envies als Mossos amb un clic</h3>
+          <p>Quan tots han omplert les dades, reps un avís al mòbil. Entres a AutoMossos, cliques "Enviar als Mossos" i el programa crea el document oficial i te'l prepara per pujar. Tot en menys de 2 minuts.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PER QUÈ AUTOMOSSOS -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-label">Per què AutoMossos</div>
+    <h2 class="section-title">Oblida't dels papers i les trucades</h2>
+    <p class="section-sub">Pensat per a propietaris de cases rurals, pisos turístics i petits allotjaments de Catalunya.</p>
+    <div class="features">
+
+      <div class="feature">
+        <div class="feature-icon-wrap icon-blue">🤖</div>
+        <h3>Zero feina per al propietari</h3>
+        <p>El missatge amb el link s'envia sol. Tu no has d'escriure res a cap hoste. La reserva es gestiona sola des del primer moment.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon-wrap icon-green">📱</div>
+        <h3>L'hoste ho fa ell sol, des del mòbil</h3>
+        <p>Sense baixar cap aplicació. L'hoste obre el link com si fos una pàgina web normal i omple les dades en 2 minuts. Funciona amb qualsevol telèfon.</p>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon-wrap icon-purple">⚖️</div>
+        <h3>Compliment legal sense errors</h3>
+        <p>AutoMossos crea automàticament el document oficial que la policia necessita. Tu el puges a la seva pàgina web. Sense errors, sense multes de fins a 30.000 €.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PÀGINA DE LA PROPIETAT -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">I a més</div>
+    <h2 class="section-title">La teva propietat, dins el link</h2>
+    <p class="section-sub">El link que rep l'hoste no és un formulari pelat. És la porta d'entrada a la teva casa.</p>
+    <div class="property-callout">
+      <span class="big-icon">🏡</span>
+      <h3>L'hoste troba tot el que necessita sense trucar-te</h3>
+      <p>Afegeix la informació de la teva casa: on és la caixa de les claus, el codi per obrir la porta, la contrasenya del WiFi, les normes... L'hoste ho veu tot just obrir el link, abans d'arribar.</p>
+      <div class="property-items">
+        <span class="property-pill">📦 On són les claus</span>
+        <span class="property-pill">🔑 Codis d'accés</span>
+        <span class="property-pill">📶 WiFi</span>
+        <span class="property-pill">📋 Normes de la casa</span>
+        <span class="property-pill">🎥 Vídeo d'instruccions</span>
+        <span class="property-pill">+ el que vulguis</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section section-alt" id="preus">
+  <div class="container">
+    <div class="section-label">Preus</div>
+    <h2 class="section-title">Comença gratis, sense compromisos</h2>
+    <p class="section-sub">Primers 100 establiments: 1 mes de prova completament gratis. Sense targeta de crèdit.</p>
+    <div class="pricing-grid">
+
+      <!-- BETA -->
+      <div class="pricing-card">
+        <span class="badge badge-limited">⚡ Oferta beta · 100 places</span>
+        <div class="price-name">Beta</div>
+        <div class="price-amount">0€<span> / primer mes</span></div>
+        <div class="price-desc">Per als primers 100 establiments. Sense compromís.</div>
+        <ul class="price-features">
+          <li>1 propietat inclosa</li>
+          <li>Reserves il·limitades</li>
+          <li>Formulari mòbil per als hostes</li>
+          <li>Document oficial generat automàticament</li>
+          <li>Pàgina d'informació de la propietat</li>
+          <li>Atenció per email</li>
+        </ul>
+        <a href="#beta" class="btn-plan btn-plan-outline">Aconsegueix la plaça beta</a>
+      </div>
+
+      <!-- BÀSIC (featured) -->
+      <div class="pricing-card featured">
+        <span class="badge badge-popular">⭐ Més popular</span>
+        <div class="price-name">Bàsic</div>
+        <div class="price-amount">9€<span> / mes</span></div>
+        <div class="price-desc">Per a propietaris d'1 establiment. Sense sorpreses.</div>
+        <ul class="price-features">
+          <li>1 propietat inclosa</li>
+          <li>Reserves il·limitades</li>
+          <li>Formulari mòbil per als hostes</li>
+          <li>Document oficial generat automàticament</li>
+          <li>Pàgina d'informació de la propietat</li>
+          <li>Avís quan la reserva es completa</li>
+          <li>Atenció prioritària</li>
+        </ul>
+        <a href="#beta" class="btn-plan btn-plan-primary">Comença gratis 1 mes</a>
+      </div>
+
+      <!-- PRO -->
+      <div class="pricing-card">
+        <span class="badge badge-pro">🚀 Per a gestors</span>
+        <div class="price-name">Pro</div>
+        <div class="price-amount">19€<span> / mes</span></div>
+        <div class="price-desc">Per a qui gestiona diverses propietats.</div>
+        <ul class="price-features">
+          <li>Fins a 5 propietats</li>
+          <li>Reserves il·limitades</li>
+          <li>Formulari mòbil per als hostes</li>
+          <li>Document oficial generat automàticament</li>
+          <li>Pàgina d'informació per cada propietat</li>
+          <li>Avís per email i WhatsApp</li>
+          <li>Panell per veure totes les reserves juntes</li>
+          <li>Atenció prioritària</li>
+        </ul>
+        <a href="#beta" class="btn-plan btn-plan-outline">Comença gratis 1 mes</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL + FORM BETA -->
+<section class="cta-section" id="beta">
+  <div class="container">
+    <h2>Uneix-te a la beta ara</h2>
+    <p>Queden places limitades. Deixa el teu email i et truquem en 24 hores per configurar-ho tot plegats.</p>
+
+    <form class="email-form" id="betaForm" onsubmit="handleSubmit(event)">
+      <input type="email" class="email-input" id="emailInput" placeholder="el-teu@email.com" required>
+      <button type="submit" class="btn-submit">Apunta'm →</button>
+    </form>
+    <div class="success-msg" id="successMsg">
+      🎉 Perfecte! Et truquem en menys de 24 hores.
+    </div>
+    <p class="form-note">Sense spam. Sense targeta de crèdit. Et truquem nosaltres.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>AutoMossos</strong> — Eina de registre de viatgers per a allotjaments turístics de Catalunya
+  <br>
+  Compleix la normativa legal vigent (RD 933/2021) · Fet a Catalunya
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const form = document.getElementById('betaForm');
+    const msg  = document.getElementById('successMsg');
+    form.style.display = 'none';
+    msg.style.display = 'block';
+  }
+
+  // Header shadow on scroll
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    header.style.boxShadow = window.scrollY > 10
+      ? '0 4px 20px rgba(0,0,0,0.08)'
+      : 'none';
+  }, { passive: true });
+</script>
+
+</body>
+</html>
