@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registre de viatgers — AutoMossos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+/* ─────────────────────────────────────────────────
+   AutoMossos · Registre de Viatgers · UI v3
+───────────────────────────────────────────────── */
+:root {
+  --blue:        #1e3a8a;
+  --blue-dk:     #162c6d;
+  --blue-lt:     #2d52c4;
+  --blue-ring:   rgba(30,58,138,0.12);
+  --blue-soft:   #eff6ff;
+  --green:       #059669;
+  --green-lt:    #10b981;
+  --green-ring:  rgba(5,150,105,0.2);
+  --red:         #dc2626;
+  --red-bg:      #fff5f5;
+  --red-ring:    rgba(220,38,38,0.1);
+  --amber:       #d97706;
+  --amber-bg:    #fffbeb;
+
+  --bg:       #edf0f5;
+  --surface:  #ffffff;
+  --surface2: #f8fafc;
+
+  --t1: #0f172a;
+  --t2: #374151;
+  --t3: #6b7280;
+  --t4: #9ca3af;
+
+  --bd:  #e2e8f0;
+  --bd2: #cbd5e1;
+
+  --r-card:  20px;
+  --r-el:    10px;
+  --r-chip:  100px;
+
+  --sh-card: 0 1px 3px rgba(0,0,0,0.05), 0 6px 24px rgba(15,23,42,0.07);
+
+  --ease: cubic-bezier(0.4,0,0.2,1);
+  --t-fast: 140ms;
+  --t-base: 200ms;
+  --t-slow: 300ms;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 16px;
+  background: var(--bg);
+  color: var(--t1);
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 20px 16px 100px;
+}
+
+/* ── Logo ─────────────────────────────────── */
+.logo {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; text-decoration: none; margin-bottom: 24px;
+}
+.logo-mark {
+  width: 34px; height: 34px; flex-shrink: 0;
+  background: var(--blue); border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 13px; font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.logo-wordmark {
+  font-size: 18px; font-weight: 800;
+  color: var(--blue); letter-spacing: -0.4px;
+}
+.logo-wordmark span { color: var(--green); }
+
+/* ── Screen transitions ───────────────────── */
+.screen { display: none; }
+.screen.active { display: block; animation: scIn var(--t-slow) var(--ease) both; }
+.form-screen { display: none; }
+.form-screen.active { display: block; animation: scIn var(--t-slow) var(--ease) both; }
+
+@keyframes scIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Welcome ──────────────────────────────── */
+.welcome-card {
+  background: var(--surface);
+  border-radius: var(--r-card);
+  box-shadow: var(--sh-card);
+  overflow: hidden;
+}
+.welcome-hero {
+  background: var(--blue);
+  padding: 32px 28px 28px;
+  position: relative; overflow: hidden;
+}
+.welcome-hero::after {
+  content: '';
+  position: absolute; right: -52px; bottom: -52px;
+  width: 180px; height: 180px; border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  pointer-events: none;
+}
+.welcome-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: rgba(255,255,255,0.88);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.4px;
+  text-transform: uppercase; border-radius: var(--r-chip);
+  padding: 4px 10px; margin-bottom: 16px;
+}
+.welcome-badge::before { content: '🔐'; font-size: 12px; }
+.welcome-hero h2 {
+  font-size: 22px; font-weight: 800; color: white;
+  letter-spacing: -0.4px; line-height: 1.25; margin-bottom: 6px;
+}
+.welcome-hero p { font-size: 14px; color: rgba(255,255,255,0.62); }
+
+.welcome-body { padding: 24px 28px 28px; }
+.welcome-info {
+  display: flex;
+  border: 1px solid var(--bd);
+  border-radius: 12px; overflow: hidden;
+  margin-bottom: 24px;
+}
+.welcome-info-item {
+  flex: 1; padding: 14px 8px; text-align: center;
+  border-right: 1px solid var(--bd);
+}
+.welcome-info-item:last-child { border-right: none; }
+.wi-label {
+  font-size: 10px; font-weight: 700; color: var(--t4);
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.wi-value { font-size: 13px; font-weight: 700; color: var(--t1); }
+
+/* ── Step navigator ───────────────────────── */
+.steps-nav { margin-bottom: 16px; }
+.steps-segs { display: flex; gap: 4px; margin-bottom: 10px; }
+.step-seg {
+  flex: 1; height: 4px; border-radius: 100px;
+  background: var(--bd);
+  transition: background var(--t-slow) var(--ease);
+}
+.step-seg.s-done   { background: var(--green); }
+.step-seg.s-active { background: var(--blue); }
+
+.steps-info {
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.steps-name {
+  font-size: 12px; font-weight: 700;
+  color: var(--blue); text-transform: uppercase; letter-spacing: 0.5px;
+}
+.steps-count { font-size: 12px; font-weight: 500; color: var(--t4); }
+
+/* hide old progress compat elements */
+.progress-wrap, #progress-label-old { display: none; }
+
+/* ── Form card ────────────────────────────── */
+.form-card {
+  background: var(--surface);
+  border-radius: var(--r-card);
+  box-shadow: var(--sh-card);
+  padding: 32px 28px;
+}
+
+/* ── Step header ──────────────────────────── */
+.screen-eyebrow {
+  font-size: 11px; font-weight: 700;
+  color: var(--green); text-transform: uppercase;
+  letter-spacing: 0.7px; margin-bottom: 5px;
+}
+.screen-title {
+  font-size: 22px; font-weight: 800;
+  color: var(--t1); letter-spacing: -0.4px;
+  line-height: 1.2; margin-bottom: 5px;
+}
+.screen-subtitle {
+  font-size: 14px; color: var(--t3);
+  line-height: 1.5; margin-bottom: 28px;
+}
+
+/* ── Fields ───────────────────────────────── */
+.field { margin-bottom: 20px; }
+
+label {
+  display: block;
+  font-size: 13px; font-weight: 600;
+  color: var(--t2); margin-bottom: 6px;
+}
+.req { color: var(--red); margin-left: 2px; font-weight: 400; }
+
+/* 16px font = no iOS zoom */
+input[type=text], input[type=tel], input[type=email],
+input[type=date], input[type=time], input[type=number], select {
+  width: 100%; height: 52px; padding: 0 14px;
+  font-size: 16px; font-family: inherit; font-weight: 400;
+  color: var(--t1); background: var(--surface);
+  border: 1.5px solid var(--bd); border-radius: var(--r-el);
+  -webkit-appearance: none; appearance: none;
+  transition:
+    border-color var(--t-base) var(--ease),
+    box-shadow   var(--t-base) var(--ease);
+}
+input::placeholder { color: var(--t4); }
+input[type=date] { color-scheme: light; }
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-ring);
+}
+input.valid   { border-color: var(--green); }
+input.invalid, select.invalid {
+  border-color: var(--red);
+  background: var(--red-bg);
+  box-shadow: 0 0 0 3px var(--red-ring);
+}
+
+.field-error {
+  font-size: 12px; font-weight: 500;
+  color: var(--red); margin-top: 6px;
+  display: none; line-height: 1.4;
+}
+.field-error.show { display: block; }
+
+.field-hint {
+  font-size: 12px; color: var(--t4);
+  margin-top: 6px; line-height: 1.5;
+}
+
+/* Select chevron */
+.select-wrap { position: relative; }
+.select-wrap::after {
+  content: '';
+  position: absolute; right: 15px; top: 50%;
+  width: 7px; height: 7px;
+  border-right: 2px solid var(--t3);
+  border-bottom: 2px solid var(--t3);
+  transform: translateY(-65%) rotate(45deg);
+  pointer-events: none;
+}
+.select-wrap select { padding-right: 40px; cursor: pointer; }
+
+input[readonly] {
+  background: var(--surface2);
+  color: var(--t4); border-color: var(--bd);
+  cursor: default;
+}
+
+/* ── Callout notes ────────────────────────── */
+.note {
+  background: #f0f7ff;
+  border-left: 3px solid var(--blue-lt);
+  border-radius: 0 var(--r-el) var(--r-el) 0;
+  padding: 11px 14px; font-size: 13px;
+  color: #1e40af; line-height: 1.55;
+  margin-bottom: 20px;
+}
+.note-warning {
+  background: var(--amber-bg);
+  border-left: 3px solid var(--amber);
+  border-radius: 0 var(--r-el) var(--r-el) 0;
+  padding: 11px 14px; font-size: 13px;
+  color: #92400e; line-height: 1.55;
+  margin-bottom: 20px;
+}
+
+/* ── Toggle Yes/No ────────────────────────── */
+.toggle-group { display: flex; gap: 8px; margin-bottom: 16px; }
+.toggle-btn {
+  flex: 1; height: 48px; padding: 0;
+  border: 1.5px solid var(--bd); border-radius: var(--r-el);
+  font-size: 15px; font-weight: 600; font-family: inherit;
+  cursor: pointer; background: var(--surface2);
+  color: var(--t3); text-align: center;
+  transition: all var(--t-base) var(--ease);
+}
+.toggle-btn.selected {
+  border-color: var(--blue);
+  background: var(--blue-soft); color: var(--blue);
+}
+
+/* ── Buttons ──────────────────────────────── */
+.btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 52px; padding: 0 24px;
+  border: none; border-radius: var(--r-el);
+  font-size: 15px; font-weight: 700; font-family: inherit;
+  cursor: pointer; text-align: center; text-decoration: none;
+  letter-spacing: 0.1px; margin-bottom: 10px;
+  transition: all var(--t-base) var(--ease);
+}
+.btn:active { transform: scale(0.98); }
+
+.btn-primary {
+  background: var(--green); color: white;
+  box-shadow: 0 2px 10px var(--green-ring);
+}
+.btn-primary:hover {
+  background: var(--green-lt);
+  box-shadow: 0 4px 18px var(--green-ring);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--surface); color: var(--blue);
+  border: 1.5px solid var(--bd);
+}
+.btn-secondary:hover { background: var(--blue-soft); border-color: var(--blue); }
+
+/* Back = text link, not a full button */
+.btn-back {
+  display: block; width: 100%;
+  padding: 10px; margin-bottom: 0;
+  background: none; border: none; height: auto;
+  color: var(--t3); font-size: 14px; font-weight: 500;
+  font-family: inherit; cursor: pointer; text-align: center;
+  transition: color var(--t-fast) var(--ease);
+}
+.btn-back:hover { color: var(--t2); }
+
+.btn-danger-soft {
+  background: #fef2f2; color: var(--red);
+  border: none; border-radius: 8px;
+  padding: 6px 12px; font-size: 12px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+}
+
+/* ── Minor / child card ───────────────────── */
+.minor-card {
+  background: var(--surface2); border: 1.5px solid var(--bd);
+  border-radius: 12px; padding: 16px; margin-bottom: 12px;
+}
+.minor-card-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 14px;
+}
+.minor-card-header h4 { font-size: 14px; font-weight: 700; color: var(--blue); }
+
+/* ── Summary box ──────────────────────────── */
+.summary-box {
+  background: var(--surface2); border: 1.5px solid var(--bd);
+  border-radius: 12px; padding: 16px 18px; margin-bottom: 24px;
+}
+.summary-section { margin-bottom: 14px; }
+.summary-section:last-child { margin-bottom: 0; }
+.summary-section h4 {
+  font-size: 10px; font-weight: 800; color: var(--t4);
+  text-transform: uppercase; letter-spacing: 0.8px;
+  margin-bottom: 10px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--bd);
+}
+.summary-row {
+  display: flex; justify-content: space-between;
+  align-items: baseline; gap: 12px;
+  font-size: 14px; padding: 4px 0;
+}
+.summary-row span:first-child { color: var(--t3); flex-shrink: 0; }
+.summary-row span:last-child  { font-weight: 600; text-align: right; word-break: break-word; }
+
+/* ── Confirm checkbox ─────────────────────── */
+.checkbox-wrap {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 16px; margin-bottom: 24px;
+  background: var(--surface2); border: 1.5px solid var(--bd);
+  border-radius: 12px;
+}
+.checkbox-wrap input[type=checkbox] {
+  width: 20px; height: 20px; min-width: 20px;
+  margin-top: 2px; cursor: pointer; padding: 0;
+  accent-color: var(--blue);
+}
+.checkbox-wrap label {
+  font-size: 14px; font-weight: 400;
+  color: var(--t2); cursor: pointer;
+  margin-bottom: 0; line-height: 1.55;
+}
+
+/* ── Section divider ──────────────────────── */
+.section-sep {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 700;
+  color: var(--t4); text-transform: uppercase;
+  letter-spacing: 0.6px; margin: 24px 0 20px;
+}
+.section-sep::before, .section-sep::after {
+  content: ''; flex: 1; height: 1px; background: var(--bd);
+}
+
+/* ── Success ──────────────────────────────── */
+.success-card {
+  background: var(--surface); border-radius: var(--r-card);
+  box-shadow: var(--sh-card); overflow: hidden; text-align: center;
+}
+.success-top {
+  background: var(--green);
+  padding: 48px 28px 40px; position: relative; overflow: hidden;
+}
+.success-top::before {
+  content: ''; position: absolute; right: -56px; top: -56px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+}
+.success-icon {
+  width: 80px; height: 80px;
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.35);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px; font-size: 2.4rem;
+  position: relative; z-index: 1;
+}
+.success-top h2 {
+  font-size: 28px; font-weight: 800; color: white;
+  letter-spacing: -0.5px; margin-bottom: 8px;
+}
+.success-top > p { font-size: 15px; color: rgba(255,255,255,0.8); }
+.success-body { padding: 28px 28px 36px; }
+
+/* ── Loading ──────────────────────────────── */
+.btn-loading { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
+
+/* ── Util ─────────────────────────────────── */
+.hidden { display: none !important; }
+
+/* ── Responsive ───────────────────────────── */
+@media (max-width: 480px) {
+  .container    { padding: 16px 12px 100px; }
+  .form-card    { padding: 24px 20px; }
+  .welcome-hero { padding: 28px 20px 24px; }
+  .welcome-body { padding: 20px 20px 24px; }
+  .screen-title { font-size: 20px; }
+}
+  </style>
+</head>
+<body>
+<div class="container">
+  <a class="logo" href="index.html">
+    <span class="logo-mark">AM</span>
+    <span class="logo-wordmark">Auto<span>Mossos</span></span>
+  </a>
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN 0 — BENVINGUDA
+  ═══════════════════════════════════════════ -->
+  <div id="screen-welcome" class="screen active">
+    <div class="welcome-card">
+      <div class="welcome-hero">
+        <div class="welcome-badge">Registre oficial de viatgers</div>
+        <h2 id="wp-propietat">—</h2>
+        <p id="wp-dates">—</p>
+      </div>
+      <div class="welcome-body">
+        <div class="welcome-info">
+          <div class="welcome-info-item">
+            <div class="wi-label">Temps estimat</div>
+            <div class="wi-value">~3 min</div>
+          </div>
+          <div class="welcome-info-item">
+            <div class="wi-label">Dades segures</div>
+            <div class="wi-value">🔒 Xifrat</div>
+          </div>
+          <div class="welcome-info-item">
+            <div class="wi-label">Normativa</div>
+            <div class="wi-value">Mossos</div>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="startForm()">Omplir el meu registre →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN FORM
+  ═══════════════════════════════════════════ -->
+  <div id="screen-form" class="screen">
+    <div class="steps-nav">
+      <div class="steps-segs" id="steps-segs"></div>
+      <div class="steps-info">
+        <span class="steps-name" id="steps-name">—</span>
+        <span class="steps-count" id="steps-count">Pas 1 de 7</span>
+      </div>
+    </div>
+    <!-- compat bridge for old JS refs (hidden) -->
+    <span id="progress-label" hidden></span>
+    <span id="progress-pct" hidden></span>
+    <div id="progress-fill" hidden></div>
+    <div id="progress-dots" hidden></div>
+
+    <div class="form-card">
+
+    <!-- ── RESPONSABLE: Pantalla 1 — Qui ets? ── -->
+    <div id="r-s1" class="form-screen">
+      <p class="screen-eyebrow">Pas 1 — Identitat</p>
+      <p class="screen-title">Qui ets?</p>
+      <p class="screen-subtitle">Dades personals bàsiques</p>
+      <div class="field">
+        <label>Nom <span class="req">*</span></label>
+        <input type="text" id="r-nom" autocomplete="given-name" autocapitalize="words" placeholder="Joan">
+        <p class="field-error" id="err-r-nom">Camp obligatori</p>
+      </div>
+      <div class="field">
+        <label>Primer cognom <span class="req">*</span></label>
+        <input type="text" id="r-cognom1" autocomplete="family-name" autocapitalize="words" placeholder="García">
+        <p class="field-error" id="err-r-cognom1">Camp obligatori</p>
+      </div>
+      <div class="field">
+        <label>Segon cognom <span style="color:var(--text-muted);font-weight:400">(obligatori si DNI/TIE)</span></label>
+        <input type="text" id="r-cognom2" autocapitalize="words" placeholder="López">
+      </div>
+      <div class="field">
+        <label>Data de naixement <span class="req">*</span></label>
+        <input type="date" id="r-dataNaix" autocomplete="bday">
+        <p class="field-error" id="err-r-dataNaix">Camp obligatori</p>
+      </div>
+      <button class="btn btn-primary" onclick="nextScreen()">Continuar →</button>
+    </div>
+
+    <!-- ── RESPONSABLE: Pantalla 2 — El teu document ── -->
+    <div id="r-s2" class="form-screen">
+      <p class="screen-eyebrow">Pas 2 — Document</p>
+      <p class="screen-title">El teu document</p>
+      <p class="screen-subtitle">Documentació d'identitat</p>
+      <div class="field">
+        <label>Tipus de document <span class="req">*</span></label>
+        <div class="select-wrap">
+          <select id="r-tipusDoc" onchange="onDocTypeChange('r')">
+            <option value="">— Selecciona —</option>
+            <option value="D">DNI / NIF / TIE</option>
+            <option value="N">NIE</option>
+            <option value="P-ESP">Passaport espanyol</option>
+            <option value="P-EST">Passaport estranger</option>
+            <option value="O">Altres</option>
+          </select>
+        </div>
+        <p class="field-error" id="err-r-tipusDoc">Selecciona un tipus de document</p>
+      </div>
+      <div class="field">
+        <label id="r-numDoc-label">Número del document <span class="req">*</span></label>
+        <input type="text" id="r-numDoc" autocapitalize="characters" placeholder="12345678A">
+        <p class="field-hint" id="r-numDoc-hint"></p>
+        <p class="field-error" id="err-r-numDoc">Format incorrecte</p>
+      </div>
+      <div class="field hidden" id="r-numSuport-field">
+        <label>Número de suport <span class="req">*</span></label>
+        <input type="text" id="r-numSuport" maxlength="9" placeholder="ABC123456" autocapitalize="characters">
+        <p class="field-hint">9 caràcters del darrere del DNI/NIE (ex: ABC123456)</p>
+        <p class="field-error" id="err-r-numSuport">Ha de tenir exactament 9 caràcters</p>
+      </div>
+      <div class="field" id="r-cognom2-warning" style="display:none">
+        <div class="note-warning">Recorda: el DNI requereix el segon cognom. Torna enrere per omplir-lo si no ho has fet.</div>
+      </div>
+      <div class="field">
+        <label>País de nacionalitat</label>
+        <div class="select-wrap">
+          <select id="r-paisNac"></select>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="nextScreen()">Continuar →</button>
+      <button class="btn btn-back" onclick="prevScreen()">← Enrere</button>
+    </div>
+
+    <!-- ── RESPONSABLE: Pantalla 3 — On vius? ── -->
+    <div id="r-s3" class="form-screen">
+      <p class="screen-eyebrow">Pas 3 — Adreça</p>
+      <p class="screen-title">On vius?</p>
+      <p class="screen-subtitle">Adreça de residència habitual</p>
+      <div class="field">
+        <label>Adreça (carrer i número) <span class="req">*</span></label>
+        <input type="text" id="r-adreca" autocomplete="street-address" placeholder="Carrer de la Pau, 5, 2n 1a">
+        <p class="field-error" id="err-r-adreca">Camp obligatori</p>
+      </div>
+      <div class="field">
+        <label>Codi postal <span class="req">*</span></label>
+        <input type="text" id="r-cp" inputmode="numeric" maxlength="10" autocomplete="postal-code" placeholder="08001">
+        <p class="field-error" id="err-r-cp">Format incorrecte (5 dígits per a Espanya)</p>
+      </div>
+      <div class="field">
+        <label>Localitat <span class="req">*</span></label>
+        <input type="text" id="r-localitat" autocomplete="address-level2" autocapitalize="words" placeholder="Barcelona">
+        <p class="field-error" id="err-r-localitat">Camp obligatori</p>
+      </div>
+      <div class="field" id="r-provincia-field">
+        <label>Província <span class="req">*</span></label>
+        <div class="select-wrap">
+          <select id="r-provincia"></select>
+        </div>
+        <p class="field-error" id="err-r-provincia">Selecciona una província</p>
+      </div>
+      <div class="field">
+        <label>País <span class="req">*</span></label>
+        <div class="select-wrap">
+          <select id="r-pais" onchange="onPaisChange('r')"></select>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="nextScreen()">Continuar →</button>
+      <button class="btn btn-back" onclick="prevScreen()">← Enrere</button>
+    </div>
+
+    <!-- ── RESPONSABLE: Pantalla 4 — Com et contactem? ── -->
+    <div id="r-s4" class="form-screen">
+      <p class="screen-eyebrow">Pas 4 — Contacte</p>
+      <p class="screen-title">Com et contactem?</p>
+      <p class="screen-subtitle">Dades de contacte del responsable de la reserva</p>
+      <div class="field">
+        <label>Telèfon <span class="req">*</span></label>
+        <input type="tel" id="r-telefon" autocomplete="tel" placeholder="+34 600 000 000">
+        <p class="field-error" id="err-r-telefon">Camp obligatori per al responsable de la reserva</p>
+      </div>
+      <div class="field">
+        <label>Correu electrònic <span class="req">*</span></label>
+        <input type="email" id="r-email" autocomplete="email" placeholder="exemple@correu.com">
+        <p class="field-error" id="err-r-email">Introdueix un correu electrònic vàlid</p>
+      </div>
+      <div class="note">
+        Les dades de contacte s'utilitzen exclusivament per a la facturació i comunicacions relacionades amb el servei AutoMossos.
+      </div>
+      <button class="btn btn-primary" onclick="nextScreen()">Continuar →</button>
+      <button class="btn btn-back" onclick="prevScreen()">← Enrere</button>
+    </div>
+
+    <!-- ── RESPONSABLE: Pantalla 5 — La reserva ── -->
+    <div id="r-s5" class="form-screen">
+      <p class="screen-eyebrow">Pas 5 — Estada</p>
+      <p class="screen-title">La reserva</p>
+      <p class="screen-subtitle">Dades de l'estada</p>
+      <div class="field">
+        <label>Tipus de pagament <span class="req">*</span></label>
+        <div class="select-wrap">
+          <select id="r-pagament">
+            <option value="">— Selecciona —</option>
+            <option value="EFECT">Efectiu</option>
+            <option value="TARJT">Targeta de crèdit / dèbit</option>
+            <option value="TRANS">Transferència bancària</option>
+            <option value="PLATF">Plataforma (Booking, Airbnb, Stripe…)</option>
+            <option value="MOVIL">Pagament per mòbil</option>
+            <option value="DESTI">Pagament a destinació</option>
+            <option value="TREG">Targeta regal</option>
+            <option value="OTRO">Altres</option>
+          </select>
+        </div>
+        <p class="field-error" id="err-r-pagament">Selecciona un tipus de pagament</p>
+      </div>
+      <div class="field">
+        <label>Hora d'arribada (check-in) <span class="req">*</span></label>
+        <input type="time" id="r-horaEntrada" value="16:00">
+        <p class="field-error" id="err-r-horaEntrada">Camp obligatori</p>
+      </div>
+      <div class="field">
+        <label>Hora de sortida (check-out) <span class="req">*</span></label>
+        <input type="time" id="r-horaSortida" value="11:00">
+        <p class="field-error" id="err-r-horaSortida">Camp obligatori</p>
+      </div>
+      <div class="field">
+        <label>Número total de viatgers</label>
+        <input type="number" id="r-numViatgers" min="1" max="999" readonly>
+        <p class="field-hint">Pre-omplert de la reserva. Contacta el propietari si no és correcte.</p>
+      </div>
+      <button class="btn btn-primary" onclick="nextScreen()">Continuar →</button>
+      <button class="btn btn-back" onclick="prevScreen()">← Enrere</button>
+    </div>
+
+    <!-- ── RESPONSABLE: Pantalla 6 — Menors ── -->
+    <div id="r-s6" class="form-screen">
+      <p class="screen-eyebrow">Pas 6 — Grup</p>
+      <p class="screen-title">Menors a càrrec</p>
+      <p class="screen-subtitle">Menors de 14 anys al grup</p>
+      <div class="field">
+        <label>Hi ha menors de 14 anys al grup?</label>
+        <div class="toggle-group">
+          <button class="toggle-btn selected" id="btn-menors-no" onclick="setMenors(false, 'r')">No</button>
+          <button class="toggle-btn" id="btn-menors-si" onclick="setMenors(true, 'r')">Sí</button>
+        </div>
+      </div>
+      <div id="r-menors-list" class="hidden">
+        <div class="note-warning">
+          Només el pare, mare o tutor legal pot registrar un menor. Si tens una altra relació, selecciona "Altres".
+        </div>
+        <div id="r-menors-cards"></div>
+        <button class="btn btn-secondary" style="margin-bottom:16px" onclick="addMinor('r-menors-cards')">+ Afegir un altre menor</button>
+      </div>
+      <button class="btn btn-primary" onclick="nextScreen()">Continuar →</button>
+      <button class="btn btn-back" onclick="prevScreen()">← Enrere</button>
+    </div>
+
+    <!-- ── RESPONSABLE: Pantalla 7 — Revisa i confirma ── -->
+    <div id="r-s7" class="form-screen">
+      <p class="screen-eyebrow">Pas 7 — Revisió</p>
+      <p class="screen-title">Revisa i confirma</p>
+      <p class="screen-subtitle">Comprova que totes les dades són correctes</p>
+      <div id="r-summary"></div>
+      <div class="checkbox-wrap">
+        <input type="checkbox" id="r-confirma">
+        <label for="r-confirma">Confirmo que les dades coincideixen amb el meu document d'identitat original</label>
+      </div>
+      <p class="field-error" id="err-r-confirma">Marca la casella per continuar</p>
+      <button class="btn btn-primary" id="btn-submit-r" onclick="submitForm('r', this)">Confirmar i enviar →</button>
+      <button class="btn btn-back" onclick="prevScreen()">← Enrere</button>
+    </div>
+
+    <!-- ── HOSTE: Pantalla 1 — Qui ets? ── -->
+    <div id="h-s1" class="form-screen">
+      <p class="screen-eyebrow">Pas 1 — Identitat</p>
+      <p class="screen-title">Qui ets?</p>
+      <p class="screen-subtitle">Dades personals bàsiques</p>
+      <div class="note" id="h-group-count-note" style="display:none">
+        Ets part d'un grup de <strong id="h-group-count-num"></strong> persones. Omple les teves dades i comparteix el link als companys perquè facin el mateix.
+      </div>
+      <div class="field">
+        <label>Nom <span class="req">*</span></label>
+        <input type="text" id="h-nom" autocomplete="given-name" autocapitalize="words" placeholder="Joan">
+        <p class="field-error" id="err-h-nom">Camp obligatori</p>
+      </div>
+      <div class="field">
+        <label>Primer cognom <span class="req">*</span></label>
+        <input type="text" id="h-cognom1" autocomplete="family-name" autocapitalize="words" placeholder="García">
+        <p class="field-error" id="err-h-cognom1">Camp obligatori</p>
+      </div>
+      <div class="field">
+        <label>Segon cognom <span style="color:var(--text-muted);font-weight:400">(obligatori si DNI/TIE)</span></label>
+        <input type="text" id="h-cognom2" autocapitalize="words" placeholder="López">
+      </div>
+      <div class="field">
+        <label>Data de naixement <span class="req">*</span></label>
+        <input type="date" id="h-dataNaix" autocomplete="bday">
+        <p class="field-error" id="err-h-dataNaix">Camp obligatori</p>
+      </div>
+      <button class="btn btn-primary" onclick="nextScreen()">Continuar →</button>
+    </div>
+
+    <!-- ── HOSTE: Pantalla 2 — El teu document ── -->
+    <div id="h-s2" class="form-screen">
+      <p class="screen-eyebrow">Pas 2 — Document</p>
+      <p class="screen-title">El teu document</p>
+      <div class="field">
+        <label>Tipus de document <span class="req">*</span></label>
+        <div class="select-wrap">
+          <select id="h-tipusDoc" onchange="onDocTypeChange('h')">
+            <option value="">— Selecciona —</option>
+            <option value="D">DNI / NIF / TIE</option>
+            <option value="N">NIE</option>
+            <option value="P-ESP">Passaport espanyol</option>
+            <option value="P-EST">Passaport estranger</option>
+            <option value="O">Altres</option>
+          </select>
+        </div>
+        <p class="field-error" id="err-h-tipusDoc">Selecciona un tipus de document</p>
+      </div>
+      <div class="field">
+        <label>Número del document <span class="req">*</span></label>
+        <input type="text" id="h-numDoc" autocapitalize="characters" placeholder="12345678A">
+        <p class="field-hint" id="h-numDoc-hint"></p>
+        <p class="field-error" id="err-h-numDoc">Format incorrecte</p>
+      </div>
+      <div class="field hidden" id="h-numSuport-field">
+        <label>Número de suport <span class="req">*</span></label>
+        <input type="text" id="h-numSuport" maxlength="9" placeholder="ABC123456" autocapitalize="characters">
+        <p class="field-hint">9 caràcters del darrere del DNI/NIE</p>
+        <p class="field-error" id="err-h-numSuport">Ha de tenir exactament 9 caràcters</p>
+      </div>
+      <div class="field" id="h-cognom2-warning" style="display:none">
+        <div class="note-warning">Recorda: el DNI requereix el segon cognom. Torna enrere per omplir-lo.</div>
+      </div>
+      <button class="btn btn-primary" onclick="nextScreen()">Continuar →</button>
+      <button class="btn btn-back" onclick="prevScreen()">← Enrere</button>
+    </div>
+
+    <!-- ── HOSTE: Pantalla 3 — On vius i contacte ── -->
+    <div id="h-s3" class="form-screen">
+      <p class="screen-eyebrow">Pas 3 — Adreça i contacte</p>
+      <p class="screen-title">On vius?</p>
+      <div class="field">
+        <label>Adreça (carrer i número) <span class="req">*</span></label>
+        <input type="text" id="h-adreca" autocomplete="street-address" placeholder="Carrer de la Pau, 5, 2n 1a">
+        <p class="field-error" id="err-h-adreca">Camp obligatori</p>
+      </div>
+      <div class="field">
+        <label>Codi postal <span class="req">*</span></label>
+        <input type="text" id="h-cp" inputmode="numeric" maxlength="10" autocomplete="postal-code" placeholder="08001">
+        <p class="field-error" id="err-h-cp">Format incorrecte (5 dígits per a Espanya)</p>
+      </div>
+      <div class="field">
+        <label>Localitat <span class="req">*</span></label>
+        <input type="text" id="h-localitat" autocapitalize="words" placeholder="Barcelona">
+        <p class="field-error" id="err-h-localitat">Camp obligatori</p>
+      </div>
+      <div class="field" id="h-provincia-field">
+        <label>Província <span class="req">*</span></label>
+        <div class="select-wrap">
+          <select id="h-provincia"></select>
+        </div>
+        <p class="field-error" id="err-h-provincia">Selecciona una província</p>
+      </div>
+      <div class="field">
+        <label>País <span class="req">*</span></label>
+        <div class="select-wrap">
+          <select id="h-pais" onchange="onPaisChange('h')"></select>
+        </div>
+      </div>
+      <p class="section-sep">Com et contactem?</p>
+
+      <div class="note">Cal informar almenys el telèfon o el correu electrònic</div>
+      <div class="field">
+        <label>Telèfon</label>
+        <input type="tel" id="h-telefon" autocomplete="tel" placeholder="+34 600 000 000">
+      </div>
+      <div class="field">
+        <label>Correu electrònic</label>
+        <input type="email" id="h-email" autocomplete="email" placeholder="exemple@correu.com">
+      </div>
+      <p class="field-error" id="err-h-contact">Cal informar almenys el telèfon o el correu electrònic</p>
+      <div class="note">Dades de contacte només per si hi ha qualsevol incidència amb la reserva.</div>
+      <button class="btn btn-primary" onclick="nextScreen()">Continuar →</button>
+      <button class="btn btn-back" onclick="prevScreen()">← Enrere</button>
+    </div>
+
+    <!-- ── HOSTE: Pantalla 4 — Menors + Confirmació ── -->
+    <div id="h-s4" class="form-screen">
+      <p class="screen-eyebrow">Pas 4 — Confirmació</p>
+      <p class="screen-title">Últim pas</p>
+      <div class="field">
+        <label>Hi ha menors de 14 anys al grup?</label>
+        <div class="toggle-group">
+          <button class="toggle-btn selected" id="h-btn-menors-no" onclick="setMenors(false, 'h')">No</button>
+          <button class="toggle-btn" id="h-btn-menors-si" onclick="setMenors(true, 'h')">Sí</button>
+        </div>
+      </div>
+      <div id="h-menors-list" class="hidden">
+        <div class="note-warning">Només el pare, mare o tutor legal pot registrar un menor.</div>
+        <div id="h-menors-cards"></div>
+        <button class="btn btn-secondary" style="margin-bottom:16px" onclick="addMinor('h-menors-cards')">+ Afegir un altre menor</button>
+      </div>
+      <div id="h-summary" style="margin-top:20px"></div>
+      <div class="checkbox-wrap">
+        <input type="checkbox" id="h-confirma">
+        <label for="h-confirma">Confirmo que les dades coincideixen amb el meu document d'identitat original</label>
+      </div>
+      <p class="field-error" id="err-h-confirma">Marca la casella per continuar</p>
+      <button class="btn btn-primary" id="btn-submit-h" onclick="submitForm('h', this)">Enviar →</button>
+      <button class="btn btn-back" onclick="prevScreen()">← Enrere</button>
+    </div>
+
+    </div><!-- /form-card -->
+  </div><!-- /screen-form -->
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN SUCCESS
+  ═══════════════════════════════════════════ -->
+  <div id="screen-success" class="screen">
+    <div class="success-card">
+      <div class="success-top">
+        <div class="success-icon">✓</div>
+        <h2>Gràcies!</h2>
+        <p>El propietari ha rebut les teves dades correctament.</p>
+      </div>
+      <div class="success-body">
+        <button class="btn btn-primary hidden" id="btn-download-txt" onclick="downloadTxt()">
+          ⬇ Descarregar fitxer .txt (Mossos)
+        </button>
+        <button class="btn btn-secondary hidden" id="btn-share-success" onclick="shareWhatsApp()">
+          📱 Compartir als companys
+        </button>
+        <p id="success-close" class="hidden" style="color:var(--text-muted);font-size:0.88rem;margin-top:16px">
+          Pots tancar aquesta finestra.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// CONFIG — substituir amb les dades reals d'Airtable
+// ═══════════════════════════════════════════════════════════════
+const AIRTABLE_TOKEN = 'YOUR_AIRTABLE_TOKEN';
+const AIRTABLE_BASE  = 'YOUR_BASE_ID';
+const AIRTABLE_TABLE = 'Viatgers';
+
+// ═══════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════
+const _p = new URLSearchParams(location.search);
+const S = {
+  rol:       _p.get('rol') || 'hoste',
+  booking:   _p.get('booking') || '',
+  entrada:   _p.get('entrada') || '',   // yyyyMMdd
+  sortida:   _p.get('sortida') || '',   // yyyyMMdd
+  viatgers:  parseInt(_p.get('viatgers')) || 1,
+  propietat: _p.get('propietat') || 'la propietat',
+  step:      1,
+  skipDocScreen: false,   // hoste < 14
+  txtContent: '',
+  collected:  null,
+};
+const isResp = S.rol === 'responsable';
+const SCREENS_R = ['r-s1','r-s2','r-s3','r-s4','r-s5','r-s6','r-s7'];
+const SCREENS_H = ['h-s1','h-s2','h-s3','h-s4'];
+const totalSteps = isResp ? 7 : 4;
+let minorSeq = 0;
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  const today = new Date().toISOString().split('T')[0];
+  document.querySelectorAll('input[type=date]').forEach(el => el.setAttribute('max', today));
+
+  // Welcome
+  document.getElementById('wp-propietat').textContent = S.propietat;
+  document.getElementById('wp-dates').textContent = fmtDateRange(S.entrada, S.sortida);
+
+  // Hoste: mostra el recompte del grup al primer pas del formulari (no a la benvinguda)
+  if (!isResp && S.viatgers > 1) {
+    document.getElementById('h-group-count-note').style.display = 'block';
+    document.getElementById('h-group-count-num').textContent = S.viatgers;
+  }
+
+
+  // Selects
+  populateCountries('r-paisNac'); populateCountries('r-pais'); populateCountries('h-pais');
+  populateProvinces('r-provincia'); populateProvinces('h-provincia');
+
+  const nvEl = document.getElementById('r-numViatgers');
+  if (nvEl) nvEl.value = S.viatgers;
+
+  buildDots();
+  showMainScreen('welcome');
+});
+
+// ═══════════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════════
+function showMainScreen(name) {
+  ['welcome','form','success'].forEach(s => {
+    document.getElementById('screen-' + s).classList.toggle('active', s === name);
+  });
+}
+
+function startForm() {
+  showMainScreen('form');
+  goTo(1);
+}
+
+function goTo(n) {
+  S.step = n;
+  const arr = isResp ? SCREENS_R : SCREENS_H;
+  arr.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('active', i === n - 1);
+  });
+  updateDots();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Autofocus first interactive field
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    const screen = document.querySelector('.form-screen.active');
+    if (!screen) return;
+    const first = screen.querySelector(
+      'input:not([readonly]):not([type=checkbox]), select'
+    );
+    if (first) first.focus({ preventScroll: true });
+  }));
+}
+
+function nextScreen() {
+  if (!validate()) return;
+
+  // Hoste: skip doc if < 14
+  if (!isResp && S.step === 1) {
+    const dob = document.getElementById('h-dataNaix').value;
+    if (dob && calcAge(dob) < 14) {
+      S.skipDocScreen = true;
+      goTo(3); // skip screen 2 (doc)
+      return;
+    } else {
+      S.skipDocScreen = false;
+    }
+  }
+
+  // Build summary before last screen
+  if (isResp && S.step === 6) buildSummary('r');
+  if (!isResp && S.step === 3) buildSummary('h');
+
+  if (S.step < totalSteps) goTo(S.step + 1);
+}
+
+function prevScreen() {
+  if (S.step <= 1) { showMainScreen('welcome'); return; }
+  // Hoste: reverse skip
+  if (!isResp && S.step === 3 && S.skipDocScreen) {
+    S.skipDocScreen = false;
+    goTo(1);
+    return;
+  }
+  goTo(S.step - 1);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PROGRESS
+// ═══════════════════════════════════════════════════════════════
+const STEP_NAMES_R = ['Identitat','Document','Adreça','Contacte','Reserva','Menors','Revisió'];
+const STEP_NAMES_H = ['Identitat','Document','Adreça','Confirmació'];
+
+function buildDots() {
+  const wrap = document.getElementById('steps-segs');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  for (let i = 1; i <= totalSteps; i++) {
+    const s = document.createElement('div');
+    s.className = 'step-seg'; s.id = 'seg-' + i;
+    wrap.appendChild(s);
+  }
+}
+
+function updateDots() {
+  const names = isResp ? STEP_NAMES_R : STEP_NAMES_H;
+  const nameEl  = document.getElementById('steps-name');
+  const countEl = document.getElementById('steps-count');
+  if (nameEl)  nameEl.textContent  = names[S.step - 1] || '';
+  if (countEl) countEl.textContent = `Pas ${S.step} de ${totalSteps}`;
+  for (let i = 1; i <= totalSteps; i++) {
+    const s = document.getElementById('seg-' + i);
+    if (!s) continue;
+    s.className = 'step-seg' +
+      (i < S.step ? ' s-done' : i === S.step ? ' s-active' : '');
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// VALIDATION
+// ═══════════════════════════════════════════════════════════════
+function validate() {
+  const p = isResp ? 'r' : 'h';
+  let ok = true;
+
+  function markField(id, errId, condition, msg) {
+    const el = document.getElementById(id);
+    const err = errId ? document.getElementById(errId) : null;
+    if (!el) return;
+    const bad = !condition(el.value.trim());
+    el.classList.toggle('invalid', bad);
+    el.classList.toggle('valid', !bad);
+    if (err) { if (msg) err.textContent = msg; err.classList.toggle('show', bad); }
+    if (bad) ok = false;
+  }
+
+  function req(id, errId) {
+    markField(id, errId, v => v.length > 0, null);
+  }
+
+  function hideErr(errId) {
+    const e = document.getElementById(errId);
+    if (e) e.classList.remove('show');
+  }
+
+  if (isResp) {
+    switch (S.step) {
+      case 1:
+        req('r-nom', 'err-r-nom');
+        req('r-cognom1', 'err-r-cognom1');
+        req('r-dataNaix', 'err-r-dataNaix');
+        break;
+      case 2:
+        req('r-tipusDoc', 'err-r-tipusDoc');
+        if (document.getElementById('r-tipusDoc').value) {
+          if (!validateDocNum('r')) ok = false;
+          if (!validateSuport('r')) ok = false;
+          // Warn if DNI without cognom2
+          const isDNI = document.getElementById('r-tipusDoc').value === 'D';
+          const cognom2 = document.getElementById('r-cognom2').value.trim();
+          const warn = document.getElementById('r-cognom2-warning');
+          if (warn) warn.style.display = (isDNI && !cognom2) ? 'block' : 'none';
+          if (isDNI && !cognom2) ok = false;
+        }
+        break;
+      case 3:
+        req('r-adreca', 'err-r-adreca');
+        req('r-localitat', 'err-r-localitat');
+        const paisR = document.getElementById('r-pais').value;
+        if (!validateCP('r-cp', 'err-r-cp', paisR === 'ESP')) ok = false;
+        if (paisR === 'ESP') { req('r-provincia', 'err-r-provincia'); }
+        break;
+      case 4:
+        req('r-telefon', 'err-r-telefon');
+        markField('r-email', 'err-r-email',
+          v => !v || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+          'Introdueix un correu electrònic vàlid');
+        if (!document.getElementById('r-email').value.trim()) {
+          // Email is required for responsable too
+          document.getElementById('r-email').classList.add('invalid');
+          document.getElementById('err-r-email').classList.add('show');
+          ok = false;
+        }
+        break;
+      case 5:
+        req('r-pagament', 'err-r-pagament');
+        req('r-horaEntrada', 'err-r-horaEntrada');
+        req('r-horaSortida', 'err-r-horaSortida');
+        break;
+      case 6: break; // menors optional
+      case 7:
+        if (!document.getElementById('r-confirma').checked) {
+          document.getElementById('err-r-confirma').classList.add('show');
+          ok = false;
+        } else {
+          hideErr('err-r-confirma');
+        }
+        break;
+    }
+  } else {
+    switch (S.step) {
+      case 1:
+        req('h-nom', 'err-h-nom');
+        req('h-cognom1', 'err-h-cognom1');
+        req('h-dataNaix', 'err-h-dataNaix');
+        break;
+      case 2:
+        req('h-tipusDoc', 'err-h-tipusDoc');
+        if (document.getElementById('h-tipusDoc').value) {
+          if (!validateDocNum('h')) ok = false;
+          if (!validateSuport('h')) ok = false;
+          const isDNI = document.getElementById('h-tipusDoc').value === 'D';
+          const cognom2 = document.getElementById('h-cognom2').value.trim();
+          const warn = document.getElementById('h-cognom2-warning');
+          if (warn) warn.style.display = (isDNI && !cognom2) ? 'block' : 'none';
+          if (isDNI && !cognom2) ok = false;
+        }
+        break;
+      case 3: {
+        req('h-adreca', 'err-h-adreca');
+        req('h-localitat', 'err-h-localitat');
+        const paisH = document.getElementById('h-pais').value;
+        if (!validateCP('h-cp', 'err-h-cp', paisH === 'ESP')) ok = false;
+        if (paisH === 'ESP') { req('h-provincia', 'err-h-provincia'); }
+        const tel = document.getElementById('h-telefon').value.trim();
+        const email = document.getElementById('h-email').value.trim();
+        if (!tel && !email) {
+          document.getElementById('err-h-contact').classList.add('show'); ok = false;
+        } else {
+          hideErr('err-h-contact');
+          if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            document.getElementById('h-email').classList.add('invalid'); ok = false;
+          }
+        }
+        break;
+      }
+      case 4:
+        if (!document.getElementById('h-confirma').checked) {
+          document.getElementById('err-h-confirma').classList.add('show'); ok = false;
+        } else {
+          hideErr('err-h-confirma');
+        }
+        break;
+    }
+  }
+  return ok;
+}
+
+function validateCP(inputId, errId, isESP) {
+  const el = document.getElementById(inputId);
+  const err = document.getElementById(errId);
+  const v = el.value.trim();
+  const bad = !v || (isESP && !/^\d{5}$/.test(v));
+  el.classList.toggle('invalid', bad); el.classList.toggle('valid', !bad);
+  if (err) err.classList.toggle('show', bad);
+  return !bad;
+}
+
+function validateDocNum(p) {
+  const tipusDoc = document.getElementById(p + '-tipusDoc').value;
+  const el = document.getElementById(p + '-numDoc');
+  const err = document.getElementById('err-' + p + '-numDoc');
+  const v = el.value.trim().toUpperCase();
+  let bad = false; let msg = 'Format incorrecte';
+  if (!v) { bad = true; }
+  else if (tipusDoc === 'D' && !/^\d{8}[A-Z]$/.test(v)) {
+    bad = true; msg = 'DNI: 8 dígits + lletra (ex: 12345678A)';
+  } else if (tipusDoc === 'N' && !/^[XYZ]\d{7}[A-Z]$/.test(v)) {
+    bad = true; msg = 'NIE: X/Y/Z + 7 dígits + lletra (ex: X1234567A)';
+  } else if (v.includes('%') || v.length > 14) {
+    bad = true; msg = 'Format incorrecte (màx 14 caràcters, sense %)';
+  }
+  el.classList.toggle('invalid', bad); el.classList.toggle('valid', !bad);
+  if (err) { err.textContent = msg; err.classList.toggle('show', bad); }
+  if (!bad) el.value = v; // uppercase
+  return !bad;
+}
+
+function validateSuport(p) {
+  const tipusDoc = document.getElementById(p + '-tipusDoc').value;
+  const field = document.getElementById(p + '-numSuport-field');
+  if (field.classList.contains('hidden')) return true;
+  const needsSuport = tipusDoc === 'D' || tipusDoc === 'N';
+  if (!needsSuport) return true;
+  const el = document.getElementById(p + '-numSuport');
+  const err = document.getElementById('err-' + p + '-numSuport');
+  const bad = el.value.trim().length !== 9;
+  el.classList.toggle('invalid', bad); el.classList.toggle('valid', !bad);
+  err.classList.toggle('show', bad);
+  return !bad;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DOC TYPE / PAIS CHANGE
+// ═══════════════════════════════════════════════════════════════
+function onDocTypeChange(p) {
+  const v = document.getElementById(p + '-tipusDoc').value;
+  const needsSuport = v === 'D' || v === 'N';
+  document.getElementById(p + '-numSuport-field').classList.toggle('hidden', !needsSuport);
+  const hints = {
+    'D': 'Format: 8 dígits + lletra (ex: 12345678A)',
+    'N': 'Format: X/Y/Z + 7 dígits + lletra (ex: X1234567A)',
+    'P-ESP': 'Passaport espanyol: fins a 9 caràcters alfanumèrics',
+    'P-EST': 'Passaport estranger: fins a 14 caràcters',
+    'O': 'Altres: fins a 14 caràcters',
+  };
+  const hint = document.getElementById(p + '-numDoc-hint');
+  if (hint) hint.textContent = hints[v] || '';
+  // Warn about cognom2 for DNI
+  const isDNI = v === 'D';
+  const cognom2 = document.getElementById(p + '-cognom2')?.value.trim();
+  const warn = document.getElementById(p + '-cognom2-warning');
+  if (warn) warn.style.display = (isDNI && !cognom2) ? 'block' : 'none';
+}
+
+function onPaisChange(p) {
+  const v = document.getElementById(p + '-pais').value;
+  document.getElementById(p + '-provincia-field').classList.toggle('hidden', v !== 'ESP');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// MENORS
+// ═══════════════════════════════════════════════════════════════
+function setMenors(si, p) {
+  const siBtn = document.getElementById((p === 'r' ? 'btn' : 'h-btn') + '-menors-si');
+  const noBtn = document.getElementById((p === 'r' ? 'btn' : 'h-btn') + '-menors-no');
+  const list  = document.getElementById(p + '-menors-list');
+  const cards = document.getElementById(p + '-menors-cards');
+  if (siBtn) siBtn.classList.toggle('selected', si);
+  if (noBtn) noBtn.classList.toggle('selected', !si);
+  if (list)  list.classList.toggle('hidden', !si);
+  if (si && cards && cards.children.length === 0) addMinor(p + '-menors-cards');
+}
+
+function addMinor(containerId) {
+  minorSeq++;
+  const id = 'minor-' + minorSeq;
+  const div = document.createElement('div');
+  div.className = 'minor-card'; div.id = id;
+  div.innerHTML = `
+    <div class="minor-card-header">
+      <h4>Menor ${minorSeq}</h4>
+      <button class="btn-danger-soft" onclick="document.getElementById('${id}').remove()">Eliminar</button>
+    </div>
+    <div class="field">
+      <label>Nom <span class="req">*</span></label>
+      <input type="text" id="${id}-nom" autocapitalize="words" placeholder="Pau">
+    </div>
+    <div class="field">
+      <label>Primer cognom <span class="req">*</span></label>
+      <input type="text" id="${id}-cognom1" autocapitalize="words" placeholder="García">
+    </div>
+    <div class="field">
+      <label>Data de naixement <span class="req">*</span></label>
+      <input type="date" id="${id}-dataNaix" max="${new Date().toISOString().split('T')[0]}">
+    </div>
+    <div class="field">
+      <label>Relació amb el menor <span class="req">*</span></label>
+      <div class="select-wrap">
+        <select id="${id}-parentesc" onchange="onParentescChange('${id}')">
+          <option value="">— Selecciona —</option>
+          <option value="PM">Pare o Mare</option>
+          <option value="TU">Tutor/a legal</option>
+          <option value="OTHER">Altres...</option>
+        </select>
+      </div>
+    </div>
+    <div class="field hidden" id="${id}-parentesc-ext-field">
+      <label>Tipus de relació (especifica) <span class="req">*</span></label>
+      <div class="select-wrap">
+        <select id="${id}-parentesc-ext">
+          <option value="">— Selecciona —</option>
+          <option value="AB">Avi / Àvia</option>
+          <option value="BA">Besavi / Besàvia</option>
+          <option value="BN">Besnét / Besnéta</option>
+          <option value="CD">Cunyat / Cunyada</option>
+          <option value="CY">Cònjuge</option>
+          <option value="HJ">Fill / Filla</option>
+          <option value="HR">Germà / Germana</option>
+          <option value="NI">Nét / Néta</option>
+          <option value="SB">Nebot / Neboda</option>
+          <option value="SG">Sogre / Sogra</option>
+          <option value="TI">Oncle / Tia</option>
+          <option value="YN">Gendre o Nora</option>
+          <option value="OT">Altres</option>
+        </select>
+      </div>
+    </div>
+  `;
+  document.getElementById(containerId).appendChild(div);
+}
+
+function onParentescChange(id) {
+  const v = document.getElementById(id + '-parentesc').value;
+  document.getElementById(id + '-parentesc-ext-field').classList.toggle('hidden', v !== 'OTHER');
+}
+
+function collectMinors(containerId) {
+  const cards = document.getElementById(containerId);
+  if (!cards) return [];
+  return Array.from(cards.querySelectorAll('.minor-card')).map(card => {
+    const id = card.id;
+    const pEl = document.getElementById(id + '-parentesc');
+    let parentesc = pEl ? pEl.value : '';
+    if (parentesc === 'OTHER') {
+      const ext = document.getElementById(id + '-parentesc-ext');
+      parentesc = ext ? ext.value : 'OT';
+    }
+    return {
+      nom: (document.getElementById(id + '-nom')?.value || '').trim().toUpperCase(),
+      cognom1: (document.getElementById(id + '-cognom1')?.value || '').trim().toUpperCase(),
+      dataNaix: (document.getElementById(id + '-dataNaix')?.value || '').replace(/-/g, ''),
+      parentesc: parentesc || 'PM',
+    };
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SUMMARY
+// ═══════════════════════════════════════════════════════════════
+function buildSummary(p) {
+  const target = document.getElementById(p + '-summary');
+  if (!target) return;
+  const g = id => (document.getElementById(id)?.value || '').trim();
+  const gTxt = id => { const el = document.getElementById(id); return el?.options[el.selectedIndex]?.text || ''; };
+  const age = calcAge(g(p + '-dataNaix'));
+  let html = '<div class="summary-box">';
+  // Persona
+  html += sSec('Persona', [
+    ['Nom complet', [g(p+'-nom'), g(p+'-cognom1'), g(p+'-cognom2')].filter(Boolean).join(' ')],
+    ['Data de naixement', fmtDate(g(p+'-dataNaix'))],
+  ]);
+  // Document
+  if (age >= 14 || p === 'r') {
+    html += sSec('Document', [
+      ['Tipus', gTxt(p+'-tipusDoc')],
+      ['Número', g(p+'-numDoc')],
+      ['Suport', g(p+'-numSuport') || '—'],
+      ['Nacionalitat', gTxt(p+'-paisNac')],
+    ]);
+  }
+  // Adreça
+  html += sSec('Adreça', [
+    ['Adreça', g(p+'-adreca')],
+    ['CP / Localitat', [g(p+'-cp'), g(p+'-localitat')].filter(Boolean).join(' ')],
+    ['Província', gTxt(p+'-provincia') || '—'],
+    ['País', gTxt(p+'-pais')],
+  ]);
+  // Contacte
+  const tel = g(p === 'r' ? 'r-telefon' : 'h-telefon');
+  const email = g(p === 'r' ? 'r-email' : 'h-email');
+  html += sSec('Contacte', [
+    ['Telèfon', tel || '—'],
+    ['Email', email || '—'],
+  ]);
+  if (p === 'r') {
+    html += sSec('Reserva', [
+      ['Pagament', gTxt('r-pagament')],
+      ['Check-in', g('r-horaEntrada')],
+      ['Check-out', g('r-horaSortida')],
+    ]);
+  }
+  html += '</div>';
+  target.innerHTML = html;
+}
+
+function sSec(title, rows) {
+  const validRows = rows.filter(([,v]) => v && v !== '—');
+  if (!validRows.length) return '';
+  let html = `<div class="summary-section"><h4>${title}</h4>`;
+  validRows.forEach(([k, v]) => {
+    html += `<div class="summary-row"><span>${k}</span><span>${v}</span></div>`;
+  });
+  return html + '</div>';
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SUBMIT
+// ═══════════════════════════════════════════════════════════════
+async function submitForm(p, btn) {
+  if (!validate()) return;
+  btn.textContent = 'Enviant...';
+  btn.disabled = true;
+  btn.classList.add('btn-loading');
+  try {
+    const data = collectData(p);
+    S.collected = data;
+    S.txtContent = generateTxt(data);
+    await postAirtable(data);
+    showSuccess();
+  } catch (e) {
+    console.error(e);
+    btn.textContent = p === 'r' ? 'Confirmar i enviar →' : 'Enviar →';
+    btn.disabled = false;
+    btn.classList.remove('btn-loading');
+    alert('Error en enviar les dades. Comprova la connexió i torna-ho a provar.');
+  }
+}
+
+function collectData(p) {
+  const g = id => (document.getElementById(id)?.value || '').trim();
+  const tipusDocRaw = g(p + '-tipusDoc');
+  const tipusDocCode = tipusDocRaw.startsWith('P') ? 'P' : tipusDocRaw;
+  const isEspDoc = tipusDocRaw === 'D' || tipusDocRaw === 'P-ESP';
+  const numDoc = g(p + '-numDoc').toUpperCase();
+  const menorContainerId = p === 'r' ? 'r-menors-cards' : 'h-menors-cards';
+
+  return {
+    // Meta
+    booking_id: S.booking,
+    rol: S.rol,
+    propietat: S.propietat,
+    timestamp: new Date().toISOString(),
+    // Personal
+    nom: g(p + '-nom').toUpperCase(),
+    cognom1: g(p + '-cognom1').toUpperCase(),
+    cognom2: g(p + '-cognom2').toUpperCase(),
+    dataNaix: g(p + '-dataNaix').replace(/-/g, ''),
+    // Document
+    tipusDoc: tipusDocCode,
+    numDocEsp: isEspDoc ? numDoc : '',
+    numDocEst: !isEspDoc ? numDoc : '',
+    numSuport: g(p + '-numSuport'),
+    paisNac: g(p + '-paisNac') || 'ESP',
+    // Adreça
+    adreca: g(p + '-adreca'),
+    cp: g(p + '-cp'),
+    localitat: g(p + '-localitat').toUpperCase(),
+    provincia: g(p + '-provincia'),
+    pais: g(p + '-pais') || 'ESP',
+    // Contacte
+    telefon: g(p === 'r' ? 'r-telefon' : 'h-telefon'),
+    email: g(p === 'r' ? 'r-email' : 'h-email'),
+    // Reserva (responsable)
+    tipusPagament: g('r-pagament') || 'PLATF',
+    horaEntrada: (g('r-horaEntrada') || '14:00').replace(':', ''),
+    horaSortida: (g('r-horaSortida') || '11:00').replace(':', ''),
+    numViatgers: S.viatgers,
+    // Dates reserva
+    dataEntrada: S.entrada,
+    dataSortida: S.sortida,
+    dataContracte: new Date().toISOString().slice(0, 10).replace(/-/g, ''),
+    // Menors
+    menors: collectMinors(menorContainerId),
+  };
+}
+
+// ═══════════════════════════════════════════════════════════════
+// TXT GENERATION
+// ═══════════════════════════════════════════════════════════════
+function generateTxt(d) {
+  const now = new Date();
+  const dataConf = now.toISOString().slice(0, 10).replace(/-/g, '');
+  const horaConf = now.toTimeString().slice(0, 5).replace(':', '');
+  const numReg = 1 + d.menors.length;
+  const nomProp = d.propietat.toUpperCase().slice(0, 40);
+  // Línia tipus 1 (codi establiment buit fins que el propietari el configuri)
+  const lines = [`1||${nomProp}|${dataConf}|${horaConf}|${numReg}|V24`];
+  lines.push(buildLine2Main(d));
+  d.menors.forEach(menor => lines.push(buildLine2Minor(menor, d)));
+  return lines.join('\r\n');
+}
+
+function buildLine2Main(d) {
+  const age = d.dataNaix ? calcAge(d.dataNaix.slice(0,4)+'-'+d.dataNaix.slice(4,6)+'-'+d.dataNaix.slice(6,8)) : 99;
+  const hasDoc = age >= 14 && d.tipusDoc;
+  const needsCognom2 = hasDoc && d.tipusDoc === 'D';
+  const needsSuport = hasDoc && (d.tipusDoc === 'D' || d.tipusDoc === 'N');
+  const isAdult = age >= 18;
+
+  return [
+    '2',
+    hasDoc ? d.numDocEsp : '',           // 2
+    hasDoc ? d.numDocEst : '',           // 3
+    hasDoc ? d.tipusDoc : '',            // 4
+    '',                                   // 5 data expedicio
+    d.cognom1,                           // 6
+    needsCognom2 ? d.cognom2 : '',       // 7
+    d.nom,                               // 8
+    '',                                   // 9 sexe
+    d.dataNaix,                          // 10
+    d.paisNac || 'ESP',                  // 11
+    d.dataEntrada,                        // 12
+    d.horaEntrada || '1400',             // 13
+    d.dataSortida,                        // 14
+    d.horaSortida || '1100',             // 15
+    d.dataContracte,                      // 16
+    'C',                                  // 17
+    d.booking_id || 'RESERVA',           // 18
+    String(d.numViatgers),               // 19
+    '',                                   // 20 habitacions
+    '',                                   // 21 internet
+    d.tipusPagament,                     // 22
+    d.telefon,                           // 23
+    !isAdult ? '' : '',                  // 24 parentesc (adult principal: buit)
+    d.email,                             // 25
+    needsSuport ? d.numSuport : '',      // 26
+    d.adreca,                            // 27
+    d.pais === 'ESP' ? d.provincia : '', // 28 provincia INE
+    '',                                   // 29 municipi INE (no recollit)
+    d.pais !== 'ESP' ? d.localitat : '', // 30 localitat si estranger
+    d.pais,                              // 31
+    d.cp,                                // 32
+  ].join('|');
+}
+
+function buildLine2Minor(menor, d) {
+  return [
+    '2',
+    '', '', '',                           // 2,3,4 doc (menor < 14)
+    '',                                   // 5
+    menor.cognom1,                        // 6
+    '',                                   // 7
+    menor.nom,                            // 8
+    '',                                   // 9
+    menor.dataNaix,                       // 10
+    '',                                   // 11 pais nac menor
+    d.dataEntrada,                        // 12
+    d.horaEntrada || '1400',             // 13
+    d.dataSortida,                        // 14
+    d.horaSortida || '1100',             // 15
+    d.dataContracte,                      // 16
+    'C',                                  // 17
+    d.booking_id || 'RESERVA',           // 18
+    String(d.numViatgers),               // 19
+    '', '',                               // 20,21
+    d.tipusPagament,                     // 22
+    d.telefon,                           // 23
+    menor.parentesc,                     // 24 OBLIGATORI menor < 18
+    d.email,                             // 25
+    '',                                   // 26 suport
+    d.adreca,                            // 27
+    d.pais === 'ESP' ? d.provincia : '', // 28
+    '',                                   // 29
+    d.pais !== 'ESP' ? d.localitat : '', // 30
+    d.pais,                              // 31
+    d.cp,                                // 32
+  ].join('|');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// AIRTABLE
+// ═══════════════════════════════════════════════════════════════
+async function postAirtable(d) {
+  if (!AIRTABLE_TOKEN || AIRTABLE_TOKEN === 'YOUR_AIRTABLE_TOKEN') {
+    console.warn('Airtable no configurat — mode demo');
+    await new Promise(r => setTimeout(r, 800)); // simulate
+    return;
+  }
+  const fields = {
+    booking_id: d.booking_id, rol: d.rol, propietat: d.propietat, timestamp: d.timestamp,
+    nom: d.nom, cognom1: d.cognom1, cognom2: d.cognom2, data_naix: d.dataNaix,
+    tipus_doc: d.tipusDoc, num_doc: d.numDocEsp || d.numDocEst, num_suport: d.numSuport,
+    pais_nac: d.paisNac, adreca: d.adreca, cp: d.cp, localitat: d.localitat,
+    provincia: d.provincia, pais_postal: d.pais, telefon: d.telefon, email: d.email,
+    tipus_pagament: d.tipusPagament, hora_entrada: d.horaEntrada, hora_sortida: d.horaSortida,
+    num_viatgers: d.numViatgers, txt_generat: S.txtContent,
+  };
+  const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}`, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${AIRTABLE_TOKEN}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fields }),
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error('Airtable ' + res.status + ': ' + err);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SUCCESS
+// ═══════════════════════════════════════════════════════════════
+function showSuccess() {
+  showMainScreen('success');
+  if (isResp) {
+    document.getElementById('btn-download-txt').classList.remove('hidden');
+  } else {
+    document.getElementById('success-close').classList.remove('hidden');
+  }
+  document.getElementById('btn-share-success').classList.remove('hidden');
+}
+
+function downloadTxt() {
+  if (!S.txtContent) return;
+  const blob = new Blob([S.txtContent], { type: 'text/plain;charset=ascii' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const fname = (S.booking || 'mossos') + '_' + (S.entrada || 'registre') + '.txt';
+  a.download = fname;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// WHATSAPP
+// ═══════════════════════════════════════════════════════════════
+function shareWhatsApp() {
+  const url = new URL(location.href);
+  url.searchParams.set('rol', 'hoste');
+  const msg = `Hola! Omple el teu registre de viatger per a ${S.propietat}:\n${url.toString()}`;
+  window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════════
+function calcAge(dateStr) {
+  if (!dateStr) return 99;
+  const d = new Date(dateStr.includes('-') ? dateStr : dateStr.slice(0,4)+'-'+dateStr.slice(4,6)+'-'+dateStr.slice(6,8));
+  if (isNaN(d)) return 99;
+  const today = new Date();
+  let age = today.getFullYear() - d.getFullYear();
+  const m = today.getMonth() - d.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < d.getDate())) age--;
+  return age;
+}
+
+function fmtDate(s) {
+  if (!s) return '—';
+  try { return new Date(s).toLocaleDateString('ca-ES'); } catch { return s; }
+}
+
+function fmtDateRange(entrada, sortida) {
+  const fmt = s => s ? `${s.slice(6,8)}/${s.slice(4,6)}/${s.slice(0,4)}` : '?';
+  if (!entrada && !sortida) return '';
+  return `${fmt(entrada)} → ${fmt(sortida)}`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SELECTS: COUNTRIES & PROVINCES
+// ═══════════════════════════════════════════════════════════════
+function populateCountries(selectId) {
+  const el = document.getElementById(selectId);
+  if (!el) return;
+  const list = [
+    ['ESP','Espanya'],['DEU','Alemanya'],['AND','Andorra'],['AGO','Angola'],
+    ['SAU','Aràbia Saudita'],['DZA','Algèria'],['ARG','Argentina'],['AUS','Austràlia'],
+    ['AUT','Àustria'],['BEL','Bèlgica'],['BOL','Bolívia'],['BRA','Brasil'],
+    ['BGR','Bulgària'],['CAN','Canadà'],['CHL','Xile'],['CHN','Xina'],
+    ['COL','Colòmbia'],['KOR','Corea del Sud'],['CRI','Costa Rica'],['CUB','Cuba'],
+    ['DNK','Dinamarca'],['ECU','Equador'],['EGY','Egipte'],['SLV','El Salvador'],
+    ['ARE','Emirats Àrabs Units'],['SVK','Eslovàquia'],['SVN','Eslovènia'],
+    ['USA','Estats Units'],['EST','Estònia'],['ETH','Etiòpia'],['PHL','Filipines'],
+    ['FIN','Finlàndia'],['FRA','França'],['GHA','Ghana'],['GRC','Grècia'],
+    ['GTM','Guatemala'],['HND','Hondures'],['HUN','Hongria'],['IND','Índia'],
+    ['IDN','Indonèsia'],['IRQ','Iraq'],['IRN','Iran'],['IRL','Irlanda'],
+    ['ISL','Islàndia'],['ISR','Israel'],['ITA','Itàlia'],['JAM','Jamaica'],
+    ['JPN','Japó'],['JOR','Jordània'],['KAZ','Kazakhstan'],['KEN','Kenya'],
+    ['LVA','Letònia'],['LBN','Líban'],['LTU','Lituània'],['LUX','Luxemburg'],
+    ['MKD','Macedònia del Nord'],['MYS','Malàisia'],['MAR','Marroc'],['MEX','Mèxic'],
+    ['MDA','Moldàvia'],['NLD','Països Baixos'],['NIC','Nicaragua'],['NGA','Nigèria'],
+    ['NOR','Noruega'],['NZL','Nova Zelanda'],['PAK','Pakistan'],['PAN','Panamà'],
+    ['PRY','Paraguai'],['PER','Perú'],['POL','Polònia'],['PRT','Portugal'],
+    ['GBR','Regne Unit'],['DOM','República Dominicana'],['ROU','Romania'],
+    ['RUS','Rússia'],['SEN','Senegal'],['SRB','Sèrbia'],['SLE','Sierra Leone'],
+    ['SOM','Somàlia'],['LKA','Sri Lanka'],['SWE','Suècia'],['CHE','Suïssa'],
+    ['THA','Tailàndia'],['TUN','Tunísia'],['TUR','Turquia'],['UKR','Ucraïna'],
+    ['URY','Uruguai'],['VEN','Veneçuela'],['VNM','Vietnam'],
+  ];
+  list.forEach(([code, name]) => {
+    const opt = new Option(name, code);
+    if (code === 'ESP') opt.selected = true;
+    el.appendChild(opt);
+  });
+}
+
+function populateProvinces(selectId) {
+  const el = document.getElementById(selectId);
+  if (!el) return;
+  el.appendChild(new Option('— Selecciona província —', ''));
+  const list = [
+    ['01','Àlaba'],['02','Albacete'],['03','Alacant'],['04','Almeria'],['05','Àvila'],
+    ['06','Badajoz'],['07','Illes Balears'],['08','Barcelona'],['09','Burgos'],
+    ['10','Càceres'],['11','Cadis'],['12','Castelló'],['13','Ciudad Real'],
+    ['14','Còrdova'],['15','La Corunya'],['16','Conca'],['17','Girona'],
+    ['18','Granada'],['19','Guadalajara'],['20','Guipúscoa'],['21','Huelva'],
+    ['22','Osca'],['23','Jaén'],['24','Lleó'],['25','Lleida'],['26','La Rioja'],
+    ['27','Lugo'],['28','Madrid'],['29','Màlaga'],['30','Múrcia'],['31','Navarra'],
+    ['32','Orense'],['33','Astúries'],['34','Palència'],['35','Las Palmas'],
+    ['36','Pontevedra'],['37','Salamanca'],['38','Santa Cruz de Tenerife'],
+    ['39','Cantàbria'],['40','Segòvia'],['41','Sevilla'],['42','Sòria'],
+    ['43','Tarragona'],['44','Terol'],['45','Toledo'],['46','València'],
+    ['47','Valladolid'],['48','Biscaia'],['49','Zamora'],['50','Saragossa'],
+    ['51','Ceuta'],['52','Melilla'],
+  ];
+  list.forEach(([code, name]) => el.appendChild(new Option(name, code)));
+}
+</script>
+</body>
+</html>
