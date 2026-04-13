@@ -121,8 +121,8 @@
     .phone-bubble { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.05); border-radius: 10px 10px 10px 3px; padding: 10px 12px; font-size: .73rem; color: rgba(255,255,255,.6); line-height: 1.6; flex: 1; }
     .phone-bubble strong { color: var(--gold); font-weight: 600; }
     .phone-time { font-size: .62rem; color: rgba(255,255,255,.22); text-align: right; margin-top: 6px; }
-    .phone-link { display: block; background: var(--gold); color: var(--black); border-radius: 8px; padding: 8px 12px; font-size: .73rem; font-weight: 700; text-align: center; text-decoration: none; margin-top: 8px; transition: background .2s; }
-    .phone-link:hover { background: var(--gold-light); }
+    .phone-link { display: block; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-radius: 8px; padding: 8px 12px; font-size: .73rem; font-weight: 600; text-align: center; text-decoration: none; margin-top: 8px; transition: background .2s, border-color .2s; box-shadow: inset 0 1px 0 rgba(255,255,255,0.12); }
+    .phone-link:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.28); }
     .hero-cta { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px; }
     .btn-primary { background: var(--gold); color: var(--black); border: none; border-radius: 50px; padding: 15px 30px; font-size: .95rem; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; box-shadow: 0 6px 28px rgba(196,163,115,.35); font-family: inherit; transition: background .2s, transform .15s, box-shadow .2s; }
     .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 36px rgba(196,163,115,.45); }
@@ -257,11 +257,12 @@
     .footer-links a:hover { color: rgba(255,255,255,.6); }
 
     /* ── PLATFORMS STRIP ── */
-    .platforms-strip { background: white; padding: 14px 24px; border-bottom: 1px solid var(--gray-100); text-align: center; }
-    .platforms-inner { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
-    .platforms-label { font-size: .7rem; font-weight: 600; color: var(--text-muted); letter-spacing: .5px; text-transform: uppercase; }
-    .platforms-logos { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; justify-content: center; }
-    .platforms-logo { font-size: .8rem; font-weight: 700; color: var(--gray-200); letter-spacing: -.2px; }
+    .platforms-strip { background: white; padding: 8px 24px; border-bottom: 1px solid var(--gray-100); text-align: center; }
+    .platforms-inner { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; }
+    .platforms-label { font-size: .68rem; font-weight: 500; color: var(--gray-200); letter-spacing: .2px; }
+    .platforms-logos { display: inline-flex; align-items: center; gap: 0; }
+    .platforms-logo { font-size: .72rem; font-weight: 600; color: var(--gray-200); letter-spacing: -.1px; }
+    .platforms-logo:not(:last-child)::after { content: '·'; margin: 0 6px; color: var(--gray-100); font-weight: 400; }
 
     /* ── TESTIMONIALS ── */
     .testimonials { background: white; padding: 56px 24px; border-bottom: 1px solid var(--gray-100); }
@@ -332,7 +333,6 @@
 <!-- HERO -->
 <section class="hero" id="hero-anchor">
   <div class="hero-content">
-    <a href="#beta" class="btn-hero-cta" data-i18n="navCta">1 mes gratis</a>
     <div class="hero-badge">
       <span class="badge-dot"></span>
       <span data-i18n="heroBadge">Obligatori per llei · Catalunya</span>
