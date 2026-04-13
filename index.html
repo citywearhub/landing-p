@@ -649,7 +649,7 @@
   </div>
   <div class="plan-tabs">
     <button class="plan-tab active" onclick="showPlan('beta', this)">
-      <span class="pt-price">0€</span><span data-i18n="tabBeta">Beta</span>
+      <span class="pt-price">0€</span><span data-i18n="tabBeta">Prova · 1 mes</span>
     </button>
     <button class="plan-tab" onclick="showPlan('basic', this)">
       <span class="pt-price">9€</span><span data-i18n="tabBasic">Bàsic</span>
@@ -663,9 +663,10 @@
   <div class="plan-card active" id="plan-beta">
     <div class="plan-inner">
       <span class="plan-badge badge-limited" data-i18n="badgeLimited">⚡ Oferta beta · 100 places</span>
-      <div class="plan-name" data-i18n="tabBeta">Beta</div>
+      <div class="plan-name" data-i18n="tabBeta">Prova gratuïta</div>
       <div class="plan-amount">0€<span data-i18n="betaPeriod"> / primer mes gratis</span></div>
       <div class="plan-desc" data-i18n="betaDesc">Prova el producte complet durant 1 mes sense pagar res. Sense targeta. Sense compromís. Quan acabi, tries si vols continuar.</div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:#FEF3C7;color:#92400E;border-radius:50px;padding:5px 12px;font-size:.68rem;font-weight:700;margin-bottom:16px;">⏱ <span data-i18n="betaExpiry">Accés temporal · caduca al cap d'1 mes</span></div>
       <div class="plan-divider"></div>
       <ul class="plan-feats">
         <li><span class="pf-chk">✓</span> <span data-i18n="f1prop">1 propietat inclosa</span></li>
@@ -683,7 +684,7 @@
       <span class="plan-badge badge-popular" data-i18n="badgePopular">⭐ Més popular</span>
       <div class="plan-name" data-i18n="tabBasic">Bàsic</div>
       <div class="plan-amount">9€<span data-i18n="basicPeriod"> / mes</span></div>
-      <div class="plan-desc" data-i18n="basicDesc">Per a propietaris d'1 establiment. Sense sorpreses.</div>
+      <div class="plan-desc" data-i18n="basicDesc">El pla que continua després de la prova. Per a propietaris d'1 establiment. Sense límits, sense sorpreses.</div>
       <div class="plan-divider"></div>
       <ul class="plan-feats">
         <li><span class="pf-chk">✓</span> <span data-i18n="f1prop">1 propietat inclosa</span></li>
@@ -811,10 +812,11 @@
       previewTextDesc: 'L\'hoste rep un link per WhatsApp o email. L\'obre com qualsevol pàgina web i omple les seves dades en menys de 2 minuts. Tu reps un avís quan tot està llest.',
       pricingLabel: 'Preus', pricingTitle: 'Comença gratis, sense compromisos',
       pricingSub: 'Primers 100 establiments: 1 mes de prova completament gratis. Sense targeta.',
-      tabBeta: 'Beta', tabBasic: 'Bàsic', tabPro: 'Pro',
+      tabBeta: 'Prova · 1 mes', tabBasic: 'Bàsic', tabPro: 'Pro',
       badgeLimited: '⚡ Oferta beta · 100 places', badgePopular: '⭐ Més popular', badgePro: '🚀 Per a gestors',
+      betaExpiry: 'Accés temporal · caduca al cap d\'1 mes',
       betaPeriod: ' / primer mes gratis', betaDesc: 'Prova el producte complet durant 1 mes sense pagar res. Sense targeta. Sense compromís. Quan acabi, tries si vols continuar.',
-      basicPeriod: ' / mes', basicDesc: 'Per a propietaris d\'1 establiment. Sense sorpreses.',
+      basicPeriod: ' / mes', basicDesc: 'El pla que continua després de la prova. Per a propietaris d\'1 establiment. Sense límits, sense sorpreses.',
       proDesc: 'Per a qui gestiona diverses propietats.',
       f1prop: '1 propietat inclosa', fUnlimited: 'Reserves il·limitades', fForm: 'Formulari mòbil per als hostes',
       fDoc: 'Document oficial generat automàticament',
@@ -897,10 +899,11 @@
       previewTextDesc: 'El huésped recibe un link por WhatsApp o email. Lo abre como cualquier página web y rellena sus datos en menos de 2 minutos. Tú recibes un aviso cuando todo está listo.',
       pricingLabel: 'Precios', pricingTitle: 'Empieza gratis, sin compromisos',
       pricingSub: 'Primeros 100 establecimientos: 1 mes de prueba completamente gratis. Sin tarjeta.',
-      tabBeta: 'Beta', tabBasic: 'Básico', tabPro: 'Pro',
+      tabBeta: 'Prueba · 1 mes', tabBasic: 'Básico', tabPro: 'Pro',
       badgeLimited: '⚡ Oferta beta · 100 plazas', badgePopular: '⭐ Más popular', badgePro: '🚀 Para gestores',
+      betaExpiry: 'Acceso temporal · caduca al cabo de 1 mes',
       betaPeriod: ' / primer mes gratis', betaDesc: 'Prueba el producto completo durante 1 mes sin pagar nada. Sin tarjeta. Sin compromiso. Al acabar, decides si quieres continuar.',
-      basicPeriod: ' / mes', basicDesc: 'Para propietarios de 1 establecimiento. Sin sorpresas.',
+      basicPeriod: ' / mes', basicDesc: 'El plan que continúa después de la prueba. Para propietarios de 1 establecimiento. Sin límites, sin sorpresas.',
       proDesc: 'Para quien gestiona varias propiedades.',
       f1prop: '1 propiedad incluida', fUnlimited: 'Reservas ilimitadas', fForm: 'Formulario móvil para los huéspedes',
       fDoc: 'Documento oficial generado automáticamente',
@@ -983,10 +986,11 @@
       previewTextDesc: 'The guest receives a link via WhatsApp or email. They open it like any webpage and fill in their details in under 2 minutes. You get a notification when everything is done.',
       pricingLabel: 'Pricing', pricingTitle: 'Start free, no commitment',
       pricingSub: 'First 100 properties: 1 full month free trial. No credit card required.',
-      tabBeta: 'Beta', tabBasic: 'Basic', tabPro: 'Pro',
+      tabBeta: 'Trial · 1 month', tabBasic: 'Basic', tabPro: 'Pro',
       badgeLimited: '⚡ Beta offer · 100 spots', badgePopular: '⭐ Most popular', badgePro: '🚀 For managers',
+      betaExpiry: 'Temporary access · expires after 1 month',
       betaPeriod: ' / first month free', betaDesc: 'Try the full product for 1 month, completely free. No credit card. No commitment. After that, you decide if you want to continue.',
-      basicPeriod: ' / month', basicDesc: 'For owners of 1 property. No surprises.',
+      basicPeriod: ' / month', basicDesc: 'The plan that continues after the trial. For owners of 1 property. No limits, no surprises.',
       proDesc: 'For those managing multiple properties.',
       f1prop: '1 property included', fUnlimited: 'Unlimited bookings', fForm: 'Mobile form for guests',
       fDoc: 'Official document generated automatically',
