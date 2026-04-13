@@ -62,8 +62,6 @@
     .nav-right { display: flex; align-items: center; gap: 4px; }
     .nav-link { font-size: .84rem; font-weight: 500; color: rgba(255,255,255,.45); text-decoration: none; padding: 7px 13px; border-radius: 9px; transition: color .15s, background .15s; }
     .nav-link:hover { color: rgba(255,255,255,.85); background: rgba(255,255,255,.06); }
-    .btn-header { margin-left: 8px; background: var(--gold); color: var(--black); border: none; border-radius: 50px; padding: 9px 20px; font-size: .84rem; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; font-family: inherit; transition: background .2s, transform .15s; }
-    .btn-header:hover { background: var(--gold-light); transform: translateY(-1px); }
 
     /* ── LANG SWITCHER ── */
     .lang-switcher {
@@ -85,27 +83,27 @@
       .nav-link { display: none; }
       .logo-sub { display: none; }
       header { padding: 0 16px; }
-      .btn-header { padding: 8px 14px; font-size: .78rem; margin-left: 4px; }
       .lang-switcher { margin-left: 6px; padding: 2px; }
       .lang-btn { padding: 3px 6px; font-size: .7rem; }
     }
     @media (max-width: 380px) {
       .lang-switcher { display: none; }
-      .btn-header { padding: 8px 12px; font-size: .76rem; }
     }
 
     /* ── SECTION NAV ── */
-    .section-nav { position: sticky; top: 60px; z-index: 90; background: rgba(0,0,0,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(196,163,115,.1); display: flex; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .section-nav { position: sticky; top: 60px; z-index: 90; background: rgba(0,0,0,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(196,163,115,.1); display: flex; justify-content: center; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
     .section-nav::-webkit-scrollbar { display: none; }
     .sn-item { flex-shrink: 0; padding: 12px 20px; font-size: .8rem; font-weight: 600; color: rgba(255,255,255,.35); text-decoration: none; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
     .sn-item.active { color: var(--gold); border-bottom-color: var(--gold); }
     .sn-item:hover { color: rgba(255,255,255,.7); }
 
     /* ── HERO ── */
-    .hero { background: var(--black); color: white; padding: 80px 24px 72px; text-align: center; position: relative; overflow: hidden; }
+    .hero { background: var(--black); color: white; padding: 48px 24px 72px; text-align: center; position: relative; overflow: hidden; }
     .hero::before { content: ''; position: absolute; top: -120px; left: 50%; transform: translateX(-50%); width: 700px; height: 400px; background: radial-gradient(ellipse, rgba(196,163,115,.13) 0%, transparent 65%); pointer-events: none; }
     .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(196,163,115,.3), transparent); }
     .hero-content { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+    .btn-hero-cta { display: block; width: fit-content; margin: 0 auto 14px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 50px; padding: 9px 22px; font-size: .84rem; font-weight: 600; text-decoration: none; font-family: inherit; transition: background .2s, border-color .2s, transform .15s; box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 2px 12px rgba(0,0,0,0.2); }
+    .btn-hero-cta:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.32); transform: translateY(-1px); }
     .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(196,163,115,.08); border: 1px solid rgba(196,163,115,.2); border-radius: 50px; padding: 6px 16px; font-size: .7rem; font-weight: 600; margin-bottom: 28px; color: var(--gold-soft); letter-spacing: .8px; text-transform: uppercase; }
     .badge-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: blink 2.2s ease-in-out infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
@@ -314,7 +312,6 @@
     <div class="nav-right">
       <a href="#contingut" class="nav-link" data-i18n="navHow">Com funciona</a>
       <a href="#preus"     class="nav-link" data-i18n="navPrices">Preus</a>
-      <a href="#beta"      class="btn-header" data-i18n="navCta">1 mes gratis</a>
       <div class="lang-switcher">
         <button class="lang-btn active" onclick="setLang('ca')">CA</button>
         <button class="lang-btn"        onclick="setLang('es')">ES</button>
@@ -335,6 +332,7 @@
 <!-- HERO -->
 <section class="hero" id="hero-anchor">
   <div class="hero-content">
+    <a href="#beta" class="btn-hero-cta" data-i18n="navCta">1 mes gratis</a>
     <div class="hero-badge">
       <span class="badge-dot"></span>
       <span data-i18n="heroBadge">Obligatori per llei · Catalunya</span>
@@ -592,7 +590,6 @@
       <div class="plan-divider"></div>
       <ul class="plan-feats">
         <li><span class="pf-chk">✓</span> <span data-i18n="f1prop">1 propietat inclosa</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fUnlimited">Reserves il·limitades</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fForm">Formulari mòbil per als hostes</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fDoc">Document oficial generat automàticament</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fEmail">Atenció per email</span></li>
@@ -614,7 +611,7 @@
         <li><span class="pf-chk">✓</span> <span data-i18n="fUnlimited">Reserves il·limitades</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fForm">Formulari mòbil per als hostes</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fDoc">Document oficial generat automàticament</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fNotif">Avís quan la reserva es completa</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fNotif">Avís per email quan la reserva es completa</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fPriority">Atenció prioritària</span></li>
       </ul>
       <a href="#beta" class="btn-plan btn-plan-primary" data-i18n="btnStart">Comença gratis 1 mes</a>
@@ -634,6 +631,7 @@
         <li><span class="pf-chk">✓</span> <span data-i18n="fUnlimited">Reserves il·limitades</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fForm">Formulari mòbil per als hostes</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fDoc">Document oficial generat automàticament</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fInfoCasa">Pàgina d'info de la casa per cada propietat</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fWhatsapp">Avís per email i WhatsApp</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fPanel">Panell per veure totes les reserves juntes</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fPriority">Atenció prioritària</span></li>
@@ -735,8 +733,8 @@
       proDesc: 'Per a qui gestiona diverses propietats.',
       f1prop: '1 propietat inclosa', fUnlimited: 'Reserves il·limitades', fForm: 'Formulari mòbil per als hostes',
       fDoc: 'Document oficial generat automàticament',
-      fEmail: 'Atenció per email', fNotif: 'Avís quan la reserva es completa', fPriority: 'Atenció prioritària',
-      f5prop: 'Fins a 5 propietats',
+      fEmail: 'Atenció per email', fNotif: 'Avís per email quan la reserva es completa', fPriority: 'Atenció prioritària',
+      f5prop: 'Fins a 5 propietats', fInfoCasa: 'Pàgina d\'info de la casa per cada propietat',
       fWhatsapp: 'Avís per email i WhatsApp', fPanel: 'Panell per veure totes les reserves juntes',
       btnBeta: 'Aconsegueix la plaça beta', btnStart: 'Comença gratis 1 mes',
       ctaTitle: 'Uneix-te a la <em>beta</em> ara',
@@ -814,8 +812,8 @@
       proDesc: 'Para quien gestiona varias propiedades.',
       f1prop: '1 propiedad incluida', fUnlimited: 'Reservas ilimitadas', fForm: 'Formulario móvil para los huéspedes',
       fDoc: 'Documento oficial generado automáticamente',
-      fEmail: 'Atención por email', fNotif: 'Aviso cuando la reserva se completa', fPriority: 'Atención prioritaria',
-      f5prop: 'Hasta 5 propiedades',
+      fEmail: 'Atención por email', fNotif: 'Aviso por email cuando la reserva se completa', fPriority: 'Atención prioritaria',
+      f5prop: 'Hasta 5 propiedades', fInfoCasa: 'Página de info de la casa por cada propiedad',
       fWhatsapp: 'Aviso por email y WhatsApp', fPanel: 'Panel para ver todas las reservas juntas',
       btnBeta: 'Consigue la plaza beta', btnStart: 'Empieza gratis 1 mes',
       ctaTitle: 'Únete a la <em>beta</em> ahora',
@@ -893,8 +891,8 @@
       proDesc: 'For those managing multiple properties.',
       f1prop: '1 property included', fUnlimited: 'Unlimited bookings', fForm: 'Mobile form for guests',
       fDoc: 'Official document generated automatically',
-      fEmail: 'Email support', fNotif: 'Notification when booking is complete', fPriority: 'Priority support',
-      f5prop: 'Up to 5 properties',
+      fEmail: 'Email support', fNotif: 'Email notification when booking is complete', fPriority: 'Priority support',
+      f5prop: 'Up to 5 properties', fInfoCasa: 'House info page for each property',
       fWhatsapp: 'Notifications via email and WhatsApp', fPanel: 'Dashboard to view all bookings together',
       btnBeta: 'Claim your beta spot', btnStart: 'Start free for 1 month',
       ctaTitle: 'Join the <em>beta</em> now',
