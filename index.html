@@ -182,6 +182,35 @@
     .feature h3::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
     .feature p  { font-size: .88rem; color: var(--text-muted); line-height: 1.75; }
 
+    /* ── PRODUCT PREVIEW ── */
+    .product-preview { padding: 72px 24px; background: var(--black); }
+    .product-preview .section-label { color: var(--gold-dark); }
+    .product-preview .section-title { color: white; }
+    .product-preview .section-sub { color: rgba(255,255,255,.42); }
+    .preview-wrap { display: flex; align-items: center; justify-content: center; gap: 48px; max-width: 860px; margin: 0 auto; flex-wrap: wrap; }
+    .preview-text { flex: 1; min-width: 240px; max-width: 340px; }
+    .preview-text h3 { font-size: 1.2rem; font-weight: 800; color: white; margin-bottom: 12px; letter-spacing: -.4px; }
+    .preview-text p { font-size: .9rem; color: rgba(255,255,255,.45); line-height: 1.75; margin-bottom: 20px; }
+    .preview-pill { display: inline-flex; align-items: center; gap: 7px; background: rgba(196,163,115,.08); border: 1px solid rgba(196,163,115,.2); border-radius: 50px; padding: 6px 14px; font-size: .72rem; font-weight: 600; color: var(--gold-soft); margin-bottom: 10px; }
+    .preview-pill + .preview-pill { margin-left: 6px; }
+    /* phone shell */
+    .phone-shell { flex-shrink: 0; width: 240px; background: #18181B; border-radius: 36px; padding: 12px; box-shadow: 0 32px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.06), inset 0 0 0 2px rgba(255,255,255,.04); position: relative; }
+    .phone-shell::before { content: ''; display: block; width: 60px; height: 6px; background: #2a2a2e; border-radius: 4px; margin: 0 auto 10px; }
+    .phone-screen { background: #F8FAFC; border-radius: 26px; overflow: hidden; padding: 20px 16px 24px; }
+    .ps-logo { text-align: center; margin-bottom: 16px; }
+    .ps-logo-mark { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: #0F172A; border-radius: 12px; margin-bottom: 8px; }
+    .ps-logo-mark svg { width: 24px; height: 24px; fill: white; }
+    .ps-title { font-size: .72rem; font-weight: 700; color: #0F172A; margin-bottom: 2px; }
+    .ps-sub { font-size: .6rem; color: #94A3B8; }
+    .ps-card { background: white; border: 1px solid #E2E8F0; border-radius: 16px; padding: 16px; box-shadow: 0 1px 6px rgba(0,0,0,.06); }
+    .ps-field { margin-bottom: 12px; }
+    .ps-field:last-of-type { margin-bottom: 16px; }
+    .ps-label { font-size: .58rem; font-weight: 600; color: #475569; margin-bottom: 5px; }
+    .ps-input { background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 8px; padding: 7px 10px; font-size: .62rem; color: #94A3B8; width: 100%; }
+    .ps-hint { font-size: .52rem; color: #94A3B8; margin-top: 3px; }
+    .ps-btn { display: block; background: #0F172A; color: white; border-radius: 8px; padding: 9px; font-size: .65rem; font-weight: 700; text-align: center; margin-top: 4px; }
+    @media (max-width: 640px) { .preview-wrap { flex-direction: column; } .preview-text { max-width: 100%; text-align: center; } }
+
     /* ── PROPERTY CALLOUT ── */
 
     .prop-icon { width: 56px; height: 56px; background: rgba(196,163,115,.08); border: 1px solid rgba(196,163,115,.2); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; margin: 0 auto 20px; position: relative; z-index: 1; }
@@ -470,6 +499,45 @@
   </div>
 </section>
 
+<!-- PRODUCT PREVIEW -->
+<section class="product-preview">
+  <div class="section-label" data-i18n="previewLabel">El producte</div>
+  <h2 class="section-title" style="text-align:center;margin-bottom:10px" data-i18n="previewTitle">Això és el que veu el teu hoste</h2>
+  <p class="section-sub" data-i18n="previewSub">Rep un link. Obre'l des del mòbil. Omple les seves dades en 2 minuts. Tu no fas res.</p>
+  <div class="preview-wrap">
+    <div class="phone-shell">
+      <div class="phone-screen">
+        <div class="ps-logo">
+          <div class="ps-logo-mark">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="ps-title" data-i18n="previewFormTitle">Accés a la reserva</div>
+          <div class="ps-sub" data-i18n="previewFormSub">Introdueix les teves dades per continuar</div>
+        </div>
+        <div class="ps-card">
+          <div class="ps-field">
+            <div class="ps-label" data-i18n="previewField1">Número de reserva</div>
+            <div class="ps-input">Ex: BKG-12345</div>
+            <div class="ps-hint" data-i18n="previewHint1">El propietari t'ha facilitat aquest número</div>
+          </div>
+          <div class="ps-field">
+            <div class="ps-label" data-i18n="previewField2">Document d'identitat</div>
+            <div class="ps-input">DNI, NIE o Passaport</div>
+            <div class="ps-hint" data-i18n="previewHint2">DNI, NIE o número de passaport</div>
+          </div>
+          <div class="ps-btn" data-i18n="previewBtn">Accedir →</div>
+        </div>
+      </div>
+    </div>
+    <div class="preview-text">
+      <h3 data-i18n="previewTextTitle">Sense app. Sense registres. Sense trucades.</h3>
+      <p data-i18n="previewTextDesc">L'hoste rep un link per WhatsApp o email. L'obre com qualsevol pàgina web i omple les seves dades en menys de 2 minuts. Tu reps un avís quan tot està llest.</p>
+      <span class="preview-pill">📱 Funciona amb qualsevol mòbil</span>
+      <span class="preview-pill">⏱ Menys de 2 minuts</span>
+    </div>
+  </div>
+</section>
+
 <!-- PER QUÈ AUTOMOSSOS -->
 <section class="section section-alt">
   <div class="container">
@@ -724,6 +792,12 @@
       propCalloutTitle: 'L\'hoste troba tot el que necessita sense trucar-te',
       propCalloutDesc: 'Afegeix la informació de la teva casa: on és la caixa de les claus, el codi per obrir la porta, la contrasenya del WiFi, les normes... L\'hoste ho veu tot just obrir el link, abans d\'arribar.',
       pill1: '📦 On són les claus', pill2: '🔑 Codis d\'accés', pill3: '📶 WiFi', pill4: '📋 Normes de la casa', pill5: '🎥 Vídeo d\'instruccions', pill6: '+ el que vulguis',
+      previewLabel: 'El producte', previewTitle: 'Això és el que veu el teu hoste', previewSub: 'Rep un link. Obre\'l des del mòbil. Omple les seves dades en 2 minuts. Tu no fas res.',
+      previewFormTitle: 'Accés a la reserva', previewFormSub: 'Introdueix les teves dades per continuar',
+      previewField1: 'Número de reserva', previewHint1: 'El propietari t\'ha facilitat aquest número',
+      previewField2: 'Document d\'identitat', previewHint2: 'DNI, NIE o número de passaport',
+      previewBtn: 'Accedir →', previewTextTitle: 'Sense app. Sense registres. Sense trucades.',
+      previewTextDesc: 'L\'hoste rep un link per WhatsApp o email. L\'obre com qualsevol pàgina web i omple les seves dades en menys de 2 minuts. Tu reps un avís quan tot està llest.',
       pricingLabel: 'Preus', pricingTitle: 'Comença gratis, sense compromisos',
       pricingSub: 'Primers 100 establiments: 1 mes de prova completament gratis. Sense targeta.',
       tabBeta: 'Beta', tabBasic: 'Bàsic', tabPro: 'Pro',
@@ -803,6 +877,12 @@
       propCalloutTitle: 'El huésped encuentra todo lo que necesita sin llamarte',
       propCalloutDesc: 'Añade la información de tu casa: dónde está la caja de llaves, el código para abrir la puerta, la contraseña del WiFi, las normas... El huésped lo ve todo al abrir el link, antes de llegar.',
       pill1: '📦 Dónde están las llaves', pill2: '🔑 Códigos de acceso', pill3: '📶 WiFi', pill4: '📋 Normas de la casa', pill5: '🎥 Vídeo de instrucciones', pill6: '+ lo que quieras',
+      previewLabel: 'El producto', previewTitle: 'Esto es lo que ve tu huésped', previewSub: 'Recibe un link. Lo abre desde el móvil. Rellena sus datos en 2 minutos. Tú no haces nada.',
+      previewFormTitle: 'Acceso a la reserva', previewFormSub: 'Introduce tus datos para continuar',
+      previewField1: 'Número de reserva', previewHint1: 'El propietario te ha facilitado este número',
+      previewField2: 'Documento de identidad', previewHint2: 'DNI, NIE o número de pasaporte',
+      previewBtn: 'Acceder →', previewTextTitle: 'Sin app. Sin registros. Sin llamadas.',
+      previewTextDesc: 'El huésped recibe un link por WhatsApp o email. Lo abre como cualquier página web y rellena sus datos en menos de 2 minutos. Tú recibes un aviso cuando todo está listo.',
       pricingLabel: 'Precios', pricingTitle: 'Empieza gratis, sin compromisos',
       pricingSub: 'Primeros 100 establecimientos: 1 mes de prueba completamente gratis. Sin tarjeta.',
       tabBeta: 'Beta', tabBasic: 'Básico', tabPro: 'Pro',
@@ -882,6 +962,12 @@
       propCalloutTitle: 'Guests find everything they need without calling you',
       propCalloutDesc: 'Add your property information: where the key box is, the door code, WiFi password, house rules... Guests see it all when they open the link, before they even arrive.',
       pill1: '📦 Key location', pill2: '🔑 Access codes', pill3: '📶 WiFi', pill4: '📋 House rules', pill5: '🎥 Video instructions', pill6: '+ whatever you want',
+      previewLabel: 'The product', previewTitle: 'This is what your guest sees', previewSub: 'They get a link. Open it from their phone. Fill in their details in 2 minutes. You do nothing.',
+      previewFormTitle: 'Booking access', previewFormSub: 'Enter your details to continue',
+      previewField1: 'Booking number', previewHint1: 'The host provided you with this number',
+      previewField2: 'Identity document', previewHint2: 'ID, NIE or passport number',
+      previewBtn: 'Access →', previewTextTitle: 'No app. No paperwork. No calls.',
+      previewTextDesc: 'The guest receives a link via WhatsApp or email. They open it like any webpage and fill in their details in under 2 minutes. You get a notification when everything is done.',
       pricingLabel: 'Pricing', pricingTitle: 'Start free, no commitment',
       pricingSub: 'First 100 properties: 1 full month free trial. No credit card required.',
       tabBeta: 'Beta', tabBasic: 'Basic', tabPro: 'Pro',
