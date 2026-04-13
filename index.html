@@ -185,15 +185,9 @@
     .feature p  { font-size: .88rem; color: var(--text-muted); line-height: 1.75; }
 
     /* ── PROPERTY CALLOUT ── */
-    .property-callout { background: var(--black); border-radius: var(--r-lg); padding: 48px 36px; text-align: center; max-width: 740px; margin: 0 auto; color: white; position: relative; overflow: hidden; border: 1px solid rgba(196,163,115,.12); }
-    .property-callout::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60%; height: 1px; background: linear-gradient(90deg, transparent, rgba(196,163,115,.5), transparent); }
-    .property-callout::after { content: ''; position: absolute; bottom: -80px; right: -80px; width: 280px; height: 280px; background: radial-gradient(circle, rgba(196,163,115,.06) 0%, transparent 70%); pointer-events: none; }
+
     .prop-icon { width: 56px; height: 56px; background: rgba(196,163,115,.08); border: 1px solid rgba(196,163,115,.2); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; margin: 0 auto 20px; position: relative; z-index: 1; }
-    .property-callout h3 { font-size: 1.35rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -.4px; position: relative; z-index: 1; }
-    .property-callout p { color: rgba(255,255,255,.45); font-size: .9rem; line-height: 1.8; max-width: 470px; margin: 0 auto; position: relative; z-index: 1; }
-    .property-items { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 24px; position: relative; z-index: 1; }
-    .property-pill { background: rgba(255,255,255,.04); border: 1px solid rgba(196,163,115,.15); border-radius: 50px; padding: 6px 14px; font-size: .79rem; color: rgba(255,255,255,.5); font-weight: 500; transition: background .2s, border-color .2s, color .2s; }
-    .property-pill:hover { background: rgba(196,163,115,.08); border-color: rgba(196,163,115,.3); color: var(--gold-soft); }
+
 
     /* ── PRICING ── */
     .pricing-section { padding: 48px 24px 60px; background: white; }
@@ -601,7 +595,6 @@
         <li><span class="pf-chk">✓</span> <span data-i18n="fUnlimited">Reserves il·limitades</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fForm">Formulari mòbil per als hostes</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fDoc">Document oficial generat automàticament</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fPage">Pàgina d'informació de la propietat</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fEmail">Atenció per email</span></li>
       </ul>
       <a href="#beta" class="btn-plan btn-plan-outline" data-i18n="btnBeta">Aconsegueix la plaça beta</a>
@@ -621,7 +614,6 @@
         <li><span class="pf-chk">✓</span> <span data-i18n="fUnlimited">Reserves il·limitades</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fForm">Formulari mòbil per als hostes</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fDoc">Document oficial generat automàticament</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fPage">Pàgina d'informació de la propietat</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fNotif">Avís quan la reserva es completa</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fPriority">Atenció prioritària</span></li>
       </ul>
@@ -642,7 +634,6 @@
         <li><span class="pf-chk">✓</span> <span data-i18n="fUnlimited">Reserves il·limitades</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fForm">Formulari mòbil per als hostes</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fDoc">Document oficial generat automàticament</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fPageEach">Pàgina d'informació per cada propietat</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fWhatsapp">Avís per email i WhatsApp</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fPanel">Panell per veure totes les reserves juntes</span></li>
         <li><span class="pf-chk">✓</span> <span data-i18n="fPriority">Atenció prioritària</span></li>
@@ -743,9 +734,9 @@
       basicPeriod: ' / mes', basicDesc: 'Per a propietaris d\'1 establiment. Sense sorpreses.',
       proDesc: 'Per a qui gestiona diverses propietats.',
       f1prop: '1 propietat inclosa', fUnlimited: 'Reserves il·limitades', fForm: 'Formulari mòbil per als hostes',
-      fDoc: 'Document oficial generat automàticament', fPage: 'Pàgina d\'informació de la propietat',
+      fDoc: 'Document oficial generat automàticament',
       fEmail: 'Atenció per email', fNotif: 'Avís quan la reserva es completa', fPriority: 'Atenció prioritària',
-      f5prop: 'Fins a 5 propietats', fPageEach: 'Pàgina d\'informació per cada propietat',
+      f5prop: 'Fins a 5 propietats',
       fWhatsapp: 'Avís per email i WhatsApp', fPanel: 'Panell per veure totes les reserves juntes',
       btnBeta: 'Aconsegueix la plaça beta', btnStart: 'Comença gratis 1 mes',
       ctaTitle: 'Uneix-te a la <em>beta</em> ara',
@@ -822,9 +813,9 @@
       basicPeriod: ' / mes', basicDesc: 'Para propietarios de 1 establecimiento. Sin sorpresas.',
       proDesc: 'Para quien gestiona varias propiedades.',
       f1prop: '1 propiedad incluida', fUnlimited: 'Reservas ilimitadas', fForm: 'Formulario móvil para los huéspedes',
-      fDoc: 'Documento oficial generado automáticamente', fPage: 'Página de información de la propiedad',
+      fDoc: 'Documento oficial generado automáticamente',
       fEmail: 'Atención por email', fNotif: 'Aviso cuando la reserva se completa', fPriority: 'Atención prioritaria',
-      f5prop: 'Hasta 5 propiedades', fPageEach: 'Página de información por cada propiedad',
+      f5prop: 'Hasta 5 propiedades',
       fWhatsapp: 'Aviso por email y WhatsApp', fPanel: 'Panel para ver todas las reservas juntas',
       btnBeta: 'Consigue la plaza beta', btnStart: 'Empieza gratis 1 mes',
       ctaTitle: 'Únete a la <em>beta</em> ahora',
@@ -901,9 +892,9 @@
       basicPeriod: ' / month', basicDesc: 'For owners of 1 property. No surprises.',
       proDesc: 'For those managing multiple properties.',
       f1prop: '1 property included', fUnlimited: 'Unlimited bookings', fForm: 'Mobile form for guests',
-      fDoc: 'Official document generated automatically', fPage: 'Property information page',
+      fDoc: 'Official document generated automatically',
       fEmail: 'Email support', fNotif: 'Notification when booking is complete', fPriority: 'Priority support',
-      f5prop: 'Up to 5 properties', fPageEach: 'Information page per property',
+      f5prop: 'Up to 5 properties',
       fWhatsapp: 'Notifications via email and WhatsApp', fPanel: 'Dashboard to view all bookings together',
       btnBeta: 'Claim your beta spot', btnStart: 'Start free for 1 month',
       ctaTitle: 'Join the <em>beta</em> now',
