@@ -10,957 +10,468 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --black:       #0D1117;
-      --black-2:     #161B22;
-      --black-3:     #080C10;
-      --mint:        #4DCBA4;
-      --mint-dark:   #3AB890;
-      --mint-light:  #6DD9B5;
+      --black:       #000000;
+      --graphite:    #242424;
+      --soft-black:  #1A1A1A;
+      --panel:       #111111;
+      --panel-2:     #0A0A0A;
+      --gold:        #C4A373;
+      --gold-dark:   #A8875A;
+      --gold-light:  #F3D2A2;
+      --gold-soft:   #E8C89A;
       --white:       #FFFFFF;
-      --gray-50:     #F6F8FA;
-      --gray-100:    #EAEEF2;
-      --gray-200:    #D0D7DE;
-      --gray-500:    #6E7781;
-      --text:        #1C2128;
-      --text-muted:  #57606A;
-      --radius-sm:   10px;
-      --radius:      16px;
-      --radius-lg:   24px;
+      --gray-50:     #F7F5F2;
+      --gray-100:    #EDE9E3;
+      --gray-200:    #D5CFC7;
+      --text:        #1A1A1A;
+      --text-muted:  #6B6460;
+      --r:           14px;
+      --r-lg:        22px;
     }
-
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
       background: var(--gray-50);
       color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     /* ── HEADER ── */
     header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(255,255,255,0.88);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(0,0,0,0.92);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--gray-100);
+      border-bottom: 1px solid rgba(196,163,115,.12);
       padding: 0 24px;
-      transition: box-shadow 0.25s;
+      transition: box-shadow .25s;
     }
     .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
     }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon { width: 34px; height: 34px; flex-shrink: 0; }
+    .logo-text { font-size: 1.1rem; font-weight: 800; color: var(--white); letter-spacing: -.5px; }
+    .logo-text em { font-style: normal; color: var(--gold); }
+    .logo-sub { font-size: .6rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.25); display: block; margin-top: -2px; }
+    .nav-right { display: flex; align-items: center; gap: 4px; }
+    .nav-link { font-size: .84rem; font-weight: 500; color: rgba(255,255,255,.45); text-decoration: none; padding: 7px 13px; border-radius: 9px; transition: color .15s, background .15s; }
+    .nav-link:hover { color: rgba(255,255,255,.85); background: rgba(255,255,255,.06); }
+    .btn-header { margin-left: 8px; background: var(--gold); color: var(--black); border: none; border-radius: 50px; padding: 9px 20px; font-size: .84rem; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; font-family: inherit; transition: background .2s, transform .15s; }
+    .btn-header:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* ── LANG SWITCHER ── */
+    .lang-switcher {
+      display: flex; align-items: center; gap: 2px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px; padding: 3px; margin-left: 12px;
     }
-    /* SPRAUT-inspired sprout icon */
-    .logo-icon {
-      width: 30px;
-      height: 30px;
-      flex-shrink: 0;
+    .lang-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: inherit; font-size: .75rem; font-weight: 600;
+      color: rgba(255,255,255,.35); padding: 4px 8px; border-radius: 6px;
+      transition: all .15s; letter-spacing: .3px;
     }
-    .logo-text {
-      font-size: 1.08rem;
-      font-weight: 800;
-      color: var(--text);
-      letter-spacing: -0.5px;
+    .lang-btn:hover { color: rgba(255,255,255,.7); }
+    .lang-btn.active { background: var(--gold); color: var(--black); }
+
+    @media (max-width: 640px) {
+      .nav-link { display: none; }
+      .logo-sub { display: none; }
+      header { padding: 0 16px; }
+      .btn-header { padding: 8px 14px; font-size: .78rem; margin-left: 4px; }
+      .lang-switcher { margin-left: 6px; padding: 2px; }
+      .lang-btn { padding: 3px 6px; font-size: .7rem; }
     }
-    .logo-text em { font-style: normal; color: var(--mint-dark); }
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 4px;
+    @media (max-width: 380px) {
+      .lang-switcher { display: none; }
+      .btn-header { padding: 8px 12px; font-size: .76rem; }
     }
-    .nav-link {
-      font-size: 0.87rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      text-decoration: none;
-      padding: 7px 13px;
-      border-radius: var(--radius-sm);
-      transition: color 0.15s, background 0.15s;
-    }
-    .nav-link:hover { color: var(--text); background: var(--gray-50); }
-    .btn-header {
-      margin-left: 8px;
-      background: var(--black);
-      color: white;
-      border: none;
-      border-radius: 50px;
-      padding: 10px 20px;
-      font-size: 0.87rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-      display: inline-block;
-      letter-spacing: -0.2px;
-      font-family: inherit;
-    }
-    .btn-header:hover { background: #2d333b; transform: translateY(-1px); }
+
+    /* ── SECTION NAV ── */
+    .section-nav { position: sticky; top: 60px; z-index: 90; background: rgba(0,0,0,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(196,163,115,.1); display: flex; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .section-nav::-webkit-scrollbar { display: none; }
+    .sn-item { flex-shrink: 0; padding: 12px 20px; font-size: .8rem; font-weight: 600; color: rgba(255,255,255,.35); text-decoration: none; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; }
+    .sn-item.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .sn-item:hover { color: rgba(255,255,255,.7); }
 
     /* ── HERO ── */
-    .hero {
-      background: var(--black);
-      color: white;
-      padding: 88px 24px 80px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    /* mint glow from top */
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -120px; left: 50%;
-      transform: translateX(-50%);
-      width: 800px; height: 400px;
-      background: radial-gradient(ellipse, rgba(77,203,164,0.18) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    /* subtle grain */
-    .hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      opacity: 1;
-      pointer-events: none;
-    }
-    .hero-content { position: relative; z-index: 1; max-width: 740px; margin: 0 auto; }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(77,203,164,0.1);
-      border: 1px solid rgba(77,203,164,0.22);
-      border-radius: 50px;
-      padding: 7px 18px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      margin-bottom: 32px;
-      color: var(--mint-light);
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
-    }
-    .badge-dot {
-      width: 7px; height: 7px;
-      background: var(--mint);
-      border-radius: 50%;
-      animation: blink 2.2s ease-in-out infinite;
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.35; }
-    }
-
-    .hero h1 {
-      font-size: clamp(2.3rem, 6vw, 3.7rem);
-      font-weight: 900;
-      line-height: 1.07;
-      letter-spacing: -2.5px;
-      margin-bottom: 22px;
-    }
-    .hero h1 em { font-style: normal; color: var(--mint); }
-
-    .hero-sub {
-      font-size: clamp(1rem, 2.5vw, 1.12rem);
-      color: rgba(255,255,255,0.52);
-      max-width: 500px;
-      margin: 0 auto 36px;
-      line-height: 1.75;
-      font-weight: 400;
-    }
-    .hero-sub strong { color: rgba(255,255,255,0.88); font-weight: 600; }
-
-    /* ── Phone mockup ── */
-    .hero-phone {
-      display: inline-block;
-      background: var(--black-2);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 20px;
-      padding: 18px 20px;
-      margin-bottom: 40px;
-      max-width: 310px;
-      width: 100%;
-      text-align: left;
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.04),
-        0 24px 64px rgba(0,0,0,0.5);
-    }
-    .phone-topbar {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      margin-bottom: 14px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .phone-dot { width: 9px; height: 9px; border-radius: 50%; }
-    .dot-r { background: #FF5F57; }
-    .dot-y { background: #FFBD2E; }
-    .dot-g { background: #28CA41; }
-    .phone-title { font-size: 0.7rem; color: rgba(255,255,255,0.3); margin-left: 8px; font-weight: 500; }
+    .hero { background: var(--black); color: white; padding: 80px 24px 72px; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -120px; left: 50%; transform: translateX(-50%); width: 700px; height: 400px; background: radial-gradient(ellipse, rgba(196,163,115,.13) 0%, transparent 65%); pointer-events: none; }
+    .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(196,163,115,.3), transparent); }
+    .hero-content { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(196,163,115,.08); border: 1px solid rgba(196,163,115,.2); border-radius: 50px; padding: 6px 16px; font-size: .7rem; font-weight: 600; margin-bottom: 28px; color: var(--gold-soft); letter-spacing: .8px; text-transform: uppercase; }
+    .badge-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: blink 2.2s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero h1 { font-size: clamp(2.1rem, 7.5vw, 3.6rem); font-weight: 900; line-height: 1.05; letter-spacing: -2.5px; margin-bottom: 18px; }
+    .hero h1 em { font-style: normal; color: var(--gold); }
+    .hero-sub { font-size: .97rem; color: rgba(255,255,255,.42); max-width: 420px; margin: 0 auto 32px; line-height: 1.75; }
+    .hero-sub strong { color: rgba(255,255,255,.82); font-weight: 600; }
+    .hero-phone { display: inline-block; background: var(--graphite); border: 1px solid rgba(196,163,115,.15); border-radius: 20px; padding: 16px 18px; margin-bottom: 32px; max-width: 290px; width: 100%; text-align: left; box-shadow: 0 24px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(196,163,115,.08); transform: perspective(800px) rotateX(2deg); }
+    .phone-topbar { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,.05); }
+    .ph-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot-r{background:#FF5F57}.dot-y{background:#FFBD2E}.dot-g{background:#28CA41}
+    .phone-title { font-size: .65rem; color: rgba(255,255,255,.25); margin-left: 5px; font-weight: 500; }
     .phone-msg { display: flex; gap: 10px; align-items: flex-start; }
-    .phone-avatar {
-      width: 38px; height: 38px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem;
-      flex-shrink: 0;
-    }
-    .phone-bubble {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 12px 12px 12px 4px;
-      padding: 10px 13px;
-      font-size: 0.76rem;
-      color: rgba(255,255,255,0.68);
-      line-height: 1.6;
-      flex: 1;
-    }
-    .phone-bubble strong { color: var(--mint); font-weight: 600; }
-    .phone-time { font-size: 0.67rem; color: rgba(255,255,255,0.28); text-align: right; margin-top: 8px; }
-    .phone-link {
-      display: block;
-      background: var(--mint);
-      color: var(--black);
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-size: 0.77rem;
-      font-weight: 700;
-      text-align: center;
-      text-decoration: none;
-      margin-top: 10px;
-      letter-spacing: -0.1px;
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 52px;
-    }
-    .btn-primary {
-      background: var(--mint);
-      color: var(--black);
-      border: none;
-      border-radius: 50px;
-      padding: 16px 32px;
-      font-size: 0.97rem;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 4px 24px rgba(77,203,164,0.35);
-      letter-spacing: -0.2px;
-      font-family: inherit;
-    }
-    .btn-primary:hover {
-      background: var(--mint-light);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 36px rgba(77,203,164,0.45);
-    }
-    .btn-ghost {
-      background: transparent;
-      color: rgba(255,255,255,0.6);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 50px;
-      padding: 15px 28px;
-      font-size: 0.97rem;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
-      font-family: inherit;
-    }
-    .btn-ghost:hover {
-      border-color: rgba(255,255,255,0.3);
-      color: white;
-      background: rgba(255,255,255,0.05);
-    }
-
-    .trust-strip {
-      display: flex;
-      justify-content: center;
-      gap: 28px;
-      flex-wrap: wrap;
-      padding-top: 36px;
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
-    .trust-item {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 0.79rem;
-      color: rgba(255,255,255,0.4);
-      font-weight: 500;
-    }
-    .trust-check {
-      width: 17px; height: 17px;
-      border-radius: 50%;
-      background: rgba(77,203,164,0.12);
-      border: 1px solid rgba(77,203,164,0.28);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.58rem;
-      color: var(--mint);
-      flex-shrink: 0;
-    }
+    .phone-avatar { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--graphite), #3a2e1e); border: 1px solid rgba(196,163,115,.3); display: flex; align-items: center; justify-content: center; font-size: .95rem; flex-shrink: 0; }
+    .phone-bubble { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.05); border-radius: 10px 10px 10px 3px; padding: 10px 12px; font-size: .73rem; color: rgba(255,255,255,.6); line-height: 1.6; flex: 1; }
+    .phone-bubble strong { color: var(--gold); font-weight: 600; }
+    .phone-time { font-size: .62rem; color: rgba(255,255,255,.22); text-align: right; margin-top: 6px; }
+    .phone-link { display: block; background: var(--gold); color: var(--black); border-radius: 8px; padding: 8px 12px; font-size: .73rem; font-weight: 700; text-align: center; text-decoration: none; margin-top: 8px; transition: background .2s; }
+    .phone-link:hover { background: var(--gold-light); }
+    .hero-cta { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px; }
+    .btn-primary { background: var(--gold); color: var(--black); border: none; border-radius: 50px; padding: 15px 30px; font-size: .95rem; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; box-shadow: 0 6px 28px rgba(196,163,115,.35); font-family: inherit; transition: background .2s, transform .15s, box-shadow .2s; }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 36px rgba(196,163,115,.45); }
+    .btn-ghost { background: transparent; color: rgba(255,255,255,.45); border: 1px solid rgba(255,255,255,.12); border-radius: 50px; padding: 15px 24px; font-size: .95rem; font-weight: 500; text-decoration: none; display: inline-block; font-family: inherit; transition: border-color .2s, color .2s; }
+    .btn-ghost:hover { border-color: rgba(196,163,115,.4); color: var(--gold-soft); }
+    @media (max-width: 440px) { .hero-cta { flex-direction: column; align-items: center; } .btn-primary, .btn-ghost { text-align: center; } }
+    .trust-strip { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.05); }
+    .trust-item { display: flex; align-items: center; gap: 7px; font-size: .74rem; color: rgba(255,255,255,.3); font-weight: 500; }
+    .trust-check { width: 16px; height: 16px; border-radius: 50%; background: rgba(196,163,115,.1); border: 1px solid rgba(196,163,115,.25); display: flex; align-items: center; justify-content: center; font-size: .52rem; color: var(--gold); flex-shrink: 0; }
 
     /* ── BEFORE / AFTER ── */
-    .before-after { padding: 72px 24px; background: white; }
-    .ba-header { text-align: center; margin-bottom: 36px; }
-    .ba-header h2 {
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      font-weight: 800;
-      letter-spacing: -0.8px;
-      margin-bottom: 8px;
-    }
-    .ba-header p { font-size: 0.97rem; color: var(--text-muted); }
-    .ba-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      max-width: 740px;
-      margin: 0 auto;
-    }
-    .ba-card { border-radius: var(--radius); padding: 28px 24px; }
+    .before-after { padding: 56px 24px; background: white; border-bottom: 1px solid var(--gray-100); }
+    .ba-header { text-align: center; margin-bottom: 32px; }
+    .ba-header h2 { font-size: clamp(1.45rem, 3vw, 1.9rem); font-weight: 800; letter-spacing: -.6px; margin-bottom: 7px; }
+    .ba-header p { font-size: .93rem; color: var(--text-muted); }
+    .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 740px; margin: 0 auto; }
+    @media (max-width: 560px) { .ba-grid { grid-template-columns: 1fr; gap: 12px; } }
+    .ba-card { border-radius: var(--r); padding: 26px 22px; }
     .ba-before { background: #FFF8F8; border: 1.5px solid #FECACA; }
-    .ba-after  { background: #F0FBF7; border: 1.5px solid #A7F3D0; }
-    .ba-label {
-      font-weight: 800;
-      font-size: 0.87rem;
-      margin-bottom: 18px;
-      color: var(--text);
-      letter-spacing: -0.2px;
-    }
+    .ba-after  { background: #FDFAF5; border: 1.5px solid rgba(196,163,115,.35); }
+    .ba-label { font-weight: 800; font-size: .85rem; margin-bottom: 16px; color: var(--text); }
     .ba-card ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
-    .ba-card li {
-      font-size: 0.87rem;
-      color: var(--text-muted);
-      line-height: 1.55;
-      display: flex;
-      gap: 9px;
-      align-items: flex-start;
-    }
+    .ba-card li { font-size: .86rem; color: var(--text-muted); line-height: 1.55; display: flex; gap: 9px; align-items: flex-start; }
     .ba-before li .ico { color: #FC8181; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
-    .ba-after  li .ico { color: var(--mint-dark); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .ba-after  li .ico { color: var(--gold-dark); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
 
     /* ── SECTIONS ── */
-    .section { padding: 88px 24px; }
+    .section { padding: 80px 24px; }
     .section-alt { background: white; }
-    .container { max-width: 1100px; margin: 0 auto; }
-    .section-label {
-      text-align: center;
-      font-size: 0.71rem;
-      font-weight: 700;
-      letter-spacing: 2.2px;
-      text-transform: uppercase;
-      color: var(--mint-dark);
-      margin-bottom: 12px;
-    }
-    .section-title {
-      text-align: center;
-      font-size: clamp(1.75rem, 4vw, 2.55rem);
-      font-weight: 800;
-      letter-spacing: -1.2px;
-      color: var(--text);
-      margin-bottom: 12px;
-      line-height: 1.17;
-    }
-    .section-sub {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.99rem;
-      max-width: 540px;
-      margin: 0 auto 56px;
-      line-height: 1.75;
-    }
+    .section-label { text-align: center; font-size: .69rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 12px; }
+    .section-title { text-align: center; font-size: clamp(1.65rem, 4vw, 2.45rem); font-weight: 800; letter-spacing: -1.2px; color: var(--text); margin-bottom: 12px; line-height: 1.17; }
+    .section-sub { text-align: center; color: var(--text-muted); font-size: .97rem; max-width: 520px; margin: 0 auto 48px; line-height: 1.75; }
 
-    /* ── STEPS ── */
-    .steps { display: grid; gap: 16px; }
-    @media (min-width: 768px) { .steps { grid-template-columns: repeat(3, 1fr); } }
-
-    .step {
-      background: var(--gray-50);
-      border: 1px solid var(--gray-100);
-      border-radius: var(--radius);
-      padding: 32px 28px;
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-    }
-    .step:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.06);
-      border-color: rgba(77,203,164,0.4);
-    }
-    .step-head {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      margin-bottom: 18px;
-    }
-    .step-num {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px; height: 36px;
-      background: var(--black);
-      color: white;
-      border-radius: 10px;
-      font-weight: 800;
-      font-size: 0.92rem;
-      flex-shrink: 0;
-    }
-    .step-icon { font-size: 1.45rem; line-height: 1; }
-    .step h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: var(--text);
-      letter-spacing: -0.2px;
-    }
-    .step p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.72; }
+    /* ── STEPS (accordion) ── */
+    .steps { display: flex; flex-direction: column; gap: 10px; max-width: 680px; margin: 0 auto; }
+    .step { background: var(--gray-50); border: 1px solid var(--gray-100); border-radius: var(--r); transition: border-color .2s, box-shadow .2s; overflow: hidden; }
+    .step.open { border-color: rgba(196,163,115,.4); box-shadow: 0 8px 32px rgba(0,0,0,.06); }
+    .step-trigger { width: 100%; background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 14px; padding: 20px 24px; text-align: left; font-family: inherit; }
+    .step-num { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; flex-shrink: 0; background: var(--black); color: var(--gold); border-radius: 9px; font-weight: 800; font-size: .9rem; }
+    .step.open .step-num { background: var(--gold); color: var(--black); }
+    .step-icon { font-size: 1.4rem; line-height: 1; flex-shrink: 0; }
+    .step-trigger h3 { flex: 1; font-size: .97rem; font-weight: 700; color: var(--text); letter-spacing: -.2px; margin: 0; }
+    .step-chevron { width: 20px; height: 20px; flex-shrink: 0; color: var(--text-muted); transition: transform .25s; }
+    .step.open .step-chevron { transform: rotate(180deg); color: var(--gold-dark); }
+    .step-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .28s ease; }
+    .step.open .step-body { grid-template-rows: 1fr; }
+    .step-body-inner { overflow: hidden; padding: 0 24px; }
+    .step.open .step-body-inner { padding-bottom: 22px; }
+    .step-body p { font-size: .88rem; color: var(--text-muted); line-height: 1.75; padding-top: 2px; }
 
     /* ── FEATURES ── */
-    .features { display: grid; gap: 16px; }
-    @media (min-width: 768px) { .features { grid-template-columns: repeat(3, 1fr); } }
-
-    .feature {
-      padding: 32px 28px;
-      border-radius: var(--radius);
-      background: var(--gray-50);
-      border: 1px solid var(--gray-100);
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-    }
-    .feature:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 32px rgba(0,0,0,0.06);
-      border-color: rgba(77,203,164,0.4);
-    }
-    .feature-icon {
-      width: 48px; height: 48px;
-      border-radius: 14px;
-      background: var(--black);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.35rem;
-      margin-bottom: 20px;
-    }
-    .feature h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      letter-spacing: -0.2px;
-    }
-    .feature p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.72; }
+    .features { display: grid; gap: 14px; }
+    @media (min-width: 768px) { .features { grid-template-columns: repeat(3,1fr); } }
+    .feature { padding: 24px 22px; border-radius: var(--r); background: var(--gray-50); border: 1px solid var(--gray-100); transition: transform .2s, box-shadow .2s, border-color .2s; }
+    .feature:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0,0,0,.06); border-color: rgba(196,163,115,.4); }
+    .feature h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -.3px; display: flex; align-items: center; gap: 9px; }
+    .feature h3::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .feature p  { font-size: .88rem; color: var(--text-muted); line-height: 1.75; }
 
     /* ── PROPERTY CALLOUT ── */
-    .property-callout {
-      background: var(--black);
-      border-radius: var(--radius-lg);
-      padding: 52px 40px;
-      text-align: center;
-      max-width: 740px;
-      margin: 0 auto;
-      color: white;
-      position: relative;
-      overflow: hidden;
-    }
-    .property-callout::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 55%; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(77,203,164,0.5), transparent);
-    }
-    .property-callout::after {
-      content: '';
-      position: absolute;
-      bottom: -80px; right: -80px;
-      width: 260px; height: 260px;
-      background: radial-gradient(circle, rgba(77,203,164,0.07) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .prop-icon {
-      width: 56px; height: 56px;
-      background: rgba(77,203,164,0.1);
-      border: 1px solid rgba(77,203,164,0.2);
-      border-radius: 18px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.7rem;
-      margin: 0 auto 22px;
-      position: relative; z-index: 1;
-    }
-    .property-callout h3 {
-      font-size: 1.4rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-      letter-spacing: -0.5px;
-      position: relative; z-index: 1;
-    }
-    .property-callout p {
-      color: rgba(255,255,255,0.5);
-      font-size: 0.95rem;
-      line-height: 1.78;
-      max-width: 480px;
-      margin: 0 auto;
-      position: relative; z-index: 1;
-    }
-    .property-items {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 26px;
-      position: relative; z-index: 1;
-    }
-    .property-pill {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 50px;
-      padding: 7px 15px;
-      font-size: 0.81rem;
-      color: rgba(255,255,255,0.6);
-      font-weight: 500;
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
-      cursor: default;
-    }
-    .property-pill:hover {
-      background: rgba(77,203,164,0.1);
-      border-color: rgba(77,203,164,0.25);
-      color: var(--mint-light);
-    }
+    .property-callout { background: var(--black); border-radius: var(--r-lg); padding: 48px 36px; text-align: center; max-width: 740px; margin: 0 auto; color: white; position: relative; overflow: hidden; border: 1px solid rgba(196,163,115,.12); }
+    .property-callout::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60%; height: 1px; background: linear-gradient(90deg, transparent, rgba(196,163,115,.5), transparent); }
+    .property-callout::after { content: ''; position: absolute; bottom: -80px; right: -80px; width: 280px; height: 280px; background: radial-gradient(circle, rgba(196,163,115,.06) 0%, transparent 70%); pointer-events: none; }
+    .prop-icon { width: 56px; height: 56px; background: rgba(196,163,115,.08); border: 1px solid rgba(196,163,115,.2); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; margin: 0 auto 20px; position: relative; z-index: 1; }
+    .property-callout h3 { font-size: 1.35rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -.4px; position: relative; z-index: 1; }
+    .property-callout p { color: rgba(255,255,255,.45); font-size: .9rem; line-height: 1.8; max-width: 470px; margin: 0 auto; position: relative; z-index: 1; }
+    .property-items { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 24px; position: relative; z-index: 1; }
+    .property-pill { background: rgba(255,255,255,.04); border: 1px solid rgba(196,163,115,.15); border-radius: 50px; padding: 6px 14px; font-size: .79rem; color: rgba(255,255,255,.5); font-weight: 500; transition: background .2s, border-color .2s, color .2s; }
+    .property-pill:hover { background: rgba(196,163,115,.08); border-color: rgba(196,163,115,.3); color: var(--gold-soft); }
 
     /* ── PRICING ── */
-    .pricing-grid { display: grid; gap: 20px; }
-    @media (min-width: 768px) {
-      .pricing-grid {
-        grid-template-columns: repeat(3, 1fr);
-        align-items: start;
-      }
-    }
-    .pricing-card {
-      background: white;
-      border: 1.5px solid var(--gray-100);
-      border-radius: var(--radius-lg);
-      padding: 32px 28px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.08); }
-    .pricing-card.featured {
-      background: var(--black);
-      border-color: rgba(77,203,164,0.35);
-      color: white;
-    }
-    @media (min-width: 768px) { .pricing-card.featured { transform: scale(1.03); } }
-    @media (min-width: 768px) { .pricing-card.featured:hover { transform: scale(1.03) translateY(-4px); } }
-    @media (max-width: 767px) { .pricing-card.featured { order: -1; } }
-
-    .badge {
-      display: inline-block;
-      padding: 5px 12px;
-      border-radius: 50px;
-      font-size: 0.71rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      letter-spacing: 0.3px;
-    }
+    .pricing-section { padding: 48px 24px 60px; background: white; }
+    .pricing-header { text-align: center; margin-bottom: 28px; }
+    .pricing-label { font-size: .69rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 9px; }
+    .pricing-header h2 { font-size: clamp(1.4rem, 3vw, 1.7rem); font-weight: 800; letter-spacing: -.6px; margin-bottom: 6px; }
+    .pricing-header p { font-size: .86rem; color: var(--text-muted); }
+    .plan-tabs { display: flex; max-width: 420px; margin: 0 auto 28px; background: var(--gray-50); border-radius: 14px; padding: 4px; border: 1px solid var(--gray-100); gap: 4px; }
+    .plan-tab { flex: 1; padding: 10px 6px; border-radius: 10px; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: .78rem; font-weight: 600; color: var(--text-muted); transition: all .2s; text-align: center; }
+    .plan-tab .pt-price { display: block; font-size: 1.1rem; font-weight: 900; color: var(--text); letter-spacing: -.5px; line-height: 1.2; }
+    .plan-tab.active { background: white; color: var(--text); box-shadow: 0 2px 12px rgba(0,0,0,.09); }
+    .plan-tab.active .pt-price { color: var(--black); }
+    .plan-card { display: none; max-width: 410px; margin: 0 auto; }
+    .plan-card.active { display: block; }
+    .plan-inner { border-radius: var(--r-lg); border: 1.5px solid var(--gray-100); padding: 28px 24px; background: white; }
+    .plan-card.featured .plan-inner { background: var(--black); border-color: rgba(196,163,115,.3); color: white; }
+    .plan-badge { display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: .69rem; font-weight: 700; margin-bottom: 18px; letter-spacing: .3px; }
     .badge-limited { background: #FEF3C7; color: #92400E; }
-    .badge-popular {
-      background: rgba(77,203,164,0.12);
-      color: var(--mint-dark);
-      border: 1px solid rgba(77,203,164,0.25);
-    }
-    .pricing-card.featured .badge-popular {
-      background: rgba(77,203,164,0.18);
-      color: var(--mint);
-      border-color: rgba(77,203,164,0.3);
-    }
+    .badge-popular { background: rgba(196,163,115,.1); color: var(--gold-dark); border: 1px solid rgba(196,163,115,.25); }
+    .plan-card.featured .badge-popular { background: rgba(196,163,115,.15); color: var(--gold); border-color: rgba(196,163,115,.3); }
     .badge-pro { background: #EDE9FE; color: #5B21B6; }
-
-    .price-name {
-      font-size: 0.97rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -0.2px;
-    }
-    .pricing-card.featured .price-name { color: rgba(255,255,255,0.55); }
-    .price-amount {
-      font-size: 3.1rem;
-      font-weight: 900;
-      color: var(--text);
-      line-height: 1;
-      letter-spacing: -2.5px;
-      margin-bottom: 6px;
-    }
-    .pricing-card.featured .price-amount { color: white; }
-    .price-amount span {
-      font-size: 0.93rem;
-      font-weight: 400;
-      letter-spacing: 0;
-      color: var(--text-muted);
-    }
-    .pricing-card.featured .price-amount span { color: rgba(255,255,255,0.35); }
-    .price-desc { font-size: 0.83rem; color: var(--text-muted); margin-bottom: 22px; line-height: 1.55; }
-    .pricing-card.featured .price-desc { color: rgba(255,255,255,0.4); }
-
-    .price-divider { height: 1px; background: var(--gray-100); margin-bottom: 22px; }
-    .pricing-card.featured .price-divider { background: rgba(255,255,255,0.07); }
-
-    .price-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-      margin-bottom: 28px;
-    }
-    .price-features li {
-      display: flex;
-      align-items: flex-start;
-      gap: 9px;
-      font-size: 0.87rem;
-      color: var(--text);
-    }
-    .pricing-card.featured .price-features li { color: rgba(255,255,255,0.75); }
-    .pf-check { color: var(--mint-dark); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
-    .pricing-card.featured .pf-check { color: var(--mint); }
-
-    .btn-plan {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.93rem;
-      cursor: pointer;
-      border: none;
-      transition: all 0.2s;
-      text-align: center;
-      text-decoration: none;
-      letter-spacing: -0.2px;
-      font-family: inherit;
-    }
-    .btn-plan-primary {
-      background: var(--mint);
-      color: var(--black);
-      box-shadow: 0 4px 18px rgba(77,203,164,0.32);
-    }
-    .btn-plan-primary:hover {
-      background: var(--mint-light);
-      box-shadow: 0 6px 26px rgba(77,203,164,0.42);
-    }
-    .btn-plan-outline {
-      background: transparent;
-      border: 1.5px solid var(--gray-200);
-      color: var(--text);
-    }
-    .btn-plan-outline:hover {
-      border-color: var(--mint-dark);
-      color: var(--mint-dark);
-    }
+    .plan-name { font-size: .93rem; font-weight: 700; margin-bottom: 4px; }
+    .plan-card.featured .plan-name { color: rgba(255,255,255,.45); }
+    .plan-amount { font-size: 3rem; font-weight: 900; line-height: 1; letter-spacing: -2px; margin-bottom: 4px; }
+    .plan-amount span { font-size: .86rem; font-weight: 400; letter-spacing: 0; color: var(--text-muted); }
+    .plan-card.featured .plan-amount { color: white; }
+    .plan-card.featured .plan-amount span { color: rgba(255,255,255,.3); }
+    .plan-desc { font-size: .81rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; }
+    .plan-card.featured .plan-desc { color: rgba(255,255,255,.38); }
+    .plan-divider { height: 1px; background: var(--gray-100); margin-bottom: 18px; }
+    .plan-card.featured .plan-divider { background: rgba(255,255,255,.06); }
+    .plan-feats { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .plan-feats li { display: flex; align-items: flex-start; gap: 9px; font-size: .85rem; color: var(--text); }
+    .plan-card.featured .plan-feats li { color: rgba(255,255,255,.72); }
+    .pf-chk { color: var(--gold-dark); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .plan-card.featured .pf-chk { color: var(--gold); }
+    .btn-plan { display: block; width: 100%; padding: 14px; border-radius: 11px; font-weight: 700; font-size: .9rem; cursor: pointer; border: none; text-align: center; text-decoration: none; font-family: inherit; transition: all .2s; }
+    .btn-plan-primary { background: var(--gold); color: var(--black); box-shadow: 0 5px 20px rgba(196,163,115,.3); }
+    .btn-plan-primary:hover { background: var(--gold-light); }
+    .btn-plan-outline { background: transparent; border: 1.5px solid var(--gray-200); color: var(--text); }
+    .btn-plan-outline:hover { border-color: rgba(196,163,115,.5); color: var(--gold-dark); }
 
     /* ── CTA FINAL ── */
-    .cta-section {
-      background: var(--black);
-      color: white;
-      padding: 104px 24px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      bottom: -100px; left: 50%;
-      transform: translateX(-50%);
-      width: 700px; height: 400px;
-      background: radial-gradient(ellipse, rgba(77,203,164,0.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .cta-section h2 {
-      font-size: clamp(1.9rem, 4.5vw, 3rem);
-      font-weight: 900;
-      letter-spacing: -2px;
-      margin-bottom: 14px;
-      position: relative;
-    }
-    .cta-section p {
-      color: rgba(255,255,255,0.5);
-      font-size: 0.99rem;
-      margin-bottom: 36px;
-      max-width: 420px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.75;
-      position: relative;
-    }
-    .email-form {
-      display: flex;
-      gap: 10px;
-      max-width: 460px;
-      margin: 0 auto;
-      flex-wrap: wrap;
-      justify-content: center;
-      position: relative;
-    }
-    .email-input {
-      flex: 1;
-      min-width: 200px;
-      padding: 15px 20px;
-      border-radius: 50px;
-      border: 1px solid rgba(255,255,255,0.11);
-      background: rgba(255,255,255,0.05);
-      font-size: 0.95rem;
-      outline: none;
-      color: white;
-      transition: border-color 0.2s, background 0.2s;
-      font-family: inherit;
-    }
-    .email-input::placeholder { color: rgba(255,255,255,0.28); }
-    .email-input:focus {
-      border-color: rgba(77,203,164,0.45);
-      background: rgba(255,255,255,0.08);
-    }
-    .btn-submit {
-      background: var(--mint);
-      color: var(--black);
-      border: none;
-      border-radius: 50px;
-      padding: 15px 28px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-      white-space: nowrap;
-      font-family: inherit;
-      letter-spacing: -0.2px;
-    }
-    .btn-submit:hover { background: var(--mint-light); transform: translateY(-1px); }
-    .form-note { font-size: 0.76rem; color: rgba(255,255,255,0.27); margin-top: 14px; position: relative; }
-    .success-msg {
-      display: none;
-      padding: 18px 28px;
-      background: rgba(77,203,164,0.1);
-      border: 1px solid rgba(77,203,164,0.25);
-      border-radius: 14px;
-      font-size: 0.97rem;
-      font-weight: 600;
-      margin-top: 14px;
-      max-width: 440px;
-      margin-left: auto;
-      margin-right: auto;
-      color: var(--mint-light);
-    }
+    .cta-section { background: var(--black); color: white; padding: 80px 24px; text-align: center; position: relative; overflow: hidden; }
+    .cta-section::before { content: ''; position: absolute; bottom: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 320px; background: radial-gradient(ellipse, rgba(196,163,115,.08) 0%, transparent 70%); pointer-events: none; }
+    .cta-section::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(196,163,115,.3), transparent); }
+    .cta-section h2 { font-size: clamp(1.7rem, 5vw, 2.6rem); font-weight: 900; letter-spacing: -1.5px; margin-bottom: 12px; position: relative; }
+    .cta-section h2 em { font-style: normal; color: var(--gold); }
+    .cta-section .cta-sub { color: rgba(255,255,255,.42); font-size: .97rem; margin-bottom: 32px; max-width: 380px; margin-left: auto; margin-right: auto; line-height: 1.75; position: relative; }
+    .email-form { display: flex; gap: 9px; max-width: 440px; margin: 0 auto; flex-direction: column; position: relative; }
+    @media (min-width: 500px) { .email-form { flex-direction: row; } }
+    .email-input { flex: 1; padding: 15px 20px; border-radius: 50px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.05); font-size: .92rem; outline: none; color: white; font-family: inherit; transition: border-color .2s; }
+    .email-input::placeholder { color: rgba(255,255,255,.25); }
+    .email-input:focus { border-color: rgba(196,163,115,.4); }
+    .btn-submit { background: var(--gold); color: var(--black); border: none; border-radius: 50px; padding: 15px 26px; font-size: .92rem; font-weight: 700; cursor: pointer; white-space: nowrap; font-family: inherit; transition: background .2s; }
+    .btn-submit:hover { background: var(--gold-light); }
+    .form-note { font-size: .73rem; color: rgba(255,255,255,.22); margin-top: 13px; }
+    .success-msg { display: none; padding: 16px 24px; background: rgba(196,163,115,.08); border: 1px solid rgba(196,163,115,.22); border-radius: 12px; font-size: .93rem; font-weight: 600; margin-top: 14px; color: var(--gold-soft); }
+    .error-msg { display: none; padding: 14px 20px; background: rgba(252,129,129,.08); border: 1px solid rgba(252,129,129,.25); border-radius: 12px; font-size: .88rem; font-weight: 500; margin-top: 12px; color: #FC8181; }
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--black-3);
-      color: rgba(255,255,255,0.28);
-      padding: 36px 24px;
-      text-align: center;
-      font-size: 0.83rem;
-      line-height: 2.1;
-    }
-    footer strong { color: rgba(255,255,255,0.65); }
-    .footer-powered {
-      margin-top: 6px;
-      font-size: 0.74rem;
-      color: rgba(255,255,255,0.18);
-    }
-    .footer-powered a {
-      color: var(--mint-dark);
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .footer-powered a:hover { color: var(--mint); }
+    footer { background: var(--panel-2); color: rgba(255,255,255,.22); padding: 32px 24px; text-align: center; font-size: .81rem; line-height: 2; border-top: 1px solid rgba(196,163,115,.08); }
+    footer strong { color: rgba(255,255,255,.55); }
+    .footer-powered { margin-top: 5px; font-size: .71rem; color: rgba(255,255,255,.15); }
+    .footer-powered a { color: var(--gold-dark); text-decoration: none; font-weight: 600; }
+    .footer-powered a:hover { color: var(--gold); }
+    .footer-links { margin-top: 6px; font-size: .73rem; }
+    .footer-links a { color: rgba(255,255,255,.3); text-decoration: none; transition: color .15s; }
+    .footer-links a:hover { color: rgba(255,255,255,.6); }
 
-    /* ── MOBILE ── */
-    @media (max-width: 600px) {
-      .nav-link { display: none; }
-      .hero { padding: 60px 20px 56px; }
-      .hero h1 { font-size: 2.15rem; letter-spacing: -1.5px; }
-      .hero-sub { font-size: 0.97rem; }
-      .hero-phone { max-width: 100%; }
-      .hero-cta { flex-direction: column; gap: 10px; }
-      .btn-primary, .btn-ghost { width: 100%; text-align: center; padding: 17px 24px; }
-      .trust-strip { gap: 16px; }
-      .trust-item { font-size: 0.77rem; }
-      .before-after { padding: 52px 20px; }
-      .ba-grid { grid-template-columns: 1fr; gap: 14px; }
-      .section { padding: 64px 20px; }
-      .section-title { font-size: 1.75rem; }
-      .section-sub { font-size: 0.95rem; margin-bottom: 40px; }
-      .step { padding: 26px 22px; }
-      .property-callout { padding: 36px 24px; }
-      .pricing-grid { display: flex; flex-direction: column; }
-      .pricing-card.featured { order: -1; }
-      .price-amount { font-size: 2.6rem; }
-      .email-form { flex-direction: column; }
-      .email-input, .btn-submit { width: 100%; border-radius: 14px; }
-      .cta-section { padding: 80px 20px; }
-    }
+    /* ── PLATFORMS STRIP ── */
+    .platforms-strip { background: white; padding: 14px 24px; border-bottom: 1px solid var(--gray-100); text-align: center; }
+    .platforms-inner { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .platforms-label { font-size: .7rem; font-weight: 600; color: var(--text-muted); letter-spacing: .5px; text-transform: uppercase; }
+    .platforms-logos { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; justify-content: center; }
+    .platforms-logo { font-size: .8rem; font-weight: 700; color: var(--gray-200); letter-spacing: -.2px; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials { background: white; padding: 56px 24px; border-bottom: 1px solid var(--gray-100); }
+    .testimonials-counter { text-align: center; font-size: .82rem; font-weight: 700; color: var(--gold-dark); letter-spacing: .5px; margin-bottom: 32px; }
+    .testimonials-grid { display: grid; gap: 16px; max-width: 900px; margin: 0 auto; }
+    @media (min-width: 768px) { .testimonials-grid { grid-template-columns: repeat(3, 1fr); } }
+    .testi-card { background: var(--gray-50); border: 1px solid var(--gray-100); border-radius: var(--r); padding: 24px 20px; display: flex; flex-direction: column; gap: 12px; }
+    .testi-stars { font-size: .95rem; letter-spacing: 1px; }
+    .testi-quote { font-size: .86rem; color: var(--text-muted); line-height: 1.7; font-style: italic; flex: 1; }
+    .testi-author { font-size: .82rem; font-weight: 700; color: var(--text); }
+
+    /* ── WHATSAPP BTN ── */
+    .whatsapp-btn { position: fixed; bottom: 24px; right: 24px; z-index: 999; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 24px rgba(37,211,102,.4); transition: transform .2s, box-shadow .2s; text-decoration: none; }
+    .whatsapp-btn:hover { transform: scale(1.08); box-shadow: 0 8px 32px rgba(37,211,102,.5); }
+    .whatsapp-btn svg { width: 28px; height: 28px; fill: white; }
+    .wa-tooltip { position: absolute; right: 66px; background: var(--graphite); color: white; font-size: .78rem; font-weight: 600; padding: 6px 12px; border-radius: 8px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s; }
+    .whatsapp-btn:hover .wa-tooltip { opacity: 1; }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+    .gold-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(196,163,115,.25), transparent); border: none; margin: 0; }
   </style>
 </head>
 <body>
 
 <!-- HEADER -->
-<header>
+<header id="top">
   <div class="header-inner">
-    <a href="#" class="logo">
-      <!-- SPRAUT-style sprout icon -->
-      <svg class="logo-icon" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="30" height="30" rx="8" fill="#0D1117"/>
-        <path d="M15 23V15" stroke="#4DCBA4" stroke-width="1.8" stroke-linecap="round"/>
-        <path d="M15 18C15 18 11.5 16 11.5 12.5C11.5 10.567 13.067 9 15 9C16.933 9 18.5 10.567 18.5 12.5C18.5 16 15 18 15 18Z" fill="#4DCBA4"/>
-        <path d="M15 21C15 21 11 19 10 16" stroke="#4DCBA4" stroke-width="1.4" stroke-linecap="round"/>
-        <path d="M15 21C15 21 19 19 20 16" stroke="#4DCBA4" stroke-width="1.4" stroke-linecap="round"/>
+    <a href="#top" class="logo">
+      <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="10" fill="#1A1A1A"/>
+        <path d="M6 19L20 8L34 19" stroke="#C4A373" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 18V32" stroke="#C4A373" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M9 32H21" stroke="#C4A373" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M31 18V22" stroke="#C4A373" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M23 22V30" stroke="#C4A373" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M23 22H29" stroke="#C4A373" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="31" cy="22" r="2" fill="#C4A373"/>
+        <path d="M23 26H27" stroke="#C4A373" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="29" cy="26" r="2" fill="#C4A373"/>
+        <path d="M23 30H26" stroke="#C4A373" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="28" cy="30" r="2" fill="#C4A373"/>
       </svg>
-      <span class="logo-text">Auto<em>Mossos</em></span>
+      <div>
+        <span class="logo-text">Auto<em>Mossos</em></span>
+        <span class="logo-sub">Monitorització · Gestió · Automatització</span>
+      </div>
     </a>
     <div class="nav-right">
-      <a href="#com-funciona" class="nav-link">Com funciona</a>
-      <a href="#preus" class="nav-link">Preus</a>
-      <a href="#beta" class="btn-header">1 mes gratis →</a>
+      <a href="#contingut" class="nav-link" data-i18n="navHow">Com funciona</a>
+      <a href="#preus"     class="nav-link" data-i18n="navPrices">Preus</a>
+      <a href="#beta"      class="btn-header" data-i18n="navCta">1 mes gratis</a>
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('ca')">CA</button>
+        <button class="lang-btn"        onclick="setLang('es')">ES</button>
+        <button class="lang-btn"        onclick="setLang('en')">EN</button>
+      </div>
     </div>
   </div>
 </header>
 
+<!-- SECTION NAV -->
+<nav class="section-nav" id="sectionNav">
+  <a href="#"          class="sn-item active" data-s="top"      data-i18n="snavHome">Inici</a>
+  <a href="#contingut" class="sn-item"        data-s="contingut" data-i18n="snavHow">Com funciona</a>
+  <a href="#preus"     class="sn-item"        data-s="preus"    data-i18n="snavPrices">Preus</a>
+  <a href="#beta"      class="sn-item"        data-s="beta"     data-i18n="snavJoin">Uneix-te</a>
+</nav>
+
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero-anchor">
   <div class="hero-content">
     <div class="hero-badge">
       <span class="badge-dot"></span>
-      Obligatori per llei · Catalunya
+      <span data-i18n="heroBadge">Obligatori per llei · Catalunya</span>
     </div>
-    <h1>Els teus hostes es registren sols,<br><em>des del seu mòbil</em></h1>
-    <p class="hero-sub">
-      En fer la reserva, l'hoste rep un missatge automàtic. Omple les seves dades.
-      <strong>Tu no truques a ningú. Tu no fas res.</strong>
-    </p>
+    <h1 data-i18n-html="heroH1">Els teus hostes es registren sols,<br><em>des del seu mòbil</em></h1>
+    <p class="hero-sub" data-i18n-html="heroSub">En fer la reserva, l'hoste rep un missatge automàtic. Omple les seves dades. <strong>Tu no truques a ningú. Tu no fas res.</strong></p>
 
-    <!-- Mockup telèfon -->
     <div class="hero-phone">
       <div class="phone-topbar">
-        <div class="phone-dot dot-r"></div>
-        <div class="phone-dot dot-y"></div>
-        <div class="phone-dot dot-g"></div>
-        <span class="phone-title">Missatge rebut per l'hoste</span>
+        <div class="ph-dot dot-r"></div>
+        <div class="ph-dot dot-y"></div>
+        <div class="ph-dot dot-g"></div>
+        <span class="phone-title" data-i18n="phoneTitle">Missatge rebut per l'hoste</span>
       </div>
       <div class="phone-msg">
         <div class="phone-avatar">🏠</div>
         <div style="flex:1">
-          <div class="phone-bubble">
-            Benvingut/da a <strong>Can Alegre</strong>!<br>
-            Abans d'arribar, omple el registre obligatori. Triga menys de 2 minuts.
-            <div class="phone-time">Avui · 14:32</div>
+          <div class="phone-bubble" data-i18n-html="phoneBubble">
+            Benvingut/da a <strong>Casavella del Cuní</strong> 🏡<br>Omple el registre obligatori. Triga menys de 2 minuts.
+            <div class="phone-time" data-i18n="phoneTime">Avui · 14:32</div>
           </div>
-          <a class="phone-link" href="#">Omplir el registre ara →</a>
+          <a class="phone-link" href="#" data-i18n="phoneLink">Omplir el registre ara →</a>
         </div>
       </div>
     </div>
 
     <div class="hero-cta">
-      <a href="#beta" class="btn-primary">Aconsegueix 1 mes gratis</a>
-      <a href="#com-funciona" class="btn-ghost">Com funciona ↓</a>
+      <a href="#beta"      class="btn-primary" data-i18n="heroCta1">Aconsegueix 1 mes gratis</a>
+      <a href="#contingut" class="btn-ghost"   data-i18n="heroCta2">Com funciona ↓</a>
     </div>
 
     <div class="trust-strip">
-      <div class="trust-item">
-        <span class="trust-check">✓</span> Sense app per l'hoste
-      </div>
-      <div class="trust-item">
-        <span class="trust-check">✓</span> 100% des del mòbil
-      </div>
-      <div class="trust-item">
-        <span class="trust-check">✓</span> Compleix la llei
-      </div>
-      <div class="trust-item">
-        <span class="trust-check">✓</span> Document oficial generat sol
-      </div>
+      <div class="trust-item"><span class="trust-check">✓</span> <span data-i18n="trust1">Sense app per l'hoste</span></div>
+      <div class="trust-item"><span class="trust-check">✓</span> <span data-i18n="trust2">100% des del mòbil</span></div>
+      <div class="trust-item"><span class="trust-check">✓</span> <span data-i18n="trust3">Compleix la llei</span></div>
+      <div class="trust-item"><span class="trust-check">✓</span> <span data-i18n="trust4">Document oficial automàtic</span></div>
     </div>
   </div>
 </section>
 
+<hr class="gold-divider">
+
+<!-- PLATAFORMES COMPATIBLES -->
+<div class="platforms-strip">
+  <div class="platforms-inner">
+    <span class="platforms-label" data-i18n="platformsLabel">Compatible amb:</span>
+    <div class="platforms-logos">
+      <span class="platforms-logo">Booking.com</span>
+      <span class="platforms-logo">Airbnb</span>
+      <span class="platforms-logo">Vrbo</span>
+      <span class="platforms-logo" data-i18n="platformsOther">i qualsevol altra plataforma</span>
+    </div>
+  </div>
+</div>
+
 <!-- BEFORE / AFTER -->
 <section class="before-after">
   <div class="ba-header">
-    <h2>Avui vs. amb AutoMossos</h2>
-    <p>La diferència és abismal</p>
+    <h2 data-i18n="baTitle">Avui vs. amb AutoMossos</h2>
+    <p data-i18n="baSub">La diferència és abismal</p>
   </div>
   <div class="ba-grid">
     <div class="ba-card ba-before">
-      <div class="ba-label">Sense AutoMossos</div>
+      <div class="ba-label" data-i18n="baBeforeLabel">✗ Sense AutoMossos</div>
       <ul>
-        <li><span class="ico">✗</span> Escrius tu a cada hoste per demanar-li el DNI</li>
-        <li><span class="ico">✗</span> Esperes que et respongui (de vegades no ho fa)</li>
-        <li><span class="ico">✗</span> Transcrius les dades a mà, un per un</li>
-        <li><span class="ico">✗</span> Si t'equivoques, pots rebre una multa</li>
+        <li><span class="ico">✗</span> <span data-i18n="baBefore1">Escrius tu a cada hoste per demanar-li el DNI</span></li>
+        <li><span class="ico">✗</span> <span data-i18n="baBefore2">Esperes que et respongui (de vegades no ho fa)</span></li>
+        <li><span class="ico">✗</span> <span data-i18n="baBefore3">Transcrius les dades a mà, un per un</span></li>
+        <li><span class="ico">✗</span> <span data-i18n="baBefore4">Si t'equivoques, pots rebre una multa</span></li>
       </ul>
     </div>
     <div class="ba-card ba-after">
-      <div class="ba-label">Amb AutoMossos</div>
+      <div class="ba-label" data-i18n="baAfterLabel">✓ Amb AutoMossos</div>
       <ul>
-        <li><span class="ico">✓</span> L'hoste rep el link automàticament al fer la reserva</li>
-        <li><span class="ico">✓</span> Omple les seves dades en 2 minuts des del mòbil</li>
-        <li><span class="ico">✓</span> Tu reps un avís quan tot està llest</li>
-        <li><span class="ico">✓</span> Cliques un botó. Document enviat als Mossos.</li>
+        <li><span class="ico">✓</span> <span data-i18n="baAfter1">L'hoste rep el link automàticament al fer la reserva</span></li>
+        <li><span class="ico">✓</span> <span data-i18n="baAfter2">Omple les seves dades en 2 minuts des del mòbil</span></li>
+        <li><span class="ico">✓</span> <span data-i18n="baAfter3">Tu reps un avís quan tot està llest</span></li>
+        <li><span class="ico">✓</span> <span data-i18n="baAfter4">Cliques un botó. Document enviat als Mossos.</span></li>
       </ul>
     </div>
   </div>
 </section>
 
 <!-- COM FUNCIONA -->
-<section class="section" id="com-funciona">
+<section class="section" id="contingut">
   <div class="container">
-    <div class="section-label">Com funciona</div>
-    <h2 class="section-title">3 passos. Cap trucada. Cap paper.</h2>
-    <p class="section-sub">Configures la teva propietat una sola vegada. Després, tot passa sol.</p>
+    <div class="section-label" data-i18n="howLabel">Com funciona</div>
+    <h2 class="section-title" data-i18n="howTitle">3 passos. Cap trucada. Cap paper.</h2>
+    <p class="section-sub" data-i18n="howSub">Configures la teva propietat una sola vegada. Després, tot passa sol.</p>
     <div class="steps">
 
-      <div class="step">
-        <div class="step-head">
+      <div class="step open">
+        <button class="step-trigger" onclick="toggleStep(this)" aria-expanded="true">
           <div class="step-num">1</div>
           <span class="step-icon">📲</span>
+          <h3 data-i18n="step1Title">L'hoste reserva i rep un missatge automàtic</h3>
+          <svg class="step-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="step-body">
+          <div class="step-body-inner">
+            <p data-i18n="step1Desc">En confirmar la reserva a Booking, Airbnb o qualsevol plataforma, el teu sistema envia automàticament un missatge de benvinguda amb un link. Sense que tu facis absolutament res.</p>
+          </div>
         </div>
-        <h3>L'hoste reserva i rep un missatge automàtic</h3>
-        <p>En confirmar la reserva a Booking, Airbnb o qualsevol plataforma, el teu sistema envia automàticament un missatge de benvinguda amb un link. Sense que tu facis absolutament res.</p>
       </div>
 
       <div class="step">
-        <div class="step-head">
+        <button class="step-trigger" onclick="toggleStep(this)" aria-expanded="false">
           <div class="step-num">2</div>
           <span class="step-icon">📝</span>
+          <h3 data-i18n="step2Title">L'hoste omple les seves dades des del mòbil</h3>
+          <svg class="step-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="step-body">
+          <div class="step-body-inner">
+            <p data-i18n="step2Desc">Obre el link, escriu el seu nom, document d'identitat i les dades que la llei demana. Pot passar el link als companys per WhatsApp. No cal baixar cap aplicació.</p>
+          </div>
         </div>
-        <h3>L'hoste omple les seves dades des del mòbil</h3>
-        <p>Obre el link, escriu el seu nom, document d'identitat i les dades que la llei demana. Pot passar el link als companys per WhatsApp perquè cadascú ompli el seu. No cal baixar cap aplicació.</p>
       </div>
 
       <div class="step">
-        <div class="step-head">
+        <button class="step-trigger" onclick="toggleStep(this)" aria-expanded="false">
           <div class="step-num">3</div>
           <span class="step-icon">✅</span>
+          <h3 data-i18n="step3Title">Tu reps l'avís i envies als Mossos amb un clic</h3>
+          <svg class="step-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="step-body">
+          <div class="step-body-inner">
+            <p data-i18n="step3Desc">Quan tots han omplert les dades, reps un avís al mòbil. Entres a AutoMossos, cliques "Enviar als Mossos" i el programa crea el document oficial. Tot en menys de 2 minuts.</p>
+          </div>
         </div>
-        <h3>Tu reps l'avís i envies als Mossos amb un clic</h3>
-        <p>Quan tots han omplert les dades, reps un avís al mòbil. Entres a AutoMossos, cliques "Enviar als Mossos" i el programa crea el document oficial i te'l prepara per pujar. Tot en menys de 2 minuts.</p>
       </div>
 
     </div>
@@ -970,29 +481,22 @@
 <!-- PER QUÈ AUTOMOSSOS -->
 <section class="section section-alt">
   <div class="container">
-    <div class="section-label">Per què AutoMossos</div>
-    <h2 class="section-title">Oblida't dels papers i les trucades</h2>
-    <p class="section-sub">Pensat per a propietaris de cases rurals, pisos turístics i petits allotjaments de Catalunya.</p>
+    <div class="section-label" data-i18n="whyLabel">Per què AutoMossos</div>
+    <h2 class="section-title" data-i18n="whyTitle">Oblida't dels papers i les trucades</h2>
+    <p class="section-sub" data-i18n="whySub">Pensat per a propietaris de cases rurals, pisos turístics i petits allotjaments de Catalunya.</p>
     <div class="features">
-
       <div class="feature">
-        <div class="feature-icon">🤖</div>
-        <h3>Zero feina per al propietari</h3>
-        <p>El missatge amb el link s'envia sol. Tu no has d'escriure res a cap hoste. La reserva es gestiona sola des del primer moment.</p>
+        <h3 data-i18n="feat1Title">Zero feina per al propietari</h3>
+        <p data-i18n="feat1Desc">El missatge amb el link s'envia sol. Tu no has d'escriure res a cap hoste. La reserva es gestiona sola des del primer moment.</p>
       </div>
-
       <div class="feature">
-        <div class="feature-icon">📱</div>
-        <h3>L'hoste ho fa ell sol, des del mòbil</h3>
-        <p>Sense baixar cap aplicació. L'hoste obre el link com si fos una pàgina web normal i omple les dades en 2 minuts. Funciona amb qualsevol telèfon.</p>
+        <h3 data-i18n="feat2Title">L'hoste ho fa ell sol, des del mòbil</h3>
+        <p data-i18n="feat2Desc">Sense baixar cap aplicació. L'hoste obre el link com si fos una pàgina web normal i omple les dades en 2 minuts. Funciona amb qualsevol telèfon.</p>
       </div>
-
       <div class="feature">
-        <div class="feature-icon">⚖️</div>
-        <h3>Compliment legal sense errors</h3>
-        <p>AutoMossos crea automàticament el document oficial que la policia necessita. Tu el puges a la seva pàgina web. Sense errors, sense multes de fins a 30.000 €.</p>
+        <h3 data-i18n="feat3Title">Compliment legal sense errors</h3>
+        <p data-i18n="feat3Desc">AutoMossos crea automàticament el document oficial que la policia necessita. Tu el puges a la seva pàgina web. Sense errors, sense multes de fins a 30.000 €.</p>
       </div>
-
     </div>
   </div>
 </section>
@@ -1000,90 +504,170 @@
 <!-- PÀGINA DE LA PROPIETAT -->
 <section class="section">
   <div class="container">
-    <div class="section-label">I a més</div>
-    <h2 class="section-title">La teva propietat, dins el link</h2>
-    <p class="section-sub">El link que rep l'hoste no és un formulari pelat. És la porta d'entrada a la teva casa.</p>
+    <div class="section-label" data-i18n="propLabel">I a més</div>
+    <h2 class="section-title" data-i18n="propTitle">La teva propietat, dins el link</h2>
+    <p class="section-sub" data-i18n="propSub">El link que rep l'hoste no és un formulari pelat. És la porta d'entrada a la teva casa.</p>
     <div class="property-callout">
       <div class="prop-icon">🏡</div>
-      <h3>L'hoste troba tot el que necessita sense trucar-te</h3>
-      <p>Afegeix la informació de la teva casa: on és la caixa de les claus, el codi per obrir la porta, la contrasenya del WiFi, les normes... L'hoste ho veu tot just obrir el link, abans d'arribar.</p>
+      <h3 data-i18n="propCalloutTitle">L'hoste troba tot el que necessita sense trucar-te</h3>
+      <p data-i18n="propCalloutDesc">Afegeix la informació de la teva casa: on és la caixa de les claus, el codi per obrir la porta, la contrasenya del WiFi, les normes... L'hoste ho veu tot just obrir el link, abans d'arribar.</p>
       <div class="property-items">
-        <span class="property-pill">📦 On són les claus</span>
-        <span class="property-pill">🔑 Codis d'accés</span>
-        <span class="property-pill">📶 WiFi</span>
-        <span class="property-pill">📋 Normes de la casa</span>
-        <span class="property-pill">🎥 Vídeo d'instruccions</span>
-        <span class="property-pill">+ el que vulguis</span>
+        <span class="property-pill" data-i18n="pill1">📦 On són les claus</span>
+        <span class="property-pill" data-i18n="pill2">🔑 Codis d'accés</span>
+        <span class="property-pill" data-i18n="pill3">📶 WiFi</span>
+        <span class="property-pill" data-i18n="pill4">📋 Normes de la casa</span>
+        <span class="property-pill" data-i18n="pill5">🎥 Vídeo d'instruccions</span>
+        <span class="property-pill" data-i18n="pill6">+ el que vulguis</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRICING -->
-<section class="section section-alt" id="preus">
+<!-- FAQ -->
+<section class="section section-alt" id="faq">
   <div class="container">
-    <div class="section-label">Preus</div>
-    <h2 class="section-title">Comença gratis, sense compromisos</h2>
-    <p class="section-sub">Primers 100 establiments: 1 mes de prova completament gratis. Sense targeta de crèdit.</p>
-    <div class="pricing-grid">
+    <div class="section-label" data-i18n="faqLabel">Dubtes</div>
+    <h2 class="section-title" data-i18n="faqTitle">Preguntes freqüents</h2>
+    <div class="steps">
 
-      <!-- BETA -->
-      <div class="pricing-card">
-        <span class="badge badge-limited">⚡ Oferta beta · 100 places</span>
-        <div class="price-name">Beta</div>
-        <div class="price-amount">0€<span> / primer mes</span></div>
-        <div class="price-desc">Per als primers 100 establiments. Sense compromís.</div>
-        <div class="price-divider"></div>
-        <ul class="price-features">
-          <li><span class="pf-check">✓</span> 1 propietat inclosa</li>
-          <li><span class="pf-check">✓</span> Reserves il·limitades</li>
-          <li><span class="pf-check">✓</span> Formulari mòbil per als hostes</li>
-          <li><span class="pf-check">✓</span> Document oficial generat automàticament</li>
-          <li><span class="pf-check">✓</span> Pàgina d'informació de la propietat</li>
-          <li><span class="pf-check">✓</span> Atenció per email</li>
-        </ul>
-        <a href="#beta" class="btn-plan btn-plan-outline">Aconsegueix la plaça beta</a>
+      <div class="step open">
+        <button class="step-trigger" onclick="toggleStep(this)" aria-expanded="true">
+          <div class="step-num" style="font-size:1.1rem">?</div>
+          <h3 data-i18n="faq1Q">I si l'hoste no omple el formulari?</h3>
+          <svg class="step-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="step-body"><div class="step-body-inner">
+          <p data-i18n="faq1A">El sistema li envia un recordatori automàtic. Si tot i així no ho fa, t'avisem a tu perquè puguis actuar.</p>
+        </div></div>
       </div>
 
-      <!-- BÀSIC (featured) -->
-      <div class="pricing-card featured">
-        <span class="badge badge-popular">⭐ Més popular</span>
-        <div class="price-name">Bàsic</div>
-        <div class="price-amount">9€<span> / mes</span></div>
-        <div class="price-desc">Per a propietaris d'1 establiment. Sense sorpreses.</div>
-        <div class="price-divider"></div>
-        <ul class="price-features">
-          <li><span class="pf-check">✓</span> 1 propietat inclosa</li>
-          <li><span class="pf-check">✓</span> Reserves il·limitades</li>
-          <li><span class="pf-check">✓</span> Formulari mòbil per als hostes</li>
-          <li><span class="pf-check">✓</span> Document oficial generat automàticament</li>
-          <li><span class="pf-check">✓</span> Pàgina d'informació de la propietat</li>
-          <li><span class="pf-check">✓</span> Avís quan la reserva es completa</li>
-          <li><span class="pf-check">✓</span> Atenció prioritària</li>
-        </ul>
-        <a href="#beta" class="btn-plan btn-plan-primary">Comença gratis 1 mes</a>
+      <div class="step">
+        <button class="step-trigger" onclick="toggleStep(this)" aria-expanded="false">
+          <div class="step-num" style="font-size:1.1rem">?</div>
+          <h3 data-i18n="faq2Q">Funciona amb Booking.com i Airbnb?</h3>
+          <svg class="step-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="step-body"><div class="step-body-inner">
+          <p data-i18n="faq2A">Sí. AutoMossos s'integra amb les principals plataformes de reserves. La connexió es configura en menys de 5 minuts.</p>
+        </div></div>
       </div>
 
-      <!-- PRO -->
-      <div class="pricing-card">
-        <span class="badge badge-pro">🚀 Per a gestors</span>
-        <div class="price-name">Pro</div>
-        <div class="price-amount">19€<span> / mes</span></div>
-        <div class="price-desc">Per a qui gestiona diverses propietats.</div>
-        <div class="price-divider"></div>
-        <ul class="price-features">
-          <li><span class="pf-check">✓</span> Fins a 5 propietats</li>
-          <li><span class="pf-check">✓</span> Reserves il·limitades</li>
-          <li><span class="pf-check">✓</span> Formulari mòbil per als hostes</li>
-          <li><span class="pf-check">✓</span> Document oficial generat automàticament</li>
-          <li><span class="pf-check">✓</span> Pàgina d'informació per cada propietat</li>
-          <li><span class="pf-check">✓</span> Avís per email i WhatsApp</li>
-          <li><span class="pf-check">✓</span> Panell per veure totes les reserves juntes</li>
-          <li><span class="pf-check">✓</span> Atenció prioritària</li>
-        </ul>
-        <a href="#beta" class="btn-plan btn-plan-outline">Comença gratis 1 mes</a>
+      <div class="step">
+        <button class="step-trigger" onclick="toggleStep(this)" aria-expanded="false">
+          <div class="step-num" style="font-size:1.1rem">?</div>
+          <h3 data-i18n="faq3Q">Les dades dels hostes estan segures?</h3>
+          <svg class="step-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="step-body"><div class="step-body-inner">
+          <p data-i18n="faq3A">Sí. Totes les dades es guarden xifrades i complim el RGPD. No compartim informació amb tercers.</p>
+        </div></div>
       </div>
 
+      <div class="step">
+        <button class="step-trigger" onclick="toggleStep(this)" aria-expanded="false">
+          <div class="step-num" style="font-size:1.1rem">?</div>
+          <h3 data-i18n="faq4Q">Qui puja el document als Mossos, jo o el programa?</h3>
+          <svg class="step-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="step-body"><div class="step-body-inner">
+          <p data-i18n="faq4A">Tu. AutoMossos genera el document oficial llest per pujar. Només has d'entrar a la web dels Mossos i adjuntar-lo. Tot el procés triga menys de 2 minuts.</p>
+        </div></div>
+      </div>
+
+      <div class="step">
+        <button class="step-trigger" onclick="toggleStep(this)" aria-expanded="false">
+          <div class="step-num" style="font-size:1.1rem">?</div>
+          <h3 data-i18n="faq5Q">Necessito contractar res addicional?</h3>
+          <svg class="step-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="step-body"><div class="step-body-inner">
+          <p data-i18n="faq5A">No. Tot està inclòs al pla. Sense costos ocults, sense integracions de pagament extra.</p>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="preus">
+  <div class="pricing-header">
+    <div class="pricing-label" data-i18n="pricingLabel">Preus</div>
+    <h2 data-i18n="pricingTitle">Comença gratis, sense compromisos</h2>
+    <p data-i18n="pricingSub">Primers 100 establiments: 1 mes de prova completament gratis. Sense targeta.</p>
+  </div>
+  <div class="plan-tabs">
+    <button class="plan-tab active" onclick="showPlan('beta', this)">
+      <span class="pt-price">0€</span><span data-i18n="tabBeta">Beta</span>
+    </button>
+    <button class="plan-tab" onclick="showPlan('basic', this)">
+      <span class="pt-price">9€</span><span data-i18n="tabBasic">Bàsic</span>
+    </button>
+    <button class="plan-tab" onclick="showPlan('pro', this)">
+      <span class="pt-price">19€</span><span data-i18n="tabPro">Pro</span>
+    </button>
+  </div>
+
+  <!-- Beta -->
+  <div class="plan-card active" id="plan-beta">
+    <div class="plan-inner">
+      <span class="plan-badge badge-limited" data-i18n="badgeLimited">⚡ Oferta beta · 100 places</span>
+      <div class="plan-name" data-i18n="tabBeta">Beta</div>
+      <div class="plan-amount">0€<span data-i18n="betaPeriod"> / primer mes</span></div>
+      <div class="plan-desc" data-i18n="betaDesc">Per als primers 100 establiments. Sense compromís.</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-feats">
+        <li><span class="pf-chk">✓</span> <span data-i18n="f1prop">1 propietat inclosa</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fUnlimited">Reserves il·limitades</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fForm">Formulari mòbil per als hostes</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fDoc">Document oficial generat automàticament</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fPage">Pàgina d'informació de la propietat</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fEmail">Atenció per email</span></li>
+      </ul>
+      <a href="#beta" class="btn-plan btn-plan-outline" data-i18n="btnBeta">Aconsegueix la plaça beta</a>
+    </div>
+  </div>
+
+  <!-- Bàsic -->
+  <div class="plan-card featured" id="plan-basic">
+    <div class="plan-inner">
+      <span class="plan-badge badge-popular" data-i18n="badgePopular">⭐ Més popular</span>
+      <div class="plan-name" data-i18n="tabBasic">Bàsic</div>
+      <div class="plan-amount">9€<span data-i18n="basicPeriod"> / mes</span></div>
+      <div class="plan-desc" data-i18n="basicDesc">Per a propietaris d'1 establiment. Sense sorpreses.</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-feats">
+        <li><span class="pf-chk">✓</span> <span data-i18n="f1prop">1 propietat inclosa</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fUnlimited">Reserves il·limitades</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fForm">Formulari mòbil per als hostes</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fDoc">Document oficial generat automàticament</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fPage">Pàgina d'informació de la propietat</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fNotif">Avís quan la reserva es completa</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fPriority">Atenció prioritària</span></li>
+      </ul>
+      <a href="#beta" class="btn-plan btn-plan-primary" data-i18n="btnStart">Comença gratis 1 mes</a>
+    </div>
+  </div>
+
+  <!-- Pro -->
+  <div class="plan-card" id="plan-pro">
+    <div class="plan-inner">
+      <span class="plan-badge badge-pro" data-i18n="badgePro">🚀 Per a gestors</span>
+      <div class="plan-name" data-i18n="tabPro">Pro</div>
+      <div class="plan-amount">19€<span data-i18n="basicPeriod"> / mes</span></div>
+      <div class="plan-desc" data-i18n="proDesc">Per a qui gestiona diverses propietats.</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-feats">
+        <li><span class="pf-chk">✓</span> <span data-i18n="f5prop">Fins a 5 propietats</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fUnlimited">Reserves il·limitades</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fForm">Formulari mòbil per als hostes</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fDoc">Document oficial generat automàticament</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fPageEach">Pàgina d'informació per cada propietat</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fWhatsapp">Avís per email i WhatsApp</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fPanel">Panell per veure totes les reserves juntes</span></li>
+        <li><span class="pf-chk">✓</span> <span data-i18n="fPriority">Atenció prioritària</span></li>
+      </ul>
+      <a href="#beta" class="btn-plan btn-plan-outline" data-i18n="btnStart">Comença gratis 1 mes</a>
     </div>
   </div>
 </section>
@@ -1091,41 +675,383 @@
 <!-- CTA FINAL -->
 <section class="cta-section" id="beta">
   <div class="container">
-    <h2>Uneix-te a la beta ara</h2>
-    <p>Queden places limitades. Deixa el teu email i et truquem en 24 hores per configurar-ho tot plegats.</p>
-
+    <h2 data-i18n-html="ctaTitle">Uneix-te a la <em>beta</em> ara</h2>
+    <p class="cta-sub" data-i18n="ctaSub">Queden places limitades. Deixa el teu email i et truquem en 24 hores per configurar-ho tot plegats.</p>
     <form class="email-form" id="betaForm" onsubmit="handleSubmit(event)">
-      <input type="email" class="email-input" id="emailInput" placeholder="el-teu@email.com" required>
-      <button type="submit" class="btn-submit">Apunta'm →</button>
+      <input type="email" class="email-input" id="emailInput" name="email" data-i18n-ph="ctaPlaceholder" placeholder="el-teu@email.com" required>
+      <button type="submit" class="btn-submit" id="submitBtn" data-i18n="ctaBtn">Apunta'm →</button>
     </form>
-    <div class="success-msg" id="successMsg">
-      Perfecte! Et truquem en menys de 24 hores.
-    </div>
-    <p class="form-note">Sense spam. Sense targeta de crèdit. Et truquem nosaltres.</p>
+    <div class="success-msg" id="successMsg" data-i18n="successMsg">Perfecte! Et truquem en menys de 24 hores.</div>
+    <div class="error-msg"   id="errorMsg"   data-i18n="errorMsg">Alguna cosa ha fallat. Torna-ho a intentar.</div>
+    <p class="form-note" data-i18n="ctaNote">Sense spam. Sense targeta de crèdit. Et truquem nosaltres.</p>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <strong>AutoMossos</strong> — Eina de registre de viatgers per a allotjaments turístics de Catalunya<br>
-  Compleix la normativa legal vigent (RD 933/2021) · Fet a Catalunya
+  <span data-i18n-html="footerText"><strong>AutoMossos</strong> — Eina de registre de viatgers per a allotjaments turístics de Catalunya<br>Compleix la normativa legal vigent (RD 933/2021) · Fet a Catalunya</span>
+  <div class="footer-links">
+    <a href="/privacitat" data-i18n="footerPrivacy">Política de privacitat</a> ·
+    <a href="/avis-legal" data-i18n="footerLegal">Avís legal</a>
+  </div>
   <div class="footer-powered">Powered by <a href="#">SPRAUT</a></div>
 </footer>
 
+<!-- BANNER PRIVACITAT -->
+<div id="privacyBanner" style="display:none; position:fixed; bottom:0; left:0; right:0; z-index:998; background:rgba(10,10,10,0.97); border-top:1px solid rgba(196,163,115,.2); padding:16px 24px; backdrop-filter:blur(12px);">
+  <div style="max-width:900px; margin:0 auto; display:flex; align-items:center; gap:16px; flex-wrap:wrap; justify-content:space-between;">
+    <p style="font-size:.82rem; color:rgba(255,255,255,.5); line-height:1.6; flex:1; min-width:260px; margin:0;">
+      Utilitzem cookies tècniques per al funcionament del lloc. En continuar navegant acceptes la nostra
+      <a href="privacitat.html" style="color:var(--gold); text-decoration:none; font-weight:600;">política de privacitat</a>
+      i l'<a href="avis-legal.html" style="color:var(--gold); text-decoration:none; font-weight:600;">avís legal</a>.
+    </p>
+    <button onclick="acceptPrivacy()" style="background:var(--gold); color:#000; border:none; border-radius:50px; padding:10px 24px; font-size:.84rem; font-weight:700; cursor:pointer; white-space:nowrap; font-family:inherit; flex-shrink:0; transition:background .2s;" onmouseover="this.style.background='#F3D2A2'" onmouseout="this.style.background='var(--gold)'">D'acord</button>
+  </div>
+</div>
+
+
 <script>
-  function handleSubmit(e) {
-    e.preventDefault();
-    document.getElementById('betaForm').style.display = 'none';
-    document.getElementById('successMsg').style.display = 'block';
+  // ── TRADUCCIONS ─────────────────────────────────────────────────────────────
+  const translations = {
+    ca: {
+      navHow: 'Com funciona', navPrices: 'Preus', navCta: '1 mes gratis',
+      snavHome: 'Inici', snavHow: 'Com funciona', snavPrices: 'Preus', snavJoin: 'Uneix-te',
+      heroBadge: 'Obligatori per llei · Catalunya',
+      heroH1: 'Els teus hostes es registren sols,<br><em>des del seu mòbil</em>',
+      heroSub: 'En fer la reserva, l\'hoste rep un missatge automàtic. Omple les seves dades. <strong>Tu no truques a ningú. Tu no fas res.</strong>',
+      phoneTitle: 'Missatge rebut per l\'hoste',
+      phoneBubble: 'Benvingut/da a <strong>Casavella del Cuní</strong> 🏡<br>Omple el registre obligatori. Triga menys de 2 minuts.<div class="phone-time">Avui · 14:32</div>',
+      phoneTime: 'Avui · 14:32', phoneLink: 'Omplir el registre ara →',
+      heroCta1: 'Aconsegueix 1 mes gratis', heroCta2: 'Com funciona ↓',
+      trust1: 'Sense app per l\'hoste', trust2: '100% des del mòbil', trust3: 'Compleix la llei', trust4: 'Document oficial automàtic',
+      baTitle: 'Avui vs. amb AutoMossos', baSub: 'La diferència és abismal',
+      baBeforeLabel: '✗ Sense AutoMossos', baAfterLabel: '✓ Amb AutoMossos',
+      baBefore1: 'Escrius tu a cada hoste per demanar-li el DNI',
+      baBefore2: 'Esperes que et respongui (de vegades no ho fa)',
+      baBefore3: 'Transcrius les dades a mà, un per un',
+      baBefore4: 'Si t\'equivoques, pots rebre una multa',
+      baAfter1: 'L\'hoste rep el link automàticament al fer la reserva',
+      baAfter2: 'Omple les seves dades en 2 minuts des del mòbil',
+      baAfter3: 'Tu reps un avís quan tot està llest',
+      baAfter4: 'Cliques un botó. Document enviat als Mossos.',
+      howLabel: 'Com funciona', howTitle: '3 passos. Cap trucada. Cap paper.',
+      howSub: 'Configures la teva propietat una sola vegada. Després, tot passa sol.',
+      step1Title: 'L\'hoste reserva i rep un missatge automàtic',
+      step1Desc: 'En confirmar la reserva a Booking, Airbnb o qualsevol plataforma, el teu sistema envia automàticament un missatge de benvinguda amb un link. Sense que tu facis absolutament res.',
+      step2Title: 'L\'hoste omple les seves dades des del mòbil',
+      step2Desc: 'Obre el link, escriu el seu nom, document d\'identitat i les dades que la llei demana. Pot passar el link als companys per WhatsApp. No cal baixar cap aplicació.',
+      step3Title: 'Tu reps l\'avís i envies als Mossos amb un clic',
+      step3Desc: 'Quan tots han omplert les dades, reps un avís al mòbil. Entres a AutoMossos, cliques "Enviar als Mossos" i el programa crea el document oficial. Tot en menys de 2 minuts.',
+      whyLabel: 'Per què AutoMossos', whyTitle: 'Oblida\'t dels papers i les trucades',
+      whySub: 'Pensat per a propietaris de cases rurals, pisos turístics i petits allotjaments de Catalunya.',
+      feat1Title: 'Zero feina per al propietari',
+      feat1Desc: 'El missatge amb el link s\'envia sol. Tu no has d\'escriure res a cap hoste. La reserva es gestiona sola des del primer moment.',
+      feat2Title: 'L\'hoste ho fa ell sol, des del mòbil',
+      feat2Desc: 'Sense baixar cap aplicació. L\'hoste obre el link com si fos una pàgina web normal i omple les dades en 2 minuts. Funciona amb qualsevol telèfon.',
+      feat3Title: 'Compliment legal sense errors',
+      feat3Desc: 'AutoMossos crea automàticament el document oficial que la policia necessita. Tu el puges a la seva pàgina web. Sense errors, sense multes de fins a 30.000 €.',
+      propLabel: 'I a més', propTitle: 'La teva propietat, dins el link',
+      propSub: 'El link que rep l\'hoste no és un formulari pelat. És la porta d\'entrada a la teva casa.',
+      propCalloutTitle: 'L\'hoste troba tot el que necessita sense trucar-te',
+      propCalloutDesc: 'Afegeix la informació de la teva casa: on és la caixa de les claus, el codi per obrir la porta, la contrasenya del WiFi, les normes... L\'hoste ho veu tot just obrir el link, abans d\'arribar.',
+      pill1: '📦 On són les claus', pill2: '🔑 Codis d\'accés', pill3: '📶 WiFi', pill4: '📋 Normes de la casa', pill5: '🎥 Vídeo d\'instruccions', pill6: '+ el que vulguis',
+      pricingLabel: 'Preus', pricingTitle: 'Comença gratis, sense compromisos',
+      pricingSub: 'Primers 100 establiments: 1 mes de prova completament gratis. Sense targeta.',
+      tabBeta: 'Beta', tabBasic: 'Bàsic', tabPro: 'Pro',
+      badgeLimited: '⚡ Oferta beta · 100 places', badgePopular: '⭐ Més popular', badgePro: '🚀 Per a gestors',
+      betaPeriod: ' / primer mes', betaDesc: 'Per als primers 100 establiments. Sense compromís.',
+      basicPeriod: ' / mes', basicDesc: 'Per a propietaris d\'1 establiment. Sense sorpreses.',
+      proDesc: 'Per a qui gestiona diverses propietats.',
+      f1prop: '1 propietat inclosa', fUnlimited: 'Reserves il·limitades', fForm: 'Formulari mòbil per als hostes',
+      fDoc: 'Document oficial generat automàticament', fPage: 'Pàgina d\'informació de la propietat',
+      fEmail: 'Atenció per email', fNotif: 'Avís quan la reserva es completa', fPriority: 'Atenció prioritària',
+      f5prop: 'Fins a 5 propietats', fPageEach: 'Pàgina d\'informació per cada propietat',
+      fWhatsapp: 'Avís per email i WhatsApp', fPanel: 'Panell per veure totes les reserves juntes',
+      btnBeta: 'Aconsegueix la plaça beta', btnStart: 'Comença gratis 1 mes',
+      ctaTitle: 'Uneix-te a la <em>beta</em> ara',
+      ctaSub: 'Queden places limitades. Deixa el teu email i et truquem en 24 hores per configurar-ho tot plegats.',
+      ctaPlaceholder: 'el-teu@email.com', ctaBtn: 'Apunta\'m →',
+      ctaNote: 'Sense spam. Sense targeta de crèdit. Et truquem nosaltres.',
+      successMsg: 'Perfecte! Et truquem en menys de 24 hores.',
+      errorMsg: 'Alguna cosa ha fallat. Torna-ho a intentar.',
+      footerText: '<strong>AutoMossos</strong> — Eina de registre de viatgers per a allotjaments turístics de Catalunya<br>Compleix la normativa legal vigent (RD 933/2021) · Fet a Catalunya',
+      footerPrivacy: 'Política de privacitat', footerLegal: 'Avís legal',
+      platformsLabel: 'Compatible amb:', platformsOther: 'i qualsevol altra plataforma',
+      testiLabel: 'Propietaris que ja ho fan', testiTitle: 'Ells no fan res. I funciona.', testiCounter: 'Més de 40 propietaris ja ho fan automàtic',
+      testi1Quote: '"Abans trigava 20 minuts per reserva. Ara no faig res. Els hostes s\'ho gestionen sols."',
+      testi1Author: 'Marta G. — Casa Rural La Fageda',
+      testi2Quote: '"El primer mes vaig tenir 12 reserves. No vaig trucar a ningú. El document va arribar sol."',
+      testi2Author: 'Josep M. — Apartaments Costa Daurada',
+      testi3Quote: '"Tenia por que fos complicat. En 10 minuts estava configurat. No té cap misteri."',
+      testi3Author: 'Núria P. — Finca El Solei',
+      faqLabel: 'Dubtes', faqTitle: 'Preguntes freqüents',
+      faq1Q: 'I si l\'hoste no omple el formulari?', faq1A: 'El sistema li envia un recordatori automàtic. Si tot i així no ho fa, t\'avisem a tu perquè puguis actuar.',
+      faq2Q: 'Funciona amb Booking.com i Airbnb?', faq2A: 'Sí. AutoMossos s\'integra amb les principals plataformes de reserves. La connexió es configura en menys de 5 minuts.',
+      faq3Q: 'Les dades dels hostes estan segures?', faq3A: 'Sí. Totes les dades es guarden xifrades i complim el RGPD. No compartim informació amb tercers.',
+      faq4Q: 'Qui puja el document als Mossos, jo o el programa?', faq4A: 'Tu. AutoMossos genera el document oficial llest per pujar. Només has d\'entrar a la web dels Mossos i adjuntar-lo. Tot el procés triga menys de 2 minuts.',
+      faq5Q: 'Necessito contractar res addicional?', faq5A: 'No. Tot està inclòs al pla. Sense costos ocults, sense integracions de pagament extra.',
+      waTooltip: 'Parla amb nosaltres',
+    },
+    es: {
+      navHow: 'Cómo funciona', navPrices: 'Precios', navCta: '1 mes gratis',
+      snavHome: 'Inicio', snavHow: 'Cómo funciona', snavPrices: 'Precios', snavJoin: 'Únete',
+      heroBadge: 'Obligatorio por ley · Cataluña',
+      heroH1: 'Tus huéspedes se registran solos,<br><em>desde su móvil</em>',
+      heroSub: 'Al hacer la reserva, el huésped recibe un mensaje automático. Rellena sus datos. <strong>Tú no llamas a nadie. Tú no haces nada.</strong>',
+      phoneTitle: 'Mensaje recibido por el huésped',
+      phoneBubble: '¡Bienvenido/a a <strong>Casavella del Cuní</strong> 🏡<br>Rellena el registro obligatorio. Tarda menos de 2 minutos.<div class="phone-time">Hoy · 14:32</div>',
+      phoneTime: 'Hoy · 14:32', phoneLink: 'Rellenar el registro ahora →',
+      heroCta1: 'Consigue 1 mes gratis', heroCta2: 'Cómo funciona ↓',
+      trust1: 'Sin app para el huésped', trust2: '100% desde el móvil', trust3: 'Cumple la ley', trust4: 'Documento oficial automático',
+      baTitle: 'Hoy vs. con AutoMossos', baSub: 'La diferencia es abismal',
+      baBeforeLabel: '✗ Sin AutoMossos', baAfterLabel: '✓ Con AutoMossos',
+      baBefore1: 'Escribes tú a cada huésped para pedirle el DNI',
+      baBefore2: 'Esperas que responda (a veces no lo hace)',
+      baBefore3: 'Transcribes los datos a mano, uno a uno',
+      baBefore4: 'Si te equivocas, puedes recibir una multa',
+      baAfter1: 'El huésped recibe el link automáticamente al reservar',
+      baAfter2: 'Rellena sus datos en 2 minutos desde el móvil',
+      baAfter3: 'Recibes un aviso cuando todo está listo',
+      baAfter4: 'Haces clic en un botón. Documento enviado a los Mossos.',
+      howLabel: 'Cómo funciona', howTitle: '3 pasos. Sin llamadas. Sin papel.',
+      howSub: 'Configuras tu propiedad una sola vez. Después, todo ocurre solo.',
+      step1Title: 'El huésped reserva y recibe un mensaje automático',
+      step1Desc: 'Al confirmar la reserva en Booking, Airbnb o cualquier plataforma, tu sistema envía automáticamente un mensaje de bienvenida con un link. Sin que tú hagas absolutamente nada.',
+      step2Title: 'El huésped rellena sus datos desde el móvil',
+      step2Desc: 'Abre el link, escribe su nombre, documento de identidad y los datos que exige la ley. Puede pasar el link a sus compañeros por WhatsApp. No hace falta descargar ninguna aplicación.',
+      step3Title: 'Recibes el aviso y envías a los Mossos con un clic',
+      step3Desc: 'Cuando todos han rellenado los datos, recibes un aviso en el móvil. Entras a AutoMossos, haces clic en "Enviar a los Mossos" y el programa crea el documento oficial. Todo en menos de 2 minutos.',
+      whyLabel: 'Por qué AutoMossos', whyTitle: 'Olvídate del papeleo y las llamadas',
+      whySub: 'Pensado para propietarios de casas rurales, pisos turísticos y pequeños alojamientos de Cataluña.',
+      feat1Title: 'Cero trabajo para el propietario',
+      feat1Desc: 'El mensaje con el link se envía solo. No tienes que escribir nada a ningún huésped. La reserva se gestiona sola desde el primer momento.',
+      feat2Title: 'El huésped lo hace solo, desde el móvil',
+      feat2Desc: 'Sin descargar ninguna aplicación. El huésped abre el link como si fuera una página web normal y rellena los datos en 2 minutos. Funciona con cualquier teléfono.',
+      feat3Title: 'Cumplimiento legal sin errores',
+      feat3Desc: 'AutoMossos crea automáticamente el documento oficial que necesita la policía. Tú lo subes a su página web. Sin errores, sin multas de hasta 30.000 €.',
+      propLabel: 'Y además', propTitle: 'Tu propiedad, dentro del link',
+      propSub: 'El link que recibe el huésped no es un formulario pelado. Es la puerta de entrada a tu casa.',
+      propCalloutTitle: 'El huésped encuentra todo lo que necesita sin llamarte',
+      propCalloutDesc: 'Añade la información de tu casa: dónde está la caja de llaves, el código para abrir la puerta, la contraseña del WiFi, las normas... El huésped lo ve todo al abrir el link, antes de llegar.',
+      pill1: '📦 Dónde están las llaves', pill2: '🔑 Códigos de acceso', pill3: '📶 WiFi', pill4: '📋 Normas de la casa', pill5: '🎥 Vídeo de instrucciones', pill6: '+ lo que quieras',
+      pricingLabel: 'Precios', pricingTitle: 'Empieza gratis, sin compromisos',
+      pricingSub: 'Primeros 100 establecimientos: 1 mes de prueba completamente gratis. Sin tarjeta.',
+      tabBeta: 'Beta', tabBasic: 'Básico', tabPro: 'Pro',
+      badgeLimited: '⚡ Oferta beta · 100 plazas', badgePopular: '⭐ Más popular', badgePro: '🚀 Para gestores',
+      betaPeriod: ' / primer mes', betaDesc: 'Para los primeros 100 establecimientos. Sin compromiso.',
+      basicPeriod: ' / mes', basicDesc: 'Para propietarios de 1 establecimiento. Sin sorpresas.',
+      proDesc: 'Para quien gestiona varias propiedades.',
+      f1prop: '1 propiedad incluida', fUnlimited: 'Reservas ilimitadas', fForm: 'Formulario móvil para los huéspedes',
+      fDoc: 'Documento oficial generado automáticamente', fPage: 'Página de información de la propiedad',
+      fEmail: 'Atención por email', fNotif: 'Aviso cuando la reserva se completa', fPriority: 'Atención prioritaria',
+      f5prop: 'Hasta 5 propiedades', fPageEach: 'Página de información por cada propiedad',
+      fWhatsapp: 'Aviso por email y WhatsApp', fPanel: 'Panel para ver todas las reservas juntas',
+      btnBeta: 'Consigue la plaza beta', btnStart: 'Empieza gratis 1 mes',
+      ctaTitle: 'Únete a la <em>beta</em> ahora',
+      ctaSub: 'Quedan plazas limitadas. Deja tu email y te llamamos en 24 horas para configurarlo todo juntos.',
+      ctaPlaceholder: 'tu@email.com', ctaBtn: 'Apúntame →',
+      ctaNote: 'Sin spam. Sin tarjeta de crédito. Te llamamos nosotros.',
+      successMsg: '¡Perfecto! Te llamamos en menos de 24 horas.',
+      errorMsg: 'Algo ha fallado. Vuelve a intentarlo.',
+      footerText: '<strong>AutoMossos</strong> — Herramienta de registro de viajeros para alojamientos turísticos de Cataluña<br>Cumple la normativa legal vigente (RD 933/2021) · Hecho en Cataluña',
+      footerPrivacy: 'Política de privacidad', footerLegal: 'Aviso legal',
+      platformsLabel: 'Compatible con:', platformsOther: 'y cualquier otra plataforma',
+      testiLabel: 'Propietarios que ya lo usan', testiTitle: 'Ellos no hacen nada. Y funciona.', testiCounter: 'Más de 40 propietarios ya lo hacen automático',
+      testi1Quote: '"Antes tardaba 20 minutos por reserva. Ahora no hago nada. Los huéspedes se lo gestionan solos."',
+      testi1Author: 'Marta G. — Casa Rural La Fageda',
+      testi2Quote: '"El primer mes tuve 12 reservas. No llamé a nadie. El documento llegó solo."',
+      testi2Author: 'Josep M. — Apartamentos Costa Daurada',
+      testi3Quote: '"Tenía miedo de que fuera complicado. En 10 minutos estaba configurado. No tiene ningún misterio."',
+      testi3Author: 'Núria P. — Finca El Solei',
+      faqLabel: 'Dudas', faqTitle: 'Preguntas frecuentes',
+      faq1Q: '¿Y si el huésped no rellena el formulario?', faq1A: 'El sistema le envía un recordatorio automático. Si aun así no lo hace, te avisamos a ti para que puedas actuar.',
+      faq2Q: '¿Funciona con Booking.com y Airbnb?', faq2A: 'Sí. AutoMossos se integra con las principales plataformas de reservas. La conexión se configura en menos de 5 minutos.',
+      faq3Q: '¿Los datos de los huéspedes están seguros?', faq3A: 'Sí. Todos los datos se guardan cifrados y cumplimos el RGPD. No compartimos información con terceros.',
+      faq4Q: '¿Quién sube el documento a los Mossos, yo o el programa?', faq4A: 'Tú. AutoMossos genera el documento oficial listo para subir. Solo tienes que entrar en la web de los Mossos y adjuntarlo. Todo el proceso dura menos de 2 minutos.',
+      faq5Q: '¿Necesito contratar algo adicional?', faq5A: 'No. Todo está incluido en el plan. Sin costes ocultos, sin integraciones de pago adicionales.',
+      waTooltip: 'Habla con nosotros',
+    },
+    en: {
+      navHow: 'How it works', navPrices: 'Pricing', navCta: '1 month free',
+      snavHome: 'Home', snavHow: 'How it works', snavPrices: 'Pricing', snavJoin: 'Join',
+      heroBadge: 'Required by law · Catalonia',
+      heroH1: 'Your guests register themselves,<br><em>from their own phone</em>',
+      heroSub: 'When they book, guests receive an automatic message. They fill in their details. <strong>You don\'t call anyone. You don\'t do a thing.</strong>',
+      phoneTitle: 'Message received by guest',
+      phoneBubble: 'Welcome to <strong>Casavella del Cuní</strong> 🏡<br>Please complete the mandatory registration. It takes less than 2 minutes.<div class="phone-time">Today · 14:32</div>',
+      phoneTime: 'Today · 14:32', phoneLink: 'Complete registration now →',
+      heroCta1: 'Get 1 month free', heroCta2: 'How it works ↓',
+      trust1: 'No app needed for guests', trust2: '100% from their phone', trust3: 'Legally compliant', trust4: 'Official document, automatic',
+      baTitle: 'Today vs. with AutoMossos', baSub: 'The difference is huge',
+      baBeforeLabel: '✗ Without AutoMossos', baAfterLabel: '✓ With AutoMossos',
+      baBefore1: 'You message every guest to ask for their ID',
+      baBefore2: 'You wait for them to reply (sometimes they don\'t)',
+      baBefore3: 'You transcribe their data manually, one by one',
+      baBefore4: 'If you make a mistake, you can be fined',
+      baAfter1: 'Guest gets the link automatically when they book',
+      baAfter2: 'They fill in their data in 2 minutes from their phone',
+      baAfter3: 'You get a notification when everything is done',
+      baAfter4: 'You click one button. Document sent to the police.',
+      howLabel: 'How it works', howTitle: '3 steps. No calls. No paperwork.',
+      howSub: 'Set up your property once. After that, everything happens automatically.',
+      step1Title: 'Guest books and receives an automatic message',
+      step1Desc: 'When a booking is confirmed on Booking, Airbnb or any other platform, your system automatically sends a welcome message with a link. Without you doing anything at all.',
+      step2Title: 'Guest fills in their details from their phone',
+      step2Desc: 'They open the link, enter their name, ID document and all legally required data. They can share the link with travel companions via WhatsApp. No app download needed.',
+      step3Title: 'You get notified and submit to the police in one click',
+      step3Desc: 'Once all guests have filled in their details, you receive a notification. You open AutoMossos, click "Submit to police" and the system generates the official document. All done in under 2 minutes.',
+      whyLabel: 'Why AutoMossos', whyTitle: 'Forget the paperwork and the phone calls',
+      whySub: 'Built for owners of rural houses, tourist apartments and small accommodations in Catalonia.',
+      feat1Title: 'Zero effort for the owner',
+      feat1Desc: 'The message with the link is sent automatically. You don\'t have to write to any guest. The booking manages itself from the very first moment.',
+      feat2Title: 'Guests do it themselves, from their phone',
+      feat2Desc: 'No app needed. Guests open the link like any normal webpage and fill in their data in 2 minutes. Works with any smartphone.',
+      feat3Title: 'Legal compliance, error-free',
+      feat3Desc: 'AutoMossos automatically generates the official document required by the police. You upload it to their website. No errors, no fines of up to €30,000.',
+      propLabel: 'And more', propTitle: 'Your property, inside the link',
+      propSub: 'The link your guests receive is not just a form. It\'s the front door to your property.',
+      propCalloutTitle: 'Guests find everything they need without calling you',
+      propCalloutDesc: 'Add your property information: where the key box is, the door code, WiFi password, house rules... Guests see it all when they open the link, before they even arrive.',
+      pill1: '📦 Key location', pill2: '🔑 Access codes', pill3: '📶 WiFi', pill4: '📋 House rules', pill5: '🎥 Video instructions', pill6: '+ whatever you want',
+      pricingLabel: 'Pricing', pricingTitle: 'Start free, no commitment',
+      pricingSub: 'First 100 properties: 1 full month free trial. No credit card required.',
+      tabBeta: 'Beta', tabBasic: 'Basic', tabPro: 'Pro',
+      badgeLimited: '⚡ Beta offer · 100 spots', badgePopular: '⭐ Most popular', badgePro: '🚀 For managers',
+      betaPeriod: ' / first month', betaDesc: 'For the first 100 properties. No commitment.',
+      basicPeriod: ' / month', basicDesc: 'For owners of 1 property. No surprises.',
+      proDesc: 'For those managing multiple properties.',
+      f1prop: '1 property included', fUnlimited: 'Unlimited bookings', fForm: 'Mobile form for guests',
+      fDoc: 'Official document generated automatically', fPage: 'Property information page',
+      fEmail: 'Email support', fNotif: 'Notification when booking is complete', fPriority: 'Priority support',
+      f5prop: 'Up to 5 properties', fPageEach: 'Information page per property',
+      fWhatsapp: 'Notifications via email and WhatsApp', fPanel: 'Dashboard to view all bookings together',
+      btnBeta: 'Claim your beta spot', btnStart: 'Start free for 1 month',
+      ctaTitle: 'Join the <em>beta</em> now',
+      ctaSub: 'Limited spots available. Leave your email and we\'ll call you within 24 hours to set everything up.',
+      ctaPlaceholder: 'your@email.com', ctaBtn: 'Sign me up →',
+      ctaNote: 'No spam. No credit card. We call you.',
+      successMsg: 'Perfect! We\'ll call you within 24 hours.',
+      errorMsg: 'Something went wrong. Please try again.',
+      footerText: '<strong>AutoMossos</strong> — Guest registration tool for tourist accommodations in Catalonia<br>Complies with current legal regulations (RD 933/2021) · Made in Catalonia',
+      footerPrivacy: 'Privacy policy', footerLegal: 'Legal notice',
+      platformsLabel: 'Compatible with:', platformsOther: 'and any other platform',
+      testiLabel: 'Owners already using it', testiTitle: 'They do nothing. It works.', testiCounter: 'Over 40 property owners already run it on autopilot',
+      testi1Quote: '"I used to spend 20 minutes per booking. Now I do nothing. Guests handle it themselves."',
+      testi1Author: 'Marta G. — Casa Rural La Fageda',
+      testi2Quote: '"In my first month I had 12 bookings. I didn\'t call anyone. The document just appeared."',
+      testi2Author: 'Josep M. — Apartaments Costa Daurada',
+      testi3Quote: '"I was worried it would be complicated. It was set up in 10 minutes. No mystery at all."',
+      testi3Author: 'Núria P. — Finca El Solei',
+      faqLabel: 'FAQ', faqTitle: 'Frequently asked questions',
+      faq1Q: 'What if the guest doesn\'t fill in the form?', faq1A: 'The system sends them an automatic reminder. If they still don\'t, we notify you so you can take action.',
+      faq2Q: 'Does it work with Booking.com and Airbnb?', faq2A: 'Yes. AutoMossos integrates with all major booking platforms. The connection takes less than 5 minutes to set up.',
+      faq3Q: 'Is guest data secure?', faq3A: 'Yes. All data is stored encrypted and we comply with GDPR. We never share information with third parties.',
+      faq4Q: 'Who submits the document to the police — me or the system?', faq4A: 'You do. AutoMossos generates the official document ready to upload. You just go to the police website and attach it. The whole process takes less than 2 minutes.',
+      faq5Q: 'Do I need to purchase any add-ons?', faq5A: 'No. Everything is included in the plan. No hidden costs, no extra payment integrations.',
+      waTooltip: 'Chat with us',
+    }
+  };
+
+  let currentLang = 'ca';
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+
+    // Actualitza botons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+    });
+
+    const t = translations[lang];
+
+    // Text simple
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+
+    // Text amb HTML (em, strong, br)
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+
+    // Placeholders
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      const key = el.getAttribute('data-i18n-ph');
+      if (t[key] !== undefined) el.placeholder = t[key];
+    });
   }
 
-  const header = document.querySelector('header');
+  // ── STEPS ACCORDION ─────────────────────────────────────────────────────────
+  function toggleStep(btn) {
+    const step = btn.closest('.step');
+    const isOpen = step.classList.contains('open');
+    step.classList.toggle('open', !isOpen);
+    btn.setAttribute('aria-expanded', !isOpen);
+  }
+
+  // ── PRICING TABS ─────────────────────────────────────────────────────────────
+  function showPlan(name, btn) {
+    document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.plan-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('plan-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ── FORMULARI FORMSPREE ──────────────────────────────────────────────────────
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = '...';
+    btn.disabled = true;
+    const email = document.getElementById('emailInput').value;
+    try {
+      const res = await fetch('https://formspree.io/f/xvzdpyow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      if (res.ok) {
+        document.getElementById('betaForm').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+      } else { throw new Error(); }
+    } catch {
+      btn.textContent = translations[currentLang].ctaBtn;
+      btn.disabled = false;
+      document.getElementById('errorMsg').style.display = 'block';
+    }
+  }
+
+  // ── BANNER PRIVACITAT ────────────────────────────────────────────────────────
+  function acceptPrivacy() {
+    localStorage.setItem('privacyAccepted', '1');
+    document.getElementById('privacyBanner').style.display = 'none';
+  }
+  if (!localStorage.getItem('privacyAccepted')) {
+    document.getElementById('privacyBanner').style.display = 'block';
+  }
+
+  // ── SCROLL: header shadow + section nav actiu ────────────────────────────────
+  const hdr = document.querySelector('header');
+  const anchors = [
+    { id: 'hero-anchor', key: 'top' },
+    { id: 'contingut',   key: 'contingut' },
+    { id: 'preus',       key: 'preus' },
+    { id: 'beta',        key: 'beta' },
+  ];
   window.addEventListener('scroll', () => {
-    header.style.boxShadow = window.scrollY > 10
-      ? '0 4px 24px rgba(0,0,0,0.07)'
-      : 'none';
+    hdr.style.boxShadow = scrollY > 10 ? '0 4px 30px rgba(0,0,0,.5)' : 'none';
+    let current = 'top';
+    anchors.forEach(a => {
+      const el = document.getElementById(a.id);
+      if (el && scrollY >= el.offsetTop - 130) current = a.key;
+    });
+    document.querySelectorAll('.sn-item').forEach(item => {
+      item.classList.toggle('active', item.dataset.s === current);
+    });
   }, { passive: true });
 </script>
-
 </body>
 </html>
