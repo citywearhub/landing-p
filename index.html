@@ -222,40 +222,39 @@
     .pricing-label { font-size: .69rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 9px; }
     .pricing-header h2 { font-size: clamp(1.4rem, 3vw, 1.7rem); font-weight: 800; letter-spacing: -.6px; margin-bottom: 6px; }
     .pricing-header p { font-size: .86rem; color: var(--text-muted); }
-    .plan-tabs { display: flex; max-width: 420px; margin: 0 auto 28px; background: var(--gray-50); border-radius: 14px; padding: 4px; border: 1px solid var(--gray-100); gap: 4px; }
-    .plan-tab { flex: 1; padding: 10px 6px; border-radius: 10px; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: .78rem; font-weight: 600; color: var(--text-muted); transition: all .2s; text-align: center; }
-    .plan-tab .pt-price { display: block; font-size: 1.1rem; font-weight: 900; color: var(--text); letter-spacing: -.5px; line-height: 1.2; }
-    .plan-tab.active { background: white; color: var(--text); box-shadow: 0 2px 12px rgba(0,0,0,.09); }
-    .plan-tab.active .pt-price { color: var(--black); }
-    .plan-card { display: none; max-width: 410px; margin: 0 auto; }
-    .plan-card.active { display: block; }
+    .plans-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; max-width: 1040px; margin: 0 auto; align-items: start; }
+    @media (max-width: 860px) { .plans-grid { grid-template-columns: 1fr; max-width: 440px; } }
+    .plan-card { }
     .plan-inner { border-radius: var(--r-lg); border: 1.5px solid var(--gray-100); padding: 28px 24px; background: white; }
-    .plan-card.featured .plan-inner { background: var(--black); border-color: rgba(196,163,115,.3); color: white; }
+    .plan-card.featured .plan-inner { border-color: var(--gold); border-width: 2px; box-shadow: 0 8px 32px rgba(196,163,115,.15); }
     .plan-badge { display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: .69rem; font-weight: 700; margin-bottom: 18px; letter-spacing: .3px; }
-    .badge-limited { background: #FEF3C7; color: #92400E; }
-    .badge-popular { background: rgba(196,163,115,.1); color: var(--gold-dark); border: 1px solid rgba(196,163,115,.25); }
-    .plan-card.featured .badge-popular { background: rgba(196,163,115,.15); color: var(--gold); border-color: rgba(196,163,115,.3); }
-    .badge-pro { background: #EDE9FE; color: #5B21B6; }
-    .plan-name { font-size: .93rem; font-weight: 700; margin-bottom: 4px; }
-    .plan-card.featured .plan-name { color: rgba(255,255,255,.45); }
-    .plan-amount { font-size: 3rem; font-weight: 900; line-height: 1; letter-spacing: -2px; margin-bottom: 4px; }
+    .badge-free { background: #DCFCE7; color: #166534; }
+    .badge-popular { background: rgba(196,163,115,.12); color: var(--gold-dark); border: 1px solid rgba(196,163,115,.35); }
+    .badge-pro { background: #EFF6FF; color: #1E40AF; }
+    .plan-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -.4px; }
+    .plan-tagline { font-size: .84rem; color: var(--text-muted); margin-bottom: 18px; line-height: 1.55; }
+    .plan-tagline strong { color: var(--text); font-weight: 700; }
+    .plan-amount { font-size: 2.8rem; font-weight: 900; line-height: 1; letter-spacing: -2px; margin-bottom: 4px; }
     .plan-amount span { font-size: .86rem; font-weight: 400; letter-spacing: 0; color: var(--text-muted); }
-    .plan-card.featured .plan-amount { color: white; }
-    .plan-card.featured .plan-amount span { color: rgba(255,255,255,.3); }
-    .plan-desc { font-size: .81rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; }
-    .plan-card.featured .plan-desc { color: rgba(255,255,255,.38); }
+    .plan-annual { font-size: .78rem; color: var(--text-muted); margin-bottom: 20px; }
+    .plan-annual strong { color: var(--gold-dark); font-weight: 700; }
     .plan-divider { height: 1px; background: var(--gray-100); margin-bottom: 18px; }
-    .plan-card.featured .plan-divider { background: rgba(255,255,255,.06); }
     .plan-feats { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
-    .plan-feats li { display: flex; align-items: flex-start; gap: 9px; font-size: .85rem; color: var(--text); }
-    .plan-card.featured .plan-feats li { color: rgba(255,255,255,.72); }
-    .pf-chk { color: var(--gold-dark); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
-    .plan-card.featured .pf-chk { color: var(--gold); }
+    .plan-feats li { display: flex; align-items: flex-start; gap: 9px; font-size: .84rem; color: var(--text); line-height: 1.45; }
+    .plan-feats li.feat-excluded { color: var(--text-muted); }
+    .pf-chk { color: #16A34A; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .pf-plus { color: #2563EB; font-weight: 800; flex-shrink: 0; margin-top: 1px; font-size: .95rem; }
+    .pf-minus { color: var(--gray-200); font-weight: 600; flex-shrink: 0; margin-top: 1px; }
+    .plan-inherit { background: #F0FDF4; border-radius: 8px; padding: 8px 12px; font-size: .78rem; font-weight: 600; color: #166534; margin-bottom: 14px; }
+    .plan-no-go { background: var(--gray-50); border-radius: 10px; padding: 12px 14px; margin-top: 16px; border: 1px solid var(--gray-100); }
+    .plan-no-go-label { font-size: .62rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px; }
+    .plan-no-go p { font-size: .78rem; color: var(--text-muted); line-height: 1.5; }
     .btn-plan { display: block; width: 100%; padding: 14px; border-radius: 11px; font-weight: 700; font-size: .9rem; cursor: pointer; border: none; text-align: center; text-decoration: none; font-family: inherit; transition: all .2s; }
     .btn-plan-primary { background: var(--gold); color: var(--black); box-shadow: 0 5px 20px rgba(196,163,115,.3); }
     .btn-plan-primary:hover { background: var(--gold-light); }
     .btn-plan-outline { background: transparent; border: 1.5px solid var(--gray-200); color: var(--text); }
     .btn-plan-outline:hover { border-color: rgba(196,163,115,.5); color: var(--gold-dark); }
+    .btn-plan-sub { font-size: .74rem; color: var(--text-muted); text-align: center; margin-top: 8px; line-height: 1.4; }
 
     /* ── CTA FINAL ── */
     .cta-section { background: var(--black); color: white; padding: 80px 24px; text-align: center; position: relative; overflow: hidden; }
@@ -647,77 +646,74 @@
     <h2 data-i18n="pricingTitle">Comença gratis, sense compromisos</h2>
     <p data-i18n="pricingSub">Primers 100 establiments: 1 mes de prova completament gratis. Sense targeta.</p>
   </div>
-  <div class="plan-tabs">
-    <button class="plan-tab active" onclick="showPlan('beta', this)">
-      <span class="pt-price">0€</span><span data-i18n="tabBeta">Prova · 1 mes</span>
-    </button>
-    <button class="plan-tab" onclick="showPlan('basic', this)">
-      <span class="pt-price">9€</span><span data-i18n="tabBasic">Bàsic</span>
-    </button>
-    <button class="plan-tab" onclick="showPlan('pro', this)">
-      <span class="pt-price">19€</span><span data-i18n="tabPro">Pro</span>
-    </button>
-  </div>
+  <div class="plans-grid">
 
-  <!-- Beta -->
-  <div class="plan-card active" id="plan-beta">
-    <div class="plan-inner">
-      <span class="plan-badge badge-limited" data-i18n="badgeLimited">⚡ Oferta beta · 100 places</span>
-      <div class="plan-name" data-i18n="tabBeta">Prova gratuïta</div>
-      <div class="plan-amount">0€<span data-i18n="betaPeriod"> / primer mes gratis</span></div>
-      <div class="plan-desc" data-i18n="betaDesc">Prova el producte complet durant 1 mes sense pagar res. Sense targeta. Sense compromís. Quan acabi, tries si vols continuar.</div>
-      <div style="display:inline-flex;align-items:center;gap:6px;background:#FEF3C7;color:#92400E;border-radius:50px;padding:5px 12px;font-size:.68rem;font-weight:700;margin-bottom:16px;">⏱ <span data-i18n="betaExpiry">Accés temporal · caduca al cap d'1 mes</span></div>
-      <div class="plan-divider"></div>
-      <ul class="plan-feats">
-        <li><span class="pf-chk">✓</span> <span data-i18n="f1prop">1 propietat inclosa</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fForm">Formulari mòbil per als hostes</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fDoc">Document oficial generat automàticament</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fEmail">Atenció per email</span></li>
-      </ul>
-      <a href="#beta" class="btn-plan btn-plan-outline" data-i18n="btnBeta">Aconsegueix la plaça beta</a>
+    <!-- Pla Gratis de Prova -->
+    <div class="plan-card" id="plan-gratis">
+      <div class="plan-inner">
+        <span class="plan-badge badge-free" data-i18n="badgeFree">Prova gratuïta · 1 mes</span>
+        <div class="plan-name" data-i18n="planFreeName">Pla Gratis de Prova</div>
+        <div class="plan-tagline" data-i18n-html="planFreeTagline">Per a qui vol veure com funciona <strong>sense arriscar res.</strong></div>
+        <div class="plan-amount">0€<span data-i18n="planFreePeriod"> / 1 mes</span></div>
+        <div class="plan-annual" data-i18n="planFreeNote">Sense targeta. Sense compromís.</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-feats">
+          <li><span class="pf-chk">✓</span> <span data-i18n="pf1">1 establiment, fins a 5 reserves</span></li>
+          <li><span class="pf-chk">✓</span> <span data-i18n="pf2">L'hoste omple les seves dades en 2 min des del mòbil</span></li>
+          <li><span class="pf-chk">✓</span> <span data-i18n="pf3">Fitxer TXT llest per pujar als Mossos amb un clic</span></li>
+          <li><span class="pf-chk">✓</span> <span data-i18n="pf4">Suport per email inclòs</span></li>
+          <li class="feat-excluded"><span class="pf-minus">−</span> <span data-i18n="pf5x">Historial legal 3 anys</span></li>
+          <li class="feat-excluded"><span class="pf-minus">−</span> <span data-i18n="pf6x">Pàgina d'informació per a l'hoste</span></li>
+        </ul>
+        <a href="#beta" class="btn-plan btn-plan-outline" data-i18n="btnFree">Prova-ho gratis 1 mes</a>
+        <p class="btn-plan-sub" data-i18n="btnFreeSub">Al mes acabar, tries si continues — nosaltres t'ajudem.</p>
+      </div>
     </div>
-  </div>
 
-  <!-- Bàsic -->
-  <div class="plan-card featured" id="plan-basic">
-    <div class="plan-inner">
-      <span class="plan-badge badge-popular" data-i18n="badgePopular">⭐ Més popular</span>
-      <div class="plan-name" data-i18n="tabBasic">Bàsic</div>
-      <div class="plan-amount">9€<span data-i18n="basicPeriod"> / mes</span></div>
-      <div class="plan-desc" data-i18n="basicDesc">El pla que continua després de la prova. Per a propietaris d'1 establiment. Sense límits, sense sorpreses.</div>
-      <div class="plan-divider"></div>
-      <ul class="plan-feats">
-        <li><span class="pf-chk">✓</span> <span data-i18n="f1prop">1 propietat inclosa</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fUnlimited">Reserves il·limitades</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fForm">Formulari mòbil per als hostes</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fDoc">Document oficial generat automàticament</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fNotif">Avís per email quan la reserva es completa</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fPriority">Atenció prioritària</span></li>
-      </ul>
-      <a href="#beta" class="btn-plan btn-plan-primary" data-i18n="btnStart">Comença gratis 1 mes</a>
+    <!-- Pla de la Calma -->
+    <div class="plan-card featured" id="plan-calma">
+      <div class="plan-inner">
+        <span class="plan-badge badge-popular" data-i18n="badgePopular">Més popular</span>
+        <div class="plan-name" data-i18n="planCalmaName">Pla de la Calma</div>
+        <div class="plan-tagline" data-i18n-html="planCalmaTagline">Compleix la llei, <strong>protegeix-te de multes</strong> i oblida el paper per sempre.</div>
+        <div class="plan-amount">9,99€<span data-i18n="planCalmaPeriod"> / mes</span></div>
+        <div class="plan-annual" data-i18n-html="planCalmaAnnual">o 99€/any — <strong>t'estalvies 2 mesos</strong></div>
+        <div class="plan-divider"></div>
+        <ul class="plan-feats">
+          <li><span class="pf-chk">✓</span> <span data-i18n="pc1">1 establiment, reserves il·limitades</span></li>
+          <li><span class="pf-chk">✓</span> <span data-i18n="pc2">Tot el flux automatitzat — zero paper, zero errors</span></li>
+          <li><span class="pf-chk">✓</span> <span data-i18n-html="pc3"><strong>Historial legal 3 anys</strong> (obligatori per RD 933/2021)</span></li>
+          <li><span class="pf-chk">✓</span> <span data-i18n="pc4">Avís quan tots els hostes han completat el registre</span></li>
+          <li><span class="pf-chk">✓</span> <span data-i18n="pc5">Info bàsica de l'allotjament al link de l'hoste</span></li>
+          <li><span class="pf-chk">✓</span> <span data-i18n="pc6">Suport prioritari per email</span></li>
+        </ul>
+        <a href="#beta" class="btn-plan btn-plan-primary" data-i18n="btnCalma">Comença gratis 1 mes</a>
+      </div>
     </div>
-  </div>
 
-  <!-- Pro -->
-  <div class="plan-card" id="plan-pro">
-    <div class="plan-inner">
-      <span class="plan-badge badge-pro" data-i18n="badgePro">🚀 Per a gestors</span>
-      <div class="plan-name" data-i18n="tabPro">Pro</div>
-      <div class="plan-amount">19€<span data-i18n="basicPeriod"> / mes</span></div>
-      <div class="plan-desc" data-i18n="proDesc">Per a qui gestiona diverses propietats.</div>
-      <div class="plan-divider"></div>
-      <ul class="plan-feats">
-        <li><span class="pf-chk">✓</span> <span data-i18n="f5prop">Fins a 5 propietats</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fUnlimited">Reserves il·limitades</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fForm">Formulari mòbil per als hostes</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fDoc">Document oficial generat automàticament</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fInfoCasa">Pàgina d'info de la casa per cada propietat</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fWhatsapp">Avís per email i WhatsApp</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="fPanel">Panell per veure totes les reserves juntes</span></li>
-        <li><span class="pf-chk">✓</span> <span data-i18n="f24h">Atenció 24 hores</span></li>
-      </ul>
-      <a href="#beta" class="btn-plan btn-plan-outline" data-i18n="btnStart">Comença gratis 1 mes</a>
+    <!-- Pla Antifricció -->
+    <div class="plan-card" id="plan-antifriccio">
+      <div class="plan-inner">
+        <span class="plan-badge badge-pro" data-i18n="badgePro">Per a professionals</span>
+        <div class="plan-name" data-i18n="planAntiName">Pla Antifricció</div>
+        <div class="plan-tagline" data-i18n-html="planAntiTagline">L'hoste arriba informat. <strong>Tu deixes de respondre WhatsApps.</strong> Els dos marxen contents.</div>
+        <div class="plan-amount">24,99€<span data-i18n="planAntiPeriod"> / mes</span></div>
+        <div class="plan-annual" data-i18n-html="planAntiAnnual">o 249€/any — <strong>t'estalvies 2 mesos</strong></div>
+        <div class="plan-divider"></div>
+        <div class="plan-inherit" data-i18n="planInherit">Tot el Pla de la Calma inclòs, més:</div>
+        <ul class="plan-feats">
+          <li><span class="pf-chk">✓</span> <span data-i18n="pa1">Fins a 5 establiments</span></li>
+          <li><span class="pf-plus">+</span> <span data-i18n="pa2">Pàgina de benvinguda amb wifi, claus i normes</span></li>
+          <li><span class="pf-plus">+</span> <span data-i18n="pa3">Guia local amb les teves recomanacions</span></li>
+          <li><span class="pf-plus">+</span> <span data-i18n="pa4">Pàgina web pública de l'establiment</span></li>
+          <li><span class="pf-plus">+</span> <span data-i18n="pa5">Email de check-out automàtic + petició de ressenya</span></li>
+          <li><span class="pf-plus">+</span> <span data-i18n="pa6">Exportació CSV de tot l'historial</span></li>
+          <li><span class="pf-plus">+</span> <span data-i18n="pa7">Suport prioritari 24h</span></li>
+        </ul>
+        <a href="#beta" class="btn-plan btn-plan-primary" data-i18n="btnAnti">Comença gratis 1 mes</a>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -810,20 +806,42 @@
       previewField2: 'Document d\'identitat', previewHint2: 'DNI, NIE o número de passaport',
       previewBtn: 'Accedir →', previewTextTitle: 'Sense app. Sense registres. Sense trucades.',
       previewTextDesc: 'L\'hoste rep un link per WhatsApp o email. L\'obre com qualsevol pàgina web i omple les seves dades en menys de 2 minuts. Tu reps un avís quan tot està llest.',
-      pricingLabel: 'Preus', pricingTitle: 'Comença gratis, sense compromisos',
-      pricingSub: 'Primers 100 establiments: 1 mes de prova completament gratis. Sense targeta.',
-      tabBeta: 'Prova · 1 mes', tabBasic: 'Bàsic', tabPro: 'Pro',
-      badgeLimited: '⚡ Oferta beta · 100 places', badgePopular: '⭐ Més popular', badgePro: '🚀 Per a gestors',
-      betaExpiry: 'Accés temporal · caduca al cap d\'1 mes',
-      betaPeriod: ' / primer mes gratis', betaDesc: 'Prova el producte complet durant 1 mes sense pagar res. Sense targeta. Sense compromís. Quan acabi, tries si vols continuar.',
-      basicPeriod: ' / mes', basicDesc: 'El pla que continua després de la prova. Per a propietaris d\'1 establiment. Sense límits, sense sorpreses.',
-      proDesc: 'Per a qui gestiona diverses propietats.',
-      f1prop: '1 propietat inclosa', fUnlimited: 'Reserves il·limitades', fForm: 'Formulari mòbil per als hostes',
-      fDoc: 'Document oficial generat automàticament',
-      fEmail: 'Atenció per email', fNotif: 'Avís per email quan la reserva es completa', fPriority: 'Atenció prioritària', f24h: 'Atenció 24 hores',
-      f5prop: 'Fins a 5 propietats', fInfoCasa: 'Pàgina d\'info de la casa per cada propietat',
-      fWhatsapp: 'Avís per email i WhatsApp', fPanel: 'Panell per veure totes les reserves juntes',
-      btnBeta: 'Aconsegueix la plaça beta', btnStart: 'Comença gratis 1 mes',
+      pricingLabel: 'Preus', pricingTitle: 'Tria el teu pla',
+      pricingSub: 'Comença gratis 1 mes, sense targeta. Sense compromís.',
+      badgeFree: 'Prova gratuïta · 1 mes', badgePopular: 'Més popular', badgePro: 'Per a professionals',
+      planFreeName: 'Pla Gratis de Prova',
+      planFreeTagline: 'Per a qui vol veure com funciona <strong>sense arriscar res.</strong>',
+      planFreePeriod: ' / 1 mes', planFreeNote: 'Sense targeta. Sense compromís.',
+      planCalmaName: 'Pla de la Calma',
+      planCalmaTagline: 'Compleix la llei, <strong>protegeix-te de multes</strong> i oblida el paper per sempre.',
+      planCalmaPeriod: ' / mes', planCalmaAnnual: 'o 99€/any — <strong>t\'estalvies 2 mesos</strong>',
+      planAntiName: 'Pla Antifricció',
+      planAntiTagline: 'L\'hoste arriba informat. <strong>Tu deixes de respondre WhatsApps.</strong> Els dos marxen contents.',
+      planAntiPeriod: ' / mes', planAntiAnnual: 'o 249€/any — <strong>t\'estalvies 2 mesos</strong>',
+      planInherit: 'Tot el Pla de la Calma inclòs, més:',
+      pf1: '1 establiment, fins a 5 reserves',
+      pf2: 'L\'hoste omple les seves dades en 2 min des del mòbil',
+      pf3: 'Fitxer TXT llest per pujar als Mossos amb un clic',
+      pf4: 'Suport per email inclòs',
+      pf5x: 'Historial legal 3 anys', pf6x: 'Pàgina d\'informació per a l\'hoste',
+      pc1: '1 establiment, reserves il·limitades',
+      pc2: 'Tot el flux automatitzat — zero paper, zero errors',
+      pc3: '<strong>Historial legal 3 anys</strong> (obligatori per RD 933/2021)',
+      pc4: 'Avís quan tots els hostes han completat el registre',
+      pc5: 'Info bàsica de l\'allotjament al link de l\'hoste',
+      pc6: 'Suport prioritari per email',
+      pa1: 'Fins a 5 establiments',
+      pa2: 'Pàgina de benvinguda amb wifi, claus i normes',
+      pa3: 'Guia local amb les teves recomanacions',
+      pa4: 'Pàgina web pública de l\'establiment',
+      pa5: 'Email de check-out automàtic + petició de ressenya',
+      pa6: 'Exportació CSV de tot l\'historial',
+      pa7: 'Suport prioritari 24h',
+      btnFree: 'Prova-ho gratis 1 mes', btnFreeSub: 'Al mes acabar, tries si continues — nosaltres t\'ajudem.',
+      btnCalma: 'Comença gratis 1 mes', btnAnti: 'Comença gratis 1 mes',
+      noGoLabel: 'Per què no pots marxar',
+      noGoCalma: 'El teu historial legal de 3 anys viu aquí. Canviar de plataforma és perdre el teu arxiu obligatori.',
+      noGoAnti: 'Guia local, pàgina web i historial multi-establiment consolidats. Migrar-ho tot té un cost real.',
       ctaTitle: 'Uneix-te a la <em>beta</em> ara',
       ctaSub: 'Queden places limitades. Deixa el teu email i et enviarem un correu per activar el teu mes gratis.',
       ctaPlaceholder: 'el-teu@email.com', ctaBtn: 'Apunta\'m →',
@@ -897,20 +915,42 @@
       previewField2: 'Documento de identidad', previewHint2: 'DNI, NIE o número de pasaporte',
       previewBtn: 'Acceder →', previewTextTitle: 'Sin app. Sin registros. Sin llamadas.',
       previewTextDesc: 'El huésped recibe un link por WhatsApp o email. Lo abre como cualquier página web y rellena sus datos en menos de 2 minutos. Tú recibes un aviso cuando todo está listo.',
-      pricingLabel: 'Precios', pricingTitle: 'Empieza gratis, sin compromisos',
-      pricingSub: 'Primeros 100 establecimientos: 1 mes de prueba completamente gratis. Sin tarjeta.',
-      tabBeta: 'Prueba · 1 mes', tabBasic: 'Básico', tabPro: 'Pro',
-      badgeLimited: '⚡ Oferta beta · 100 plazas', badgePopular: '⭐ Más popular', badgePro: '🚀 Para gestores',
-      betaExpiry: 'Acceso temporal · caduca al cabo de 1 mes',
-      betaPeriod: ' / primer mes gratis', betaDesc: 'Prueba el producto completo durante 1 mes sin pagar nada. Sin tarjeta. Sin compromiso. Al acabar, decides si quieres continuar.',
-      basicPeriod: ' / mes', basicDesc: 'El plan que continúa después de la prueba. Para propietarios de 1 establecimiento. Sin límites, sin sorpresas.',
-      proDesc: 'Para quien gestiona varias propiedades.',
-      f1prop: '1 propiedad incluida', fUnlimited: 'Reservas ilimitadas', fForm: 'Formulario móvil para los huéspedes',
-      fDoc: 'Documento oficial generado automáticamente',
-      fEmail: 'Atención por email', fNotif: 'Aviso por email cuando la reserva se completa', fPriority: 'Atención prioritaria', f24h: 'Atención 24 horas',
-      f5prop: 'Hasta 5 propiedades', fInfoCasa: 'Página de info de la casa por cada propiedad',
-      fWhatsapp: 'Aviso por email y WhatsApp', fPanel: 'Panel para ver todas las reservas juntas',
-      btnBeta: 'Consigue la plaza beta', btnStart: 'Empieza gratis 1 mes',
+      pricingLabel: 'Precios', pricingTitle: 'Elige tu plan',
+      pricingSub: 'Empieza gratis 1 mes, sin tarjeta. Sin compromiso.',
+      badgeFree: 'Prueba gratuita · 1 mes', badgePopular: 'Más popular', badgePro: 'Para profesionales',
+      planFreeName: 'Plan Prueba Gratuita',
+      planFreeTagline: 'Para quien quiere ver cómo funciona <strong>sin arriesgar nada.</strong>',
+      planFreePeriod: ' / 1 mes', planFreeNote: 'Sin tarjeta. Sin compromiso.',
+      planCalmaName: 'Plan de la Calma',
+      planCalmaTagline: 'Cumple la ley, <strong>protégete de multas</strong> y olvida el papel para siempre.',
+      planCalmaPeriod: ' / mes', planCalmaAnnual: 'o 99€/año — <strong>te ahorras 2 meses</strong>',
+      planAntiName: 'Plan Antifricción',
+      planAntiTagline: 'El huésped llega informado. <strong>Dejas de responder WhatsApps.</strong> Los dos salen contentos.',
+      planAntiPeriod: ' / mes', planAntiAnnual: 'o 249€/año — <strong>te ahorras 2 meses</strong>',
+      planInherit: 'Todo el Plan de la Calma incluido, más:',
+      pf1: '1 establecimiento, hasta 5 reservas',
+      pf2: 'El huésped rellena sus datos en 2 min desde el móvil',
+      pf3: 'Fichero TXT listo para subir a los Mossos con un clic',
+      pf4: 'Soporte por email incluido',
+      pf5x: 'Historial legal 3 años', pf6x: 'Página de información para el huésped',
+      pc1: '1 establecimiento, reservas ilimitadas',
+      pc2: 'Todo el flujo automatizado — cero papel, cero errores',
+      pc3: '<strong>Historial legal 3 años</strong> (obligatorio según RD 933/2021)',
+      pc4: 'Aviso cuando todos los huéspedes han completado el registro',
+      pc5: 'Info básica del alojamiento en el link del huésped',
+      pc6: 'Soporte prioritario por email',
+      pa1: 'Hasta 5 establecimientos',
+      pa2: 'Página de bienvenida con wifi, llaves y normas',
+      pa3: 'Guía local con tus recomendaciones',
+      pa4: 'Página web pública del establecimiento',
+      pa5: 'Email de check-out automático + petición de reseña',
+      pa6: 'Exportación CSV de todo el historial',
+      pa7: 'Soporte prioritario 24h',
+      btnFree: 'Pruébalo gratis 1 mes', btnFreeSub: 'Al acabar el mes, decides si continúas — nosotros te ayudamos.',
+      btnCalma: 'Empieza gratis 1 mes', btnAnti: 'Empieza gratis 1 mes',
+      noGoLabel: 'Por qué no puedes irte',
+      noGoCalma: 'Tu historial legal de 3 años vive aquí. Cambiar de plataforma es perder tu archivo obligatorio.',
+      noGoAnti: 'Guía local, página web e historial multi-establecimiento consolidados. Migrar todo tiene un coste real.',
       ctaTitle: 'Únete a la <em>beta</em> ahora',
       ctaSub: 'Quedan plazas limitadas. Deja tu email y te enviaremos un correo para activar tu mes gratis.',
       ctaPlaceholder: 'tu@email.com', ctaBtn: 'Apúntame →',
@@ -984,20 +1024,42 @@
       previewField2: 'Identity document', previewHint2: 'ID, NIE or passport number',
       previewBtn: 'Access →', previewTextTitle: 'No app. No paperwork. No calls.',
       previewTextDesc: 'The guest receives a link via WhatsApp or email. They open it like any webpage and fill in their details in under 2 minutes. You get a notification when everything is done.',
-      pricingLabel: 'Pricing', pricingTitle: 'Start free, no commitment',
-      pricingSub: 'First 100 properties: 1 full month free trial. No credit card required.',
-      tabBeta: 'Trial · 1 month', tabBasic: 'Basic', tabPro: 'Pro',
-      badgeLimited: '⚡ Beta offer · 100 spots', badgePopular: '⭐ Most popular', badgePro: '🚀 For managers',
-      betaExpiry: 'Temporary access · expires after 1 month',
-      betaPeriod: ' / first month free', betaDesc: 'Try the full product for 1 month, completely free. No credit card. No commitment. After that, you decide if you want to continue.',
-      basicPeriod: ' / month', basicDesc: 'The plan that continues after the trial. For owners of 1 property. No limits, no surprises.',
-      proDesc: 'For those managing multiple properties.',
-      f1prop: '1 property included', fUnlimited: 'Unlimited bookings', fForm: 'Mobile form for guests',
-      fDoc: 'Official document generated automatically',
-      fEmail: 'Email support', fNotif: 'Email notification when booking is complete', fPriority: 'Priority support', f24h: '24-hour support',
-      f5prop: 'Up to 5 properties', fInfoCasa: 'House info page for each property',
-      fWhatsapp: 'Notifications via email and WhatsApp', fPanel: 'Dashboard to view all bookings together',
-      btnBeta: 'Claim your beta spot', btnStart: 'Start free for 1 month',
+      pricingLabel: 'Pricing', pricingTitle: 'Choose your plan',
+      pricingSub: 'Start free for 1 month, no credit card. No commitment.',
+      badgeFree: 'Free trial · 1 month', badgePopular: 'Most popular', badgePro: 'For professionals',
+      planFreeName: 'Free Trial Plan',
+      planFreeTagline: 'For anyone who wants to see how it works <strong>with zero risk.</strong>',
+      planFreePeriod: ' / 1 month', planFreeNote: 'No credit card. No commitment.',
+      planCalmaName: 'The Calm Plan',
+      planCalmaTagline: 'Comply with the law, <strong>protect yourself from fines</strong> and forget paperwork forever.',
+      planCalmaPeriod: ' / month', planCalmaAnnual: 'or €99/year — <strong>save 2 months</strong>',
+      planAntiName: 'The Frictionless Plan',
+      planAntiTagline: 'Guests arrive informed. <strong>You stop answering WhatsApps.</strong> Everyone leaves happy.',
+      planAntiPeriod: ' / month', planAntiAnnual: 'or €249/year — <strong>save 2 months</strong>',
+      planInherit: 'Everything in The Calm Plan, plus:',
+      pf1: '1 property, up to 5 bookings',
+      pf2: 'Guests fill in their data in 2 min from their phone',
+      pf3: 'TXT file ready to upload to the police in one click',
+      pf4: 'Email support included',
+      pf5x: '3-year legal archive', pf6x: 'Guest information page',
+      pc1: '1 property, unlimited bookings',
+      pc2: 'Fully automated flow — zero paper, zero errors',
+      pc3: '<strong>3-year legal archive</strong> (required by RD 933/2021)',
+      pc4: 'Notification when all guests have completed registration',
+      pc5: 'Basic property info on guest link',
+      pc6: 'Priority email support',
+      pa1: 'Up to 5 properties',
+      pa2: 'Welcome page with wifi, keys and house rules',
+      pa3: 'Local guide with your recommendations',
+      pa4: 'Public web page for your property',
+      pa5: 'Automatic check-out email + review request',
+      pa6: 'CSV export of full history',
+      pa7: 'Priority 24h support',
+      btnFree: 'Try it free for 1 month', btnFreeSub: 'After the month, you decide whether to continue — we\'ll help.',
+      btnCalma: 'Start free for 1 month', btnAnti: 'Start free for 1 month',
+      noGoLabel: 'Why you can\'t leave',
+      noGoCalma: 'Your 3-year legal archive lives here. Switching platforms means losing your mandatory records.',
+      noGoAnti: 'Local guide, property website and multi-property archive all in one place. Moving everything has a real cost.',
       ctaTitle: 'Join the <em>beta</em> now',
       ctaSub: 'Limited spots available. Leave your email and we\'ll send you a message to activate your free month.',
       ctaPlaceholder: 'your@email.com', ctaBtn: 'Sign me up →',
@@ -1063,14 +1125,6 @@
     const isOpen = step.classList.contains('open');
     step.classList.toggle('open', !isOpen);
     btn.setAttribute('aria-expanded', !isOpen);
-  }
-
-  // ── PRICING TABS ─────────────────────────────────────────────────────────────
-  function showPlan(name, btn) {
-    document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
-    document.querySelectorAll('.plan-tab').forEach(b => b.classList.remove('active'));
-    document.getElementById('plan-' + name).classList.add('active');
-    btn.classList.add('active');
   }
 
   // ── FORMULARI FORMSPREE ──────────────────────────────────────────────────────
