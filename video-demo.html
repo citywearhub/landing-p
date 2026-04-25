@@ -76,15 +76,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Pu
 .cb:active{transform:scale(.94)}
 @media(max-width:600px){.cb{height:62px;font-size:15px;padding:0 14px;border-radius:12px}}
 
-/* Play/pause — golden circle */
-#btn-play{
-  width:58px;height:58px;border-radius:50%;
-  background:linear-gradient(135deg,var(--t600),var(--t500));
-  font-size:22px;padding:0;
-  box-shadow:0 4px 14px rgba(127,90,34,.45);
-}
-#btn-play:hover{background:linear-gradient(135deg,var(--t500),var(--t400));box-shadow:0 6px 18px rgba(127,90,34,.6)}
-@media(max-width:600px){#btn-play{width:68px;height:68px;font-size:26px}}
+/* Play/pause */
+#btn-play{width:52px;height:52px;padding:0;border-radius:10px;}
+@media(max-width:600px){#btn-play{width:62px;height:62px;border-radius:12px}}
 
 
 /* Time display */
@@ -126,8 +120,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Pu
 @keyframes hint-out{to{opacity:0;pointer-events:none}}
 @media(max-width:600px){#fs-hint{display:block}}
 
-/* ── Top thin progress ── */
-#prog-top{position:absolute;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--t500),var(--t300));width:0%;z-index:200;pointer-events:none;transition:width .1s linear}
 
 /* ── Scenes ── */
 .scene{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .65s ease}
@@ -301,15 +293,24 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Pu
 .scene.active .fm-ok{opacity:1;transform:none}
 
 /* ══ S7 CTA ══ */
-.s7{background:radial-gradient(ellipse at 50% 55%,var(--n700) 0%,var(--n950) 70%);flex-direction:column}
-.cta-logo{display:flex;align-items:center;gap:14px;margin-bottom:24px;opacity:0;transform:translateY(16px);transition:opacity .7s .2s,transform .7s .2s}
+.s7{background:#070D17;overflow:hidden;flex-direction:column}
+.s7::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 900px 600px at 50% 40%,rgba(127,90,34,.13) 0%,transparent 65%);pointer-events:none}
+.s7-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 80px}
+.cta-logo{display:flex;align-items:center;gap:18px;margin-bottom:28px;opacity:0;transform:translateY(16px);transition:opacity .7s .2s,transform .7s .2s}
 .scene.active .cta-logo{opacity:1;transform:none}
-.cta-mark{width:64px;height:64px;background:linear-gradient(135deg,var(--t600),var(--t400));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 8px 20px rgba(127,90,34,.35)}
-.cta-name{font-size:48px;font-weight:800;color:#fff;letter-spacing:-.03em}
-.cta-tag{font-size:24px;font-weight:400;color:rgba(255,255,255,.4);letter-spacing:-.01em;opacity:0;transform:translateY(12px);transition:opacity .7s .6s,transform .7s .6s}
+.cta-mark{width:72px;height:72px;background:#1A2B3C;border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 28px rgba(0,0,0,.4),0 2px 6px rgba(0,0,0,.25)}
+.cta-name{font-size:56px;font-weight:800;color:#fff;letter-spacing:-.03em}
+.cta-name em{font-style:normal;color:var(--t300)}
+.cta-tag{font-size:26px;font-weight:400;color:rgba(255,255,255,.38);letter-spacing:-.01em;opacity:0;transform:translateY(12px);transition:opacity .7s .6s,transform .7s .6s;margin-bottom:20px}
 .scene.active .cta-tag{opacity:1;transform:none}
-.cta-pill{margin-top:32px;padding:14px 30px;background:linear-gradient(135deg,var(--t600),var(--t500));color:#fff;border-radius:50px;font-size:19px;font-weight:600;box-shadow:0 8px 20px rgba(127,90,34,.3);opacity:0;transform:translateY(12px);transition:opacity .7s 1s,transform .7s 1s}
+.cta-trust{display:flex;gap:14px;margin-bottom:32px;opacity:0;transform:translateY(8px);transition:opacity .7s .85s,transform .7s .85s}
+.scene.active .cta-trust{opacity:1;transform:none}
+.cta-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:100px;font-size:16px;font-weight:500;color:rgba(255,255,255,.48)}
+.cta-chip em{font-style:normal;color:var(--t300)}
+.cta-pill{padding:18px 44px;background:linear-gradient(140deg,var(--t600),var(--t400));color:#fff;border-radius:12px;font-size:22px;font-weight:700;letter-spacing:-.01em;box-shadow:0 12px 32px rgba(127,90,34,.4),0 4px 10px rgba(0,0,0,.2);opacity:0;transform:translateY(12px);transition:opacity .7s 1.1s,transform .7s 1.1s}
 .scene.active .cta-pill{opacity:1;transform:none}
+.cta-url{margin-top:16px;font-size:16px;font-weight:500;color:rgba(255,255,255,.2);letter-spacing:.04em;font-family:monospace;opacity:0;transition:opacity .7s 1.4s}
+.scene.active .cta-url{opacity:1}
 </style>
 </head>
 <body>
@@ -317,8 +318,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Pu
 <!-- Stage area (scaled content lives here) -->
 <div id="stage-area">
   <div id="stage">
-    <div id="prog-top"></div>
-
     <!-- S1 HOOK -->
     <div class="scene s1" id="s1">
       <div>
@@ -503,9 +502,26 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Pu
 
     <!-- S7 CTA -->
     <div class="scene s7" id="s7">
-      <div class="cta-logo"><div class="cta-mark">🏠</div><div class="cta-name">Automossos</div></div>
-      <div class="cta-tag">El registre de viatgers, sense mals de cap.</div>
-      <div class="cta-pill">automossos.cat · Prova 1 mes gratis</div>
+      <div class="s7-inner">
+        <div class="cta-logo">
+          <div class="cta-mark">
+            <svg width="40" height="40" viewBox="0 0 52 52" fill="none">
+              <line x1="26" y1="11" x2="11" y2="42" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+              <line x1="26" y1="11" x2="41" y2="42" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+              <polyline points="17,30 26,38 35,30" stroke="#C89865" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+          <div class="cta-name">auto<em>mossos</em></div>
+        </div>
+        <div class="cta-tag">El registre de viatgers, sense mals de cap.</div>
+        <div class="cta-trust">
+          <div class="cta-chip"><em>✓</em> Format V24 oficial</div>
+          <div class="cta-chip"><em>⚡</em> 100% automàtic</div>
+          <div class="cta-chip"><em>🔒</em> LO 4/2015 · RD 933/2021</div>
+        </div>
+        <div class="cta-pill">Prova gratis 1 mes →</div>
+        <div class="cta-url">automossos.cat</div>
+      </div>
     </div>
   </div><!-- /stage -->
 
@@ -524,7 +540,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Pu
   </div>
   <!-- Buttons -->
   <div id="btn-row">
-    <button class="cb" id="btn-play" onclick="togglePlay()" title="Play / Pausa">⏸</button>
+    <button class="cb" id="btn-play" onclick="togglePlay()" title="Play / Pausa">
+      <svg id="icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="3" width="4" height="18" rx="1.5"/><rect x="15" y="3" width="4" height="18" rx="1.5"/></svg>
+      <svg id="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4.5l14 7.5-14 7.5z"/></svg>
+    </button>
     <div id="spacer"></div>
     <span id="time-disp">0:00 / 0:51</span>
     <button class="cb" id="btn-fs" onclick="toggleFs()" title="Pantalla completa">
@@ -626,9 +645,12 @@ function scheduleFrom(fromMs){
   EVENTS.filter(e=>e.time>=fromMs).forEach(e=>t(e.fn,e.time-fromMs));
 }
 
+function setPlayIcon(playing){
+  $('icon-pause').style.display=playing?'':'none';
+  $('icon-play').style.display=playing?'none':'';
+}
 function updateProg(ms){
   const pct=Math.min(100,(ms/TOTAL)*100);
-  $('prog-top').style.width=pct+'%';
   $('prog-fill').style.width=pct+'%';
   $('time-disp').textContent=fmt(ms)+' / '+fmt(TOTAL);
 }
@@ -649,14 +671,14 @@ function pause(){
   if(isPaused)return;
   elapsed=curMs();isPaused=true;
   clrTimers();clearInterval(progIv);
-  $('btn-play').textContent='▶';
+  setPlayIcon(false);
 }
 function resume(){
   if(!isPaused)return;
   if(elapsed>=TOTAL-100){go();return;}
   isPaused=false;playStart=now();
   scheduleFrom(elapsed);startProgIv();
-  $('btn-play').textContent='⏸';
+  setPlayIcon(true);
 }
 
 
@@ -699,7 +721,7 @@ function go(){
   playStart=now();
   updateProg(0);
   scheduleFrom(0);startProgIv();
-  $('btn-play').textContent='⏸';
+  setPlayIcon(true);
 }
 
 go();
