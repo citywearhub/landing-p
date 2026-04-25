@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Automossos — Demo Mòbil</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --n950:#0D1522;--n900:#121C2D;--n800:#1A2B3C;--n700:#2A3E54;--n600:#3D5370;
+  --t600:#7F5A22;--t500:#A87C3D;--t400:#C89865;--t300:#E6B980;
+  --surf:#FAFAF7;--ok:#2E7D5B;--ok-bg:#E4F1EA;
+  --ctrl-h:50px;
+}
+html,body{width:100%;height:100%;overflow:hidden;background:#000;
+  font-family:'Public Sans',system-ui,sans-serif;display:flex;flex-direction:column}
+
+/* ── Stage ── */
+#stage-area{flex:1;position:relative;overflow:hidden;background:#000;min-height:0}
+#stage{
+  width:375px;height:667px;
+  position:absolute;top:0;left:0;
+  transform-origin:top left;
+  background:var(--n950);overflow:hidden;
+}
+
+/* ── Controls ── */
+#ctrl{
+  flex-shrink:0;height:var(--ctrl-h);
+  background:var(--n950);
+  display:flex;flex-direction:column;user-select:none;
+}
+#prog-wrap{width:100%;height:3px;background:rgba(255,255,255,.08);cursor:default;flex-shrink:0}
+#prog-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--t500),var(--t300));pointer-events:none}
+#btn-row{flex:1;display:flex;align-items:center;padding:0 14px;gap:7px;min-height:0}
+.cb{
+  background:transparent;border:none;color:rgba(255,255,255,.5);
+  border-radius:7px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  width:34px;height:34px;padding:0;
+  transition:background .12s,color .12s,transform .1s;flex-shrink:0;
+}
+.cb:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.9)}
+.cb:active{transform:scale(.92)}
+#btn-play{
+  width:34px;height:34px;border-radius:7px;
+  background:rgba(255,255,255,.1);color:rgba(255,255,255,.9);
+}
+#btn-play:hover{background:rgba(255,255,255,.18);color:#fff}
+#time-disp{color:rgba(255,255,255,.28);font-size:11px;font-variant-numeric:tabular-nums;white-space:nowrap;}
+#spacer{flex:1}
+
+/* ── Top thin bar ── */
+#prog-top{position:absolute;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--t500),var(--t300));width:0%;z-index:200;pointer-events:none;transition:width .1s linear}
+
+/* ── Scene base ── */
+.scene{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .65s ease;
+  overflow:hidden;
+}
+.scene.active{opacity:1;pointer-events:auto}
+.si{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}
+.scene.active .si{opacity:1;transform:none}
+.d1{transition-delay:.2s}.d2{transition-delay:.45s}.d3{transition-delay:.7s}
+.d4{transition-delay:.95s}.d5{transition-delay:1.2s}
+
+/* ══ S1 ══ */
+.s1{background:var(--n950);padding:36px 28px;text-align:center;gap:0}
+.hl1{display:block;font-size:42px;font-weight:800;color:#fff;letter-spacing:-.03em;line-height:1.1}
+.hl2{display:block;font-size:42px;font-weight:800;letter-spacing:-.03em;line-height:1.1;
+  background:linear-gradient(120deg,var(--t300),var(--t400));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hl3{display:block;font-size:19px;font-weight:300;color:rgba(255,255,255,.4);
+  margin-top:16px;letter-spacing:-.01em}
+
+/* ══ S2 ══ */
+.s2{background:var(--n950);padding:28px 24px;justify-content:flex-start;gap:0}
+.s2-title{font-size:34px;font-weight:800;color:#fff;letter-spacing:-.03em;
+  text-align:center;line-height:1.1;margin-bottom:6px;width:100%}
+.s2-title em{font-style:normal;background:linear-gradient(120deg,var(--t300),var(--t400));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.s2-sub{font-size:15px;color:rgba(255,255,255,.4);text-align:center;
+  margin-bottom:28px;width:100%}
+.steps-v{display:flex;flex-direction:column;width:100%;gap:0}
+.step-v{
+  display:flex;align-items:center;gap:14px;width:100%;
+  opacity:0;transform:translateY(14px);
+  transition:opacity .5s,transform .5s cubic-bezier(.34,1.2,.64,1);
+}
+.step-v.show{opacity:1;transform:none}
+.step-ic{font-size:34px;flex-shrink:0;width:46px;text-align:center}
+.step-info .label{font-size:17px;font-weight:700;color:#fff;line-height:1.2}
+.step-bdg{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;
+  border-radius:20px;margin-top:3px}
+.step-bdg.once{background:rgba(168,124,61,.18);color:var(--t300);border:1px solid rgba(230,185,128,.2)}
+.step-bdg.auto{background:var(--ok-bg);color:var(--ok)}
+.conn-v{
+  width:2px;height:26px;align-self:flex-start;margin:4px 0 4px 22px;
+  background:linear-gradient(180deg,rgba(230,185,128,.3),rgba(230,185,128,.08));
+  opacity:0;transition:opacity .4s;
+}
+.conn-v.show{opacity:1}
+
+/* ══ S3 ══ */
+.s3{background:var(--n900);padding:22px 18px;justify-content:flex-start;gap:14px}
+.s3-txt h2{font-size:30px;font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1.15}
+.s3-txt h2 em{font-style:normal;color:var(--t300)}
+.s3-txt p{font-size:14px;color:rgba(255,255,255,.45);margin-top:6px;line-height:1.55}
+.s3-callout{
+  margin-top:8px;background:rgba(168,124,61,.12);
+  border:1px solid rgba(230,185,128,.18);border-radius:9px;
+  padding:9px 12px;font-size:13px;color:rgba(255,255,255,.68);line-height:1.5;
+}
+.s3-callout strong{color:var(--t300)}
+.bk-card{background:#fff;border-radius:12px;overflow:hidden;width:100%;
+  box-shadow:0 10px 24px rgba(0,0,0,.28)}
+.bk-hdr{background:#003580;padding:10px 14px;display:flex;align-items:center}
+.bk-logo{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.bk-logo span{color:#70B8FF}
+.bk-bdy{padding:13px}
+.bk-sec{font-size:11px;font-weight:700;color:#003580;text-transform:uppercase;
+  letter-spacing:.06em;margin-bottom:8px}
+.bk-tpl{background:#F5F5F5;border-radius:7px;padding:11px;font-size:13px;
+  color:#333;line-height:1.6;border-left:3px solid #003580;
+  opacity:0;transform:translateY(7px);transition:opacity .5s,transform .5s}
+.scene.active .bk-tpl{opacity:1;transform:none;transition-delay:.6s}
+.bk-trig{font-size:10px;font-weight:700;color:#003580;text-transform:uppercase;
+  letter-spacing:.05em;margin-bottom:6px;display:block}
+.bk-hl{background:#FFFBEA;border:1px solid #F0D060;border-radius:4px;
+  padding:1px 5px;color:#886600;font-weight:600}
+.bk-badge{
+  display:inline-flex;align-items:center;gap:5px;background:#E8F5E9;color:#2E7D32;
+  font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;margin-top:9px;
+  opacity:0;transition:opacity .4s;
+}
+.scene.active .bk-badge{opacity:1;transition-delay:1.4s}
+
+/* ══ S4 ══ */
+.s4{background:var(--n900);padding:24px 18px;justify-content:flex-start;gap:16px}
+.s4-txt h2{font-size:30px;font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1.2}
+.s4-txt p{font-size:14px;color:rgba(255,255,255,.45);margin-top:6px;line-height:1.55}
+.auto-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(46,125,91,.15);border:1px solid rgba(46,125,91,.3);
+  border-radius:20px;padding:6px 12px;margin-top:10px;
+  font-size:13px;color:#6FCF97;font-weight:600;
+}
+.wa-card{background:#ECE5DD;border-radius:12px;overflow:hidden;width:100%;
+  box-shadow:0 10px 24px rgba(0,0,0,.22)}
+.wa-hdr{background:#075E54;padding:9px 13px;display:flex;align-items:center;gap:8px}
+.wa-av{width:28px;height:28px;border-radius:50%;background:#128C7E;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:700;color:#fff;flex-shrink:0}
+.wa-name{font-size:13px;font-weight:600;color:#fff}
+.wa-sub{font-size:10px;color:rgba(255,255,255,.7)}
+.wa-msgs{padding:10px 10px 12px;display:flex;flex-direction:column;gap:6px}
+.bbl{max-width:88%;border-radius:8px;padding:7px 9px;font-size:13px;line-height:1.45}
+.bbl.in{background:#fff;align-self:flex-start;border-radius:2px 8px 8px 8px}
+.bbl.out{background:#DCF8C6;align-self:flex-end;border-radius:8px 2px 8px 8px}
+.bt{font-size:9px;color:#888;text-align:right;margin-top:2px}
+.lp{background:#F0F0F0;border-radius:5px;padding:6px;margin-top:4px;border-left:3px solid var(--t500)}
+.lpt{font-size:11px;font-weight:700;color:var(--n800)}
+.lpu{font-size:9px;color:#888;margin-top:1px}
+.bbl{opacity:0;transform:scale(.92) translateY(5px);transition:opacity .3s,transform .3s}
+.scene.active .bbl.b1{opacity:1;transform:none;transition-delay:.5s}
+.scene.active .bbl.b2{opacity:1;transform:none;transition-delay:1.3s}
+.scene.active .bbl.b3{opacity:1;transform:none;transition-delay:2.3s}
+
+/* ══ S5 ══ */
+.s5{background:var(--n900);padding:24px 18px;justify-content:flex-start;gap:14px}
+.s5-txt h2{font-size:30px;font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1.2}
+.s5-txt p{font-size:14px;color:rgba(255,255,255,.45);margin-top:6px;line-height:1.55}
+.s5-checks{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.s5-ck{display:flex;align-items:center;gap:7px;font-size:13px;color:rgba(255,255,255,.6)}
+.s5-ck .tick{color:var(--t300);font-size:14px}
+.fm-card{background:var(--surf);border-radius:12px;overflow:hidden;width:100%;
+  box-shadow:0 10px 24px rgba(0,0,0,.22)}
+.fm-hdr{background:var(--n800);padding:9px 13px;display:flex;align-items:center;gap:8px}
+.fm-back{font-size:14px;color:rgba(255,255,255,.6)}
+.fm-hdr-t{font-size:12px;font-weight:600;color:#fff}
+.fm-hdr-s{font-size:10px;color:rgba(255,255,255,.5)}
+.fm-bdy{padding:9px 11px 10px;display:flex;flex-direction:column;gap:5px}
+.fm-sec{font-size:9px;font-weight:700;color:var(--n600);text-transform:uppercase;
+  letter-spacing:.08em;margin-bottom:1px}
+.fm-f{background:#fff;border-radius:7px;padding:6px 9px;border:1.5px solid #E8E8E4}
+.fl{font-size:9px;color:#AAA;font-weight:600;margin-bottom:1px}
+.fv{font-size:12px;color:var(--n800);font-weight:500}
+.fm-f{opacity:0;transform:translateY(5px);transition:opacity .4s,transform .4s}
+.scene.active .fm-f.ff1{opacity:1;transform:none;transition-delay:.3s}
+.scene.active .fm-f.ff2{opacity:1;transform:none;transition-delay:.6s}
+.scene.active .fm-f.ff3{opacity:1;transform:none;transition-delay:.9s}
+.scene.active .fm-f.ff4{opacity:1;transform:none;transition-delay:1.2s}
+.fm-ok{
+  margin:0 11px 10px;padding:9px;background:var(--n800);border-radius:8px;
+  text-align:center;color:#fff;font-size:12px;font-weight:600;
+  opacity:0;transform:translateY(5px);transition:opacity .4s 1.7s,transform .4s 1.7s;
+}
+.scene.active .fm-ok{opacity:1;transform:none}
+
+/* ══ S6 ══ */
+.s6{background:var(--n900);padding:18px 16px;justify-content:flex-start;gap:10px;position:relative}
+.s6-hdr{display:flex;align-items:flex-start;justify-content:space-between;width:100%}
+.s6-t{font-size:19px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.s6-s{font-size:12px;color:#888;margin-top:2px}
+.s6-bdg{display:inline-flex;align-items:center;padding:4px 10px;
+  border-radius:20px;font-size:11px;font-weight:600;background:var(--ok-bg);color:var(--ok)}
+.s6-notif{position:relative;width:26px;height:26px;display:flex;align-items:center;
+  justify-content:center;background:rgba(255,255,255,.08);border-radius:50%;font-size:13px}
+.s6-nbdg{
+  position:absolute;top:-2px;right:-2px;width:13px;height:13px;background:#EF4444;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:8px;font-weight:700;color:#fff;
+  opacity:0;transform:scale(0);transition:opacity .3s,transform .3s;
+}
+.show-n .s6-nbdg{opacity:1;transform:scale(1)}
+.gc-box{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:11px;padding:11px 13px;
+  display:flex;flex-direction:column;gap:8px;width:100%;
+}
+.gc-hd{font-size:11px;font-weight:700;color:rgba(255,255,255,.4);
+  text-transform:uppercase;letter-spacing:.06em;margin-bottom:1px}
+.gc-row{display:flex;align-items:center;gap:8px;font-size:13px;color:#fff}
+.gc-ck{
+  width:18px;height:18px;border-radius:50%;background:var(--ok-bg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:var(--ok);flex-shrink:0;
+  opacity:0;transform:scale(0);
+  transition:opacity .25s,transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.gc-ck.show{opacity:1;transform:none}
+.gc-name{font-weight:600;color:#fff}
+.gc-doc{color:rgba(255,255,255,.4);font-size:10px;margin-left:2px}
+.gen-btn{
+  background:var(--n800);color:#fff;border-radius:9px;
+  padding:11px 14px;display:flex;align-items:center;gap:7px;
+  font-size:14px;font-weight:600;width:100%;
+  opacity:0;transform:translateY(5px);transition:opacity .4s,transform .4s;
+}
+.gen-btn.vis{opacity:1;transform:none}
+.gen-btn.clicked{background:var(--t600);transform:scale(.97)}
+.steps-gen{
+  background:var(--n800);border-radius:9px;padding:11px;
+  display:flex;flex-direction:column;gap:5px;width:100%;
+  opacity:0;transform:translateY(4px);transition:opacity .35s,transform .35s;
+}
+.steps-gen.show{opacity:1;transform:none}
+.gen-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,.3);
+  text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.step-gen{display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(255,255,255,.35)}
+.step-gen .si2,.step-gen .st{opacity:0;transition:opacity .2s}
+.step-gen .st{transform:translateX(-3px);transition:opacity .3s,transform .3s}
+.step-gen.ok{color:rgba(255,255,255,.85)}
+.step-gen.ok .si2,.step-gen.ok .st{opacity:1;transform:none}
+.step-gen.ok .si2{color:var(--t300)}
+.dl-card{
+  background:#fff;border-radius:9px;padding:11px 13px;
+  display:flex;align-items:center;gap:10px;width:100%;
+  opacity:0;transform:translateY(4px);transition:opacity .4s,transform .4s;
+}
+.dl-card.show{opacity:1;transform:none}
+.dl-name{font-size:13px;font-weight:700;color:var(--n800);font-family:monospace}
+.dl-sub{font-size:10px;color:#888;margin-top:1px}
+.dl-btn{margin-left:auto;background:var(--n800);color:#fff;border-radius:6px;
+  padding:6px 11px;font-size:11px;font-weight:600;white-space:nowrap}
+.s6-toast{
+  position:absolute;top:12px;right:12px;left:12px;
+  background:var(--n800);border-radius:10px;padding:10px 12px;
+  box-shadow:0 8px 20px rgba(0,0,0,.3);
+  border:1px solid rgba(230,185,128,.15);z-index:50;
+  opacity:0;transform:translateY(-8px);transition:opacity .4s,transform .4s;
+}
+.s6-toast.show{opacity:1;transform:none}
+.s6-ttag{font-size:11px;color:var(--t300);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.s6-tt{font-size:13px;font-weight:600;color:#fff}
+.s6-ts{font-size:11px;color:rgba(255,255,255,.5);margin-top:1px}
+
+/* ══ S7 ══ */
+.s7{background:radial-gradient(ellipse at 50% 55%,var(--n700) 0%,var(--n950) 70%)}
+.cta-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px;
+  opacity:0;transform:translateY(12px);transition:opacity .7s .2s,transform .7s .2s}
+.scene.active .cta-logo{opacity:1;transform:none}
+.cta-mark{width:46px;height:46px;background:linear-gradient(135deg,var(--t600),var(--t400));
+  border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:22px;
+  box-shadow:0 6px 14px rgba(127,90,34,.32)}
+.cta-name{font-size:32px;font-weight:800;color:#fff;letter-spacing:-.03em}
+.cta-tag{font-size:17px;font-weight:400;color:rgba(255,255,255,.4);letter-spacing:-.01em;
+  text-align:center;padding:0 24px;
+  opacity:0;transform:translateY(10px);transition:opacity .7s .6s,transform .7s .6s}
+.scene.active .cta-tag{opacity:1;transform:none}
+.cta-pill{
+  margin-top:24px;padding:12px 26px;
+  background:linear-gradient(135deg,var(--t600),var(--t500));color:#fff;
+  border-radius:50px;font-size:16px;font-weight:600;
+  box-shadow:0 8px 18px rgba(127,90,34,.28);
+  opacity:0;transform:translateY(10px);transition:opacity .7s 1s,transform .7s 1s;
+}
+.scene.active .cta-pill{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<div id="stage-area">
+  <div id="stage">
+    <div id="prog-top"></div>
+
+    <!-- S1 HOOK -->
+    <div class="scene s1" id="s1">
+      <span class="hl1 si d1">El registre de viatgers és obligatori.</span>
+      <span class="hl2 si d3">Automossos ho automatitza.</span>
+      <span class="hl3 si d5">Sense paper. Sense trucades. Sense errors.</span>
+    </div>
+
+    <!-- S2 PROPIETARI -->
+    <div class="scene s2" id="s2">
+      <div class="s2-title si d1">El propietari fa <em>quasi res.</em></div>
+      <div class="s2-sub si d2">Així és com funciona.</div>
+      <div class="steps-v">
+        <div class="step-v" id="sv1">
+          <div class="step-ic">⚙️</div>
+          <div class="step-info">
+            <div class="label">Configurar 1 cop</div>
+            <span class="step-bdg once">Una sola vegada</span>
+          </div>
+        </div>
+        <div class="conn-v" id="cv1"></div>
+        <div class="step-v" id="sv2">
+          <div class="step-ic">⚡</div>
+          <div class="step-info">
+            <div class="label">El link s'envia sol</div>
+            <span class="step-bdg auto">Automàtic ✓</span>
+          </div>
+        </div>
+        <div class="conn-v" id="cv2"></div>
+        <div class="step-v" id="sv3">
+          <div class="step-ic">📥</div>
+          <div class="step-info">
+            <div class="label">Descarregar el fitxer</div>
+            <span class="step-bdg once">1 clic</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S3 BOOKING -->
+    <div class="scene s3" id="s3">
+      <div class="s3-txt si d1" style="width:100%">
+        <h2>El link surt <em>automàticament</em> de Booking.</h2>
+        <p>El propietari configura un missatge automàtic. Cada nova reserva, l'hoste rep el link. Sense tocar res.</p>
+        <div class="s3-callout si d2">💡 <strong>Funciona amb:</strong> Booking.com, Airbnb, Vrbo, WhatsApp i email.</div>
+      </div>
+      <div class="bk-card si d3">
+        <div class="bk-hdr">
+          <div class="bk-logo">booking<span>.com</span></div>
+          <div style="margin-left:auto;font-size:10px;color:rgba(255,255,255,.6)">Missatges automàtics</div>
+        </div>
+        <div class="bk-bdy">
+          <div class="bk-sec">Missatge en confirmar reserva</div>
+          <div class="bk-tpl">
+            <span class="bk-trig">⚡ S'envia automàticament quan: nova reserva</span>
+            Benvingut/da a <strong>Can Cuní</strong>! 🏡<br>
+            Completa el formulari obligatori (2 min):<br>
+            👉 <span class="bk-hl">automossos.cat/r/{{booking_id}}</span>
+          </div>
+          <div class="bk-badge"><span>✓</span> S'envia sol a cada nova reserva</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S4 HOSTE REP LINK -->
+    <div class="scene s4" id="s4">
+      <div class="s4-txt si d1" style="width:100%">
+        <h2>L'hoste rep el link. Fa clic. Ja pot registrar-se.</h2>
+        <p>Sense instal·lar cap app. Sense crear cap compte. Des del mòbil, en menys de 2 minuts.</p>
+        <div class="auto-pill si d2">⚡ Enviat automàticament per Booking.com</div>
+      </div>
+      <div class="wa-card si d3">
+        <div class="wa-hdr">
+          <div class="wa-av" style="background:#003580;font-size:9px">B.</div>
+          <div><div class="wa-name">Booking.com</div><div class="wa-sub">Reserva confirmada</div></div>
+        </div>
+        <div class="wa-msgs">
+          <div class="bbl in b1">Benvingut/da a Can Cuní! 🏡<br>Completa el formulari obligatori. Tarda menys de 2 minuts:<div class="bt">9:38</div></div>
+          <div class="bbl in b2"><div class="lp"><div class="lpt">Registre de viatgers · Can Cuní</div><div class="lpu">automossos.cat/r/AIR-55230</div></div><div class="bt">9:38</div></div>
+          <div class="bbl out b3">Ara ho faig 👍<div class="bt">9:41</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S5 FORMULARI -->
+    <div class="scene s5" id="s5">
+      <div class="s5-txt si d1" style="width:100%">
+        <h2>2 minuts. Des del mòbil.</h2>
+        <p>Nom, document, adreça postal. Tot validat automàticament.</p>
+        <div class="s5-checks">
+          <div class="s5-ck si d3"><span class="tick">✓</span> Format oficial Mossos d'Esquadra</div>
+          <div class="s5-ck si d4"><span class="tick">✓</span> Validació automàtica de cada camp</div>
+          <div class="s5-ck si d5"><span class="tick">✓</span> Cada hoste omple el seu formulari</div>
+        </div>
+      </div>
+      <div class="fm-card si d2">
+        <div class="fm-hdr">
+          <span class="fm-back">←</span>
+          <div><div class="fm-hdr-t">El meu registre</div><div class="fm-hdr-s">Reserva AIR-55230 · Can Cuní</div></div>
+        </div>
+        <div class="fm-bdy">
+          <div class="fm-sec">Dades personals</div>
+          <div class="fm-f ff1"><div class="fl">Nom i cognoms</div><div class="fv">Marc Garcia López</div></div>
+          <div class="fm-f ff2"><div class="fl">Tipus de document</div><div class="fv">DNI</div></div>
+          <div class="fm-f ff3"><div class="fl">Número DNI · Suport</div><div class="fv">47382910B · AXB123456</div></div>
+          <div class="fm-sec" style="margin-top:2px">Adreça</div>
+          <div class="fm-f ff4"><div class="fl">Adreça postal</div><div class="fv">C/ Provença 134, Barcelona</div></div>
+        </div>
+        <div class="fm-ok">Confirmar i enviar ✓</div>
+      </div>
+    </div>
+
+    <!-- S6 ADMIN -->
+    <div class="scene" id="s6">
+      <div class="s6-hdr si d1">
+        <div>
+          <div class="s6-t">Reserva #AIR-55230</div>
+          <div class="s6-s">Can Cuní · 30 abr 2026 · 3 hostes</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="s6-bdg">Completada ✓</span>
+          <div class="s6-notif" id="nw">🔔<div class="s6-nbdg">1</div></div>
+        </div>
+      </div>
+      <div class="gc-box si d2">
+        <div class="gc-hd">Hostes registrats — 3 / 3</div>
+        <div class="gc-row"><div class="gc-ck" id="gc1">✓</div><div><span class="gc-name">Marc Garcia López</span><span class="gc-doc">DNI 47382910B</span></div></div>
+        <div class="gc-row"><div class="gc-ck" id="gc2">✓</div><div><span class="gc-name">Anna Puig Soler</span><span class="gc-doc">Passaport AB1234567</span></div></div>
+        <div class="gc-row"><div class="gc-ck" id="gc3">✓</div><div><span class="gc-name">Laia Puig</span><span class="gc-doc">Menor · 8 anys</span></div></div>
+      </div>
+      <div class="gen-btn" id="genBtn"><span>📄</span> Generar fitxer TXT per als Mossos</div>
+      <div class="steps-gen" id="steps">
+        <div class="gen-lbl">Generant fitxer oficial V24...</div>
+        <div class="step-gen" id="gs1"><span class="si2">✓</span><span class="st">Recollint dades de 3 viatgers</span></div>
+        <div class="step-gen" id="gs2"><span class="si2">✓</span><span class="st">Aplicant normativa V24</span></div>
+        <div class="step-gen" id="gs3"><span class="si2">✓</span><span class="st">Generant línies d'establiment</span></div>
+        <div class="step-gen" id="gs4"><span class="si2">✓</span><span class="st">Fitxer llest: 08043CAC01.017</span></div>
+      </div>
+      <div class="dl-card" id="dlCard">
+        <span style="font-size:20px">📥</span>
+        <div><div class="dl-name">08043CAC01.017</div><div class="dl-sub">3 viatgers · llest per pujar als Mossos</div></div>
+        <div class="dl-btn">Descarregar</div>
+      </div>
+      <div class="s6-toast" id="toast">
+        <div class="s6-ttag">✓ Tots els hostes han completat</div>
+        <div class="s6-tt">Reserva AIR-55230 · Can Cuní</div>
+        <div class="s6-ts">Pots generar el fitxer oficial ara</div>
+      </div>
+    </div>
+
+    <!-- S7 CTA -->
+    <div class="scene s7" id="s7">
+      <div class="cta-logo"><div class="cta-mark">🏠</div><div class="cta-name">Automossos</div></div>
+      <div class="cta-tag">El registre de viatgers, sense mals de cap.</div>
+      <div class="cta-pill">automossos.cat · Prova 1 mes gratis</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Controls -->
+<div id="ctrl">
+  <div id="prog-wrap"><div id="prog-fill"></div></div>
+  <div id="btn-row">
+    <button class="cb" id="btn-play" onclick="togglePlay()" title="Play / Pausa">
+      <svg id="icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="3" width="4" height="18" rx="1.5"/><rect x="15" y="3" width="4" height="18" rx="1.5"/></svg>
+      <svg id="icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4.5l14 7.5-14 7.5z"/></svg>
+    </button>
+    <div id="spacer"></div>
+    <span id="time-disp">0:00 / 0:51</span>
+    </div>
+</div>
+
+<script>
+function scale(){
+  const area=document.getElementById('stage-area');
+  const w=area.clientWidth,h=area.clientHeight;
+  const r=Math.min(w/375,h/667);
+  const s=document.getElementById('stage');
+  s.style.transform=`scale(${r})`;
+  s.style.left=((w-375*r)/2)+'px';
+  s.style.top=((h-667*r)/2)+'px';
+}
+scale();
+window.addEventListener('resize',scale);
+
+const $=id=>document.getElementById(id);
+const cls=(id,...c)=>$(id)&&$(id).classList.add(...c);
+const rmcls=(id,...c)=>$(id)&&$(id).classList.remove(...c);
+const fmt=ms=>{const s=Math.floor(ms/1000);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+
+const SCENES=[
+  {id:'s1',dur:5000},{id:'s2',dur:7500},{id:'s3',dur:8000},
+  {id:'s4',dur:7000},{id:'s5',dur:8000},{id:'s6',dur:10000},{id:'s7',dur:6000},
+];
+const TOTAL=SCENES.reduce((a,s)=>a+s.dur,0);
+
+function buildEvents(){
+  const evs=[];
+  const add=(time,fn)=>evs.push({time,fn});
+  let acc=0;
+  SCENES.forEach(({id,dur})=>{
+    add(acc,()=>{SCENES.forEach(({id:sid})=>$(sid)&&rmcls(sid,'active'));cls(id,'active')});
+    if(id==='s2'){
+      add(acc+600, ()=>cls('sv1','show'));
+      add(acc+1600,()=>cls('cv1','show'));
+      add(acc+2200,()=>cls('sv2','show'));
+      add(acc+3200,()=>cls('cv2','show'));
+      add(acc+3800,()=>cls('sv3','show'));
+    }
+    if(id==='s6'){
+      add(acc+400, ()=>cls('gc1','show'));
+      add(acc+750, ()=>cls('gc2','show'));
+      add(acc+1100,()=>cls('gc3','show'));
+      add(acc+1500,()=>{cls('nw','show-n');cls('toast','show')});
+      add(acc+2000,()=>cls('genBtn','vis'));
+      add(acc+3500,()=>cls('genBtn','clicked'));
+      add(acc+3900,()=>{$('genBtn').style.display='none';cls('steps','show')});
+      add(acc+4000,()=>rmcls('toast','show'));
+      add(acc+4300,()=>cls('gs1','ok'));
+      add(acc+4900,()=>cls('gs2','ok'));
+      add(acc+5500,()=>cls('gs3','ok'));
+      add(acc+6200,()=>cls('gs4','ok'));
+      add(acc+7400,()=>{rmcls('steps','show');cls('dlCard','show')});
+    }
+    acc+=dur;
+  });
+  add(acc,onEnd);
+  return evs.sort((a,b)=>a.time-b.time);
+}
+
+let EVENTS=[],timers=[],isPaused=false,elapsed=0,playStart=0,progIv=null,ended=false;
+const now=()=>Date.now();
+const curMs=()=>isPaused?elapsed:elapsed+(now()-playStart);
+function clrTimers(){timers.forEach(clearTimeout);timers=[]}
+function t(fn,d){if(d<0)return;const id=setTimeout(fn,d);timers.push(id)}
+
+function resetAll(){
+  SCENES.forEach(({id})=>$(id)&&rmcls(id,'active'));
+  ['sv1','sv2','sv3','cv1','cv2'].forEach(id=>$(id)&&rmcls(id,'show'));
+  ['gc1','gc2','gc3'].forEach(id=>$(id)&&rmcls(id,'show'));
+  rmcls('nw','show-n');rmcls('toast','show');
+  const gb=$('genBtn');if(gb){gb.classList.remove('vis','clicked');gb.style.display=''}
+  rmcls('steps','show');rmcls('dlCard','show');
+  ['gs1','gs2','gs3','gs4'].forEach(id=>$(id)&&rmcls(id,'ok'));
+}
+
+function scheduleFrom(fromMs){
+  clrTimers();
+  EVENTS.filter(e=>e.time>=fromMs).forEach(e=>t(e.fn,e.time-fromMs));
+}
+
+function setPlayIcon(playing){
+  $('icon-pause').style.display=playing?'':'none';
+  $('icon-play').style.display=playing?'none':'';
+}
+function updateProg(ms){
+  const pct=Math.min(100,(ms/TOTAL)*100);
+  $('prog-fill').style.width=pct+'%';
+  $('time-disp').textContent=fmt(ms)+' / '+fmt(TOTAL);
+}
+function startProgIv(){
+  clearInterval(progIv);
+  progIv=setInterval(()=>{const ms=curMs();if(ms>=TOTAL){clearInterval(progIv);return}updateProg(ms)},80);
+}
+
+function togglePlay(){isPaused?resume():pause()}
+function pause(){
+  if(isPaused)return;
+  elapsed=curMs();isPaused=true;
+  clrTimers();clearInterval(progIv);
+  setPlayIcon(false);
+}
+function resume(){
+  if(!isPaused)return;
+  if(elapsed>=TOTAL-100){go();return;}
+  isPaused=false;playStart=now();
+  scheduleFrom(elapsed);startProgIv();
+  setPlayIcon(true);
+}
+
+function onEnd(){
+  clrTimers();clearInterval(progIv);
+  updateProg(TOTAL);
+  elapsed=TOTAL;ended=false;
+  t(go,1500);
+}
+
+
+function go(){
+  clrTimers();clearInterval(progIv);resetAll();
+  EVENTS=buildEvents();
+  elapsed=0;isPaused=false;ended=false;
+  playStart=now();updateProg(0);
+  scheduleFrom(0);startProgIv();
+  setPlayIcon(true);
+}
+
+go();
+</script>
+</body>
+</html>
