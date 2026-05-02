@@ -299,6 +299,7 @@ html, body {
   .hero-sub b{color:var(--aut-primary-900);font-weight:600;}
 
   .hero-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+  .hero-login-label{flex:0 0 100%;font:500 12.5px var(--aut-font-sans);color:var(--aut-fg-3);margin:0;letter-spacing:0.01em;}
   .hero-login-btn{
     display:inline-block;
     font:500 13.5px var(--aut-font-sans);
@@ -397,8 +398,8 @@ html, body {
     color:var(--aut-primary-900);
   }
   .float-tag .d{width:8px;height:8px;border-radius:999px;background:var(--aut-success);}
-  .float-tag.top{top:40px;right:-20px;}
-  .float-tag.bot{bottom:52px;left:-30px;max-width:200px;line-height:1.3;}
+  .float-tag.top{top:6px;right:-20px;}
+  .float-tag.bot{bottom:6px;left:-30px;max-width:200px;line-height:1.3;}
   .float-tag small{display:block;font-weight:400;color:var(--aut-fg-3);font-size:11px;margin-top:2px;}
 
   /* ── COMPAT STRIP ── */
@@ -431,6 +432,8 @@ html, body {
   .section{padding:96px 0;}
   .section.tight{padding:72px 0;}
   .section.sunk{background:var(--aut-surface-sunk);}
+  .section.warm{background:var(--aut-terra-50);}
+  .section.cool-blue{background:var(--aut-primary-50);}
   .section.navy{background:var(--aut-primary-900);color:#F1F5FA;}
 
   .section-head{margin-bottom:48px;max-width:720px;}
@@ -511,6 +514,7 @@ html, body {
   .vs-col.bad .ic{background:var(--aut-surface-card);color:var(--aut-danger-fg);border:1px solid var(--aut-border-1);}
   .vs-col.good .ic{background:var(--aut-success-bg);color:var(--aut-success-fg);}
   .vs-col .ic svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+  .vs-swipe-hint{display:none;}
 
   /* ── STEPS ── */
   .steps{
@@ -1222,7 +1226,7 @@ html, body {
   /* ── MÒBIL (≤600px) ── */
   @media (max-width:600px){
     /* Nav */
-    .nav-in{padding:0 14px;gap:8px;}
+    .nav-in{padding:16px 14px;gap:8px;}
     .lang-switch{gap:2px;}
     .lang-switch button{padding:4px 6px;font-size:11px;}
     .btn.dark span{display:none;}
@@ -1233,12 +1237,12 @@ html, body {
     .hero{padding:48px 0 56px;}
     .hero-in{padding:0 20px;gap:32px;}
     h1.hero-h{font-size:40px;letter-spacing:-2px;line-height:1.1;}
-    .hero-sub{font-size:15px;line-height:1.6;}
+    .hero-sub{font-size:15px;line-height:1.6;border-top:1px solid var(--aut-border-1);padding-top:18px;}
     .hero-ctas{flex-direction:column;gap:10px;}
     .hero-ctas .btn{width:100%;justify-content:center;padding:15px 20px;font-size:15px;}
     .hero-login-btn{width:100%;text-align:center;box-sizing:border-box;}
     .hero-left{text-align:center;}
-    .hero-list{gap:8px;margin-top:20px;}
+    .hero-list{gap:8px 20px;margin-top:20px;grid-template-columns:auto auto;width:fit-content;margin-left:auto;margin-right:auto;}
     .hero-list li{justify-content:center;font-size:13.5px;}
     .eyebrow{font-size:11.5px;padding:5px 12px;}
 
@@ -1275,6 +1279,9 @@ html, body {
     .vs-dots{display:flex;justify-content:center;gap:6px;margin-top:16px;}
     .vs-dot{width:8px;height:8px;border-radius:50%;background:var(--aut-border-2);transition:background .2s,transform .2s;cursor:pointer;}
     .vs-dot.on{background:var(--aut-terra-600);transform:scale(1.2);}
+    .vs-swipe-hint{display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-top:14px;font:500 12px var(--aut-font-sans);color:var(--aut-fg-3);animation:hint-nudge 1.8s ease-in-out 1s 2;}
+    @keyframes hint-nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+    .vs-swipe-hint svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 
     /* Steps — layout simple i net */
     .steps{gap:0;display:flex;flex-direction:column;}
@@ -1352,7 +1359,76 @@ html, body {
     .foot-brand{max-width:none;}
     .foot-bottom{padding:0 20px;font-size:12px;}
   }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1);}
+  .reveal.revealed{opacity:1;transform:none;}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
+
+  /* ── HERO PAIN LINE ── */
+  .hero-pain{font:500 15px/1.45 var(--aut-font-sans);color:var(--aut-terra-700);margin:0 0 20px;}
+
+  /* ── FEATURE REVEAL ── */
+  .feature-card{cursor:pointer;}
+  .feature-card p{overflow:hidden;max-height:0;opacity:0;transition:max-height .32s var(--aut-ease-out),opacity .22s;}
+  .feature-card:hover p,.feature-card.expanded p{max-height:200px;opacity:1;}
+  .feat-hint{display:block;font:500 11px var(--aut-font-sans);color:var(--aut-terra-600);margin-top:10px;letter-spacing:0.07em;text-transform:uppercase;opacity:0.7;transition:opacity .15s,height 0s .15s,margin 0s .15s;}
+  .feature-card:hover .feat-hint,.feature-card.expanded .feat-hint{opacity:0;height:0;margin:0;overflow:hidden;}
+
+  /* ── STEP EXPAND ── */
+  .step{cursor:pointer;}
+  .step p{overflow:hidden;max-height:0;opacity:0;transition:max-height .32s var(--aut-ease-out),opacity .22s;}
+  .step.expanded p{max-height:220px;opacity:1;}
+  .step-arrow{position:absolute;bottom:22px;left:28px;display:flex;align-items:center;justify-content:center;color:var(--aut-fg-4);opacity:0.55;transition:transform .25s var(--aut-ease-out),color .2s,opacity .2s;}
+  .step-arrow svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .step:hover .step-arrow,.step.expanded .step-arrow{opacity:1;}
+  .step.expanded .step-arrow{transform:rotate(180deg);color:var(--aut-terra-500);}
+  @media(max-width:600px){.step-arrow{bottom:16px;left:20px;}}
+
+  /* ── VS TOGGLE ── */
+  .vs-toggle-ctrl{display:flex;background:rgba(0,0,0,0.06);border-radius:999px;padding:4px;width:fit-content;margin:0 auto 36px;gap:2px;}
+  .vstb{padding:10px 22px;border-radius:999px;font:500 14px var(--aut-font-sans);color:var(--aut-fg-3);cursor:pointer;border:none;background:transparent;transition:background .22s,color .22s,box-shadow .22s;white-space:nowrap;}
+  .vstb.active{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+  .vstb.active.is-bad{color:var(--aut-danger-fg);}
+  .vstb.active.is-good{color:var(--aut-success-fg);}
+  .vstb-m{margin-right:5px;font-weight:700;}
+  .vstb.is-bad .vstb-m{color:var(--aut-danger-fg);}
+  .vstb.is-good .vstb-m{color:var(--aut-success-fg);}
+  .vs-panels{display:grid;max-width:680px;margin:0 auto;}
+  .vs-panel{grid-row:1;grid-column:1;border-radius:20px;padding:36px 40px;transition:opacity .28s,transform .28s var(--aut-ease-out);pointer-events:none;visibility:hidden;opacity:0;transform:translateY(10px);}
+  .vs-panel.active{pointer-events:auto;visibility:visible;opacity:1;transform:none;}
+  .vs-panel.bad{background:rgba(179,38,30,0.04);border:1px solid rgba(179,38,30,0.15);}
+  .vs-panel.good{background:rgba(46,125,91,0.06);border:1px solid rgba(46,125,91,0.2);}
+  .vs-panel .vs-tag{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;font:600 11.5px var(--aut-font-sans);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:20px;}
+  .vs-panel.bad .vs-tag{background:var(--aut-danger-bg);color:var(--aut-danger-fg);}
+  .vs-panel.good .vs-tag{background:var(--aut-success-bg);color:var(--aut-success-fg);}
+  .vs-panel h3{font:600 20px/1.3 var(--aut-font-sans);color:var(--aut-primary-900);margin:0 0 24px;letter-spacing:-0.015em;}
+  .vs-panel ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:16px;}
+  .vs-panel li{display:flex;gap:12px;align-items:flex-start;font:400 15.5px/1.5 var(--aut-font-sans);color:var(--aut-fg-2);}
+  .vs-panel .ic{width:24px;height:24px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+  .vs-panel.bad .ic{background:var(--aut-surface-card);color:var(--aut-danger-fg);border:1px solid var(--aut-border-1);}
+  .vs-panel.good .ic{background:var(--aut-success-bg);color:var(--aut-success-fg);}
+  .vs-panel .ic svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+  @media(max-width:600px){
+    .vs-toggle-ctrl{margin-bottom:24px;}
+    .vstb{padding:9px 14px;font-size:13px;}
+    .vs-panels{max-width:none;}
+    .vs-panel{padding:24px 20px;border-radius:16px;}
+    .vs-panel h3{font-size:17px;margin-bottom:16px;}
+    .vs-panel li{font-size:14px;}
+  }
+
+  /* ── LEGAL COLLAPSE ── */
+  .legal-card.collapsible{cursor:pointer;}
+  .legal-card.collapsible ul{overflow:hidden;max-height:0;opacity:0;transition:max-height .32s var(--aut-ease-out),opacity .22s;margin-bottom:0;}
+  .legal-card.collapsible.expanded ul{max-height:200px;opacity:1;margin-bottom:14px;}
+  .legal-card.collapsible .legal-note{overflow:hidden;max-height:0;opacity:0;transition:max-height .32s var(--aut-ease-out),opacity .22s;padding-top:0;border-top:none;}
+  .legal-card.collapsible.expanded .legal-note{max-height:60px;opacity:1;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);}
+  .legal-expand{display:block;font:500 11px var(--aut-font-sans);color:var(--aut-terra-400);margin-top:12px;letter-spacing:0.07em;text-transform:uppercase;transition:opacity .15s,height 0s .15s,margin 0s .15s;}
+  .legal-card.collapsible.expanded .legal-expand{opacity:0;height:0;margin:0;overflow:hidden;}
 </style>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body data-screen-label="Landing · Automossos">
 
@@ -1393,27 +1469,25 @@ html, body {
         <span class="dot"></span>
         <span data-t="hero.eyebrow">Obligatori per llei · Catalunya</span>
       </div>
-      <h1 class="hero-h" data-th="hero.h">Reserva feta.<br/>Hostes registrats.<br/>Mossos avisats.<br/><em>Tu? Dormint.</em></h1>
+      <h1 class="hero-h" data-th="hero.h">Reserva feta.<br/>Viatgers registrats.<br/><em>Tu? Dormint.</em></h1>
       <p class="hero-sub" data-th="hero.sub">
         Envia el formulari legal i la info de la casa en el mateix missatge de Booking. L'hoste arriba preparat. Tu revises, aproves amb un clic,
         <b>i Mossos ho rep.</b>
       </p>
       <div class="hero-ctas">
+        <p class="hero-login-label" data-t="hero.loginLabel">Ja ets client de Automossos?</p>
+        <a class="btn dark lg" style="flex:0 0 100%;justify-content:center;" href="https://app.automossos.cat" data-t="hero.login">Entra al teu panell →</a>
         <a class="btn primary lg" href="https://app.automossos.cat/admin/register">
           <span data-t="hero.cta1">Prova-ho gratis 1 mes →</span>
         </a>
         <a class="btn secondary lg" href="#contingut" data-t="hero.cta2">Com funciona ↓</a>
       </div>
-      <a class="hero-login-btn" href="https://app.automossos.cat" data-t="hero.login">Entra al teu panell →</a>
       <ul class="hero-list">
         <li><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="hero.li1">Sense app per l'hoste</span></li>
         <li><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="hero.li2">100% des del mòbil</span></li>
         <li><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="hero.li3">Compleix la llei</span></li>
         <li><span class="tick"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="hero.li4">Document oficial automàtic</span></li>
       </ul>
-      <div class="hero-proof">
-        <span data-t="hero.proof">Propietaris de Catalunya s'estalvien hores cada setmana</span>
-      </div>
     </div>
 
     <div class="hero-right">
@@ -1446,7 +1520,7 @@ html, body {
       </div>
       <div class="float-tag top">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E7D5B" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
-        <div data-th="hero.floatTop">Enviat als Mossos<small>Pere Martí · just ara</small></div>
+        <div data-th="hero.floatTop">Document oficial generat<small>Can Cuní · 23 juny, 10:24</small></div>
       </div>
       <div class="float-tag bot">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2E7D5B" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
@@ -1465,54 +1539,54 @@ html, body {
       <span>Airbnb</span>
       <span>Vrbo</span>
       <span>Expedia</span>
-      <em data-t="compat.etc">i qualsevol altra plataforma</em>
+      <em data-t="compat.etc">o reserves directes per WhatsApp, telèfon o web pròpia</em>
     </div>
   </div>
 </section>
 
 <!-- VS -->
-<section class="section">
+<section class="section warm">
   <div class="wrap">
     <div class="section-head center">
       <p class="section-kicker" data-t="vs.kicker">Avui vs. amb Automossos</p>
-      <h2 class="section-h" data-th="vs.h">La diferència és <em>abismal</em></h2>
+      <h2 class="section-h" data-th="vs.h">Sense Automossos: feina teva cada cop. Amb Automossos: <em>una sola vegada.</em></h2>
       <p class="section-sub" data-t="vs.sub">Els vespres de divendres fent WhatsApps per demanar DNIs s'han acabat.</p>
     </div>
-    <div class="vs">
-      <div class="vs-col bad">
-        <div class="vs-tag bad"><span class="m">×</span><span data-t="vs.bad.tag">Sense Automossos</span></div>
-        <h3 data-t="vs.bad.h">Cada reserva és una cursa contra el rellotge</h3>
-        <ul>
-          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span><span data-t="vs.bad.li1">Escrius tu a cada hoste per demanar-li el DNI</span></li>
-          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span><span data-t="vs.bad.li2">Esperes que et respongui (de vegades no ho fa)</span></li>
-          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span><span data-t="vs.bad.li3">Transcrius les dades a mà, un per un</span></li>
-          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span><span data-t="vs.bad.li4">Entres al portal de Mossos i puges el fitxer manualment</span></li>
-          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span><span data-t="vs.bad.li5">Si t'equivoques o oblides, pots rebre una multa de fins a 30.000€</span></li>
-          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span><span data-t="vs.bad.li6">I a sobre, l'hoste et pregunta el wifi, com entrar, on aparcar…</span></li>
-        </ul>
-      </div>
-      <div class="vs-col good">
-        <div class="vs-tag good"><span class="m">✓</span><span data-t="vs.good.tag">Amb Automossos</span></div>
+    <!-- Toggle control -->
+    <div class="vs-toggle-ctrl">
+      <button class="vstb is-good active" data-vs="good">
+        <span class="vstb-m">✓</span><span data-t="vs.good.tag">Amb Automossos</span>
+      </button>
+      <button class="vstb is-bad" data-vs="bad">
+        <span class="vstb-m">×</span><span data-t="vs.bad.tag">Sense Automossos</span>
+      </button>
+    </div>
+    <!-- Panels (grid-stacked, one visible at a time) -->
+    <div class="vs-panels">
+      <div class="vs-panel good active">
+        <div class="vs-tag"><span class="m">✓</span> <span data-t="vs.good.tag">Amb Automossos</span></div>
         <h3 data-t="vs.good.h">Tot passa sol. Tu només supervises.</h3>
         <ul>
-          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="vs.good.li1">Booking envia automàticament el missatge amb el link</span></li>
-          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="vs.good.li2">L'hoste omple les dades des del mòbil en 2 minuts</span></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="vs.good.li1">Automossos envia l'enllaç a l'hoste automàticament</span></li>
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="vs.good.li3">Tu reps un avís quan tot és llest</span></li>
-          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="vs.good.li4">Revises les dades i cliques "Enviar als Mossos" — fet</span></li>
-          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="vs.good.li5">L'hoste ja sap el wifi, com entrar i on aparcar</span></li>
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="vs.good.li6">Tu no has escrit ni un sol missatge</span></li>
         </ul>
       </div>
-    </div>
-    <div class="vs-dots" id="vsDots">
-      <div class="vs-dot on" data-i="0"></div>
-      <div class="vs-dot" data-i="1"></div>
+      <div class="vs-panel bad">
+        <div class="vs-tag"><span class="m">×</span> <span data-t="vs.bad.tag">Sense Automossos</span></div>
+        <h3 data-t="vs.bad.h">Cada reserva és una cursa contra el rellotge</h3>
+        <ul>
+          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span><span data-t="vs.bad.li1">Escrius tu a cada hoste per demanar-li el DNI</span></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span><span data-t="vs.bad.li3">Transcrius les dades a mà, un per un</span></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span><span data-t="vs.bad.li5">Si t'equivoques o oblides, pots rebre una multa de fins a 30.000€</span></li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- STEPS -->
-<section class="section sunk" id="contingut">
+<section class="section cool-blue" id="contingut">
   <div class="wrap">
     <div class="section-head center">
       <p class="section-kicker" data-t="steps.kicker">Com funciona</p>
@@ -1528,6 +1602,7 @@ html, body {
         <h3 data-t="step0.h">Configures la teva propietat una sola vegada</h3>
         <p data-t="step0.p">Poses la info de la casa: wifi, claus, on aparcar, normes i recomanacions locals. Un cop. Mai més.</p>
         <span class="step-tag" data-t="step0.tag">5 minuts de feina</span>
+        <div class="step-arrow"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
       </div>
       <div class="step">
         <div class="step-n">02 / 04</div>
@@ -1535,8 +1610,9 @@ html, body {
           <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M11 18h2"/></svg>
         </div>
         <h3 data-t="step1.h">L'hoste reserva i rep un missatge automàtic</h3>
-        <p data-t="step1.p">El sistema envia el link al titular de la reserva en el moment de la confirmació. Ell el pot reenviar als seus acompanyants. El formulari valida les dades en temps real: si alguna no és correcta, no es pot enviar. Tu no has fet res.</p>
+        <p data-t="step1.p">Quan l'hoste confirma la reserva, Automossos li envia automàticament un missatge amb l'enllaç per omplir les dades. Si la reserva és directa (WhatsApp o telèfon), tu li envies l'enllaç amb un clic des del teu panell.</p>
         <span class="step-tag" data-t="step1.tag">0 feina del propietari</span>
+        <div class="step-arrow"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
       </div>
       <div class="step">
         <div class="step-n">03 / 04</div>
@@ -1544,17 +1620,19 @@ html, body {
           <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h4"/></svg>
         </div>
         <h3 data-t="step2.h">L'hoste omple les seves dades des del mòbil</h3>
-        <p data-t="step2.p">Obre el link, omple les dades i veu la info de la casa. Sense baixar cap app. Des de qualsevol telèfon.</p>
+        <p data-t="step2.p">Obre l'enllaç, omple les dades i veu la info de la casa. Sense baixar cap app. Des de qualsevol telèfon.</p>
         <span class="step-tag" data-t="step2.tag">L'hoste arriba preparat</span>
+        <div class="step-arrow"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
       </div>
       <div class="step">
         <div class="step-n">04 / 04</div>
         <div class="step-ic" style="background:var(--aut-primary-50);color:var(--aut-primary-800);border-color:var(--aut-primary-100);">
           <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
         </div>
-        <h3 data-t="step3.h">Tu reps l'avís i envies als Mossos amb un clic</h3>
-        <p data-t="step3.p">Reps un avís, entres a Automossos, cliques "Enviar als Mossos" i el programa crea el document oficial. Tot en menys de 2 minuts.</p>
-        <span class="step-tag" data-t="step3.tag">1 clic · menys d'1 minut</span>
+        <h3 data-t="step3.h">Tu reps l'avís, generes el document i el puges al portal</h3>
+        <p data-t="step3.p">Reps un avís, entres a Automossos i generes el document oficial amb un clic. Llavors l'adjuntes al portal web dels Mossos — és com adjuntar un arxiu a un email. Tot en menys de 2 minuts.</p>
+        <span class="step-tag" data-t="step3.tag">2 minuts en total</span>
+        <div class="step-arrow"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
       </div>
     </div>
   </div>
@@ -1566,7 +1644,7 @@ html, body {
     <div class="section-head center">
       <p class="section-kicker" data-t="demo.kicker">En acció</p>
       <h2 class="section-h" data-th="demo.h">Veu-ho en <em>1 minut</em></h2>
-      <p class="section-sub" data-t="demo.sub">El titular de la reserva rep el link i el reenvia als acompanyants · Tothom omple el formulari · Les dades queden validades automàticament · Arxiu generat i enviat.</p>
+      <p class="section-sub" data-t="demo.sub">L'hoste rep un missatge, omple les dades des del mòbil en 2 minuts. Tu reps l'avís, generes el document oficial amb un clic i el puges al portal dels Mossos. Vist i plau.</p>
     </div>
     <div class="demo-embed-wrap">
       <div class="demo-phone-wrap">
@@ -1622,42 +1700,48 @@ html, body {
 </script>
 
 <!-- FEATURES -->
-<section class="section sunk" id="funcionalitats">
+<section class="section" id="funcionalitats">
   <div class="wrap">
     <div class="section-head center">
       <p class="section-kicker" data-t="features.kicker">Per què Automossos</p>
-      <h2 class="section-h" data-th="features.h">Tot el que necessites. <em>Res que no necessites.</em></h2>
+      <h2 class="section-h" data-th="features.h">Sis funcions. <em>Totes necessàries.</em></h2>
       <p class="section-sub" data-t="features.sub">Pensat per a propietaris de cases rurals, pisos turístics i petits allotjaments de Catalunya. No per a hotels de 200 habitacions.</p>
     </div>
     <div class="features-grid">
       <div class="feature-card">
         <span class="feat-emoji">🤝</span>
         <h3 data-t="feat1.h">Sense app per a l'hoste</h3>
-        <p data-t="feat1.p">L'hoste obre un link normal des del mòbil. Sense descarregar res, sense crear cap compte. Funciona amb qualsevol telèfon del món.</p>
+        <span class="feat-hint">Llegir més +</span>
+        <p data-t="feat1.p">L'hoste obre un enllaç des del mòbil. Sense descarregar res, sense crear cap compte. Funciona amb qualsevol telèfon del món.</p>
       </div>
       <div class="feature-card featured">
         <span class="feat-emoji">🎯</span>
         <h3 data-t="feat2.h">Tu tens el control</h3>
+        <span class="feat-hint">Llegir més +</span>
         <p data-t="feat2.p">Veus tots els registres al teu panell. Revises les dades quan vols i envies als Mossos amb un clic. 100% fiable perquè tu tens l'última paraula.</p>
       </div>
       <div class="feature-card">
         <span class="feat-emoji">📲</span>
         <h3 data-t="feat3.h">Tot des del mòbil</h3>
+        <span class="feat-hint">Llegir més +</span>
         <p data-t="feat3.p">El teu panell funciona perfectament des del mòbil o PC. Reps avís quan tots els hostes han omplert les dades. Sense entrar a revisar.</p>
       </div>
       <div class="feature-card">
         <span class="feat-emoji">📁</span>
-        <h3 data-t="feat4.h">Fitxer oficial automàtic</h3>
-        <p data-t="feat4.p">Genera el format V24 que exigeix el portal dels Mossos. Sense errors de format, sense transcripcions manuals. Sempre actualitzat amb la normativa.</p>
+        <h3 data-t="feat4.h">Document oficial generat automàticament</h3>
+        <span class="feat-hint">Llegir més +</span>
+        <p data-t="feat4.p">Genera el document oficial que exigeix la llei, sense errors de format i sense transcripcions manuals. Sempre actualitzat amb la normativa vigent.</p>
       </div>
       <div class="feature-card">
         <span class="feat-emoji">🗂️</span>
-        <h3 data-t="feat5.h">Historial legal 3 anys</h3>
-        <p data-t="feat5.p">La llei obliga a conservar el registre 3 anys. Automossos ho guarda tot per tu, accessible en qualsevol moment si hi ha una inspecció.</p>
+        <h3 data-t="feat5.h">Tots els registres guardats 3 anys</h3>
+        <span class="feat-hint">Llegir més +</span>
+        <p data-t="feat5.p">La llei obliga a guardar el registre 3 anys. Automossos ho guarda tot per tu — accessible en qualsevol moment si vénen a inspeccionar.</p>
       </div>
       <div class="feature-card">
         <span class="feat-emoji">🏡</span>
         <h3 data-t="feat6.h">Fet a Catalunya, en català</h3>
+        <span class="feat-hint">Llegir més +</span>
         <p data-t="feat6.p">Suport en català, castellà i anglès. Pensat pels Mossos d'Esquadra, no per a la Policía Nacional. Específic per a la normativa catalana.</p>
       </div>
     </div>
@@ -1669,7 +1753,7 @@ html, body {
   <div class="wrap">
     <div class="section-head center">
       <p class="section-kicker" data-t="faq.kicker">Dubtes</p>
-      <h2 class="section-h" data-t="faq.h">Preguntes freqüents</h2>
+      <h2 class="section-h" data-t="faq.h">El que ens pregunten els propietaris</h2>
     </div>
     <div class="faq">
       <details class="faq-item" open>
@@ -1702,30 +1786,38 @@ html, body {
           <span class="q-t" data-t="faq.q4">Qui puja el document als Mossos, jo o el programa?</span>
           <span class="q-c"><svg viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg></span>
         </summary>
-        <div class="ans" data-t="faq.a4">Tu. Automossos genera el document oficial automàticament, però la revisió final és teva — és una mesura de seguretat. Pots comprovar les dades abans d'enviar-les a la policia. En 2 minuts tens el fitxer llest per adjuntar al portal dels Mossos.</div>
+        <div class="ans" data-t="faq.a4">Tu. Automossos genera el document oficial automàticament i tu el revises. Llavors l'adjuntes al portal web dels Mossos (registreviatgers.mossos.gencat.cat) — és una web oficial on pengis l'arxiu, com adjuntar un document a un email. Tota l'operació dura menys de 2 minuts.</div>
       </details>
       <details class="faq-item">
         <summary>
           <span class="q-n">05</span>
-          <span class="q-t" data-t="faq.q5">Necessito contractar res addicional?</span>
+          <span class="q-t" data-t="faq.q5">Haig de tenir compte al portal dels Mossos?</span>
           <span class="q-c"><svg viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg></span>
         </summary>
-        <div class="ans" data-t="faq.a5">No. Tot està inclòs al pla. Sense costos ocults, sense integracions de pagament extra.</div>
+        <div class="ans" data-t="faq.a5">Sí, necessites un compte al portal oficial dels Mossos (registreviatgers.mossos.gencat.cat). Si ja en tens un, el continues usant exactament igual. Si no, el crees gratuïtament a la web dels Mossos. Automossos et genera el document; tu el puges al portal amb el teu compte habitual.</div>
       </details>
       <details class="faq-item">
         <summary>
           <span class="q-n">06</span>
-          <span class="q-t" data-t="faq.q6">Quan hauré de pagar?</span>
+          <span class="q-t" data-t="faq.q6">Necessito contractar res addicional?</span>
           <span class="q-c"><svg viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg></span>
         </summary>
-        <div class="ans" data-t="faq.a6">El primer mes és completament gratis, sense targeta. Quan acabi el mes de prova, t'explicarem els plans disponibles i tu decideixes si vols continuar. No et cobrem res sense avisar-te abans.</div>
+        <div class="ans" data-t="faq.a6">No. Tot està inclòs al pla. Sense costos ocults, sense integracions de pagament extra.</div>
+      </details>
+      <details class="faq-item">
+        <summary>
+          <span class="q-n">07</span>
+          <span class="q-t" data-t="faq.q7">Quan hauré de pagar?</span>
+          <span class="q-c"><svg viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg></span>
+        </summary>
+        <div class="ans" data-t="faq.a7">El primer mes és completament gratis, sense targeta. Quan acabi el mes de prova, t'explicarem els plans disponibles i tu decideixes si vols continuar. No et cobrem res sense avisar-te abans.</div>
       </details>
     </div>
   </div>
 </section>
 
 <!-- PRICING -->
-<section class="section sunk" id="preus">
+<section class="section warm" id="preus">
   <div class="wrap">
     <div class="section-head center">
       <p class="section-kicker" data-t="pricing.kicker">Preus</p>
@@ -1750,7 +1842,7 @@ html, body {
         <ul class="plan-feats" style="margin-top:20px;">
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx" data-th="plan1.li1">1 establiment, <b>fins a 5 reserves</b></span></li>
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx" data-t="plan1.li2">L'hoste omple les seves dades des del mòbil</span></li>
-          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx" data-th="plan1.li3"><b>Fitxer TXT</b> llest per pujar als Mossos</span></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx" data-th="plan1.li3"><b>Document oficial</b> llest per pujar als Mossos</span></li>
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx" data-t="plan1.li4">Suport per email inclòs</span></li>
           <li class="no"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></span><span class="tx" data-t="plan1.li5">Historial legal 3 anys</span></li>
           <li class="no"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></span><span class="tx" data-t="plan1.li6">Pàgina d'informació per a l'hoste</span></li>
@@ -1777,7 +1869,6 @@ html, body {
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx" data-th="plan2.li2">Tot el flux automatitzat — <b>zero paper, zero errors</b></span></li>
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx" data-th="plan2.li3"><b>Historial legal guardat 3 anys</b> (RD 933/2021)</span></li>
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx" data-t="plan2.li4">Avís quan tots els hostes han completat el registre</span></li>
-          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx" data-t="plan2.li5">Info bàsica de l'allotjament al link de l'hoste</span></li>
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx" data-th="plan2.li6"><b>Suport prioritari</b> per email</span></li>
         </ul>
         <div style="flex:1;min-height:16px;"></div>
@@ -1787,7 +1878,7 @@ html, body {
       <!-- PLAN 3 · ANTIFRICCIÓ -->
       <div class="plan pro">
         <div class="plan-ribbon alt" data-t="plan3.ribbon">Per a professionals</div>
-        <p class="plan-name" data-t="plan3.name">Pla Antifricció</p>
+        <p class="plan-name" data-t="plan3.name">Pla Professional</p>
         <p class="plan-tagline pro" data-t="plan3.tagline">Zero WhatsApps, zero problemes</p>
         <p class="plan-tag" data-th="plan3.tag">L'hoste arriba informat. <b>Tu deixes de respondre WhatsApps.</b> Els dos marxen contents.</p>
         <div class="plan-price">
@@ -1799,12 +1890,11 @@ html, body {
         <div class="plan-incl" data-th="plan3.incl"><span class="incl-check">✓</span><span><b>TOT el Pla de la Calma inclòs.</b><br><em>I a sobre, tot això:</em></span></div>
         <ul class="plan-feats">
           <li><span class="ic plus"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span class="tx" data-th="plan3.li1"><b>Fins a 5 establiments</b></span></li>
-          <li><span class="ic plus"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span class="tx" data-t="plan3.li2">Pàgina de benvinguda amb wifi, claus i normes</span></li>
-          <li><span class="ic plus"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span class="tx" data-t="plan3.li3">Guia local amb les teves recomanacions</span></li>
-          <li><span class="ic plus"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span class="tx" data-t="plan3.li4">Pàgina web pública de l'establiment</span></li>
+          <li><span class="ic plus"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span class="tx" data-t="plan3.li2">Generador de factures per als hostes</span></li>
+          <li><span class="ic plus"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span class="tx" data-t="plan3.li3">Historial de viatgers descarregable en Excel</span></li>
+          <li><span class="ic plus"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span class="tx" data-t="plan3.li4">Pàgina d'informació per als hostes: wifi, accés i normes</span></li>
           <li><span class="ic plus"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span class="tx" data-t="plan3.li5">Email de check-out automàtic + petició de ressenya</span></li>
-          <li><span class="ic plus"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span class="tx" data-t="plan3.li6">Exportació CSV de tot l'historial</span></li>
-          <li><span class="ic plus"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span class="tx" data-th="plan3.li7"><b>Suport prioritari 24h</b></span></li>
+          <li><span class="ic plus"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span class="tx" data-th="plan3.li6"><b>Suport prioritari 24h</b></span></li>
         </ul>
         <div style="flex:1;min-height:16px;"></div>
         <a class="plan-cta secondary" href="#beta" data-t="plan3.cta">Comença gratis 1 mes</a>
@@ -1832,7 +1922,7 @@ html, body {
     <p class="section-sub" data-t="legal.sub">Des del 2021, tots els allotjaments turístics d'Espanya han de registrar els hostes al portal de la policia en menys de 24 hores. Et multen a tu, el propietari.</p>
 
     <div class="legal-grid four">
-      <div class="legal-card">
+      <div class="legal-card collapsible">
         <div class="legal-card-icon">🏠</div>
         <h3 data-t="legal.who.h">Qui ha de complir</h3>
         <ul data-th="legal.who.list">
@@ -1842,9 +1932,10 @@ html, body {
           <li>Albergs i allotjaments compartits</li>
         </ul>
         <p class="legal-note" data-t="legal.who.note">Si cobres per allotjar algú, estàs obligat.</p>
+        <span class="legal-expand">Veure detalls ↓</span>
       </div>
 
-      <div class="legal-card">
+      <div class="legal-card collapsible">
         <div class="legal-card-icon">⏱️</div>
         <h3 data-t="legal.when.h">Quan i com</h3>
         <ul data-th="legal.when.list">
@@ -1854,6 +1945,7 @@ html, body {
           <li>Historial guardat <b>3 anys</b> per llei</li>
         </ul>
         <p class="legal-note" data-t="legal.when.note">No n'hi ha prou amb tenir la fotocòpia del DNI — cal pujar el fitxer.</p>
+        <span class="legal-expand">Veure detalls ↓</span>
       </div>
 
       <div class="legal-card fines">
@@ -1870,7 +1962,7 @@ html, body {
         <p class="legal-note" data-t="legal.fines.note">No registrar un hoste és una infracció greu. El propietari és el responsable.</p>
       </div>
 
-      <div class="legal-card safe">
+      <div class="legal-card safe collapsible">
         <div class="legal-card-icon">✅</div>
         <h3 data-t="legal.safe.h">Automossos ho resol</h3>
         <ul data-th="legal.safe.list">
@@ -1880,6 +1972,7 @@ html, body {
           <li>Tu tens el control i la tranquil·litat</li>
         </ul>
         <p class="legal-note" data-t="legal.safe.note"><b>LO 4/2015 · RD 933/2021 · Format V24</b></p>
+        <span class="legal-expand">Veure detalls ↓</span>
       </div>
     </div>
   </div>
@@ -1946,7 +2039,7 @@ html, body {
         <li><a href="#faq" data-t="foot.col2.l1">Preguntes freqüents</a></li>
         <li><a href="mailto:hola@automossos.cat" data-t="foot.col2.l2">Contacte</a></li>
         <li><a href="/ajuda" data-t="foot.col2.l3">Ajuda</a></li>
-        <li><a href="#" data-t="foot.col2.l4">Estat del servei</a></li>
+        <li><a href="https://stats.uptimerobot.com/t26p38xR6W" target="_blank" rel="noopener" data-t="foot.col2.l4">Estat del servei</a></li>
       </ul>
     </div>
     <div class="foot-col">
@@ -1971,52 +2064,53 @@ var T={
 es:{
 'nav.how':'Cómo funciona','nav.product':'El producto','nav.pricing':'Precios','nav.faq':'Preguntas','nav.login':'Entrar','nav.app':'Ir a la app',
 'hero.eyebrow':'Obligatorio por ley · Cataluña',
-'hero.h':'Reserva hecha.<br/>Huéspedes registrados.<br/>Mossos avisados.<br/><em>¿Tú? Durmiendo.</em>',
+'hero.h':'Reserva hecha.<br/>Viajeros registrados.<br/><em>¿Tú? Durmiendo.</em>',
 'hero.sub':'Envía el formulario legal y la info de la casa en el mismo mensaje de Booking. El huésped llega preparado. Tú revisas, apruebas con un clic, <b>y los Mossos lo reciben.</b>',
 'hero.cta1':'Pruébalo gratis 1 mes →','hero.cta2':'Cómo funciona ↓','hero.login':'Entra a tu panel →',
-'hero.floatBot':'4 de 4 huéspedes registrados<small>Reserva AAR02.003 · lista</small>','hero.floatTop':'Enviado a los Mossos<small>Pere Martí · ahora mismo</small>',
+'hero.floatBot':'4 de 4 huéspedes registrados<small>Reserva AAR02.003 · lista</small>','hero.floatTop':'Documento oficial generado<small>Can Cuní · 23 jun, 10:24</small>',
 'hero.chatOnline':'en línea','hero.chatDay':'Hoy · 14:32','hero.chatBubble':'Bienvenido/a a <b>Casavella del Cuní</b>.<br/>Completa el registro obligatorio. Tarda menos de 2 minutos.','hero.chatLink':'Completar el registro →',
 'hero.li1':'Sin app para el huésped','hero.li2':'100% desde el móvil','hero.li3':'Cumple la ley','hero.li4':'Documento oficial automático',
-'hero.proof':'Propietarios de Cataluña se ahorran horas cada semana',
-'compat.lbl':'Compatible con','compat.etc':'y cualquier otra plataforma',
-'vs.kicker':'Hoy vs. con Automossos','vs.h':'La diferencia es <em>abismal</em>','vs.sub':'Los viernes por la noche enviando WhatsApps para pedir DNIs se acabaron.',
+'hero.proof':'Propietarios de Cataluña se ahorran horas cada semana','hero.pain':'Basta de pedir DNIs por WhatsApp y apuntarlos a mano.','hero.loginLabel':'¿Ya eres cliente de Automossos?',
+'compat.lbl':'Compatible con','compat.etc':'o reservas directas por WhatsApp, teléfono o web propia',
+'vs.kicker':'Hoy vs. con Automossos','vs.h':'Sin Automossos: trabajo tuyo cada vez. Con Automossos: <em>una sola vez.</em>','vs.sub':'Los viernes por la noche enviando WhatsApps para pedir DNIs se acabaron.',
 'vs.bad.tag':'Sin Automossos','vs.bad.h':'Cada reserva es una carrera contra el reloj',
 'vs.bad.li1':'Tú escribes a cada huésped para pedirle el DNI','vs.bad.li2':'Esperas que te responda (a veces no lo hace)','vs.bad.li3':'Transcribes los datos a mano, uno por uno',
-'vs.bad.li4':'Entras al portal de Mossos y subes el archivo manualmente','vs.bad.li5':'Si te equivocas u olvidas, puedes recibir una multa de hasta 30.000€','vs.bad.li6':'Y encima, el huésped te pregunta el wifi, cómo entrar, dónde aparcar…',
+'vs.bad.li4':'Entras al portal de Mossos y subes el archivo manualmente','vs.bad.li5':'Si te equivocas u olvidas, puedes recibir una multa de hasta 30.000€','vs.bad.li6':'Y encima, el huésped te pregunta el wifi, cómo entrar, dónde aparcar…','vs.swipe':'Desliza para ver la alternativa',
 'vs.good.tag':'Con Automossos','vs.good.h':'Todo pasa solo. Tú solo supervisas.',
-'vs.good.li1':'Booking envía automáticamente el mensaje con el link','vs.good.li2':'El huésped rellena los datos desde el móvil en 2 minutos','vs.good.li3':'Tú recibes un aviso cuando todo está listo','vs.good.li4':'Revisas los datos y haces clic en "Enviar a los Mossos" — hecho',
+'vs.good.li1':'Automossos envía el enlace al huésped automáticamente','vs.good.li2':'El huésped rellena los datos desde el móvil en 2 minutos','vs.good.li3':'Tú recibes un aviso cuando todo está listo','vs.good.li4':'Revisas los datos y haces clic en "Enviar a los Mossos" — hecho',
 'vs.good.li5':'El huésped ya sabe el wifi, cómo entrar y dónde aparcar','vs.good.li6':'Tú no has escrito ni un solo mensaje',
 'steps.kicker':'Cómo funciona','steps.h':'4 pasos. Sin llamadas. <em>Sin papeles.</em>','steps.sub':'Configuras tu propiedad una sola vez. Después, todo pasa solo para siempre.',
 'step0.h':'Configuras tu propiedad una sola vez','step0.p':'Pones la info de la casa: wifi, llaves, dónde aparcar, normas y recomendaciones locales. Una vez. Nunca más.','step0.tag':'5 minutos de trabajo',
-'step1.h':'El huésped reserva y recibe un mensaje automático','step1.p':'El sistema envía el link al titular de la reserva en el momento de la confirmación. Él puede reenviarla a sus acompañantes. El formulario valida los datos en tiempo real: si algo no es correcto, no se puede enviar. Tú no has hecho nada.','step1.tag':'0 trabajo del propietario',
-'step2.h':'El huésped rellena sus datos desde el móvil','step2.p':'Abre el link, rellena los datos y ve la info de la casa. Sin descargar ninguna app. Desde cualquier teléfono.','step2.tag':'El huésped llega preparado',
-'step3.h':'Tú recibes el aviso y envías a los Mossos con un clic','step3.p':"Recibes un aviso, entras en Automossos, haces clic en 'Enviar a los Mossos' y el programa crea el documento oficial. Todo en menos de 2 minutos.",'step3.tag':'1 clic · menos de 1 minuto',
-'features.kicker':'Por qué Automossos','features.h':'Todo lo que necesitas. <em>Nada que no necesitas.</em>','features.sub':'Pensado para propietarios de casas rurales, pisos turísticos y pequeños alojamientos de Cataluña. No para hoteles de 200 habitaciones.',
-'feat1.h':'Sin app para el huésped','feat1.p':'El huésped abre un link normal desde el móvil. Sin descargar nada, sin crear ninguna cuenta. Funciona con cualquier teléfono del mundo.',
+'step1.h':'El huésped reserva y recibe un mensaje automático','step1.p':'Cuando el huésped confirma la reserva, Automossos le envía automáticamente un mensaje con el enlace para rellenar sus datos. Si la reserva es directa (WhatsApp o teléfono), tú le envías el enlace con un clic desde tu panel.','step1.tag':'0 trabajo del propietario',
+'step2.h':'El huésped rellena sus datos desde el móvil','step2.p':'Abre el enlace, rellena los datos y ve la info de la casa. Sin descargar ninguna app. Desde cualquier teléfono.','step2.tag':'El huésped llega preparado',
+'step3.h':'Tú recibes el aviso, generas el documento y lo subes al portal','step3.p':'Recibes un aviso, entras en Automossos y generas el documento oficial con un clic. Luego lo adjuntas al portal web de los Mossos — es como adjuntar un archivo a un correo. Todo en menos de 2 minutos.','step3.tag':'2 minutos en total',
+'features.kicker':'Por qué Automossos','features.h':'Seis funciones. <em>Todas necesarias.</em>','features.sub':'Pensado para propietarios de casas rurales, pisos turísticos y pequeños alojamientos de Cataluña. No para hoteles de 200 habitaciones.',
+'feat1.h':'Sin app para el huésped','feat1.p':'El huésped abre un enlace desde el móvil. Sin descargar nada, sin crear ninguna cuenta. Funciona con cualquier teléfono del mundo.',
 'feat2.h':'Tú tienes el control','feat2.p':'Ves todos los registros en tu panel. Revisas los datos cuando quieres y envías a los Mossos con un clic. 100% fiable porque tú tienes la última palabra.',
 'feat3.h':'Todo desde el móvil','feat3.p':'Tu panel funciona perfectamente desde el móvil o PC. Recibes aviso cuando todos los huéspedes han rellenado los datos. Sin entrar a revisar.',
-'feat4.h':'Archivo oficial automático','feat4.p':'Genera el formato V24 que exige el portal de los Mossos. Sin errores de formato, sin transcripciones manuales. Siempre actualizado con la normativa.',
-'feat5.h':'Historial legal 3 años','feat5.p':'La ley obliga a conservar el registro 3 años. Automossos lo guarda todo por ti, accesible en cualquier momento si hay una inspección.',
+'feat4.h':'Documento oficial generado automáticamente','feat4.p':'Genera el documento oficial que exige la ley, sin errores de formato y sin transcripciones manuales. Siempre actualizado con la normativa vigente.',
+'feat5.h':'Todos los registros guardados 3 años','feat5.p':'La ley obliga a guardar el registro 3 años. Automossos lo guarda todo por ti — accesible en cualquier momento si vienen a inspeccionar.',
 'feat6.h':'Hecho en Cataluña, en catalán','feat6.p':'Soporte en catalán, castellano e inglés. Pensado para los Mossos d\'Esquadra, no para la Policía Nacional. Específico para la normativa catalana.',
 'legal.safe.h':'Automossos lo resuelve','legal.safe.list':'<li>Genera el archivo V24 oficial automáticamente</li><li>Guarda el historial 3 años por ley</li><li>Te avisa cuando debes actuar</li><li>Tú tienes el control y la tranquilidad</li>','legal.safe.note':'<b>LO 4/2015 · RD 933/2021 · Formato V24</b>',
-'demo.kicker':'En acción','demo.h':'Vélo en <em>1 minuto</em>','demo.sub':'El titular de la reserva recibe el link y lo reenvía a sus acompañantes · Todos rellenan el formulario · Los datos quedan validados automáticamente · Archivo generado y enviado.','demo.soon':'Vídeo demostración · Disponible pronto',
-'faq.kicker':'Dudas','faq.h':'Preguntas frecuentes',
+'demo.kicker':'En acción','demo.h':'Vélo en <em>1 minuto</em>','demo.sub':'El huésped recibe un mensaje, rellena los datos desde el móvil en 2 minutos. Tú recibes el aviso, generas el documento oficial con un clic y lo subes al portal de los Mossos. Hecho.','demo.soon':'Vídeo demostración · Disponible pronto',
+'faq.kicker':'Dudas','faq.h':'Lo que nos preguntan los propietarios',
 'faq.q1':'¿Y si el huésped no rellena el formulario?','faq.a1':'El sistema le envía un recordatorio automático. Si aun así no lo hace, te avisamos a ti para que puedas actuar.',
 'faq.q2':'¿Funciona con Booking.com y Airbnb?','faq.a2':'Sí. Automossos se integra con las principales plataformas de reservas. La conexión se configura en menos de 5 minutos.',
 'faq.q3':'¿Los datos de los huéspedes están seguros?','faq.a3':'Sí. Todos los datos se guardan cifrados y cumplimos el RGPD. No compartimos información con terceros.',
-'faq.q4':'¿Quién sube el documento a la Policía, yo o el programa?','faq.a4':'Tú. Automossos genera el documento oficial automáticamente, pero la revisión final es tuya — es una medida de seguridad. Puedes comprobar los datos antes de enviarlos a la policía. En 2 minutos tienes el archivo listo para adjuntar al portal de los Mossos.',
-'faq.q5':'¿Necesito contratar algo adicional?','faq.a5':'No. Todo está incluido en el plan. Sin costes ocultos, sin integraciones de pago adicionales.',
-'faq.q6':'¿Cuándo tendré que pagar?','faq.a6':'El primer mes es completamente gratis, sin tarjeta. Cuando acabe el mes de prueba, te explicaremos los planes disponibles y tú decides si quieres continuar. No te cobramos nada sin avisarte antes.',
+'faq.q4':'¿Quién sube el documento a la Policía, yo o el programa?','faq.a4':'Tú. Automossos genera el documento oficial automáticamente y tú lo revisas. Luego lo adjuntas al portal web de los Mossos (registreviatgers.mossos.gencat.cat) — es una web oficial donde subes el archivo, como adjuntar un documento a un correo. Toda la operación dura menos de 2 minutos.',
+'faq.q5':'¿Necesito cuenta en el portal de los Mossos?','faq.a5':'Sí, necesitas una cuenta en el portal oficial de los Mossos (registreviatgers.mossos.gencat.cat). Si ya tienes una, la sigues usando exactamente igual. Si no, la creas gratuitamente en la web de los Mossos. Automossos te genera el documento; tú lo subes al portal con tu cuenta habitual.',
+'faq.q6':'¿Necesito contratar algo adicional?','faq.a6':'No. Todo está incluido en el plan. Sin costes ocultos, sin integraciones de pago adicionales.',
+'faq.q7':'¿Cuándo tendré que pagar?','faq.a7':'El primer mes es completamente gratis, sin tarjeta. Cuando acabe el mes de prueba, te explicaremos los planes disponibles y tú decides si quieres continuar. No te cobramos nada sin avisarte antes.',
 'pricing.kicker':'Precios','pricing.h':'Un mes gratis, <em>sin tarjeta</em>','pricing.sub':'Prueba el producto completo durante 1 mes. Sin compromiso. Cuando acabes, decides si continuar — y con qué plan.',
 'pricing.offer':'Oferta de lanzamiento · quedan <b>68 plazas</b> de las 100 iniciales',
 'plan1.ribbon':'Prueba gratuita · 1 mes','plan1.name':'Plan Prueba Gratis','plan1.tagline':'Empieza sin miedo','plan1.tag':'Para quien quiere ver cómo funciona <b>sin arriesgar nada.</b>','plan1.per':'/ 1 mes','plan1.sub':'Sin tarjeta. Sin compromiso.',
-'plan1.li1':'1 alojamiento, <b>hasta 5 reservas</b>','plan1.li2':'El huésped rellena sus datos desde el móvil','plan1.li3':'<b>Archivo TXT</b> listo para subir a la Policía','plan1.li4':'Soporte por email incluido','plan1.li5':'Historial legal 3 años','plan1.li6':'Página de información para el huésped',
+'plan1.li1':'1 alojamiento, <b>hasta 5 reservas</b>','plan1.li2':'El huésped rellena sus datos desde el móvil','plan1.li3':'<b>Documento oficial</b> listo para subir a los Mossos','plan1.li4':'Soporte por email incluido','plan1.li5':'Historial legal 3 años','plan1.li6':'Página de información para el huésped',
 'plan1.cta':'Pruébalo gratis 1 mes','plan1.fine':'Al acabar el mes, decides si continuar — nosotros te ayudamos.',
 'plan2.ribbon':'Más popular','plan2.name':'Plan Tranquilidad','plan2.tagline':'Duerme tranquilo. La ley, cumplida.','plan2.tag':'<b>Cumple la ley, protégete de multas</b> y olvida el papel para siempre.','plan2.per':'/ mes','plan2.save':'o 99€/año','plan2.save.badge':'✓ Ahorra 2 meses',
-'plan2.li1':'1 alojamiento, <b>reservas ilimitadas</b>','plan2.li2':'Todo el flujo automatizado — <b>cero papel, cero errores</b>','plan2.li3':'<b>Historial legal guardado 3 años</b> (RD 933/2021)','plan2.li4':'Aviso cuando todos los huéspedes han completado el registro','plan2.li5':'Info básica del alojamiento en el link del huésped','plan2.li6':'<b>Soporte prioritario</b> por email',
+'plan2.li1':'1 alojamiento, <b>reservas ilimitadas</b>','plan2.li2':'Todo el flujo automatizado — <b>cero papel, cero errores</b>','plan2.li3':'<b>Historial legal guardado 3 años</b> (RD 933/2021)','plan2.li4':'Aviso cuando todos los huéspedes han completado el registro','plan2.li5':'Página de información para el huésped: wifi, acceso y normas','plan2.li6':'<b>Soporte prioritario</b> por email',
 'plan2.cta':'Empieza gratis 1 mes',
-'plan3.ribbon':'Para profesionales','plan3.name':'Plan Antifricción','plan3.tagline':'Cero WhatsApps, cero problemas','plan3.tag':'El huésped llega informado. <b>Tú dejas de responder WhatsApps.</b> Los dos salen contentos.','plan3.per':'/ mes','plan3.save':'o 199€/año','plan3.incl':'<span class="incl-check">✓</span><span><b>TODO el Plan Tranquilidad incluido.</b><br><em>Y además, todo esto:</em></span>',
-'plan3.li1':'<b>Hasta 5 alojamientos</b>','plan3.li2':'Página de bienvenida con wifi, llaves y normas','plan3.li3':'Guía local con tus recomendaciones','plan3.li4':'Página web pública del alojamiento','plan3.li5':'Email de check-out automático + petición de reseña','plan3.li6':'Exportación CSV de todo el historial','plan3.li7':'<b>Soporte prioritario 24h</b>',
+'plan3.ribbon':'Para profesionales','plan3.name':'Plan Profesional','plan3.tagline':'Cero WhatsApps, cero problemas','plan3.tag':'El huésped llega informado. <b>Tú dejas de responder WhatsApps.</b> Los dos salen contentos.','plan3.per':'/ mes','plan3.save':'o 199€/año','plan3.incl':'<span class="incl-check">✓</span><span><b>TODO el Plan Tranquilidad incluido.</b><br><em>Y además, todo esto:</em></span>',
+'plan3.li1':'<b>Hasta 5 alojamientos</b>','plan3.li2':'Generador de facturas para los huéspedes','plan3.li3':'Historial de viajeros descargable en Excel','plan3.li4':'Página de información para el huésped: wifi, acceso y normas','plan3.li5':'Email de check-out automático + petición de reseña','plan3.li6':'<b>Soporte prioritario 24h</b>',
 'plan3.cta':'Empieza gratis 1 mes',
 'trust1.h':'Sin tarjeta','trust1.p':'El mes de prueba no necesita ninguna tarjeta.',
 'trust2.h':'Sin permanencia','trust2.p':'Cancelas cuando quieras, sin penalización.',
@@ -2055,52 +2149,53 @@ es:{
 en:{
 'nav.how':'How it works','nav.product':'The product','nav.pricing':'Pricing','nav.faq':'FAQ','nav.login':'Log in','nav.app':'Go to app',
 'hero.eyebrow':'Required by law · Catalonia',
-'hero.h':'Booking done.<br/>Guests registered.<br/>Police notified.<br/><em>You? Sleeping.</em>',
+'hero.h':'Booking done.<br/>Guests registered.<br/><em>You? Sleeping.</em>',
 'hero.sub':'Send the legal form and house info in the same Booking message. The guest arrives ready. You review, approve with a click, <b>and Mossos receive it.</b>',
 'hero.cta1':'Try free for 1 month →','hero.cta2':'How it works ↓','hero.login':'Go to your panel →',
-'hero.floatBot':'4 of 4 guests registered<small>Booking AAR02.003 · done</small>','hero.floatTop':'Sent to police<small>Pere Martí · just now</small>',
+'hero.floatBot':'4 of 4 guests registered<small>Booking AAR02.003 · done</small>','hero.floatTop':'Official document generated<small>Can Cuní · 23 Jun, 10:24</small>',
 'hero.chatOnline':'online','hero.chatDay':'Today · 14:32','hero.chatBubble':'Welcome to <b>Casavella del Cuní</b>.<br/>Complete the mandatory registration. Takes under 2 minutes.','hero.chatLink':'Complete registration →',
 'hero.li1':'No app for guests','hero.li2':'100% mobile-based','hero.li3':'Legally compliant','hero.li4':'Automatic official document',
-'hero.proof':'Property owners in Catalonia save hours every week',
-'compat.lbl':'Compatible with','compat.etc':'and any other platform',
-'vs.kicker':'Today vs. with Automossos','vs.h':'The difference is <em>huge</em>','vs.sub':'Friday nights sending WhatsApps asking for IDs are over.',
+'hero.proof':'Property owners in Catalonia save hours every week','hero.pain':'No more chasing IDs on WhatsApp or entering data by hand.','hero.loginLabel':'Already a customer?',
+'compat.lbl':'Compatible with','compat.etc':'or direct bookings by WhatsApp, phone or own website',
+'vs.kicker':'Today vs. with Automossos','vs.h':'Without Automossos: your job every time. With Automossos: <em>done once.</em>','vs.sub':'Friday nights sending WhatsApps asking for IDs are over.',
 'vs.bad.tag':'Without Automossos','vs.bad.h':'Every booking is a race against time',
 'vs.bad.li1':'You message each guest asking for their ID','vs.bad.li2':'You wait for a reply (sometimes it never comes)','vs.bad.li3':'You transcribe data by hand, one by one',
-'vs.bad.li4':'You log into the Mossos portal and upload the file manually','vs.bad.li5':'One mistake or oversight can get you fined up to €30,000','vs.bad.li6':'And on top of that, guests ask you for the wifi, how to enter, where to park…',
+'vs.bad.li4':'You log into the Mossos portal and upload the file manually','vs.bad.li5':'One mistake or oversight can get you fined up to €30,000','vs.bad.li6':'And on top of that, guests ask you for the wifi, how to enter, where to park…','vs.swipe':'Swipe to see the alternative',
 'vs.good.tag':'With Automossos','vs.good.h':'Everything happens automatically. You just supervise.',
-'vs.good.li1':'Booking automatically sends the message with the link','vs.good.li2':'The guest fills in details from their phone in 2 minutes','vs.good.li3':'You get notified when everything is done','vs.good.li4':'You review and click "Send to Mossos" — done',
+'vs.good.li1':'Automossos automatically sends the link to the guest','vs.good.li2':'The guest fills in details from their phone in 2 minutes','vs.good.li3':'You get notified when everything is done','vs.good.li4':'You review and click "Send to Mossos" — done',
 'vs.good.li5':'The guest already knows the wifi, how to enter and where to park','vs.good.li6':'You haven\'t written a single message',
 'steps.kicker':'How it works','steps.h':'4 steps. No calls. <em>No paperwork.</em>','steps.sub':'You set up your property once. After that, everything happens automatically forever.',
 'step0.h':'You set up your property just once','step0.p':'You enter the house info: wifi, keys, parking, house rules and local recommendations. Once. Never again.','step0.tag':'5 minutes of work',
-'step1.h':'The guest books and receives an automatic message','step1.p':'The system sends the link to the booking holder at confirmation. They can forward it to their companions. The form validates data in real time: if anything is incorrect, it cannot be submitted. You did nothing.','step1.tag':'0 work for the owner',
+'step1.h':'The guest books and receives an automatic message','step1.p':'When the guest confirms the booking, Automossos automatically sends them a message with the link to fill in their details. If it\'s a direct booking (WhatsApp or phone), you send the link with one click from your dashboard.','step1.tag':'0 work for the owner',
 'step2.h':'The guest fills in their details from their phone','step2.p':'They open the link, fill in their details and see the house info. No app download. From any phone.','step2.tag':'Guest arrives prepared',
-'step3.h':'You get notified and send to Mossos with one click','step3.p':"You get a notification, log into Automossos, click 'Send to Mossos' and the app creates the official document. All in under 2 minutes.",'step3.tag':'1 click · under 1 minute',
-'features.kicker':'Why Automossos','features.h':'Everything you need. <em>Nothing you don\'t.</em>','features.sub':'Built for owners of rural houses, tourist apartments and small accommodations in Catalonia. Not for 200-room hotels.',
+'step3.h':'You get notified, generate the document and upload it to the portal','step3.p':'You get a notification, log into Automossos and generate the official document with one click. Then you upload it to the Mossos web portal — it\'s like attaching a file to an email. All in under 2 minutes.','step3.tag':'2 minutes total',
+'features.kicker':'Why Automossos','features.h':'Six features. <em>All necessary.</em>','features.sub':'Built for owners of rural houses, tourist apartments and small accommodations in Catalonia. Not for 200-room hotels.',
 'feat1.h':'No app for guests','feat1.p':'The guest opens a normal link from their phone. No downloads, no accounts. Works with any phone in the world.',
 'feat2.h':'You stay in control','feat2.p':'See all registrations in your dashboard. Review data anytime and send to Mossos with one click. 100% reliable because you have the final say.',
 'feat3.h':'Everything from your phone','feat3.p':'Your dashboard works perfectly from mobile or PC. Get notified when all guests have filled in their data. No need to keep checking.',
-'feat4.h':'Automatic official document','feat4.p':'Generates the V24 format required by the Mossos portal. No formatting errors, no manual transcription. Always up to date with regulations.',
-'feat5.h':'3-year legal archive','feat5.p':'The law requires keeping records for 3 years. Automossos stores everything for you, accessible at any time if there\'s an inspection.',
+'feat4.h':'Official document generated automatically','feat4.p':'Generates the official document required by law, with no formatting errors and no manual transcription. Always up to date with current regulations.',
+'feat5.h':'All records stored for 3 years','feat5.p':'The law requires keeping records for 3 years. Automossos stores everything for you — accessible at any time if there\'s an inspection.',
 'feat6.h':'Made in Catalonia, in Catalan','feat6.p':'Support in Catalan, Spanish and English. Built for the Mossos d\'Esquadra, not the national police. Specific to Catalan regulations.',
 'legal.safe.h':'Automossos solves it','legal.safe.list':'<li>Generates the official V24 file automatically</li><li>Stores the 3-year legal archive</li><li>Notifies you when you need to act</li><li>You keep control and peace of mind</li>','legal.safe.note':'<b>LO 4/2015 · RD 933/2021 · V24 Format</b>',
-'demo.kicker':'In action','demo.h':'See it in <em>1 minute</em>','demo.sub':'The booking holder receives the link and forwards it to companions · Everyone fills the form · Data is automatically validated · File generated and sent.','demo.soon':'Demo video · Coming soon',
-'faq.kicker':'Questions','faq.h':'Frequently asked questions',
+'demo.kicker':'In action','demo.h':'See it in <em>1 minute</em>','demo.sub':'The guest receives a message and fills in their details from their phone in 2 minutes. You get notified, generate the official document with one click and upload it to the Mossos portal. Done.','demo.soon':'Demo video · Coming soon',
+'faq.kicker':'Questions','faq.h':'What property owners ask us',
 'faq.q1':'What if the guest doesn\'t fill in the form?','faq.a1':'The system sends them an automatic reminder. If they still don\'t do it, we notify you so you can take action.',
 'faq.q2':'Does it work with Booking.com and Airbnb?','faq.a2':'Yes. Automossos integrates with all major booking platforms. Setup takes under 5 minutes.',
 'faq.q3':'Is guest data secure?','faq.a3':'Yes. All data is stored encrypted and we comply with GDPR. We don\'t share information with third parties.',
-'faq.q4':'Who uploads the document to the police, me or the app?','faq.a4':'You do. Automossos generates the official document automatically, but the final review is yours — it\'s a security measure. You can check the data before sending it to the police. In 2 minutes the file is ready to attach to the Mossos portal.',
-'faq.q5':'Do I need to purchase anything extra?','faq.a5':'No. Everything is included in the plan. No hidden costs, no extra payment integrations.',
-'faq.q6':'When do I have to pay?','faq.a6':'The first month is completely free, no credit card needed. When the trial ends, we\'ll explain the available plans and you decide whether to continue. We never charge you without notifying you first.',
+'faq.q4':'Who uploads the document to the police, me or the app?','faq.a4':'You do. Automossos generates the official document automatically and you review it. Then you upload it to the Mossos web portal (registreviatgers.mossos.gencat.cat) — it\'s an official website where you upload the file, like attaching a document to an email. The whole thing takes under 2 minutes.',
+'faq.q5':'Do I need an account on the Mossos portal?','faq.a5':'Yes, you need an account on the official Mossos portal (registreviatgers.mossos.gencat.cat). If you already have one, you keep using it exactly the same way. If not, you create it for free on the Mossos website. Automossos generates the document for you; you upload it to the portal with your usual account.',
+'faq.q6':'Do I need to purchase anything extra?','faq.a6':'No. Everything is included in the plan. No hidden costs, no extra payment integrations.',
+'faq.q7':'When do I have to pay?','faq.a7':'The first month is completely free, no credit card needed. When the trial ends, we\'ll explain the available plans and you decide whether to continue. We never charge you without notifying you first.',
 'pricing.kicker':'Pricing','pricing.h':'One month free, <em>no credit card</em>','pricing.sub':'Try the full product for 1 month. No commitment. When it\'s over, you decide if you want to continue — and which plan.',
 'pricing.offer':'Launch offer · <b>68 spots</b> remaining out of the initial 100',
 'plan1.ribbon':'Free trial · 1 month','plan1.name':'Free Trial Plan','plan1.tagline':'Start without risk','plan1.tag':'For those who want to see how it works <b>without risking anything.</b>','plan1.per':'/ 1 month','plan1.sub':'No credit card. No commitment.',
-'plan1.li1':'1 property, <b>up to 5 bookings</b>','plan1.li2':'Guest fills in details from their phone','plan1.li3':'<b>TXT file</b> ready to upload to police','plan1.li4':'Email support included','plan1.li5':'3-year legal history','plan1.li6':'Guest information page',
+'plan1.li1':'1 property, <b>up to 5 bookings</b>','plan1.li2':'Guest fills in details from their phone','plan1.li3':'<b>Official document</b> ready to upload to Mossos','plan1.li4':'Email support included','plan1.li5':'3-year legal history','plan1.li6':'Guest information page',
 'plan1.cta':'Try free for 1 month','plan1.fine':'When the month ends, you decide whether to continue — we\'ll help you.',
 'plan2.ribbon':'Most popular','plan2.name':'Calm Plan','plan2.tagline':'Sleep easy. The law, covered.','plan2.tag':'<b>Stay legal, avoid fines</b> and forget about paperwork forever.','plan2.per':'/ month','plan2.save':'or €99/year','plan2.save.badge':'✓ Save 2 months',
-'plan2.li1':'1 property, <b>unlimited bookings</b>','plan2.li2':'Fully automated — <b>zero paper, zero errors</b>','plan2.li3':'<b>Legal history kept 3 years</b> (RD 933/2021)','plan2.li4':'Notification when all guests complete registration','plan2.li5':'Basic accommodation info in the guest link','plan2.li6':'<b>Priority support</b> by email',
+'plan2.li1':'1 property, <b>unlimited bookings</b>','plan2.li2':'Fully automated — <b>zero paper, zero errors</b>','plan2.li3':'<b>Legal history kept 3 years</b> (RD 933/2021)','plan2.li4':'Notification when all guests complete registration','plan2.li5':'Guest info page: wifi, access and house rules','plan2.li6':'<b>Priority support</b> by email',
 'plan2.cta':'Start free for 1 month',
-'plan3.ribbon':'For professionals','plan3.name':'Friction-Free Plan','plan3.tagline':'Zero WhatsApps, zero problems','plan3.tag':'The guest arrives informed. <b>You stop answering WhatsApps.</b> Both of you leave happy.','plan3.per':'/ month','plan3.save':'or €199/year','plan3.incl':'<span class="incl-check">✓</span><span><b>EVERYTHING in the Calm Plan, included.</b><br><em>Plus, all of this:</em></span>',
-'plan3.li1':'<b>Up to 5 properties</b>','plan3.li2':'Welcome page with wifi, keys and house rules','plan3.li3':'Local guide with your recommendations','plan3.li4':'Public website for the property','plan3.li5':'Automatic check-out email + review request','plan3.li6':'CSV export of full history','plan3.li7':'<b>Priority 24h support</b>',
+'plan3.ribbon':'For professionals','plan3.name':'Professional Plan','plan3.tagline':'Zero WhatsApps, zero problems','plan3.tag':'The guest arrives informed. <b>You stop answering WhatsApps.</b> Both of you leave happy.','plan3.per':'/ month','plan3.save':'or €199/year','plan3.incl':'<span class="incl-check">✓</span><span><b>EVERYTHING in the Calm Plan, included.</b><br><em>Plus, all of this:</em></span>',
+'plan3.li1':'<b>Up to 5 properties</b>','plan3.li2':'Invoice generator for guests','plan3.li3':'Guest history downloadable in Excel','plan3.li4':'Guest info page: wifi, access and house rules','plan3.li5':'Automatic check-out email + review request','plan3.li6':'<b>Priority 24h support</b>',
 'plan3.cta':'Start free for 1 month',
 'trust1.h':'No credit card','trust1.p':'The trial month needs no card.',
 'trust2.h':'No commitment','trust2.p':'Cancel anytime, no penalty.',
@@ -2218,6 +2313,43 @@ async function handleSubmit(e){
 }
 </script>
 
+<script>
+(function(){
+  /* ── VS TOGGLE ── */
+  var btns=document.querySelectorAll('.vstb');
+  var panels=document.querySelectorAll('.vs-panel');
+  btns.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var side=btn.dataset.vs;
+      btns.forEach(function(b){b.classList.toggle('active',b.dataset.vs===side);});
+      panels.forEach(function(p){p.classList.toggle('active',p.classList.contains(side));});
+    });
+  });
+
+  /* ── FEATURES HOVER/TAP REVEAL ── */
+  var isTouchDev=('ontouchstart' in window);
+  document.querySelectorAll('.feature-card').forEach(function(card){
+    if(isTouchDev){
+      card.addEventListener('click',function(){card.classList.toggle('expanded');});
+    }
+  });
+
+  /* ── STEPS ACCORDION ── */
+  document.querySelectorAll('.step').forEach(function(step){
+    step.addEventListener('click',function(){
+      var isOpen=step.classList.contains('expanded');
+      document.querySelectorAll('.step').forEach(function(s){s.classList.remove('expanded');});
+      if(!isOpen)step.classList.add('expanded');
+    });
+  });
+
+  /* ── LEGAL COLLAPSE ── */
+  document.querySelectorAll('.legal-card.collapsible').forEach(function(card){
+    card.addEventListener('click',function(){card.classList.toggle('expanded');});
+  });
+})();
+</script>
+
 <!-- BANNER COOKIES -->
 <div id="cookieBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(12,17,30,0.97);border-top:1px solid rgba(201,146,42,0.2);padding:16px 24px;backdrop-filter:blur(12px);">
   <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:space-between;">
@@ -2242,6 +2374,26 @@ async function handleSubmit(e){
     }
   },{threshold:0.25});
   obs.observe(phone);
+})();
+
+// Scroll reveal
+(function(){
+  if(!('IntersectionObserver' in window))return;
+  ['.steps .step','.features-grid .feature-card','.faq .faq-item','.pricing-grid .plan','.legal-grid .legal-card','.benefits .benefit'].forEach(function(sel){
+    document.querySelectorAll(sel).forEach(function(el,i){
+      el.classList.add('reveal');
+      el.style.transitionDelay=(i*0.08)+'s';
+    });
+  });
+  document.querySelectorAll('.section-head,.compat-in,.legal-cta-row').forEach(function(el){
+    el.classList.add('reveal');
+  });
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target);}
+    });
+  },{threshold:0.07,rootMargin:'0px 0px -24px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
 })();
 
 function admDownload(){
