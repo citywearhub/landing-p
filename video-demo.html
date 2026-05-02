@@ -1,473 +1,438 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ca">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Automossos — Demo</title>
+<title>Autoacull — Demo</title>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --n950:#0D1522;--n900:#121C2D;--n800:#1A2B3C;--n700:#2A3E54;--n600:#3D5370;--n500:#55708F;
-  --t700:#5C3D0E;--t600:#7F5A22;--t500:#A87C3D;--t400:#C89865;--t300:#E6B980;--t100:#F7E5CE;
-  --surf:#FAFAF7;--ok:#2E7D5B;--ok-bg:#E4F1EA;
+  --n950:#03111F;--n900:#06213C;--n800:#0A355E;--n700:#0F4D82;--n600:#1565A6;--n500:#1A7EC8;
+  --t700:#5C3D0E;--t600:#C88422;--t500:#E8A838;--t400:#F2B020;--t300:#E6B980;--t100:#FDF1CC;
+  --surf:#F7FAFD;--ok:#2E7D5B;--ok-bg:#E4F1EA;
   --ctrl-h:68px;
 }
 @media(max-width:600px){:root{--ctrl-h:82px}}
+html,body{width:100%;height:100%;overflow:hidden;background:#000;
+  font-family:'Public Sans',system-ui,sans-serif;display:flex;flex-direction:column}
 
-html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Public Sans',system-ui,sans-serif;display:flex;flex-direction:column}
+/* ── Stage ── */
+#stage-area{flex:1;position:relative;overflow:hidden;background:#000;min-height:0}
+#stage{width:1920px;height:1080px;position:absolute;top:0;left:0;
+  transform-origin:top left;background:var(--n950);overflow:hidden}
 
-/* ── Stage area ── */
-#stage-area{
-  flex:1;position:relative;overflow:hidden;background:#000;
-  min-height:0; /* flex fix */
-}
-#stage{
-  width:1920px;height:1080px;
-  position:absolute;top:0;left:0;
-  transform-origin:top left;
-  background:var(--n950);overflow:hidden;
-}
-
-/* ── Controls (outside stage, real screen pixels) ── */
-#ctrl{
-  flex-shrink:0;
-  height:var(--ctrl-h);
-  background:#080f1c;
-  border-top:1px solid rgba(255,255,255,.07);
-  display:flex;flex-direction:column;
-  user-select:none;
-}
-
-/* Progress bar */
-#prog-wrap{
-  width:100%;height:3px;
-  background:rgba(255,255,255,.12);
-  cursor:default;position:relative;
-  flex-shrink:0;
-}
-#prog-fill{
-  height:100%;width:0%;
-  background:linear-gradient(90deg,var(--t600),var(--t300));
-  pointer-events:none;
-  border-radius:0 3px 3px 0;
-}
-
-/* Button row */
-#btn-row{
-  flex:1;display:flex;align-items:center;
-  padding:0 20px;gap:10px;
-  min-height:0;
-}
+/* ── Controls ── */
+#ctrl{flex-shrink:0;height:var(--ctrl-h);background:#080f1c;
+  border-top:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;user-select:none}
+#prog-wrap{width:100%;height:3px;background:rgba(255,255,255,.12);cursor:default;position:relative;flex-shrink:0}
+#prog-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--t600),var(--t300));
+  pointer-events:none;border-radius:0 3px 3px 0}
+#btn-row{flex:1;display:flex;align-items:center;padding:0 20px;gap:10px;min-height:0}
 @media(max-width:600px){#btn-row{padding:0 14px;gap:8px}}
-
-/* Generic button */
-.cb{
-  background:rgba(255,255,255,.07);
-  border:none;color:rgba(255,255,255,.85);
-  border-radius:10px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;gap:6px;
+.cb{background:rgba(255,255,255,.07);border:none;color:rgba(255,255,255,.85);
+  border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;
   font-family:'Public Sans',sans-serif;font-size:14px;font-weight:600;
-  padding:0 18px;height:52px;
-  transition:background .14s,color .14s,transform .1s;
-  white-space:nowrap;flex-shrink:0;
-}
+  padding:0 18px;height:52px;transition:background .14s,color .14s,transform .1s;
+  white-space:nowrap;flex-shrink:0}
 .cb:hover{background:rgba(255,255,255,.14);color:#fff}
 .cb:active{transform:scale(.94)}
 @media(max-width:600px){.cb{height:62px;font-size:15px;padding:0 14px;border-radius:12px}}
-
-/* Play/pause */
-#btn-play{width:52px;height:52px;padding:0;border-radius:10px;}
+#btn-play{width:52px;height:52px;padding:0;border-radius:10px}
 @media(max-width:600px){#btn-play{width:62px;height:62px;border-radius:12px}}
-
-
-/* Time display */
-#time-disp{
-  color:rgba(255,255,255,.35);font-size:13px;
-  font-variant-numeric:tabular-nums;white-space:nowrap;
-  padding:0 6px;
-}
+#time-disp{color:rgba(255,255,255,.35);font-size:13px;font-variant-numeric:tabular-nums;
+  white-space:nowrap;padding:0 6px}
 @media(max-width:480px){#time-disp{display:none}}
-
-/* Fullscreen button — highlighted on mobile */
-#btn-fs{
-  width:52px;height:52px;padding:0;border-radius:10px;
-  font-size:19px;
-}
+#btn-fs{width:52px;height:52px;padding:0;border-radius:10px;font-size:19px}
 @media(max-width:600px){
-  #btn-fs{
-    width:62px;height:62px;font-size:22px;border-radius:12px;
-    background:rgba(168,124,61,.25);
-    border:1px solid rgba(230,185,128,.2);
-    color:var(--t300);
-  }
+  #btn-fs{width:62px;height:62px;font-size:22px;border-radius:12px;
+    background:rgba(168,124,61,.25);border:1px solid rgba(230,185,128,.2);color:var(--t300)}
   #btn-fs:hover{background:rgba(168,124,61,.4)}
 }
-
 #spacer{flex:1}
 
-/* ── Mobile fullscreen hint ── */
-#fs-hint{
-  display:none;
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  background:rgba(13,21,34,.92);border:1px solid rgba(230,185,128,.25);
-  border-radius:16px;padding:16px 24px;text-align:center;
-  color:rgba(255,255,255,.8);font-size:15px;font-weight:500;
-  z-index:9999;pointer-events:none;
-  animation:hint-in .4s ease, hint-out .5s 4s ease forwards;
-}
-@keyframes hint-in{from{opacity:0;transform:translate(-50%,-50%) scale(.9)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
-@keyframes hint-out{to{opacity:0;pointer-events:none}}
-@media(max-width:600px){#fs-hint{display:block}}
-
-
-/* ── Scenes ── */
-.scene{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .65s ease}
+/* ── Scenes base ── */
+.scene{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .65s ease}
 .scene.active{opacity:1;pointer-events:auto}
-.cap{position:absolute;bottom:20px;left:50%;transform:translateX(-50%) translateY(14px);color:rgba(255,255,255,.68);font-size:46px;font-weight:400;letter-spacing:-.01em;text-align:center;opacity:0;transition:opacity .5s .5s,transform .5s .5s;max-width:1500px;padding:0 80px;line-height:1.4;width:100%}
+.cap{position:absolute;bottom:20px;left:50%;transform:translateX(-50%) translateY(14px);
+  color:rgba(255,255,255,.58);font-size:42px;font-weight:400;letter-spacing:-.01em;
+  text-align:center;opacity:0;transition:opacity .5s .5s,transform .5s .5s;
+  max-width:1500px;padding:0 80px;line-height:1.4;width:100%}
 .scene.active .cap{opacity:1;transform:translateX(-50%) translateY(0)}
 .si{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
 .scene.active .si{opacity:1;transform:none}
 .d1{transition-delay:.2s}.d2{transition-delay:.45s}.d3{transition-delay:.7s}
-.d4{transition-delay:.95s}.d5{transition-delay:1.2s}.d6{transition-delay:1.5s}
+.d4{transition-delay:.95s}.d5{transition-delay:1.2s}
 
-/* ── Phone ── */
-.phone{width:310px;height:640px;background:#fff;border-radius:40px;box-shadow:0 0 0 8px #111,0 0 0 10px #222,0 28px 56px rgba(0,0,0,.5);overflow:hidden;position:relative;display:flex;flex-direction:column;flex-shrink:0}
-.ph-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:100px;height:28px;background:#111;border-radius:0 0 16px 16px;z-index:10}
-.ph-bar{height:40px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;flex-shrink:0}
+/* ── Phone mockup ── */
+.phone{width:310px;height:640px;background:#fff;border-radius:40px;
+  box-shadow:0 0 0 8px #111,0 0 0 10px #222,0 28px 56px rgba(0,0,0,.5);
+  overflow:hidden;position:relative;display:flex;flex-direction:column;flex-shrink:0}
+.ph-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:100px;height:28px;background:#111;border-radius:0 0 16px 16px;z-index:10}
+.ph-bar{height:40px;background:#fff;display:flex;align-items:center;
+  justify-content:space-between;padding:0 18px;flex-shrink:0}
 .ph-bar .time{font-size:14px;font-weight:600;color:#000}
 .ph-bar .st{font-size:11px;color:#000}
 .ph-body{flex:1;overflow:hidden;position:relative;display:flex;flex-direction:column}
 
-/* ── Browser ── */
-.browser{width:1100px;height:680px;background:#fff;border-radius:12px;box-shadow:0 36px 72px rgba(0,0,0,.45);overflow:hidden;display:flex;flex-direction:column}
-.br-bar{height:42px;background:#EBEBEB;display:flex;align-items:center;padding:0 14px;gap:8px;flex-shrink:0;border-bottom:1px solid #DDD}
+/* ── Browser mockup ── */
+.browser{width:1100px;height:680px;background:#fff;border-radius:12px;
+  box-shadow:0 36px 72px rgba(0,0,0,.45);overflow:hidden;display:flex;flex-direction:column}
+.br-bar{height:42px;background:#EBEBEB;display:flex;align-items:center;
+  padding:0 14px;gap:8px;flex-shrink:0;border-bottom:1px solid #DDD}
 .dots{display:flex;gap:5px}
 .dot{width:11px;height:11px;border-radius:50%}
 .dot-r{background:#FF5F57}.dot-y{background:#FEBC2E}.dot-g{background:#28C840}
-.url{flex:1;height:24px;background:#fff;border-radius:5px;display:flex;align-items:center;padding:0 10px;margin:0 10px;font-size:11px;color:#555;border:1px solid #CCC}
+.url{flex:1;height:24px;background:#fff;border-radius:5px;display:flex;
+  align-items:center;padding:0 10px;margin:0 10px;font-size:11px;color:#555;border:1px solid #CCC}
 .br-body{flex:1;overflow:hidden;display:flex;background:var(--surf)}
 
 /* ── Sidebar ── */
 .sb{width:200px;background:var(--n800);display:flex;flex-direction:column;padding:16px 0;flex-shrink:0}
 .sb-logo{padding:0 16px 20px;font-size:16px;font-weight:700;color:#fff;display:flex;align-items:center;gap:7px}
-.sb-mark{width:24px;height:24px;background:var(--t500);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px}
+.sb-mark{width:24px;height:24px;background:var(--t500);border-radius:5px;
+  display:flex;align-items:center;justify-content:center;font-size:11px}
 .sb-i{padding:8px 16px;font-size:12px;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:8px}
 .sb-i.on{background:rgba(255,255,255,.07);color:#fff;border-left:3px solid var(--t400);padding-left:13px}
-.am{flex:1;padding:22px;display:flex;flex-direction:column;gap:14px;overflow:hidden}
-.am-t{font-size:26px;font-weight:700;color:var(--n800);letter-spacing:-.02em}
-.am-s{font-size:16px;color:#888;margin-top:2px}
-.tbl{background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}
-.th{display:grid;grid-template-columns:1fr 1.3fr 1fr .7fr .9fr;padding:10px 16px;background:#F6F6F4;border-bottom:1px solid #EEE;font-size:14px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.06em}
-.tr{display:grid;grid-template-columns:1fr 1.3fr 1fr .7fr .9fr;padding:13px 16px;border-bottom:1px solid #F0F0F0;align-items:center;font-size:17px;color:var(--n800)}
-.rn{font-weight:700;font-family:monospace;font-size:11px}
-.bdg{display:inline-flex;align-items:center;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:600}
-.bdg-comp{background:var(--ok-bg);color:var(--ok)}
-.notif-wrap{position:relative;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:50%;font-size:15px;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.n-bdg{position:absolute;top:-2px;right:-2px;width:15px;height:15px;background:#EF4444;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;opacity:0;transform:scale(0);transition:opacity .3s,transform .3s}
-.show-n .n-bdg{opacity:1;transform:scale(1)}
-.toast{position:absolute;top:16px;right:16px;width:280px;background:var(--n800);border-radius:10px;padding:13px 15px;box-shadow:0 8px 20px rgba(0,0,0,.3);opacity:0;transform:translateX(28px);transition:opacity .4s,transform .4s;z-index:50}
-.toast.show{opacity:1;transform:none}
-.toast-tag{font-size:14px;color:var(--t300);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
-.toast-t{font-size:17px;font-weight:600;color:#fff}
-.toast-s{font-size:15px;color:rgba(255,255,255,.55);margin-top:2px}
 
-/* ── WhatsApp ── */
-.wa{background:#ECE5DD;height:100%;display:flex;flex-direction:column}
-.wa-hd{background:#075E54;padding:9px 13px;display:flex;align-items:center;gap:9px;flex-shrink:0}
-.wa-av{width:32px;height:32px;border-radius:50%;background:#128C7E;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
-.wa-name{font-size:13px;font-weight:600;color:#fff}
-.wa-online{font-size:10px;color:rgba(255,255,255,.7)}
-.wa-msgs{flex:1;padding:10px 8px;display:flex;flex-direction:column;gap:7px;justify-content:flex-end}
-.bbl{max-width:255px;border-radius:8px;padding:8px 10px;font-size:12px;line-height:1.45}
-.bbl.in{background:#fff;align-self:flex-start;border-radius:2px 8px 8px 8px}
-.bbl.out{background:#DCF8C6;align-self:flex-end;border-radius:8px 2px 8px 8px}
-.bt{font-size:10px;color:#888;text-align:right;margin-top:2px}
-.lp{background:#F0F0F0;border-radius:5px;padding:7px;margin-top:6px;border-left:3px solid var(--t500)}
-.lpt{font-size:11px;font-weight:700;color:var(--n800)}
-.lpu{font-size:9px;color:#888;margin-top:1px}
-.bbl{opacity:0;transform:scale(.92) translateY(6px);transition:opacity .3s,transform .3s}
-.scene.active .bbl.b1{opacity:1;transform:none;transition-delay:.5s}
-.scene.active .bbl.b2{opacity:1;transform:none;transition-delay:1.3s}
-.scene.active .bbl.b3{opacity:1;transform:none;transition-delay:2.3s}
-
-/* ── Checklist / generate ── */
-.gc-box{background:#fff;border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
-.gc-hd{font-size:14px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
-.gc-row{display:flex;align-items:center;gap:9px;font-size:16px;color:var(--n800)}
-.gc-ck{width:20px;height:20px;border-radius:50%;background:var(--ok-bg);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ok);flex-shrink:0;opacity:0;transform:scale(0);transition:opacity .25s,transform .25s cubic-bezier(.34,1.56,.64,1)}
-.gc-ck.show{opacity:1;transform:none}
-.gc-name{font-weight:600}.gc-doc{color:#888;font-size:10px;margin-left:3px}
-.gen-btn{background:var(--n800);color:#fff;border-radius:9px;padding:13px 18px;display:flex;align-items:center;gap:9px;font-size:18px;font-weight:600;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
-.gen-btn.vis{opacity:1;transform:none}
-.gen-btn.clicked{background:var(--t600);transform:scale(.97)}
-.steps{background:var(--n800);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:7px;opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s}
-.steps.show{opacity:1;transform:none}
-.step{display:flex;align-items:center;gap:8px;font-size:15px;color:rgba(255,255,255,.35)}
-.step .si2{opacity:0;transition:opacity .2s}.step .st{opacity:0;transform:translateX(-4px);transition:opacity .3s,transform .3s}
-.step.ok{color:rgba(255,255,255,.85)}.step.ok .si2,.step.ok .st{opacity:1;transform:none}
-.step.ok .si2{color:var(--t300)}
-.dl-card{background:#fff;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:13px;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
-.dl-card.show{opacity:1;transform:none}
-.dl-name{font-size:18px;font-weight:700;color:var(--n800);font-family:monospace}
-.dl-sub{font-size:14px;color:#888;margin-top:2px}
-.dl-btn{margin-left:auto;background:var(--n800);color:#fff;border-radius:6px;padding:8px 15px;font-size:14px;font-weight:600;white-space:nowrap}
-
-/* ══ S1 HOOK ══ */
-.s1{background:var(--n950);flex-direction:column}
-.s1 .hl1{display:block;font-size:82px;font-weight:800;color:#fff;letter-spacing:-.04em;line-height:1.05;text-align:center}
-.s1 .hl2{display:block;font-size:82px;font-weight:800;letter-spacing:-.04em;line-height:1.05;text-align:center;background:linear-gradient(120deg,var(--t300),var(--t400));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.s1 .hl3{display:block;font-size:34px;font-weight:300;color:rgba(255,255,255,.4);margin-top:22px;text-align:center;letter-spacing:-.01em}
-
-/* ══ S2 PROPIETARI FA QUASI RES ══ */
-.s2{background:var(--n950)}
-.s2-inner{display:flex;flex-direction:column;align-items:center}
-.s2-title{font-size:68px;font-weight:800;color:#fff;letter-spacing:-.04em;text-align:center;line-height:1.05}
-.s2-title em{font-style:normal;background:linear-gradient(120deg,var(--t300),var(--t400));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.s2-sub{font-size:30px;font-weight:400;color:rgba(255,255,255,.4);text-align:center;margin-top:16px;letter-spacing:-.01em}
-.steps-owner{display:flex;align-items:center;gap:0;margin-top:72px}
-.step-owner{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;width:280px;opacity:0;transform:translateY(24px) scale(.96);transition:opacity .55s,transform .55s cubic-bezier(.34,1.2,.64,1)}
-.step-owner.show{opacity:1;transform:none}
-.step-icon{font-size:72px;line-height:1}
-.step-label{font-size:22px;font-weight:700;color:#fff;line-height:1.2}
-.step-badge{display:inline-block;font-size:13px;font-weight:700;padding:5px 14px;border-radius:20px;margin-top:2px}
-.step-badge.once{background:rgba(168,124,61,.18);color:var(--t300);border:1px solid rgba(230,185,128,.2)}
-.step-badge.auto{background:var(--ok-bg);color:var(--ok)}
-.step-connector{display:flex;align-items:center;margin-bottom:56px;width:0;overflow:hidden;transition:width .5s cubic-bezier(.4,0,.2,1)}
-.step-connector.show{width:100px}
-.step-connector-inner{width:100px;display:flex;align-items:center;flex-shrink:0}
-.conn-line{height:2px;flex:1;background:linear-gradient(90deg,rgba(230,185,128,.2),rgba(230,185,128,.5))}
-.conn-arrow{color:var(--t300);font-size:20px;flex-shrink:0;margin-left:-2px}
-
-/* ══ S3 BOOKING ══ */
-.s3{background:var(--n900)}
-.s3-inner{display:flex;align-items:center;gap:80px}
+/* ── Split text ── */
 .split-text h2{font-size:64px;font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1.1;max-width:500px}
 .split-text h2 em{font-style:normal;color:var(--t300)}
 .split-text p{font-size:25px;color:rgba(255,255,255,.45);margin-top:16px;line-height:1.55;max-width:440px}
-.split-text .callout{margin-top:28px;background:rgba(168,124,61,.12);border:1px solid rgba(230,185,128,.2);border-radius:12px;padding:16px 20px;font-size:21px;color:rgba(255,255,255,.7);line-height:1.5}
+.split-text .callout{margin-top:28px;background:rgba(168,124,61,.12);
+  border:1px solid rgba(230,185,128,.2);border-radius:12px;padding:16px 20px;
+  font-size:21px;color:rgba(255,255,255,.7);line-height:1.5}
 .split-text .callout strong{color:var(--t300)}
-.booking-ui{background:#fff;border-radius:12px;box-shadow:0 20px 48px rgba(0,0,0,.35);width:480px;overflow:hidden;flex-shrink:0}
-.bk-header{background:#003580;padding:14px 18px;display:flex;align-items:center;gap:10px}
-.bk-logo{font-size:24px;font-weight:700;color:#fff;letter-spacing:-.02em}
-.bk-logo span{color:#70B8FF}
-.bk-body{padding:20px}
-.bk-section{font-size:15px;font-weight:700;color:#003580;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
-.bk-msg-template{background:#F5F5F5;border-radius:8px;padding:16px;font-size:16px;color:#333;line-height:1.65;border-left:3px solid #003580}
-.bk-msg-template .trigger{font-size:13px;font-weight:700;color:#003580;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;display:block}
-.bk-highlight{background:#FFFBEA;border:1px solid #F0D060;border-radius:5px;padding:2px 6px;color:#886600;font-weight:600;font-size:16px}
-.bk-auto-badge{display:inline-flex;align-items:center;gap:6px;background:#E8F5E9;color:#2E7D32;font-size:15px;font-weight:700;padding:6px 14px;border-radius:20px;margin-top:14px}
-.bk-msg-template{opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s}
-.scene.active .bk-msg-template{opacity:1;transform:none;transition-delay:.6s}
-.bk-auto-badge{opacity:0;transition:opacity .4s}
-.scene.active .bk-auto-badge{opacity:1;transition-delay:1.4s}
+.auto-pill{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(46,125,91,.15);border:1px solid rgba(46,125,91,.3);
+  border-radius:20px;padding:8px 16px;margin-top:20px;font-size:17px;color:#6FCF97;font-weight:600}
 
-/* ══ S4 HOSTE REP LINK ══ */
-.s4{background:var(--n900)}
-.s4-inner{display:flex;align-items:center;gap:80px}
-.auto-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(46,125,91,.15);border:1px solid rgba(46,125,91,.3);border-radius:20px;padding:8px 16px;margin-top:20px;font-size:17px;color:#6FCF97;font-weight:600}
+/* ── Toast / notifications ── */
+.toast{position:absolute;top:16px;right:16px;width:280px;background:var(--n800);
+  border-radius:10px;padding:13px 15px;box-shadow:0 8px 20px rgba(0,0,0,.3);
+  opacity:0;transform:translateX(28px);transition:opacity .4s,transform .4s;z-index:50}
+.toast.show{opacity:1;transform:none}
+.toast-tag{font-size:14px;color:var(--t300);font-weight:700;text-transform:uppercase;
+  letter-spacing:.06em;margin-bottom:3px}
+.toast-t{font-size:17px;font-weight:600;color:#fff}
+.toast-s{font-size:15px;color:rgba(255,255,255,.55);margin-top:2px}
+.notif-wrap{position:relative;width:32px;height:32px;display:flex;align-items:center;
+  justify-content:center;background:#fff;border-radius:50%;font-size:15px;
+  box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.n-bdg{position:absolute;top:-2px;right:-2px;width:15px;height:15px;background:#EF4444;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:700;color:#fff;opacity:0;transform:scale(0);
+  transition:opacity .3s,transform .3s}
+.show-n .n-bdg{opacity:1;transform:scale(1)}
 
-/* ══ S5 FORMULARI ══ */
-.s5{background:var(--n900)}
-.s5-inner{display:flex;align-items:center;gap:80px}
-.s5-checks{margin-top:28px;display:flex;flex-direction:column;gap:12px}
-.s5-ck{display:flex;align-items:center;gap:12px;font-size:18px;color:rgba(255,255,255,.6)}
-.s5-ck span:first-child{color:var(--t300);font-size:20px}
+/* ── Admin / generate ── */
+.gc-box{background:#fff;border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.gc-hd{font-size:14px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.gc-row{display:flex;align-items:center;gap:9px;font-size:16px;color:var(--n800)}
+.gc-ck{width:20px;height:20px;border-radius:50%;background:var(--ok-bg);
+  display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ok);
+  flex-shrink:0;opacity:0;transform:scale(0);
+  transition:opacity .25s,transform .25s cubic-bezier(.34,1.56,.64,1)}
+.gc-ck.show{opacity:1;transform:none}
+.gc-name{font-weight:600}.gc-doc{color:#888;font-size:10px;margin-left:3px}
+.gen-btn{background:linear-gradient(140deg,var(--t600),var(--t500));color:#fff;
+  border-radius:9px;padding:13px 18px;display:flex;align-items:center;gap:9px;
+  font-size:18px;font-weight:600;opacity:0;transform:translateY(8px);
+  transition:opacity .4s,transform .4s}
+.gen-btn.vis{opacity:1;transform:none}
+.gen-btn.clicked{opacity:.8;transform:scale(.97)}
+.steps{background:var(--n800);border-radius:10px;padding:14px;
+  display:flex;flex-direction:column;gap:7px;opacity:0;transform:translateY(6px);
+  transition:opacity .35s,transform .35s}
+.steps.show{opacity:1;transform:none}
+.step{display:flex;align-items:center;gap:8px;font-size:15px;color:rgba(255,255,255,.35)}
+.step .si2{opacity:0;transition:opacity .2s}
+.step .st{opacity:0;transform:translateX(-4px);transition:opacity .3s,transform .3s}
+.step.ok{color:rgba(255,255,255,.85)}
+.step.ok .si2,.step.ok .st{opacity:1;transform:none}
+.step.ok .si2{color:var(--t300)}
+.dl-card{background:#fff;border-radius:10px;padding:14px 16px;
+  display:flex;align-items:center;gap:13px;opacity:0;transform:translateY(6px);
+  transition:opacity .4s,transform .4s}
+.dl-card.show{opacity:1;transform:none}
+.dl-name{font-size:18px;font-weight:700;color:var(--n800);font-family:monospace}
+.dl-sub{font-size:14px;color:#888;margin-top:2px}
+.dl-btn{margin-left:auto;background:var(--n800);color:#fff;border-radius:6px;
+  padding:8px 15px;font-size:14px;font-weight:600;white-space:nowrap}
+
+/* ── Form (phone inner) ── */
 .fm-screen{background:var(--surf);height:100%;display:flex;flex-direction:column;overflow:hidden}
 .fm-hd{background:var(--n800);padding:12px 15px;display:flex;align-items:center;gap:9px;flex-shrink:0}
 .fm-hd .back{font-size:16px;color:rgba(255,255,255,.6)}
 .fm-hd-t{font-size:13px;font-weight:600;color:#fff}
 .fm-hd-s{font-size:10px;color:rgba(255,255,255,.5)}
 .fm-body{flex:1;padding:12px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
-.fm-sec{font-size:9px;font-weight:700;color:var(--n600);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1px}
+.fm-sec-h{font-size:9px;font-weight:700;color:var(--n600);text-transform:uppercase;
+  letter-spacing:.08em;margin-bottom:1px}
 .fm-f{background:#fff;border-radius:8px;padding:9px 11px;border:1.5px solid #E8E8E4}
 .fm-f .fl{font-size:9px;color:#AAA;font-weight:600;margin-bottom:1px}
 .fm-f .fv{font-size:13px;color:var(--n800);font-weight:500}
 .fm-f{opacity:0;transform:translateY(7px);transition:opacity .4s,transform .4s}
 .scene.active .fm-f.ff1{opacity:1;transform:none;transition-delay:.3s}
-.scene.active .fm-f.ff2{opacity:1;transform:none;transition-delay:.6s}
-.scene.active .fm-f.ff3{opacity:1;transform:none;transition-delay:.9s}
-.scene.active .fm-f.ff4{opacity:1;transform:none;transition-delay:1.2s}
-.scene.active .fm-f.ff5{opacity:1;transform:none;transition-delay:1.5s}
-.fm-ok{margin:0 12px 12px;padding:12px;background:var(--n800);border-radius:9px;text-align:center;color:#fff;font-size:13px;font-weight:600;opacity:0;transform:translateY(6px);transition:opacity .4s 2.1s,transform .4s 2.1s}
+.scene.active .fm-f.ff2{opacity:1;transform:none;transition-delay:.7s}
+.scene.active .fm-f.ff3{opacity:1;transform:none;transition-delay:1.1s}
+.scene.active .fm-f.ff4{opacity:1;transform:none;transition-delay:1.5s}
+.scene.active .fm-f.ff5{opacity:1;transform:none;transition-delay:1.9s}
+.fm-ok{margin:0 12px 12px;padding:12px;background:var(--n800);border-radius:9px;
+  text-align:center;color:#fff;font-size:13px;font-weight:600;
+  opacity:0;transform:translateY(6px);transition:opacity .4s 2.5s,transform .4s 2.5s}
 .scene.active .fm-ok{opacity:1;transform:none}
+.reg-track{display:flex;gap:16px;justify-content:center;margin-top:12px}
+.reg-dot{display:flex;align-items:center;gap:6px;font-size:14px;
+  color:rgba(255,255,255,.28);font-weight:600;transition:color .35s}
+.reg-ic{width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;font-size:13px;
+  transition:background .35s,border-color .35s,color .35s;color:rgba(255,255,255,.3)}
+.reg-dot.ok{color:var(--ok)}
+.reg-dot.ok .reg-ic{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
 
-/* ══ S7 CTA ══ */
-.s7{background:#070D17;overflow:hidden;flex-direction:column}
-.s7::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 900px 600px at 50% 40%,rgba(127,90,34,.13) 0%,transparent 65%);pointer-events:none}
-.s7-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 80px}
-.cta-logo{display:flex;align-items:center;gap:18px;margin-bottom:28px;opacity:0;transform:translateY(16px);transition:opacity .7s .2s,transform .7s .2s}
+/* ══ S1 HOOK ══ */
+.s1{background:var(--n950);flex-direction:column}
+.s1 .hl1{display:block;font-size:82px;font-weight:800;color:#fff;
+  letter-spacing:-.04em;line-height:1.05;text-align:center}
+.s1 .hl2{display:block;font-size:82px;font-weight:800;letter-spacing:-.04em;line-height:1.05;
+  text-align:center;background:linear-gradient(120deg,var(--t300),var(--t400));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.s1 .hl3{display:block;font-size:34px;font-weight:300;color:rgba(255,255,255,.38);
+  margin-top:22px;text-align:center;letter-spacing:-.01em;line-height:1.5}
+
+/* ══ S2 NOVA RESERVA ══ */
+.s2{background:var(--n950)}
+.s2-inner{display:flex;align-items:center;gap:90px}
+.bk-lbl{font-size:14px;font-weight:700;color:var(--t400);text-transform:uppercase;
+  letter-spacing:.07em;margin-bottom:12px}
+.booking-ui{background:#fff;border-radius:14px;box-shadow:0 20px 48px rgba(0,0,0,.35);
+  width:480px;overflow:hidden;flex-shrink:0}
+.bk-header{background:#003580;padding:14px 18px;display:flex;align-items:center}
+.bk-logo{font-size:24px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.bk-logo span{color:#70B8FF}
+.bk-body{padding:20px;display:flex;flex-direction:column;gap:8px}
+.bk-new-badge{display:inline-flex;align-items:center;gap:5px;background:#FFF3E0;
+  color:#E65100;font-size:13px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:4px}
+.bk-res-prop{font-size:20px;font-weight:700;color:#1A1A1A;margin-bottom:4px}
+.bk-res-detail{font-size:16px;color:#555;line-height:1.6}
+.bk-auto-row{margin-top:10px;padding-top:12px;border-top:1px solid #EEE;
+  opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+.bk-auto-row.show{opacity:1;transform:none}
+.auto-badge-lg{display:inline-flex;align-items:center;gap:7px;background:#E8F5E9;
+  color:#2E7D32;font-size:16px;font-weight:700;padding:8px 16px;border-radius:20px}
+.bk-direct{font-size:13px;color:#888;margin-top:8px;
+  opacity:0;transition:opacity .4s}
+.bk-direct.show{opacity:1}
+
+/* ══ S3 HOSTES OMPLEN ══ */
+.s3{background:var(--n900)}
+.s3-inner{display:flex;align-items:flex-start;gap:90px}
+.s3-right{display:flex;flex-direction:column;align-items:center;gap:16px}
+.s5-checks{margin-top:24px;display:flex;flex-direction:column;gap:10px}
+.s5-ck{display:flex;align-items:center;gap:12px;font-size:18px;color:rgba(255,255,255,.6)}
+.s5-ck span:first-child{color:var(--t300);font-size:20px}
+
+/* ══ S4 PANELL ADMIN ══ */
+.s4{background:var(--n900)}
+.am{flex:1;padding:22px;display:flex;flex-direction:column;gap:14px;overflow:hidden}
+.am-t{font-size:26px;font-weight:700;color:var(--n800);letter-spacing:-.02em}
+.am-s{font-size:16px;color:#888;margin-top:2px}
+.bdg{display:inline-flex;align-items:center;padding:3px 8px;border-radius:20px;
+  font-size:10px;font-weight:600}
+.bdg-comp{background:var(--ok-bg);color:var(--ok)}
+
+/* ══ S5 PORTAL MOSSOS ══ */
+.s5{background:var(--n900)}
+.s5-inner{display:flex;align-items:center;gap:90px}
+.s5-clics{display:flex;gap:12px;margin-top:24px;align-items:center}
+.s5-clic{font-size:18px;font-weight:600;color:rgba(255,255,255,.25);
+  display:flex;align-items:center;gap:5px;transition:color .3s}
+.s5-clic.ok{color:var(--ok)}
+.s5-sep{color:rgba(255,255,255,.2);font-size:18px}
+.mossos-browser-lg{background:#fff;border-radius:14px;box-shadow:0 20px 48px rgba(0,0,0,.4);
+  width:560px;overflow:hidden;flex-shrink:0}
+.mossos-url-bar-lg{background:#EBEBEB;padding:8px 14px;display:flex;align-items:center;gap:8px;
+  border-bottom:1px solid #DDD}
+.m-dots-lg{display:flex;gap:5px}
+.m-dot-lg{width:11px;height:11px;border-radius:50%}
+.m-dot-r{background:#FF5F57}.m-dot-y{background:#FEBC2E}.m-dot-g{background:#28C840}
+.m-url-lg{font-size:11px;color:#555;flex:1;text-align:center;font-family:monospace}
+.mossos-hdr-lg{background:#1E3A5F;padding:16px 20px}
+.mossos-hdr-t-lg{font-size:18px;font-weight:700;color:#fff}
+.mossos-hdr-sub-lg{font-size:12px;color:rgba(255,255,255,.5);margin-top:3px}
+.mossos-body-lg{padding:18px;display:flex;flex-direction:column;gap:12px}
+.mossos-form-lbl-lg{font-size:13px;font-weight:700;color:#555;
+  text-transform:uppercase;letter-spacing:.05em}
+.upload-zone-lg{border:2px dashed #CCC;border-radius:10px;padding:20px 22px;
+  display:flex;align-items:center;gap:14px;transition:border-color .4s,background .4s}
+.upload-zone-lg.selected{border-color:#2E7D5B;background:#F1FBF5}
+.uz-icon-lg{font-size:32px;flex-shrink:0}
+.uz-txt-lg{font-size:16px;color:#888}
+.uz-file-lg{font-size:17px;font-weight:700;color:#2E7D32;font-family:monospace;display:none}
+.upload-zone-lg.selected .uz-txt-lg{display:none}
+.upload-zone-lg.selected .uz-file-lg{display:block}
+.send-btn-lg{background:#1E3A5F;color:#fff;border-radius:9px;padding:14px 20px;
+  font-size:17px;font-weight:600;text-align:center;width:100%;
+  opacity:0;transform:translateY(5px);transition:opacity .4s,transform .4s}
+.send-btn-lg.vis{opacity:1;transform:none}
+.send-btn-lg.clicked{background:#2E5C3E;transform:scale(.97)}
+.upload-bar-wrap-lg{background:#EEE;border-radius:6px;height:8px;overflow:hidden;
+  opacity:0;transition:opacity .3s}
+.upload-bar-wrap-lg.show{opacity:1}
+.upload-bar-fill-lg{height:100%;background:linear-gradient(90deg,#2E7D5B,#52C07A);
+  width:0%;transition:width 1.5s linear}
+.mossos-ok-lg{background:#F1FBF5;border:1px solid #A8D5B8;border-radius:10px;padding:14px 16px;
+  opacity:0;transform:translateY(5px);transition:opacity .45s,transform .45s}
+.mossos-ok-lg.show{opacity:1;transform:none}
+.mossos-ok-t-lg{font-size:17px;font-weight:700;color:#1B5E35}
+.mossos-ok-s-lg{font-size:13px;color:#388E3C;margin-top:3px}
+
+/* ══ S6 CTA ══ */
+.s6{background:#070D17;overflow:hidden;flex-direction:column}
+.s6::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 900px 600px at 50% 40%,rgba(127,90,34,.13) 0%,transparent 65%);
+  pointer-events:none}
+.s6-inner{position:relative;z-index:1;display:flex;flex-direction:column;
+  align-items:center;text-align:center;padding:0 80px}
+.cta-logo{display:flex;align-items:center;gap:18px;margin-bottom:28px;
+  opacity:0;transform:translateY(16px);transition:opacity .7s .2s,transform .7s .2s}
 .scene.active .cta-logo{opacity:1;transform:none}
-.cta-mark{width:72px;height:72px;background:#1A2B3C;border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 28px rgba(0,0,0,.4),0 2px 6px rgba(0,0,0,.25)}
+.cta-mark{width:72px;height:72px;background:linear-gradient(140deg,var(--t600),var(--t400));
+  border-radius:16px;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 10px 28px rgba(127,90,34,.42)}
 .cta-name{font-size:56px;font-weight:800;color:#fff;letter-spacing:-.03em}
 .cta-name em{font-style:normal;color:var(--t300)}
-.cta-tag{font-size:26px;font-weight:400;color:rgba(255,255,255,.38);letter-spacing:-.01em;opacity:0;transform:translateY(12px);transition:opacity .7s .6s,transform .7s .6s;margin-bottom:20px}
+.cta-tag{font-size:26px;font-weight:400;color:rgba(255,255,255,.38);letter-spacing:-.01em;
+  opacity:0;transform:translateY(12px);transition:opacity .7s .6s,transform .7s .6s;margin-bottom:20px}
 .scene.active .cta-tag{opacity:1;transform:none}
-.cta-trust{display:flex;gap:14px;margin-bottom:32px;opacity:0;transform:translateY(8px);transition:opacity .7s .85s,transform .7s .85s}
+.cta-trust{display:flex;gap:14px;margin-bottom:32px;
+  opacity:0;transform:translateY(8px);transition:opacity .7s .85s,transform .7s .85s}
 .scene.active .cta-trust{opacity:1;transform:none}
-.cta-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:100px;font-size:16px;font-weight:500;color:rgba(255,255,255,.48)}
+.cta-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);
+  border-radius:100px;font-size:16px;font-weight:500;color:rgba(255,255,255,.48)}
 .cta-chip em{font-style:normal;color:var(--t300)}
-.cta-pill{padding:18px 44px;background:linear-gradient(140deg,var(--t600),var(--t400));color:#fff;border-radius:12px;font-size:22px;font-weight:700;letter-spacing:-.01em;box-shadow:0 12px 32px rgba(127,90,34,.4),0 4px 10px rgba(0,0,0,.2);opacity:0;transform:translateY(12px);transition:opacity .7s 1.1s,transform .7s 1.1s}
+.cta-pill{padding:18px 44px;background:linear-gradient(140deg,var(--t600),var(--t400));
+  color:#fff;border-radius:12px;font-size:22px;font-weight:700;letter-spacing:-.01em;
+  box-shadow:0 12px 32px rgba(127,90,34,.4),0 4px 10px rgba(0,0,0,.2);
+  opacity:0;transform:translateY(12px);transition:opacity .7s 1.1s,transform .7s 1.1s}
 .scene.active .cta-pill{opacity:1;transform:none}
-.cta-url{margin-top:16px;font-size:16px;font-weight:500;color:rgba(255,255,255,.2);letter-spacing:.04em;font-family:monospace;opacity:0;transition:opacity .7s 1.4s}
+.cta-url{margin-top:16px;font-size:16px;font-weight:500;color:rgba(255,255,255,.2);
+  letter-spacing:.04em;font-family:monospace;opacity:0;transition:opacity .7s 1.4s}
 .scene.active .cta-url{opacity:1}
 </style>
 </head>
 <body>
 
-<!-- Stage area (scaled content lives here) -->
 <div id="stage-area">
   <div id="stage">
+
     <!-- S1 HOOK -->
     <div class="scene s1" id="s1">
       <div>
-        <span class="hl1 si d1">El registre de viatgers és obligatori.</span>
-        <span class="hl2 si d3">Automossos ho automatitza.</span>
-        <span class="hl3 si d5">Sense paper. Sense trucades. Sense errors.</span>
+        <span class="hl1 si d1" data-tx="s1h1">El registre de viatgers és obligatori.</span>
+        <span class="hl2 si d3" data-tx="s1h2">Autoacull ho fa per tu.</span>
+        <span class="hl3 si d5" data-tx="s1h3">Del formulari al portal Mossos. Automàtic.</span>
       </div>
     </div>
 
-    <!-- S2 PROPIETARI FA QUASI RES -->
+    <!-- S2 NOVA RESERVA -->
     <div class="scene s2" id="s2">
       <div class="s2-inner">
-        <div class="s2-title si d1">El propietari fa <em>quasi res.</em></div>
-        <div class="s2-sub si d2">Així és com funciona.</div>
-        <div class="steps-owner">
-          <div class="step-owner" id="so1">
-            <div class="step-icon">⚙️</div>
-            <div class="step-label">Configurar<br>1 cop</div>
-            <span class="step-badge once">Una sola vegada</span>
+        <div class="split-text si d1">
+          <div class="bk-lbl">Dijous · 9:38 — Nova reserva</div>
+          <h2 data-tx="s2title">Arriba una reserva.<br>L'enllaç ja ha <em>sortit.</em></h2>
+          <p data-tx="s2sub">Booking l'envia automàticament a cada nova reserva. Per reserves directes, 1 clic des del panell.</p>
+          <div class="callout si d3">💡 <strong>Compatible amb:</strong> Booking.com, Airbnb, Vrbo, WhatsApp i email.</div>
+        </div>
+        <div class="booking-ui si d2">
+          <div class="bk-header">
+            <div class="bk-logo">booking<span>.com</span></div>
+            <div style="margin-left:auto;font-size:12px;color:rgba(255,255,255,.6)">Extranet · Nova reserva</div>
           </div>
-          <div class="step-connector" id="sc1">
-            <div class="step-connector-inner"><div class="conn-line"></div><div class="conn-arrow">›</div></div>
-          </div>
-          <div class="step-owner" id="so2">
-            <div class="step-icon">⚡</div>
-            <div class="step-label">El link<br>s'envia sol</div>
-            <span class="step-badge auto">Automàtic ✓</span>
-          </div>
-          <div class="step-connector" id="sc2">
-            <div class="step-connector-inner"><div class="conn-line"></div><div class="conn-arrow">›</div></div>
-          </div>
-          <div class="step-owner" id="so3">
-            <div class="step-icon">📥</div>
-            <div class="step-label">Descarregar<br>el fitxer</div>
-            <span class="step-badge once">1 clic</span>
+          <div class="bk-body">
+            <div class="bk-new-badge">🔔 Nova reserva confirmada</div>
+            <div class="bk-res-prop">Can Cuní · Vilanova i la Geltrú</div>
+            <div class="bk-res-detail">
+              Marc Garcia + 2 acompanyants<br>
+              30 abril – 3 maig 2026 · 3 nits
+            </div>
+            <div class="bk-auto-row" id="autoRow">
+              <div class="auto-badge-lg" data-tx="s2badge">⚡ Enllaç de registre enviat automàticament</div>
+            </div>
+            <div class="bk-direct" id="bkDirect" data-tx="s2direct">Per reserves directes: enviar l'enllaç amb 1 clic des del panell →</div>
           </div>
         </div>
       </div>
-      <div class="cap">El propietari no toca res entre el pas 1 i el pas 2. Va sol.</div>
+      <div class="cap">El propietari no ha fet res. El sistema ha enviat el link sol.</div>
     </div>
 
-    <!-- S3 BOOKING AUTOMÀTIC -->
+    <!-- S3 HOSTES OMPLEN -->
     <div class="scene s3" id="s3">
       <div class="s3-inner">
         <div class="split-text si d1">
-          <h2>El link surt <em>automàticament</em> de Booking.</h2>
-          <p>El propietari configura un missatge automàtic. Cada nova reserva, l'hoste rep el link. <strong style="color:rgba(255,255,255,.7)">Sense que el propietari toqui res.</strong></p>
-          <div class="callout si d3">💡 <strong>Funciona amb qualsevol plataforma:</strong> Booking.com, Airbnb, Vrbo, o directament per WhatsApp i email.</div>
-        </div>
-        <div class="booking-ui si d2">
-          <div class="bk-header"><div class="bk-logo">booking<span>.com</span></div><div style="margin-left:auto;font-size:11px;color:rgba(255,255,255,.6)">Extranet · Missatges automàtics</div></div>
-          <div class="bk-body">
-            <div class="bk-section">Missatge automàtic en confirmar reserva</div>
-            <div class="bk-msg-template">
-              <span class="trigger">⚡ S'envia automàticament quan: nova reserva confirmada</span>
-              Benvingut/da a <strong>Can Cuní</strong>! 🏡<br><br>
-              Per complir la normativa, completa el formulari obligatori. Tarda menys de 2 minuts:<br><br>
-              👉 <span class="bk-highlight">automossos.cat/r/{{booking_id}}</span>
-            </div>
-            <div class="bk-auto-badge"><span>✓</span> S'envia sol a cada nova reserva</div>
-          </div>
-        </div>
-      </div>
-      <div class="cap">Un cop configurat, el propietari no torna a pensar en el registre fins que ha de descarregar el fitxer.</div>
-    </div>
-
-    <!-- S4 HOSTE REP LINK -->
-    <div class="scene s4" id="s4">
-      <div class="s4-inner">
-        <div class="split-text si d1">
-          <h2>L'hoste rep el link.<br>Fa clic. Ja pot<br>registrar-se.</h2>
-          <p>Sense instal·lar cap app. Sense crear cap compte. Des del mòbil, en menys de 2 minuts.</p>
-          <div class="auto-pill si d3">⚡ Enviat automàticament per Booking.com</div>
-        </div>
-        <div class="phone si d2">
-          <div class="ph-notch"></div>
-          <div class="ph-bar"><span class="time">9:41</span><span class="st">▶ 📶 🔋</span></div>
-          <div class="ph-body">
-            <div class="wa">
-              <div class="wa-hd">
-                <div class="wa-av" style="background:#003580;font-size:10px">B.</div>
-                <div><div class="wa-name">Booking.com</div><div class="wa-online">Reserva confirmada</div></div>
-              </div>
-              <div class="wa-msgs">
-                <div class="bbl in b1">Benvingut/da a Can Cuní! 🏡<br><br>Per complir la normativa, completa el formulari obligatori. Tarda menys de 2 minuts:<div class="bt">9:38</div></div>
-                <div class="bbl in b2"><div class="lp"><div class="lpt">Registre de viatgers · Can Cuní</div><div class="lpu">automossos.cat/r/AIR-55230</div></div><div class="bt">9:38</div></div>
-                <div class="bbl out b3">Ara ho faig 👍<div class="bt">9:41</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cap">El propietari no ha enviat res. Ha sigut automàtic.</div>
-    </div>
-
-    <!-- S5 FORMULARI -->
-    <div class="scene s5" id="s5">
-      <div class="s5-inner">
-        <div class="split-text si d1">
-          <h2>2 minuts.<br>Des del mòbil.</h2>
-          <p>Nom, document, adreça postal. Tot validat contra la normativa V24 en temps real.</p>
+          <h2 data-tx="s3title">Hostes omplen<br>el formulari.<br><em>Tu no toques res.</em></h2>
+          <p data-tx="s3sub">Sense aplicació. Sense compte. 2 minuts des del mòbil.</p>
           <div class="s5-checks">
             <div class="s5-ck si d3"><span>✓</span> Format oficial Mossos d'Esquadra</div>
             <div class="s5-ck si d4"><span>✓</span> Validació automàtica de cada camp</div>
-            <div class="s5-ck si d5"><span>✓</span> Cada hoste omple el seu propi formulari</div>
+            <div class="s5-ck si d5"><span>✓</span> Cada hoste omple el seu formulari</div>
           </div>
         </div>
-        <div class="phone si d2">
-          <div class="ph-notch"></div>
-          <div class="ph-bar"><span class="time">9:43</span><span class="st">▶ 📶 🔋</span></div>
-          <div class="ph-body">
-            <div class="fm-screen">
-              <div class="fm-hd"><span class="back">←</span><div><div class="fm-hd-t">El meu registre</div><div class="fm-hd-s">Reserva AIR-55230 · Can Cuní</div></div></div>
-              <div class="fm-body">
-                <div class="fm-sec">Dades personals</div>
-                <div class="fm-f ff1"><div class="fl">Nom i cognoms</div><div class="fv">Marc Garcia López</div></div>
-                <div class="fm-f ff2"><div class="fl">Tipus de document</div><div class="fv">DNI</div></div>
-                <div class="fm-f ff3"><div class="fl">Número DNI · Suport</div><div class="fv">47382910B · AXB123456</div></div>
-                <div class="fm-sec" style="margin-top:2px">Adreça</div>
-                <div class="fm-f ff4"><div class="fl">Adreça postal</div><div class="fv">C/ Provença 134, Barcelona</div></div>
-                <div class="fm-f ff5"><div class="fl">Data de naixement</div><div class="fv">15 / 03 / 1988</div></div>
+        <div class="s3-right si d2">
+          <div class="phone">
+            <div class="ph-notch"></div>
+            <div class="ph-bar"><span class="time">9:43</span><span class="st">▶ 📶 🔋</span></div>
+            <div class="ph-body">
+              <div class="fm-screen">
+                <div class="fm-hd"><span class="back">←</span><div><div class="fm-hd-t">El meu registre</div><div class="fm-hd-s">Reserva BK-55230 · Can Cuní</div></div></div>
+                <div class="fm-body">
+                  <div class="fm-sec-h">Dades personals</div>
+                  <div class="fm-f ff1"><div class="fl">Nom i cognoms</div><div class="fv">Marc Garcia López</div></div>
+                  <div class="fm-f ff2"><div class="fl">Tipus document</div><div class="fv">DNI</div></div>
+                  <div class="fm-f ff3"><div class="fl">Número DNI · Suport</div><div class="fv">47382910B · AXB123456</div></div>
+                  <div class="fm-sec-h" style="margin-top:2px">Adreça</div>
+                  <div class="fm-f ff4"><div class="fl">Adreça postal</div><div class="fv">C/ Provença 134, Barcelona</div></div>
+                  <div class="fm-f ff5"><div class="fl">Data de naixement</div><div class="fv">15 / 03 / 1988</div></div>
+                </div>
+                <div class="fm-ok">Confirmar i enviar ✓</div>
               </div>
-              <div class="fm-ok">Confirmar i enviar ✓</div>
             </div>
+          </div>
+          <div class="reg-track">
+            <div class="reg-dot" id="rd1"><div class="reg-ic">👤</div><span>1 / 3</span></div>
+            <div class="reg-dot" id="rd2"><div class="reg-ic">👤</div><span>2 / 3</span></div>
+            <div class="reg-dot" id="rd3"><div class="reg-ic">👤</div><span>3 / 3</span></div>
           </div>
         </div>
       </div>
       <div class="cap">El propietari no ha vist res d'això. L'hoste ho ha fet sol.</div>
     </div>
 
-    <!-- S6 ADMIN UN CLIC -->
-    <div class="scene" id="s6">
+    <!-- S4 PANELL ADMIN -->
+    <div class="scene s4" id="s4">
       <div class="browser si d1" style="position:relative">
         <div class="br-bar">
           <div class="dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
-          <div class="url">🔒 automossos.cat/admin</div>
+          <div class="url">🔒 Autoacull.cat/admin</div>
         </div>
         <div class="br-body">
           <div class="sb">
-            <div class="sb-logo"><div class="sb-mark">A</div>Automossos</div>
+            <div class="sb-logo"><div class="sb-mark">A</div>Autoacull</div>
             <div class="sb-i on">📋 Reserves</div>
             <div class="sb-i">🏠 Allotjament</div>
             <div class="sb-i">📄 Fitxers</div>
           </div>
           <div class="am" style="position:relative">
             <div style="display:flex;align-items:center;justify-content:space-between">
-              <div><div class="am-t">Reserva #AIR-55230</div><div class="am-s">Can Cuní · entrada 30 abr 2026 · 3 hostes</div></div>
+              <div><div class="am-t">Reserva #BK-55230</div><div class="am-s">Can Cuní · entrada 30 abr 2026 · 3 hostes</div></div>
               <div style="display:flex;align-items:center;gap:10px">
                 <span class="bdg bdg-comp" style="font-size:12px;padding:4px 10px">Completada ✓</span>
-                <div class="notif-wrap" id="nw">🔔<div class="n-bdg">1</div></div>
+                <div class="notif-wrap" id="s4nw">🔔<div class="n-bdg">1</div></div>
               </div>
             </div>
             <div class="gc-box">
@@ -477,7 +442,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Pu
               <div class="gc-row"><div class="gc-ck" id="gc3">✓</div><div><span class="gc-name">Laia Puig</span><span class="gc-doc">Menor · 8 anys</span></div></div>
             </div>
             <div class="gen-btn" id="genBtn"><span>📄</span> Generar fitxer TXT per als Mossos d'Esquadra</div>
-            <div class="steps" id="steps">
+            <div class="steps" id="stepsGen">
               <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px">Generant fitxer oficial V24...</div>
               <div class="step" id="gs1"><span class="si2">✓</span><span class="st">Recollint dades de 3 viatgers</span></div>
               <div class="step" id="gs2"><span class="si2">✓</span><span class="st">Aplicant normativa V24</span></div>
@@ -489,10 +454,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Pu
               <div><div class="dl-name">08043CAC01.017</div><div class="dl-sub">3 viatgers · llest per pujar a registreviatgers.mossos.gencat.cat</div></div>
               <div class="dl-btn">Descarregar</div>
             </div>
-            <div class="toast" id="toast">
-              <div class="toast-tag">✓ Tots els hostes han completat</div>
-              <div class="toast-t">Reserva AIR-55230 · Can Cuní</div>
-              <div class="toast-s">Pots generar el fitxer oficial ara</div>
+            <div class="toast" id="s4Toast">
+              <div class="toast-tag" data-tx="s4ttag">✓ Tots els hostes han completat</div>
+              <div class="toast-t" data-tx="s4tt">Reserva BK-55230 · Can Cuní</div>
+              <div class="toast-s" data-tx="s4ts">Pots generar el fitxer oficial ara</div>
             </div>
           </div>
         </div>
@@ -500,52 +465,87 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Pu
       <div class="cap">El propietari entra, veu tot completat i descarrega el fitxer. Un clic.</div>
     </div>
 
-    <!-- S7 CTA -->
-    <div class="scene s7" id="s7">
-      <div class="s7-inner">
+    <!-- S5 PORTAL MOSSOS -->
+    <div class="scene s5" id="s5">
+      <div class="s5-inner">
+        <div class="split-text si d1">
+          <h2 data-tx="s5title">Portal Mossos.<br><em>3 clics i fet.</em></h2>
+          <p data-tx="s5sub">Puja el fitxer al portal oficial. El sistema el confirma al moment.</p>
+          <div class="s5-clics">
+            <div class="s5-clic" id="ss1" data-tx="s5c1">① Seleccionar</div>
+            <div class="s5-sep">›</div>
+            <div class="s5-clic" id="ss2" data-tx="s5c2">② Enviar</div>
+            <div class="s5-sep">›</div>
+            <div class="s5-clic" id="ss3" data-tx="s5c3">✓ Registrat</div>
+          </div>
+        </div>
+        <div class="mossos-browser-lg si d2">
+          <div class="mossos-url-bar-lg">
+            <div class="m-dots-lg"><div class="m-dot-lg m-dot-r"></div><div class="m-dot-lg m-dot-y"></div><div class="m-dot-lg m-dot-g"></div></div>
+            <div class="m-url-lg">🔒 registreviatgers.mossos.gencat.cat</div>
+          </div>
+          <div class="mossos-hdr-lg">
+            <div class="mossos-hdr-t-lg">Mossos d'Esquadra · Registre de viatgers</div>
+            <div class="mossos-hdr-sub-lg">Portal d'enviament de fitxers — Generalitat de Catalunya</div>
+          </div>
+          <div class="mossos-body-lg">
+            <div class="mossos-form-lbl-lg">Fitxer de registre (.txt)</div>
+            <div class="upload-zone-lg" id="uploadZone">
+              <div class="uz-icon-lg">📂</div>
+              <div class="uz-txt-lg">Seleccionar fitxer .txt del vostre dispositiu</div>
+              <div class="uz-file-lg">08043CAC01.017</div>
+            </div>
+            <div class="send-btn-lg" id="sendBtn">Enviar fitxer als Mossos d'Esquadra →</div>
+            <div class="upload-bar-wrap-lg" id="uploadBarWrap">
+              <div class="upload-bar-fill-lg" id="uploadBarFill"></div>
+            </div>
+            <div class="mossos-ok-lg" id="mossosOk">
+              <div class="mossos-ok-t-lg">✓ Registre acceptat pels Mossos d'Esquadra</div>
+              <div class="mossos-ok-s-lg">Ref. 2026/BCN/00447 · Data i hora consten al sistema oficial</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cap">Fitxer pujat. Registre completat. Propietari tranquil.</div>
+    </div>
+
+    <!-- S6 CTA -->
+    <div class="scene s6" id="s6">
+      <div class="s6-inner">
         <div class="cta-logo">
           <div class="cta-mark">
             <svg width="40" height="40" viewBox="0 0 52 52" fill="none">
               <line x1="26" y1="11" x2="11" y2="42" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
               <line x1="26" y1="11" x2="41" y2="42" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
-              <polyline points="17,30 26,38 35,30" stroke="#C89865" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <polyline points="17,30 26,38 35,30" stroke="#F2B020" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
             </svg>
           </div>
           <div class="cta-name">auto<em>mossos</em></div>
         </div>
-        <div class="cta-tag">El registre de viatgers, sense mals de cap.</div>
+        <div class="cta-tag" data-tx="s6head">El registre de viatgers, de cap a cap. Automàtic.</div>
         <div class="cta-trust">
           <div class="cta-chip"><em>✓</em> Format V24 oficial</div>
-          <div class="cta-chip"><em>⚡</em> 100% automàtic</div>
+          <div class="cta-chip"><em>⚡</em> Portal Mossos inclòs</div>
           <div class="cta-chip"><em>🔒</em> LO 4/2015 · RD 933/2021</div>
         </div>
-        <div class="cta-pill">Prova gratis 1 mes →</div>
-        <div class="cta-url">automossos.cat</div>
+        <div class="cta-pill" data-tx="s6btn">Prova gratis 1 mes →</div>
+        <div class="cta-url">Autoacull.cat</div>
       </div>
     </div>
-  </div><!-- /stage -->
 
-  <!-- Mobile fullscreen hint (fades after 5s) -->
-  <div id="fs-hint">
-    Millor en pantalla completa &nbsp;
-    <strong style="color:var(--t300)">⛶ toca el botó dautat</strong>
-  </div>
+  </div><!-- /stage -->
 </div><!-- /stage-area -->
 
-<!-- ══ CONTROLS (outside stage, always screen-sized) ══ -->
+<!-- Controls -->
 <div id="ctrl">
-  <!-- Progress bar -->
-  <div id="prog-wrap" title="Fes clic per saltar">
-    <div id="prog-fill"></div>
-  </div>
-  <!-- Buttons -->
+  <div id="prog-wrap"><div id="prog-fill"></div></div>
   <div id="btn-row">
     <button class="cb" id="btn-play" onclick="togglePlay()" title="Play / Pausa">
       <svg id="icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="3" width="4" height="18" rx="1.5"/><rect x="15" y="3" width="4" height="18" rx="1.5"/></svg>
       <svg id="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 4.5l14 7.5-14 7.5z"/></svg>
     </button>
     <div id="spacer"></div>
-    <span id="time-disp">0:00 / 0:51</span>
+    <span id="time-disp">0:00 / 0:44</span>
     <button class="cb" id="btn-fs" onclick="toggleFs()" title="Pantalla completa">
       <svg id="fs-icon-expand" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
       <svg id="fs-icon-compress" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>
@@ -554,95 +554,183 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Pu
 </div>
 
 <script>
-// ── Scale: stage fits inside stage-area ──
+var TEXTS={
+  ca:{
+    s1h1:'El registre de viatgers és obligatori.',
+    s1h2:'Autoacull ho fa per tu.',
+    s1h3:'Del formulari al portal Mossos. Automàtic.',
+    s2title:'Arriba una reserva.<br>L\'enllaç ja ha <em>sortit.</em>',
+    s2sub:'Booking l\'envia automàticament a cada nova reserva. Per reserves directes, 1 clic des del panell.',
+    s2badge:'⚡ Enllaç de registre enviat automàticament',
+    s2direct:'Per reserves directes: enviar l\'enllaç amb 1 clic des del panell →',
+    s3title:'Hostes omplen<br>el formulari.<br><em>Tu no toques res.</em>',
+    s3sub:'Sense aplicació. Sense compte. 2 minuts des del mòbil.',
+    s4ttag:'✓ Tots els hostes han completat',
+    s4tt:'Reserva BK-55230 · Can Cuní',
+    s4ts:'Pots generar el fitxer oficial ara',
+    s5title:'Portal Mossos.<br><em>3 clics i fet.</em>',
+    s5sub:'Puja el fitxer al portal oficial. El sistema el confirma al moment.',
+    s5c1:'① Seleccionar',s5c2:'② Enviar',s5c3:'✓ Registrat',
+    s6head:'El registre de viatgers, de cap a cap. Automàtic.',
+    s6btn:'Prova gratis 1 mes →',
+  },
+  es:{
+    s1h1:'El registro de viajeros es obligatorio.',
+    s1h2:'Autoacull lo hace por ti.',
+    s1h3:'Del formulario al portal Mossos. Automático.',
+    s2title:'Llega una reserva.<br>El <em>enlace ya ha salido.</em>',
+    s2sub:'Booking lo envía automáticamente a cada nueva reserva. Para reservas directas, 1 clic desde el panel.',
+    s2badge:'⚡ Enlace de registro enviado automáticamente',
+    s2direct:'Reservas directas: enviar el enlace con 1 clic desde el panel →',
+    s3title:'Los huéspedes rellenan<br>el formulario.<br><em>Tú no tocas nada.</em>',
+    s3sub:'Sin aplicación. Sin cuenta. 2 minutos desde el móvil.',
+    s4ttag:'✓ Todos los huéspedes han completado',
+    s4tt:'Reserva BK-55230 · Can Cuní',
+    s4ts:'Ya puedes generar el fichero oficial',
+    s5title:'Portal Mossos.<br><em>3 clics y listo.</em>',
+    s5sub:'Sube el fichero al portal oficial. El sistema lo confirma al momento.',
+    s5c1:'① Seleccionar',s5c2:'② Enviar',s5c3:'✓ Registrado',
+    s6head:'El registro de viajeros, de principio a fin. Automático.',
+    s6btn:'Prueba gratis 1 mes →',
+  },
+  en:{
+    s1h1:'Guest registration is mandatory.',
+    s1h2:'Autoacull does it for you.',
+    s1h3:'From the form to the Mossos portal. Automatic.',
+    s2title:'Booking received.<br>The <em>link is already sent.</em>',
+    s2sub:'Booking.com sends it automatically with every new booking. For direct bookings, 1 click from the panel.',
+    s2badge:'⚡ Registration link sent automatically',
+    s2direct:'Direct bookings: send the link with 1 click from the panel →',
+    s3title:'Guests fill<br>the form.<br><em>You don\'t touch anything.</em>',
+    s3sub:'No app. No account. 2 minutes from mobile.',
+    s4ttag:'✓ All guests have completed registration',
+    s4tt:'Booking BK-55230 · Can Cuní',
+    s4ts:'You can now generate the official file',
+    s5title:'Mossos Portal.<br><em>3 clicks and done.</em>',
+    s5sub:'Upload the file to the official portal. System confirms instantly.',
+    s5c1:'① Select',s5c2:'② Send',s5c3:'✓ Registered',
+    s6head:'Guest registration, end to end. Automatic.',
+    s6btn:'Try free for 1 month →',
+  }
+};
+function applyLang(l){
+  var t=TEXTS[l]||TEXTS.ca;
+  document.querySelectorAll('[data-tx]').forEach(function(el){
+    var k=el.dataset.tx;if(t[k]!==undefined)el.innerHTML=t[k];
+  });
+}
+window.addEventListener('message',function(e){
+  if(e.data&&e.data.type==='aut-lang')applyLang(e.data.lang);
+});
+
 function scale(){
-  const area = document.getElementById('stage-area');
-  const w = area.clientWidth;
-  const h = area.clientHeight;
-  const r = Math.min(w/1920, h/1080);
-  const s = document.getElementById('stage');
-  s.style.transform = `scale(${r})`;
-  s.style.left = ((w - 1920*r)/2) + 'px';
-  s.style.top  = ((h - 1080*r)/2) + 'px';
+  var area=document.getElementById('stage-area');
+  var w=area.clientWidth,h=area.clientHeight;
+  var r=Math.min(w/1920,h/1080);
+  var s=document.getElementById('stage');
+  s.style.transform='scale('+r+')';
+  s.style.left=((w-1920*r)/2)+'px';
+  s.style.top=((h-1080*r)/2)+'px';
 }
 scale();
-window.addEventListener('resize', scale);
+window.addEventListener('resize',scale);
 
-// ── Helpers ──
-const $ = id => document.getElementById(id);
-const cls   = (id,...c) => $(id) && $(id).classList.add(...c);
-const rmcls = (id,...c) => $(id) && $(id).classList.remove(...c);
-const fmt = ms => { const s=Math.floor(ms/1000); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); };
+var $=function(id){return document.getElementById(id)};
+var cls=function(id){var c=Array.prototype.slice.call(arguments,1);var el=$(id);if(el)el.classList.add.apply(el.classList,c)};
+var rmcls=function(id){var c=Array.prototype.slice.call(arguments,1);var el=$(id);if(el)el.classList.remove.apply(el.classList,c)};
+var fmt=function(ms){var s=Math.floor(ms/1000);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 
-// ── Scenes ──
-const SCENES = [
-  {id:'s1',dur:5000},
+var SCENES=[
+  {id:'s1',dur:4000},
   {id:'s2',dur:7500},
-  {id:'s3',dur:8000},
-  {id:'s4',dur:7000},
-  {id:'s5',dur:8000},
-  {id:'s6',dur:10000},
-  {id:'s7',dur:6000},
+  {id:'s3',dur:10000},
+  {id:'s4',dur:9000},
+  {id:'s5',dur:9000},
+  {id:'s6',dur:5000},
 ];
-const TOTAL = SCENES.reduce((a,s)=>a+s.dur,0);
+var TOTAL=SCENES.reduce(function(a,s){return a+s.dur},0);
 
-// ── Build event timeline ──
 function buildEvents(){
-  const evs=[];
-  const add=(time,fn)=>evs.push({time,fn});
-  let acc=0;
-  SCENES.forEach(({id,dur})=>{
-    add(acc,()=>{
-      SCENES.forEach(({id:sid})=>$(sid)&&rmcls(sid,'active'));
+  var evs=[];
+  var add=function(time,fn){evs.push({time:time,fn:fn})};
+  var acc=0;
+  SCENES.forEach(function(sc){
+    var id=sc.id,dur=sc.dur;
+    add(acc,function(){
+      SCENES.forEach(function(s){$(s.id)&&rmcls(s.id,'active')});
       cls(id,'active');
     });
+
     if(id==='s2'){
-      add(acc+600,  ()=>cls('so1','show'));
-      add(acc+1600, ()=>cls('sc1','show'));
-      add(acc+2200, ()=>cls('so2','show'));
-      add(acc+3200, ()=>cls('sc2','show'));
-      add(acc+3800, ()=>cls('so3','show'));
+      add(acc+1500,function(){cls('autoRow','show')});
+      add(acc+2600,function(){cls('bkDirect','show')});
     }
-    if(id==='s6'){
-      add(acc+400,  ()=>cls('gc1','show'));
-      add(acc+750,  ()=>cls('gc2','show'));
-      add(acc+1100, ()=>cls('gc3','show'));
-      add(acc+1500, ()=>{cls('nw','show-n');cls('toast','show')});
-      add(acc+2000, ()=>cls('genBtn','vis'));
-      add(acc+3500, ()=>cls('genBtn','clicked'));
-      add(acc+3900, ()=>{$('genBtn').style.display='none';cls('steps','show')});
-      add(acc+4000, ()=>rmcls('toast','show'));
-      add(acc+4300, ()=>cls('gs1','ok'));
-      add(acc+4900, ()=>cls('gs2','ok'));
-      add(acc+5500, ()=>cls('gs3','ok'));
-      add(acc+6200, ()=>cls('gs4','ok'));
-      add(acc+7400, ()=>{rmcls('steps','show');cls('dlCard','show')});
+
+    if(id==='s3'){
+      add(acc+3500,function(){cls('rd1','ok')});
+      add(acc+5000,function(){cls('rd2','ok')});
+      add(acc+6500,function(){cls('rd3','ok')});
     }
+
+    if(id==='s4'){
+      add(acc+400, function(){cls('gc1','show');cls('s4nw','show-n');cls('s4Toast','show')});
+      add(acc+750, function(){cls('gc2','show')});
+      add(acc+1100,function(){cls('gc3','show')});
+      add(acc+2000,function(){cls('genBtn','vis')});
+      add(acc+3500,function(){cls('genBtn','clicked')});
+      add(acc+3900,function(){
+        var gb=$('genBtn');if(gb)gb.style.display='none';
+        cls('stepsGen','show');
+        rmcls('s4Toast','show');
+      });
+      add(acc+4300,function(){cls('gs1','ok')});
+      add(acc+4900,function(){cls('gs2','ok')});
+      add(acc+5500,function(){cls('gs3','ok')});
+      add(acc+6200,function(){cls('gs4','ok')});
+      add(acc+7400,function(){rmcls('stepsGen','show');cls('dlCard','show')});
+    }
+
+    if(id==='s5'){
+      add(acc+1800,function(){cls('uploadZone','selected');cls('ss1','ok')});
+      add(acc+3500,function(){cls('sendBtn','vis')});
+      add(acc+4500,function(){cls('sendBtn','clicked');cls('ss2','ok')});
+      add(acc+4700,function(){cls('uploadBarWrap','show')});
+      add(acc+4800,function(){var f=$('uploadBarFill');if(f)f.style.width='100%'});
+      add(acc+6500,function(){cls('mossosOk','show');cls('ss3','ok')});
+    }
+
     acc+=dur;
   });
-  add(acc, onEnd);
-  return evs.sort((a,b)=>a.time-b.time);
+  add(acc,onEnd);
+  return evs.sort(function(a,b){return a.time-b.time});
 }
 
-let EVENTS=[], timers=[], isPaused=false, elapsed=0, playStart=0, progIv=null, ended=false;
-const now = ()=>Date.now();
-const curMs = ()=>(isPaused||ended)?elapsed:elapsed+(now()-playStart);
+var EVENTS=[],timers=[],isPaused=false,elapsed=0,playStart=0,progIv=null;
+var now=function(){return Date.now()};
+var curMs=function(){return isPaused?elapsed:elapsed+(now()-playStart)};
 function clrTimers(){timers.forEach(clearTimeout);timers=[]}
-function t(fn,d){if(d<0)return;const id=setTimeout(fn,d);timers.push(id)}
+function t(fn,d){if(d<0)return;var id=setTimeout(fn,d);timers.push(id)}
 
 function resetAll(){
-  SCENES.forEach(({id})=>$(id)&&rmcls(id,'active'));
-  ['so1','so2','so3','sc1','sc2'].forEach(id=>$(id)&&rmcls(id,'show'));
-  ['gc1','gc2','gc3'].forEach(id=>$(id)&&rmcls(id,'show'));
-  rmcls('nw','show-n');rmcls('toast','show');
-  const gb=$('genBtn');if(gb){gb.classList.remove('vis','clicked');gb.style.display=''}
-  rmcls('steps','show');rmcls('dlCard','show');
-  ['gs1','gs2','gs3','gs4'].forEach(id=>$(id)&&rmcls(id,'ok'));
+  SCENES.forEach(function(s){$(s.id)&&rmcls(s.id,'active')});
+  rmcls('autoRow','show');rmcls('bkDirect','show');
+  ['rd1','rd2','rd3'].forEach(function(id){$(id)&&rmcls(id,'ok')});
+  ['gc1','gc2','gc3'].forEach(function(id){$(id)&&rmcls(id,'show')});
+  rmcls('s4nw','show-n');rmcls('s4Toast','show');
+  var gb=$('genBtn');if(gb){gb.classList.remove('vis','clicked');gb.style.display=''}
+  rmcls('stepsGen','show');rmcls('dlCard','show');
+  ['gs1','gs2','gs3','gs4'].forEach(function(id){$(id)&&rmcls(id,'ok')});
+  rmcls('uploadZone','selected');
+  rmcls('sendBtn','vis');rmcls('sendBtn','clicked');
+  rmcls('uploadBarWrap','show');
+  var ubf=$('uploadBarFill');if(ubf)ubf.style.width='0%';
+  rmcls('mossosOk','show');
+  ['ss1','ss2','ss3'].forEach(function(id){$(id)&&rmcls(id,'ok')});
 }
 
 function scheduleFrom(fromMs){
   clrTimers();
-  EVENTS.filter(e=>e.time>=fromMs).forEach(e=>t(e.fn,e.time-fromMs));
+  EVENTS.filter(function(e){return e.time>=fromMs}).forEach(function(e){t(e.fn,e.time-fromMs)});
 }
 
 function setPlayIcon(playing){
@@ -650,23 +738,16 @@ function setPlayIcon(playing){
   $('icon-play').style.display=playing?'none':'';
 }
 function updateProg(ms){
-  const pct=Math.min(100,(ms/TOTAL)*100);
+  var pct=Math.min(100,(ms/TOTAL)*100);
   $('prog-fill').style.width=pct+'%';
   $('time-disp').textContent=fmt(ms)+' / '+fmt(TOTAL);
 }
 function startProgIv(){
   clearInterval(progIv);
-  progIv=setInterval(()=>{
-    const ms=curMs();
-    if(ms>=TOTAL){clearInterval(progIv);return}
-    updateProg(ms);
-  },80);
+  progIv=setInterval(function(){var ms=curMs();if(ms>=TOTAL){clearInterval(progIv);return}updateProg(ms)},80);
 }
 
-// ── Play / Pause ──
-function togglePlay(){
-  isPaused?resume():pause();
-}
+function togglePlay(){isPaused?resume():pause()}
 function pause(){
   if(isPaused)return;
   elapsed=curMs();isPaused=true;
@@ -681,49 +762,41 @@ function resume(){
   setPlayIcon(true);
 }
 
-
-// ── Fullscreen ──
 function toggleFs(){
-  const inFs = !!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement);
+  var inFs=!!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement);
   if(!inFs){
-    const el=document.documentElement;
-    const req=el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen;
-    if(req) req.call(el);
-  } else {
-    const exit=document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen;
-    if(exit) exit.call(document);
+    var el=document.documentElement;
+    var req=el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen;
+    if(req)req.call(el);
+  }else{
+    var exit=document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen;
+    if(exit)exit.call(document);
   }
 }
 function onFsChange(){
-  const inFs=!!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement);
+  var inFs=!!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement);
   $('fs-icon-expand').style.display=inFs?'none':'';
   $('fs-icon-compress').style.display=inFs?'':'none';
   setTimeout(scale,60);
 }
-['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(ev=>
-  document.addEventListener(ev,onFsChange)
-);
+['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(function(ev){
+  document.addEventListener(ev,onFsChange);
+});
 
-// ── End → auto-loop ──
 function onEnd(){
   clrTimers();clearInterval(progIv);
   updateProg(TOTAL);
-  elapsed=TOTAL;ended=false;
+  elapsed=TOTAL;
   t(go,1500);
 }
-
-// ── Start ──
 function go(){
-  clrTimers();clearInterval(progIv);
-  resetAll();
+  clrTimers();clearInterval(progIv);resetAll();
   EVENTS=buildEvents();
-  elapsed=0;isPaused=false;ended=false;
-  playStart=now();
-  updateProg(0);
+  elapsed=0;isPaused=false;
+  playStart=now();updateProg(0);
   scheduleFrom(0);startProgIv();
   setPlayIcon(true);
 }
-
 go();
 </script>
 </body>

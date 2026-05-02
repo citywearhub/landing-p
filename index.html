@@ -1,41 +1,41 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ca">
 <head>
 <meta charset="utf-8"/>
-<title>Automossos — Registre de viatgers automàtic per a allotjaments turístics de Catalunya</title>
+<title>Autoacull — Registre de viatgers automàtic per a allotjaments turístics de Catalunya</title>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<meta name="description" content="Automossos automatitza el registre obligatori de viatgers (RD 933/2021). Els hostes omplen el formulari des del mòbil en 2 minuts. Genera el fitxer oficial per als Mossos d'Esquadra automàticament."/>
+<meta name="description" content="Autoacull automatitza el registre obligatori de viatgers (RD 933/2021). Els hostes omplen el formulari des del mòbil en 2 minuts. Genera el fitxer oficial per als Mossos d'Esquadra automàticament."/>
 <link rel="canonical" href="https://www.automossos.cat"/>
 <!-- Open Graph -->
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://www.automossos.cat"/>
-<meta property="og:title" content="Automossos — Registre de viatgers automàtic per a allotjaments de Catalunya"/>
+<meta property="og:title" content="Autoacull — Registre de viatgers automàtic per a allotjaments de Catalunya"/>
 <meta property="og:description" content="Els teus hostes s'autoregistren des del mòbil. Tu reps el document oficial llest per als Mossos en 2 minuts. Prova gratis 1 mes, sense targeta."/>
 <meta property="og:image" content="https://www.automossos.cat/og-image.png"/>
 <meta property="og:locale" content="ca_ES"/>
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Automossos — Registre de viatgers automàtic"/>
+<meta name="twitter:title" content="Autoacull — Registre de viatgers automàtic"/>
 <meta name="twitter:description" content="Els teus hostes s'autoregistren des del mòbil. Document oficial per als Mossos en 2 minuts. Prova gratis."/>
 <meta name="twitter:image" content="https://www.automossos.cat/og-image.png"/>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52' fill='none'%3E%3Crect width='52' height='52' rx='12' fill='%231A2B3C'/%3E%3Cline x1='26' y1='11' x2='11' y2='42' stroke='white' stroke-width='3.5' stroke-linecap='round'/%3E%3Cline x1='26' y1='11' x2='41' y2='42' stroke='white' stroke-width='3.5' stroke-linecap='round'/%3E%3Cpolyline points='17,30 26,38 35,30' stroke='%23A87C3D' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52' fill='none'%3E%3Crect width='52' height='52' rx='12' fill='%230B2748'/%3E%3Cpath d='M9 27L26 11L43 27' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='14' y='27' width='24' height='14' rx='2' fill='white' fill-opacity='.92'/%3E%3Crect x='21' y='32' width='10' height='9' rx='2' fill='%232A9B6E'/%3E%3C/svg%3E"/>
 
 <!-- Design tokens (inlined from colors_and_type.css) -->
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
 :root {
-  --aut-primary-950: #0D1522;
-  --aut-primary-900: #121C2D;
-  --aut-primary-800: #1A2B3C;
-  --aut-primary-700: #2A3E54;
-  --aut-primary-600: #3D5370;
-  --aut-primary-500: #55708F;
-  --aut-primary-400: #7D93AE;
-  --aut-primary-300: #A3B5CC;
-  --aut-primary-200: #C7D3E2;
-  --aut-primary-100: #E2E9F2;
-  --aut-primary-50:  #F1F5FA;
+  --aut-primary-950: #030D19;
+  --aut-primary-900: #071A30;
+  --aut-primary-800: #0B2748;
+  --aut-primary-700: #133A62;
+  --aut-primary-600: #1B4F7E;
+  --aut-primary-500: #1F5C9E;
+  --aut-primary-400: #2E6FB8;
+  --aut-primary-300: #5A93CE;
+  --aut-primary-200: #8DBCE0;
+  --aut-primary-100: #BDD9F0;
+  --aut-primary-50:  #E5F1FA;
 
   --aut-secondary-900: #2D3645;
   --aut-secondary-800: #3F4A5E;
@@ -47,17 +47,17 @@
   --aut-secondary-200: #DCE1E9;
   --aut-secondary-100: #ECEFF3;
 
-  --aut-terra-950: #1C1206;
-  --aut-terra-900: #28190A;
-  --aut-terra-800: #38260B;
-  --aut-terra-700: #5A3F14;
-  --aut-terra-600: #7F5A22;
-  --aut-terra-500: #A87C3D;
-  --aut-terra-400: #C89865;
-  --aut-terra-300: #E0B48B;
-  --aut-terra-200: #EFCFAF;
-  --aut-terra-100: #F7E5CE;
-  --aut-terra-50:  #FCF4E8;
+  --aut-terra-950: #03110A;
+  --aut-terra-900: #071E11;
+  --aut-terra-800: #0D2F1A;
+  --aut-terra-700: #154425;
+  --aut-terra-600: #1E6038;
+  --aut-terra-500: #2A9B6E;
+  --aut-terra-400: #38B583;
+  --aut-terra-300: #6FCE9E;
+  --aut-terra-200: #A4E6C6;
+  --aut-terra-100: #D0F3E4;
+  --aut-terra-50:  #E8FAF2;
 
   --aut-neutral-1000: #0A0C10;
   --aut-neutral-900:  #14171C;
@@ -71,9 +71,9 @@
   --aut-neutral-100:  #EBEEF2;
   --aut-neutral-50:   #F4F6F9;
   --aut-neutral-0:    #FFFFFF;
-  --aut-surface:      #FAFAF7;
+  --aut-surface:      #F5F8F6;
   --aut-surface-card: #FFFFFF;
-  --aut-surface-sunk: #F1F2EE;
+  --aut-surface-sunk: #EBF1ED;
 
   --aut-success:    #2E7D5B;
   --aut-success-bg: #E4F1EA;
@@ -117,13 +117,13 @@
   --aut-radius-2xl:  28px;
   --aut-radius-pill: 999px;
 
-  --aut-shadow-xs: 0 1px 2px rgba(26,43,60,0.04);
-  --aut-shadow-sm: 0 1px 3px rgba(26,43,60,0.06), 0 1px 2px rgba(26,43,60,0.04);
-  --aut-shadow-md: 0 4px 12px rgba(26,43,60,0.08), 0 2px 4px rgba(26,43,60,0.04);
-  --aut-shadow-lg: 0 12px 32px rgba(26,43,60,0.10), 0 4px 8px rgba(26,43,60,0.04);
-  --aut-shadow-xl: 0 24px 56px rgba(26,43,60,0.14);
-  --aut-shadow-inset: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(26,43,60,0.04);
-  --aut-ring-focus: 0 0 0 3px rgba(168,124,61,0.30);
+  --aut-shadow-xs: 0 1px 2px rgba(11,39,72,0.04);
+  --aut-shadow-sm: 0 1px 3px rgba(11,39,72,0.06), 0 1px 2px rgba(11,39,72,0.04);
+  --aut-shadow-md: 0 4px 12px rgba(11,39,72,0.08), 0 2px 4px rgba(11,39,72,0.04);
+  --aut-shadow-lg: 0 12px 32px rgba(11,39,72,0.10), 0 4px 8px rgba(11,39,72,0.04);
+  --aut-shadow-xl: 0 24px 56px rgba(11,39,72,0.14);
+  --aut-shadow-inset: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(11,39,72,0.04);
+  --aut-ring-focus: 0 0 0 3px rgba(42,155,110,0.30);
 
   --aut-font-sans:    "Public Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --aut-font-display: "Public Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -257,8 +257,8 @@ html, body {
     position:relative;
     padding:72px 0 96px;
     background:
-      radial-gradient(ellipse 800px 500px at 85% 0%, rgba(168,124,61,0.08), transparent 60%),
-      radial-gradient(ellipse 900px 600px at 10% 20%, rgba(26,43,60,0.04), transparent 60%),
+      radial-gradient(ellipse 800px 500px at 85% 0%, rgba(42,155,110,0.08), transparent 60%),
+      radial-gradient(ellipse 900px 600px at 10% 20%, rgba(11,39,72,0.04), transparent 60%),
       linear-gradient(180deg, var(--aut-primary-50) 0%, var(--aut-bg-1) 80%);
     overflow:hidden;
   }
@@ -303,15 +303,15 @@ html, body {
   .hero-login-btn{
     display:inline-block;
     font:500 13.5px var(--aut-font-sans);
-    color:#3B82F6;
-    border:1.5px solid #3B82F6;
+    color:#1F5C9E;
+    border:1.5px solid #1F5C9E;
     border-radius:8px;
     padding:8px 16px;
     text-decoration:none;
     transition:background 150ms,color 150ms;
     margin-bottom:20px;
   }
-  .hero-login-btn:hover{background:#3B82F6;color:#fff;}
+  .hero-login-btn:hover{background:#1F5C9E;color:#fff;}
 
   .hero-list{
     display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;
@@ -341,7 +341,7 @@ html, body {
     background:#fff;
     border-radius:36px;
     border:10px solid var(--aut-primary-900);
-    box-shadow:var(--aut-shadow-xl),0 40px 80px -20px rgba(26,43,60,0.25);
+    box-shadow:var(--aut-shadow-xl),0 40px 80px -20px rgba(11,39,72,0.25);
     overflow:hidden;
     position:relative;
   }
@@ -363,7 +363,7 @@ html, body {
   .adm-status{display:flex;align-items:center;gap:5px;font:500 10px var(--aut-font-sans);color:rgba(255,255,255,.35);}
   .adm-dot{width:7px;height:7px;border-radius:50%;background:#2E7D5B;box-shadow:0 0 0 3px rgba(46,125,91,0.2);}
   .adm-res{padding:10px 14px 12px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;gap:2px;flex-shrink:0;}
-  .adm-res-id{font:700 10px var(--aut-font-sans);color:#C89865;letter-spacing:.05em;text-transform:uppercase;}
+  .adm-res-id{font:700 10px var(--aut-font-sans);color:#38B583;letter-spacing:.05em;text-transform:uppercase;}
   .adm-res-name{font:600 14px var(--aut-font-sans);color:rgba(255,255,255,.9);}
   .adm-res-meta{font:400 11px var(--aut-font-sans);color:rgba(255,255,255,.32);}
   .adm-res-row{display:flex;align-items:center;justify-content:space-between;margin-top:6px;}
@@ -371,7 +371,7 @@ html, body {
   .adm-badge.ok{background:rgba(46,125,91,0.25);color:#5DB88A;}
   .adm-section-lbl{font:500 10px var(--aut-font-sans);color:rgba(255,255,255,.3);letter-spacing:0.07em;text-transform:uppercase;padding:10px 14px 6px;flex-shrink:0;}
   .adm-list{padding:0 10px;display:flex;flex-direction:column;gap:5px;flex-shrink:0;}
-  .adm-hoste{display:flex;align-items:center;gap:10px;padding:8px 11px;background:#1A2B3C;border-radius:9px;border:1px solid rgba(255,255,255,.06);opacity:0;transform:translateX(-8px);animation:hoste-slide .4s ease forwards;animation-play-state:paused;}
+  .adm-hoste{display:flex;align-items:center;gap:10px;padding:8px 11px;background:#0B2748;border-radius:9px;border:1px solid rgba(255,255,255,.06);opacity:0;transform:translateX(-8px);animation:hoste-slide .4s ease forwards;animation-play-state:paused;}
   .adm-hoste.h1{animation-delay:.5s}.adm-hoste.h2{animation-delay:1.1s}.adm-hoste.h3{animation-delay:1.7s}.adm-hoste.h4{animation-delay:2.3s}
   @keyframes hoste-slide{to{opacity:1;transform:translateX(0)}}
   .adm-check{width:20px;height:20px;border-radius:50%;background:rgba(46,125,91,.2);color:#5DB88A;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:0;transform:scale(0);animation:check-pop .35s cubic-bezier(.34,1.56,.64,1) forwards;animation-play-state:paused;}
@@ -381,11 +381,11 @@ html, body {
   .adm-hoste-name{font:600 12px var(--aut-font-sans);color:rgba(255,255,255,.88);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .adm-hoste-doc{font:400 10.5px var(--aut-font-sans);color:rgba(255,255,255,.32);}
   .adm-spacer{flex:1;min-height:6px;}
-  .adm-cta{margin:0 10px 14px;background:linear-gradient(135deg,#C89865,#A87C3D);color:#fff;font:600 13px var(--aut-font-sans);text-align:center;padding:13px;border-radius:10px;letter-spacing:-0.01em;flex-shrink:0;cursor:pointer;transition:background .4s ease,box-shadow .3s ease;user-select:none;animation:cta-pulse 1.2s ease 3.4s 2;animation-play-state:paused;}
+  .adm-cta{margin:0 10px 14px;background:linear-gradient(135deg,#38B583,#2A9B6E);color:#fff;font:600 13px var(--aut-font-sans);text-align:center;padding:13px;border-radius:10px;letter-spacing:-0.01em;flex-shrink:0;cursor:pointer;transition:background .4s ease,box-shadow .3s ease;user-select:none;animation:cta-pulse 1.2s ease 3.4s 2;animation-play-state:paused;}
   .adm-cta:active{transform:scale(.97);}
-  .adm-cta.dl-loading{background:linear-gradient(135deg,#1A2B3C,#243550)!important;}
+  .adm-cta.dl-loading{background:linear-gradient(135deg,#0B2748,#133A62)!important;}
   .adm-cta.dl-done{background:linear-gradient(135deg,#2E7D5B,#3a9970)!important;}
-  @keyframes cta-pulse{0%,100%{box-shadow:none}50%{box-shadow:0 0 0 5px rgba(200,152,101,.25)}}
+  @keyframes cta-pulse{0%,100%{box-shadow:none}50%{box-shadow:0 0 0 5px rgba(42,155,110,.25)}}
   .phone.in-view .adm-hoste,.phone.in-view .adm-check,.phone.in-view .adm-cta{animation-play-state:running;}
 
   .float-tag{
@@ -434,7 +434,7 @@ html, body {
   .section.sunk{background:var(--aut-surface-sunk);}
   .section.warm{background:var(--aut-terra-50);}
   .section.cool-blue{background:var(--aut-primary-50);}
-  .section.navy{background:var(--aut-primary-900);color:#F1F5FA;}
+  .section.navy{background:var(--aut-primary-900);color:#E5F1FA;}
 
   .section-head{margin-bottom:48px;max-width:720px;}
   .section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
@@ -648,11 +648,11 @@ html, body {
   .pricing-head{text-align:center;margin-bottom:24px;}
   .pricing-offer{
     display:inline-flex;align-items:center;gap:10px;
-    background:var(--aut-primary-900);color:#F7E5CE;
+    background:var(--aut-primary-900);color:#D0F3E4;
     padding:10px 18px;border-radius:var(--aut-radius-pill);
     font:500 13px var(--aut-font-sans);
     margin-bottom:20px;
-    box-shadow:0 4px 16px rgba(26,43,60,0.2);
+    box-shadow:0 4px 16px rgba(11,39,72,0.2);
   }
   .pricing-offer .dot{
     width:8px;height:8px;border-radius:999px;background:var(--aut-terra-300);
@@ -677,80 +677,80 @@ html, body {
   .plan.featured{
     background:var(--aut-primary-900);
     border:2px solid var(--aut-terra-500);
-    color:#F1F5FA;
-    box-shadow:0 24px 56px -10px rgba(18,28,45,0.45), 0 0 0 1px rgba(168,124,61,0.15);
+    color:#E5F1FA;
+    box-shadow:0 24px 56px -10px rgba(18,28,45,0.45), 0 0 0 1px rgba(42,155,110,0.15);
     transform:translateY(-8px);
   }
   .plan.featured:hover{transform:translateY(-11px);}
 
   /* ── PLAN PRO (Antifricció) ── */
   .plan.pro{
-    background:linear-gradient(160deg,#19120A 0%,#0D0B07 100%);
-    border:1.5px solid rgba(200,152,101,0.42);
-    box-shadow:0 0 0 5px rgba(200,152,101,0.06),0 24px 56px rgba(0,0,0,0.55),0 6px 18px rgba(200,152,101,0.1);
+    background:linear-gradient(160deg,#071A30 0%,#030D19 100%);
+    border:1.5px solid rgba(42,155,110,0.42);
+    box-shadow:0 0 0 5px rgba(42,155,110,0.06),0 24px 56px rgba(0,0,0,0.55),0 6px 18px rgba(42,155,110,0.1);
     transform:translateY(-4px);
   }
   .plan.pro::after{
     content:'';position:absolute;
     top:-1px;left:15%;right:15%;height:1px;
-    background:linear-gradient(90deg,transparent,rgba(200,152,101,0.65),transparent);
+    background:linear-gradient(90deg,transparent,rgba(42,155,110,0.65),transparent);
     pointer-events:none;
   }
   .plan.pro:hover{transform:translateY(-7px);}
   .plan.pro .plan-ribbon.alt{
-    background:linear-gradient(90deg,#C89865,#A87C3D);
-    color:#19120A;font-weight:700;
-    box-shadow:0 3px 10px rgba(200,152,101,0.35);
+    background:linear-gradient(90deg,#38B583,#2A9B6E);
+    color:#071A30;font-weight:700;
+    box-shadow:0 3px 10px rgba(42,155,110,0.35);
   }
-  .plan.pro .plan-name{color:#C89865;}
-  .plan.pro .plan-tagline{color:rgba(200,152,101,0.65);font-style:italic;}
+  .plan.pro .plan-name{color:#38B583;}
+  .plan.pro .plan-tagline{color:rgba(42,155,110,0.65);font-style:italic;}
   .plan.pro .plan-tag{color:rgba(232,210,185,0.52);}
   .plan.pro .plan-tag b{color:rgba(247,229,206,0.85);}
-  .plan.pro .plan-price .amt{color:#F7E5CE;}
-  .plan.pro .plan-price .cur,.plan.pro .plan-price .per{color:rgba(200,152,101,0.55);}
-  .plan.pro .plan-save{color:rgba(200,152,101,0.48);}
-  .plan.pro .save-badge{background:rgba(200,152,101,0.12);color:#C89865;border-color:rgba(200,152,101,0.2);}
+  .plan.pro .plan-price .amt{color:#D0F3E4;}
+  .plan.pro .plan-price .cur,.plan.pro .plan-price .per{color:rgba(42,155,110,0.55);}
+  .plan.pro .plan-save{color:rgba(42,155,110,0.48);}
+  .plan.pro .save-badge{background:rgba(42,155,110,0.12);color:#38B583;border-color:rgba(42,155,110,0.2);}
   .plan.pro .plan-incl{
     display:flex;align-items:center;gap:14px;
-    background:linear-gradient(135deg,rgba(200,152,101,0.22) 0%,rgba(200,152,101,0.08) 100%);
-    border:2px solid rgba(200,152,101,0.55);
+    background:linear-gradient(135deg,rgba(42,155,110,0.22) 0%,rgba(42,155,110,0.08) 100%);
+    border:2px solid rgba(42,155,110,0.55);
     border-radius:12px;
     padding:13px 15px;
-    color:#E8D2B9;
+    color:#8DBCE0;
     font-size:13px;
     line-height:1.45;
     margin-top:28px;
     margin-bottom:18px;
-    box-shadow:0 0 20px rgba(200,152,101,0.12),inset 0 1px 0 rgba(200,152,101,0.15);
+    box-shadow:0 0 20px rgba(42,155,110,0.12),inset 0 1px 0 rgba(42,155,110,0.15);
     position:relative;
   }
   .plan.pro .plan-incl::before{
     content:'';position:absolute;top:-1px;left:20%;right:20%;height:2px;
-    background:linear-gradient(90deg,transparent,#C89865,transparent);
+    background:linear-gradient(90deg,transparent,#38B583,transparent);
     border-radius:999px;
   }
   .plan.pro .plan-incl .incl-check{
     flex-shrink:0;width:38px;height:38px;
-    background:linear-gradient(135deg,#D4A46C,#A87C3D);
+    background:linear-gradient(135deg,#38B583,#2A9B6E);
     border-radius:50%;
     display:flex;align-items:center;justify-content:center;
-    color:#19120A;font-size:20px;font-weight:900;line-height:1;
-    box-shadow:0 0 14px rgba(200,152,101,0.45);
+    color:#071A30;font-size:20px;font-weight:900;line-height:1;
+    box-shadow:0 0 14px rgba(42,155,110,0.45);
   }
-  .plan.pro .plan-incl b{display:inline;color:#F7E5CE;font-size:13px;font-weight:700;}
-  .plan.pro .plan-incl em{display:block;font-style:normal;font-size:10.5px;color:rgba(200,152,101,0.7);text-transform:uppercase;letter-spacing:0.07em;font-weight:700;margin-top:3px;}
+  .plan.pro .plan-incl b{display:inline;color:#D0F3E4;font-size:13px;font-weight:700;}
+  .plan.pro .plan-incl em{display:block;font-style:normal;font-size:10.5px;color:rgba(42,155,110,0.7);text-transform:uppercase;letter-spacing:0.07em;font-weight:700;margin-top:3px;}
   .plan.pro .plan-feats li{color:rgba(232,210,185,0.78);}
-  .plan.pro .plan-feats .ic.plus{background:rgba(200,152,101,0.14);color:#C89865;}
+  .plan.pro .plan-feats .ic.plus{background:rgba(42,155,110,0.14);color:#38B583;}
   .plan.pro .plan-feats b{color:rgba(247,229,206,0.95);}
   .plan.pro .plan-cta.secondary{
-    background:linear-gradient(135deg,#C89865 0%,#8B5E2A 100%);
-    color:#19120A;border:none;font-weight:600;
-    box-shadow:0 4px 16px rgba(200,152,101,0.28);
+    background:linear-gradient(135deg,#38B583 0%,#1E6038 100%);
+    color:#071A30;border:none;font-weight:600;
+    box-shadow:0 4px 16px rgba(42,155,110,0.28);
     transition:background 200ms,box-shadow 200ms;
   }
   .plan.pro .plan-cta.secondary:hover{
-    background:linear-gradient(135deg,#D4A978,#9C6E35);
-    box-shadow:0 6px 20px rgba(200,152,101,0.42);
+    background:linear-gradient(135deg,#2A9B6E,#154425);
+    box-shadow:0 6px 20px rgba(42,155,110,0.42);
   }
 
   .plan-ribbon{
@@ -762,7 +762,7 @@ html, body {
     background:var(--aut-terra-600);color:#fff;
     box-shadow:0 4px 12px rgba(127,90,34,0.3);
   }
-  .plan-ribbon.alt{background:var(--aut-primary-800);color:#F7E5CE;}
+  .plan-ribbon.alt{background:var(--aut-primary-800);color:#D0F3E4;}
   .plan-ribbon.beta{background:#fff;color:var(--aut-terra-700);border:1px solid var(--aut-terra-200);box-shadow:none;}
 
   .plan-name{
@@ -778,7 +778,7 @@ html, body {
     color:var(--aut-fg-3);
     margin:0 0 24px;min-height:38px;
   }
-  .plan.featured .plan-tag{color:#A3B5CC;}
+  .plan.featured .plan-tag{color:#5A93CE;}
 
   .plan-price{
     display:flex;align-items:flex-start;gap:3px;
@@ -798,7 +798,7 @@ html, body {
     padding-top:6px;
     letter-spacing:0;
   }
-  .plan.featured .plan-price .cur{color:#A3B5CC;}
+  .plan.featured .plan-price .cur{color:#5A93CE;}
   .plan-price .per{
     font:400 13px var(--aut-font-sans);
     color:var(--aut-fg-3);
@@ -806,7 +806,7 @@ html, body {
     padding-bottom:4px;
     margin-left:3px;
   }
-  .plan.featured .plan-price .per{color:#A3B5CC;}
+  .plan.featured .plan-price .per{color:#5A93CE;}
 
   .plan-note{
     font:500 12.5px var(--aut-font-sans);
@@ -819,9 +819,9 @@ html, body {
     display:flex;align-items:center;gap:8px;
   }
   .plan.featured .plan-note{
-    background:rgba(168,124,61,0.12);
+    background:rgba(42,155,110,0.12);
     color:var(--aut-terra-300);
-    border-color:rgba(168,124,61,0.25);
+    border-color:rgba(42,155,110,0.25);
   }
   .plan-note svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;flex-shrink:0;}
   .plan-note span{flex:1;}
@@ -858,7 +858,7 @@ html, body {
     color:var(--aut-fg-2);
   }
   .plan-feats li span.tx{flex:1;min-width:0;}
-  .plan.featured .plan-feats li{color:#C7D3E2;}
+  .plan.featured .plan-feats li{color:#8DBCE0;}
   .plan-feats .ic{
     width:18px;height:18px;border-radius:999px;
     background:var(--aut-success-bg);color:var(--aut-success-fg);
@@ -881,8 +881,8 @@ html, body {
     color:var(--aut-terra-700);
   }
   .plan.featured .plan-hl{
-    background:rgba(168,124,61,0.1);
-    border-color:rgba(168,124,61,0.2);
+    background:rgba(42,155,110,0.1);
+    border-color:rgba(42,155,110,0.2);
     color:var(--aut-terra-300);
   }
   .plan-hl .row{display:flex;align-items:flex-start;gap:8px;line-height:1.4;}
@@ -941,7 +941,7 @@ html, body {
   .plan-feats li.no .tx{color:var(--aut-fg-4);}
 
   .plan-feats .ic.plus{background:rgba(127,90,34,0.1);color:var(--aut-terra-600);}
-  .plan.featured .plan-feats .ic.plus{background:rgba(200,152,101,0.18);color:var(--aut-terra-300);}
+  .plan.featured .plan-feats .ic.plus{background:rgba(42,155,110,0.18);color:var(--aut-terra-300);}
 
   .plan-incl{
     background:var(--aut-primary-50);
@@ -975,14 +975,14 @@ html, body {
   /* ── BETA CTA ── */
   .beta{
     background:var(--aut-primary-900);
-    color:#F1F5FA;
+    color:#E5F1FA;
     position:relative;overflow:hidden;
   }
   .beta::after{
     content:"";position:absolute;
     right:-200px;top:-200px;
     width:600px;height:600px;border-radius:999px;
-    background:radial-gradient(circle,rgba(168,124,61,0.2),transparent 70%);
+    background:radial-gradient(circle,rgba(42,155,110,0.2),transparent 70%);
     pointer-events:none;
   }
   .beta-in{position:relative;z-index:1;text-align:center;max-width:640px;margin:0 auto;padding:0 28px;}
@@ -993,7 +993,7 @@ html, body {
   .beta h2 em{font-style:italic;color:var(--aut-terra-300);font-weight:500;}
   .beta p{
     font:400 17px/1.55 var(--aut-font-sans);
-    color:#C7D3E2;margin:0 0 32px;
+    color:#8DBCE0;margin:0 0 32px;
   }
   .beta-form{
     display:flex;gap:10px;max-width:460px;margin:0 auto 16px;
@@ -1007,7 +1007,7 @@ html, body {
     font:400 15px var(--aut-font-sans);color:#fff;
     padding:10px 14px;
   }
-  .beta-form input::placeholder{color:#7D93AE;}
+  .beta-form input::placeholder{color:#2E6FB8;}
   .beta-form button{
     background:var(--aut-terra-600);color:#fff;
     font:500 14px var(--aut-font-sans);
@@ -1028,7 +1028,7 @@ html, body {
   }
   .beta-fine{
     font:400 12.5px var(--aut-font-sans);
-    color:#7D93AE;letter-spacing:0.02em;margin-bottom:24px;
+    color:#2E6FB8;letter-spacing:0.02em;margin-bottom:24px;
   }
   .beta-cta-btn{
     display:inline-flex;align-items:center;gap:8px;
@@ -1045,21 +1045,21 @@ html, body {
   }
   .beta-alt>p{
     font:400 13.5px var(--aut-font-sans);
-    color:#7D93AE;margin:0 0 12px;
+    color:#2E6FB8;margin:0 0 12px;
   }
   .beta-login-hint{
     font:400 12.5px var(--aut-font-sans);
-    color:#55708F;margin-top:22px;
+    color:#1F5C9E;margin-top:22px;
   }
-  .beta-login-hint a{color:#7D93AE;text-decoration:underline;transition:color 120ms;}
-  .beta-login-hint a:hover{color:#C7D3E2;}
+  .beta-login-hint a{color:#2E6FB8;text-decoration:underline;transition:color 120ms;}
+  .beta-login-hint a:hover{color:#8DBCE0;}
 
   /* ── LEGAL EXPLAINER ── */
-  .legal-explainer{background:var(--aut-primary-950);color:#F1F5FA;}
+  .legal-explainer{background:var(--aut-primary-950);color:#E5F1FA;}
   .legal-explainer .section-kicker{color:var(--aut-terra-400);}
   .legal-explainer .section-h{color:#fff;}
   .legal-explainer .section-h em{color:var(--aut-terra-300);font-style:italic;font-weight:500;}
-  .legal-explainer .section-sub{color:#A3B5CC;}
+  .legal-explainer .section-sub{color:#5A93CE;}
   .legal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px;}
   .legal-card{
     background:rgba(255,255,255,0.04);
@@ -1077,14 +1077,14 @@ html, body {
   }
   .legal-card ul li{
     font:400 13.5px var(--aut-font-sans);
-    color:#A3B5CC;padding-left:18px;position:relative;line-height:1.5;
+    color:#5A93CE;padding-left:18px;position:relative;line-height:1.5;
   }
   .legal-card ul li::before{
     content:"·";position:absolute;left:4px;color:var(--aut-terra-500);font-weight:700;font-size:16px;top:-1px;
   }
   .legal-note{
     font:400 12px var(--aut-font-sans);
-    color:#7D93AE;line-height:1.5;
+    color:#2E6FB8;line-height:1.5;
     border-top:1px solid rgba(255,255,255,0.06);
     padding-top:10px;margin:0;font-style:italic;
   }
@@ -1094,36 +1094,36 @@ html, body {
     padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.06);
   }
   .fine-row:last-of-type{border-bottom:none;margin-bottom:14px;}
-  .fine-label{font:400 13px var(--aut-font-sans);color:#A3B5CC;}
+  .fine-label{font:400 13px var(--aut-font-sans);color:#5A93CE;}
   .fine-amount{font:600 14px var(--aut-font-mono);color:#fca5a5;letter-spacing:-0.02em;}
   .fine-row.serious .fine-amount{color:#f87171;font-size:17px;}
   .legal-cta-row{
-    background:rgba(168,124,61,0.1);
-    border:1px solid rgba(168,124,61,0.2);
+    background:rgba(42,155,110,0.1);
+    border:1px solid rgba(42,155,110,0.2);
     border-radius:16px;padding:24px 28px;
     text-align:center;
   }
   .legal-cta-txt{
     font:400 16px var(--aut-font-sans);
-    color:#C7D3E2;margin:0;line-height:1.55;
+    color:#8DBCE0;margin:0;line-height:1.55;
   }
 
 
   /* ── FOOTER ── */
   .foot{
     background:var(--aut-primary-950);
-    color:#A3B5CC;
+    color:#5A93CE;
     padding:48px 0 32px;
     border-top:1px solid rgba(255,255,255,0.06);
   }
   .foot-in{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px;max-width:var(--wrap);margin-left:auto;margin-right:auto;padding:0 28px;}
   .foot-brand{display:flex;flex-direction:column;gap:16px;max-width:340px;}
   .foot-brand .brand-name{color:#fff;}
-  .foot-brand p{font:400 13.5px/1.55 var(--aut-font-sans);color:#7D93AE;margin:0;}
+  .foot-brand p{font:400 13.5px/1.55 var(--aut-font-sans);color:#2E6FB8;margin:0;}
   .foot-legal{
     display:flex;gap:8px;
     font:500 11px var(--aut-font-mono);
-    color:#55708F;margin-top:8px;letter-spacing:0.03em;
+    color:#1F5C9E;margin-top:8px;letter-spacing:0.03em;
   }
   .foot-legal span{
     padding:3px 8px;border-radius:5px;
@@ -1137,22 +1137,22 @@ html, body {
   .foot-col h4{
     font:600 12px var(--aut-font-sans);
     text-transform:uppercase;letter-spacing:0.12em;
-    color:#7D93AE;margin:0 0 14px;
+    color:#2E6FB8;margin:0 0 14px;
   }
   .foot-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;}
   .foot-col a{
     font:400 13.5px var(--aut-font-sans);
-    color:#C7D3E2;transition:color 120ms;
+    color:#8DBCE0;transition:color 120ms;
   }
   .foot-col a:hover{color:#fff;}
   .foot-bottom{
     max-width:var(--wrap);margin:0 auto;padding:24px 28px 0;
     border-top:1px solid rgba(255,255,255,0.06);
     display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
-    font:400 12.5px var(--aut-font-sans);color:#55708F;
+    font:400 12.5px var(--aut-font-sans);color:#1F5C9E;
   }
-  .foot-bottom a{color:#7D93AE;}
-  .foot-bottom a:hover{color:#C7D3E2;}
+  .foot-bottom a{color:#2E6FB8;}
+  .foot-bottom a:hover{color:#8DBCE0;}
 
   /* ── HERO EXTRAS ── */
   .float-tag.warn{
@@ -1179,14 +1179,14 @@ html, body {
   .feature-card:hover{border-color:var(--aut-terra-300);box-shadow:var(--aut-shadow-md);transform:translateY(-2px);}
   .feature-card.featured{
     background:var(--aut-primary-900);border-color:var(--aut-terra-500);
-    color:#F1F5FA;box-shadow:var(--aut-shadow-lg);
+    color:#E5F1FA;box-shadow:var(--aut-shadow-lg);
   }
   .feature-card.featured:hover{transform:translateY(-2px);}
   .feat-emoji{font-size:24px;line-height:1;margin-bottom:16px;display:block;}
   .feature-card h3{font:600 16px/1.3 var(--aut-font-sans);color:var(--aut-primary-900);margin:0 0 8px;letter-spacing:-0.01em;}
   .feature-card.featured h3{color:#fff;}
   .feature-card p{font:400 14px/1.6 var(--aut-font-sans);color:var(--aut-fg-2);margin:0;}
-  .feature-card.featured p{color:#A3B5CC;}
+  .feature-card.featured p{color:#5A93CE;}
 
   /* ── STEP TAG ── */
   .step-tag{
@@ -1309,7 +1309,7 @@ html, body {
 
     /* FAQ — accent esquerre */
     .faq{gap:0;display:flex;flex-direction:column;}
-    .faq-item{border-radius:0;border:none;border-bottom:1px solid #f0ede8;background:transparent;}
+    .faq-item{border-radius:0;border:none;border-bottom:1px solid #ddeae3;background:transparent;}
     .faq-item[open]{border-left:3px solid var(--aut-terra-500);padding-left:12px;background:var(--aut-terra-50);}
     .faq-item summary{font-size:14.5px;padding:16px 0;}
     .ans{font-size:13.5px;padding:0 0 16px;}
@@ -1430,7 +1430,7 @@ html, body {
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
-<body data-screen-label="Landing · Automossos">
+<body data-screen-label="Landing · Autoacull">
 
 <!-- NAV -->
 <nav class="nav">
@@ -1438,13 +1438,13 @@ html, body {
     <a class="brand" href="#top">
       <span class="brand-mark">
         <svg viewBox="0 0 52 52" fill="none">
-          <rect width="52" height="52" rx="12" fill="#1A2B3C"/>
-          <line x1="26" y1="11" x2="11" y2="42" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
-          <line x1="26" y1="11" x2="41" y2="42" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
-          <polyline points="17,30 26,38 35,30" stroke="#A87C3D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect width="52" height="52" rx="12" fill="#0B2748"/>
+          <path d="M9 27L26 11L43 27" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="14" y="27" width="24" height="14" rx="2" fill="white" fill-opacity=".92"/>
+          <rect x="21" y="32" width="10" height="9" rx="2" fill="#2A9B6E"/>
         </svg>
       </span>
-      <span class="brand-name">auto<em>mossos</em></span>
+      <span class="brand-name">auto<em>acull</em></span>
     </a>
     <div class="nav-links">
       <a href="#contingut" data-t="nav.how">Com funciona</a>
@@ -1475,7 +1475,7 @@ html, body {
         <b>i Mossos ho rep.</b>
       </p>
       <div class="hero-ctas">
-        <p class="hero-login-label" data-t="hero.loginLabel">Ja ets client de Automossos?</p>
+        <p class="hero-login-label" data-t="hero.loginLabel">Ja ets client de Autoacull?</p>
         <a class="btn dark lg" style="flex:0 0 100%;justify-content:center;" href="https://app.automossos.cat" data-t="hero.login">Entra al teu panell →</a>
         <a class="btn primary lg" href="https://app.automossos.cat/admin/register">
           <span data-t="hero.cta1">Prova-ho gratis 1 mes →</span>
@@ -1497,7 +1497,7 @@ html, body {
           <div class="adm-hd">
             <div class="adm-logo">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-              Automossos
+              Autoacull
             </div>
             <div class="adm-status"><div class="adm-dot"></div>En línia</div>
           </div>
@@ -1548,32 +1548,32 @@ html, body {
 <section class="section warm">
   <div class="wrap">
     <div class="section-head center">
-      <p class="section-kicker" data-t="vs.kicker">Avui vs. amb Automossos</p>
-      <h2 class="section-h" data-th="vs.h">Sense Automossos: feina teva cada cop. Amb Automossos: <em>una sola vegada.</em></h2>
+      <p class="section-kicker" data-t="vs.kicker">Avui vs. amb Autoacull</p>
+      <h2 class="section-h" data-th="vs.h">Sense Autoacull: feina teva cada cop. Amb Autoacull: <em>una sola vegada.</em></h2>
       <p class="section-sub" data-t="vs.sub">Els vespres de divendres fent WhatsApps per demanar DNIs s'han acabat.</p>
     </div>
     <!-- Toggle control -->
     <div class="vs-toggle-ctrl">
       <button class="vstb is-good active" data-vs="good">
-        <span class="vstb-m">✓</span><span data-t="vs.good.tag">Amb Automossos</span>
+        <span class="vstb-m">✓</span><span data-t="vs.good.tag">Amb Autoacull</span>
       </button>
       <button class="vstb is-bad" data-vs="bad">
-        <span class="vstb-m">×</span><span data-t="vs.bad.tag">Sense Automossos</span>
+        <span class="vstb-m">×</span><span data-t="vs.bad.tag">Sense Autoacull</span>
       </button>
     </div>
     <!-- Panels (grid-stacked, one visible at a time) -->
     <div class="vs-panels">
       <div class="vs-panel good active">
-        <div class="vs-tag"><span class="m">✓</span> <span data-t="vs.good.tag">Amb Automossos</span></div>
+        <div class="vs-tag"><span class="m">✓</span> <span data-t="vs.good.tag">Amb Autoacull</span></div>
         <h3 data-t="vs.good.h">Tot passa sol. Tu només supervises.</h3>
         <ul>
-          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="vs.good.li1">Automossos envia l'enllaç a l'hoste automàticament</span></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="vs.good.li1">Autoacull envia l'enllaç a l'hoste automàticament</span></li>
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="vs.good.li3">Tu reps un avís quan tot és llest</span></li>
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="vs.good.li6">Tu no has escrit ni un sol missatge</span></li>
         </ul>
       </div>
       <div class="vs-panel bad">
-        <div class="vs-tag"><span class="m">×</span> <span data-t="vs.bad.tag">Sense Automossos</span></div>
+        <div class="vs-tag"><span class="m">×</span> <span data-t="vs.bad.tag">Sense Autoacull</span></div>
         <h3 data-t="vs.bad.h">Cada reserva és una cursa contra el rellotge</h3>
         <ul>
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span><span data-t="vs.bad.li1">Escrius tu a cada hoste per demanar-li el DNI</span></li>
@@ -1610,7 +1610,7 @@ html, body {
           <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M11 18h2"/></svg>
         </div>
         <h3 data-t="step1.h">L'hoste reserva i rep un missatge automàtic</h3>
-        <p data-t="step1.p">Quan l'hoste confirma la reserva, Automossos li envia automàticament un missatge amb l'enllaç per omplir les dades. Si la reserva és directa (WhatsApp o telèfon), tu li envies l'enllaç amb un clic des del teu panell.</p>
+        <p data-t="step1.p">Quan l'hoste confirma la reserva, Autoacull li envia automàticament un missatge amb l'enllaç per omplir les dades. Si la reserva és directa (WhatsApp o telèfon), tu li envies l'enllaç amb un clic des del teu panell.</p>
         <span class="step-tag" data-t="step1.tag">0 feina del propietari</span>
         <div class="step-arrow"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
       </div>
@@ -1630,7 +1630,7 @@ html, body {
           <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
         </div>
         <h3 data-t="step3.h">Tu reps l'avís, generes el document i el puges al portal</h3>
-        <p data-t="step3.p">Reps un avís, entres a Automossos i generes el document oficial amb un clic. Llavors l'adjuntes al portal web dels Mossos — és com adjuntar un arxiu a un email. Tot en menys de 2 minuts.</p>
+        <p data-t="step3.p">Reps un avís, entres a Autoacull i generes el document oficial amb un clic. Llavors l'adjuntes al portal web dels Mossos — és com adjuntar un arxiu a un email. Tot en menys de 2 minuts.</p>
         <span class="step-tag" data-t="step3.tag">2 minuts en total</span>
         <div class="step-arrow"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
       </div>
@@ -1650,7 +1650,7 @@ html, body {
       <div class="demo-phone-wrap">
         <div class="demo-phone-notch"></div>
         <iframe class="demo-iframe" id="demo-iframe" scrolling="no"
-                title="Demo Automossos" allow="fullscreen"></iframe>
+                title="Demo Autoacull" allow="fullscreen"></iframe>
       </div>
     </div>
   </div>
@@ -1703,7 +1703,7 @@ html, body {
 <section class="section" id="funcionalitats">
   <div class="wrap">
     <div class="section-head center">
-      <p class="section-kicker" data-t="features.kicker">Per què Automossos</p>
+      <p class="section-kicker" data-t="features.kicker">Per què Autoacull</p>
       <h2 class="section-h" data-th="features.h">Sis funcions. <em>Totes necessàries.</em></h2>
       <p class="section-sub" data-t="features.sub">Pensat per a propietaris de cases rurals, pisos turístics i petits allotjaments de Catalunya. No per a hotels de 200 habitacions.</p>
     </div>
@@ -1736,7 +1736,7 @@ html, body {
         <span class="feat-emoji">🗂️</span>
         <h3 data-t="feat5.h">Tots els registres guardats 3 anys</h3>
         <span class="feat-hint">Llegir més +</span>
-        <p data-t="feat5.p">La llei obliga a guardar el registre 3 anys. Automossos ho guarda tot per tu — accessible en qualsevol moment si vénen a inspeccionar.</p>
+        <p data-t="feat5.p">La llei obliga a guardar el registre 3 anys. Autoacull ho guarda tot per tu — accessible en qualsevol moment si vénen a inspeccionar.</p>
       </div>
       <div class="feature-card">
         <span class="feat-emoji">🏡</span>
@@ -1770,7 +1770,7 @@ html, body {
           <span class="q-t" data-t="faq.q2">Funciona amb Booking.com i Airbnb?</span>
           <span class="q-c"><svg viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg></span>
         </summary>
-        <div class="ans" data-t="faq.a2">Sí. Automossos s'integra amb les principals plataformes de reserves. La connexió es configura en menys de 5 minuts.</div>
+        <div class="ans" data-t="faq.a2">Sí. Autoacull s'integra amb les principals plataformes de reserves. La connexió es configura en menys de 5 minuts.</div>
       </details>
       <details class="faq-item">
         <summary>
@@ -1786,7 +1786,7 @@ html, body {
           <span class="q-t" data-t="faq.q4">Qui puja el document als Mossos, jo o el programa?</span>
           <span class="q-c"><svg viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg></span>
         </summary>
-        <div class="ans" data-t="faq.a4">Tu. Automossos genera el document oficial automàticament i tu el revises. Llavors l'adjuntes al portal web dels Mossos (registreviatgers.mossos.gencat.cat) — és una web oficial on pengis l'arxiu, com adjuntar un document a un email. Tota l'operació dura menys de 2 minuts.</div>
+        <div class="ans" data-t="faq.a4">Tu. Autoacull genera el document oficial automàticament i tu el revises. Llavors l'adjuntes al portal web dels Mossos (registreviatgers.mossos.gencat.cat) — és una web oficial on pengis l'arxiu, com adjuntar un document a un email. Tota l'operació dura menys de 2 minuts.</div>
       </details>
       <details class="faq-item">
         <summary>
@@ -1794,7 +1794,7 @@ html, body {
           <span class="q-t" data-t="faq.q5">Haig de tenir compte al portal dels Mossos?</span>
           <span class="q-c"><svg viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg></span>
         </summary>
-        <div class="ans" data-t="faq.a5">Sí, necessites un compte al portal oficial dels Mossos (registreviatgers.mossos.gencat.cat). Si ja en tens un, el continues usant exactament igual. Si no, el crees gratuïtament a la web dels Mossos. Automossos et genera el document; tu el puges al portal amb el teu compte habitual.</div>
+        <div class="ans" data-t="faq.a5">Sí, necessites un compte al portal oficial dels Mossos (registreviatgers.mossos.gencat.cat). Si ja en tens un, el continues usant exactament igual. Si no, el crees gratuïtament a la web dels Mossos. Autoacull et genera el document; tu el puges al portal amb el teu compte habitual.</div>
       </details>
       <details class="faq-item">
         <summary>
@@ -1964,7 +1964,7 @@ html, body {
 
       <div class="legal-card safe collapsible">
         <div class="legal-card-icon">✅</div>
-        <h3 data-t="legal.safe.h">Automossos ho resol</h3>
+        <h3 data-t="legal.safe.h">Autoacull ho resol</h3>
         <ul data-th="legal.safe.list">
           <li>Genera el fitxer V24 oficial automàticament</li>
           <li>Guarda l'historial 3 anys per llei</li>
@@ -2008,13 +2008,13 @@ html, body {
       <a class="brand" href="#top">
         <span class="brand-mark">
           <svg viewBox="0 0 52 52" fill="none">
-            <rect width="52" height="52" rx="12" fill="#1A2B3C"/>
-            <line x1="26" y1="11" x2="11" y2="42" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
-            <line x1="26" y1="11" x2="41" y2="42" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
-            <polyline points="17,30 26,38 35,30" stroke="#A87C3D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <rect width="52" height="52" rx="12" fill="#0B2748"/>
+            <path d="M9 27L26 11L43 27" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="14" y="27" width="24" height="14" rx="2" fill="white" fill-opacity=".92"/>
+            <rect x="21" y="32" width="10" height="9" rx="2" fill="#2A9B6E"/>
           </svg>
         </span>
-        <span class="brand-name">auto<em>mossos</em></span>
+        <span class="brand-name">auto<em>acull</em></span>
       </a>
       <p data-t="foot.desc">Eina de registre de viatgers per a allotjaments turístics de Catalunya. Compleix la normativa legal vigent (RD 933/2021).</p>
       <div class="foot-legal">
@@ -2052,7 +2052,7 @@ html, body {
     </div>
   </div>
   <div class="foot-bottom">
-    <span data-t="foot.copy">© 2026 Automossos · Fet a Catalunya</span>
+    <span data-t="foot.copy">© 2026 Autoacull · Fet a Catalunya</span>
     <span>Powered by <a href="https://spraut.co">SPRAUT</a></span>
   </div>
 </footer>
@@ -2070,35 +2070,35 @@ es:{
 'hero.floatBot':'4 de 4 huéspedes registrados<small>Reserva AAR02.003 · lista</small>','hero.floatTop':'Documento oficial generado<small>Can Cuní · 23 jun, 10:24</small>',
 'hero.chatOnline':'en línea','hero.chatDay':'Hoy · 14:32','hero.chatBubble':'Bienvenido/a a <b>Casavella del Cuní</b>.<br/>Completa el registro obligatorio. Tarda menos de 2 minutos.','hero.chatLink':'Completar el registro →',
 'hero.li1':'Sin app para el huésped','hero.li2':'100% desde el móvil','hero.li3':'Cumple la ley','hero.li4':'Documento oficial automático',
-'hero.proof':'Propietarios de Cataluña se ahorran horas cada semana','hero.pain':'Basta de pedir DNIs por WhatsApp y apuntarlos a mano.','hero.loginLabel':'¿Ya eres cliente de Automossos?',
+'hero.proof':'Propietarios de Cataluña se ahorran horas cada semana','hero.pain':'Basta de pedir DNIs por WhatsApp y apuntarlos a mano.','hero.loginLabel':'¿Ya eres cliente de Autoacull?',
 'compat.lbl':'Compatible con','compat.etc':'o reservas directas por WhatsApp, teléfono o web propia',
-'vs.kicker':'Hoy vs. con Automossos','vs.h':'Sin Automossos: trabajo tuyo cada vez. Con Automossos: <em>una sola vez.</em>','vs.sub':'Los viernes por la noche enviando WhatsApps para pedir DNIs se acabaron.',
-'vs.bad.tag':'Sin Automossos','vs.bad.h':'Cada reserva es una carrera contra el reloj',
+'vs.kicker':'Hoy vs. con Autoacull','vs.h':'Sin Autoacull: trabajo tuyo cada vez. Con Autoacull: <em>una sola vez.</em>','vs.sub':'Los viernes por la noche enviando WhatsApps para pedir DNIs se acabaron.',
+'vs.bad.tag':'Sin Autoacull','vs.bad.h':'Cada reserva es una carrera contra el reloj',
 'vs.bad.li1':'Tú escribes a cada huésped para pedirle el DNI','vs.bad.li2':'Esperas que te responda (a veces no lo hace)','vs.bad.li3':'Transcribes los datos a mano, uno por uno',
 'vs.bad.li4':'Entras al portal de Mossos y subes el archivo manualmente','vs.bad.li5':'Si te equivocas u olvidas, puedes recibir una multa de hasta 30.000€','vs.bad.li6':'Y encima, el huésped te pregunta el wifi, cómo entrar, dónde aparcar…','vs.swipe':'Desliza para ver la alternativa',
-'vs.good.tag':'Con Automossos','vs.good.h':'Todo pasa solo. Tú solo supervisas.',
-'vs.good.li1':'Automossos envía el enlace al huésped automáticamente','vs.good.li2':'El huésped rellena los datos desde el móvil en 2 minutos','vs.good.li3':'Tú recibes un aviso cuando todo está listo','vs.good.li4':'Revisas los datos y haces clic en "Enviar a los Mossos" — hecho',
+'vs.good.tag':'Con Autoacull','vs.good.h':'Todo pasa solo. Tú solo supervisas.',
+'vs.good.li1':'Autoacull envía el enlace al huésped automáticamente','vs.good.li2':'El huésped rellena los datos desde el móvil en 2 minutos','vs.good.li3':'Tú recibes un aviso cuando todo está listo','vs.good.li4':'Revisas los datos y haces clic en "Enviar a los Mossos" — hecho',
 'vs.good.li5':'El huésped ya sabe el wifi, cómo entrar y dónde aparcar','vs.good.li6':'Tú no has escrito ni un solo mensaje',
 'steps.kicker':'Cómo funciona','steps.h':'4 pasos. Sin llamadas. <em>Sin papeles.</em>','steps.sub':'Configuras tu propiedad una sola vez. Después, todo pasa solo para siempre.',
 'step0.h':'Configuras tu propiedad una sola vez','step0.p':'Pones la info de la casa: wifi, llaves, dónde aparcar, normas y recomendaciones locales. Una vez. Nunca más.','step0.tag':'5 minutos de trabajo',
-'step1.h':'El huésped reserva y recibe un mensaje automático','step1.p':'Cuando el huésped confirma la reserva, Automossos le envía automáticamente un mensaje con el enlace para rellenar sus datos. Si la reserva es directa (WhatsApp o teléfono), tú le envías el enlace con un clic desde tu panel.','step1.tag':'0 trabajo del propietario',
+'step1.h':'El huésped reserva y recibe un mensaje automático','step1.p':'Cuando el huésped confirma la reserva, Autoacull le envía automáticamente un mensaje con el enlace para rellenar sus datos. Si la reserva es directa (WhatsApp o teléfono), tú le envías el enlace con un clic desde tu panel.','step1.tag':'0 trabajo del propietario',
 'step2.h':'El huésped rellena sus datos desde el móvil','step2.p':'Abre el enlace, rellena los datos y ve la info de la casa. Sin descargar ninguna app. Desde cualquier teléfono.','step2.tag':'El huésped llega preparado',
-'step3.h':'Tú recibes el aviso, generas el documento y lo subes al portal','step3.p':'Recibes un aviso, entras en Automossos y generas el documento oficial con un clic. Luego lo adjuntas al portal web de los Mossos — es como adjuntar un archivo a un correo. Todo en menos de 2 minutos.','step3.tag':'2 minutos en total',
-'features.kicker':'Por qué Automossos','features.h':'Seis funciones. <em>Todas necesarias.</em>','features.sub':'Pensado para propietarios de casas rurales, pisos turísticos y pequeños alojamientos de Cataluña. No para hoteles de 200 habitaciones.',
+'step3.h':'Tú recibes el aviso, generas el documento y lo subes al portal','step3.p':'Recibes un aviso, entras en Autoacull y generas el documento oficial con un clic. Luego lo adjuntas al portal web de los Mossos — es como adjuntar un archivo a un correo. Todo en menos de 2 minutos.','step3.tag':'2 minutos en total',
+'features.kicker':'Por qué Autoacull','features.h':'Seis funciones. <em>Todas necesarias.</em>','features.sub':'Pensado para propietarios de casas rurales, pisos turísticos y pequeños alojamientos de Cataluña. No para hoteles de 200 habitaciones.',
 'feat1.h':'Sin app para el huésped','feat1.p':'El huésped abre un enlace desde el móvil. Sin descargar nada, sin crear ninguna cuenta. Funciona con cualquier teléfono del mundo.',
 'feat2.h':'Tú tienes el control','feat2.p':'Ves todos los registros en tu panel. Revisas los datos cuando quieres y envías a los Mossos con un clic. 100% fiable porque tú tienes la última palabra.',
 'feat3.h':'Todo desde el móvil','feat3.p':'Tu panel funciona perfectamente desde el móvil o PC. Recibes aviso cuando todos los huéspedes han rellenado los datos. Sin entrar a revisar.',
 'feat4.h':'Documento oficial generado automáticamente','feat4.p':'Genera el documento oficial que exige la ley, sin errores de formato y sin transcripciones manuales. Siempre actualizado con la normativa vigente.',
-'feat5.h':'Todos los registros guardados 3 años','feat5.p':'La ley obliga a guardar el registro 3 años. Automossos lo guarda todo por ti — accesible en cualquier momento si vienen a inspeccionar.',
+'feat5.h':'Todos los registros guardados 3 años','feat5.p':'La ley obliga a guardar el registro 3 años. Autoacull lo guarda todo por ti — accesible en cualquier momento si vienen a inspeccionar.',
 'feat6.h':'Hecho en Cataluña, en catalán','feat6.p':'Soporte en catalán, castellano e inglés. Pensado para los Mossos d\'Esquadra, no para la Policía Nacional. Específico para la normativa catalana.',
-'legal.safe.h':'Automossos lo resuelve','legal.safe.list':'<li>Genera el archivo V24 oficial automáticamente</li><li>Guarda el historial 3 años por ley</li><li>Te avisa cuando debes actuar</li><li>Tú tienes el control y la tranquilidad</li>','legal.safe.note':'<b>LO 4/2015 · RD 933/2021 · Formato V24</b>',
+'legal.safe.h':'Autoacull lo resuelve','legal.safe.list':'<li>Genera el archivo V24 oficial automáticamente</li><li>Guarda el historial 3 años por ley</li><li>Te avisa cuando debes actuar</li><li>Tú tienes el control y la tranquilidad</li>','legal.safe.note':'<b>LO 4/2015 · RD 933/2021 · Formato V24</b>',
 'demo.kicker':'En acción','demo.h':'Vélo en <em>1 minuto</em>','demo.sub':'El huésped recibe un mensaje, rellena los datos desde el móvil en 2 minutos. Tú recibes el aviso, generas el documento oficial con un clic y lo subes al portal de los Mossos. Hecho.','demo.soon':'Vídeo demostración · Disponible pronto',
 'faq.kicker':'Dudas','faq.h':'Lo que nos preguntan los propietarios',
 'faq.q1':'¿Y si el huésped no rellena el formulario?','faq.a1':'El sistema le envía un recordatorio automático. Si aun así no lo hace, te avisamos a ti para que puedas actuar.',
-'faq.q2':'¿Funciona con Booking.com y Airbnb?','faq.a2':'Sí. Automossos se integra con las principales plataformas de reservas. La conexión se configura en menos de 5 minutos.',
+'faq.q2':'¿Funciona con Booking.com y Airbnb?','faq.a2':'Sí. Autoacull se integra con las principales plataformas de reservas. La conexión se configura en menos de 5 minutos.',
 'faq.q3':'¿Los datos de los huéspedes están seguros?','faq.a3':'Sí. Todos los datos se guardan cifrados y cumplimos el RGPD. No compartimos información con terceros.',
-'faq.q4':'¿Quién sube el documento a la Policía, yo o el programa?','faq.a4':'Tú. Automossos genera el documento oficial automáticamente y tú lo revisas. Luego lo adjuntas al portal web de los Mossos (registreviatgers.mossos.gencat.cat) — es una web oficial donde subes el archivo, como adjuntar un documento a un correo. Toda la operación dura menos de 2 minutos.',
-'faq.q5':'¿Necesito cuenta en el portal de los Mossos?','faq.a5':'Sí, necesitas una cuenta en el portal oficial de los Mossos (registreviatgers.mossos.gencat.cat). Si ya tienes una, la sigues usando exactamente igual. Si no, la creas gratuitamente en la web de los Mossos. Automossos te genera el documento; tú lo subes al portal con tu cuenta habitual.',
+'faq.q4':'¿Quién sube el documento a la Policía, yo o el programa?','faq.a4':'Tú. Autoacull genera el documento oficial automáticamente y tú lo revisas. Luego lo adjuntas al portal web de los Mossos (registreviatgers.mossos.gencat.cat) — es una web oficial donde subes el archivo, como adjuntar un documento a un correo. Toda la operación dura menos de 2 minutos.',
+'faq.q5':'¿Necesito cuenta en el portal de los Mossos?','faq.a5':'Sí, necesitas una cuenta en el portal oficial de los Mossos (registreviatgers.mossos.gencat.cat). Si ya tienes una, la sigues usando exactamente igual. Si no, la creas gratuitamente en la web de los Mossos. Autoacull te genera el documento; tú lo subes al portal con tu cuenta habitual.',
 'faq.q6':'¿Necesito contratar algo adicional?','faq.a6':'No. Todo está incluido en el plan. Sin costes ocultos, sin integraciones de pago adicionales.',
 'faq.q7':'¿Cuándo tendré que pagar?','faq.a7':'El primer mes es completamente gratis, sin tarjeta. Cuando acabe el mes de prueba, te explicaremos los planes disponibles y tú decides si quieres continuar. No te cobramos nada sin avisarte antes.',
 'pricing.kicker':'Precios','pricing.h':'Un mes gratis, <em>sin tarjeta</em>','pricing.sub':'Prueba el producto completo durante 1 mes. Sin compromiso. Cuando acabes, decides si continuar — y con qué plan.',
@@ -2137,14 +2137,14 @@ es:{
 'legal.fine1.lbl':'Infracción leve','legal.fine1.amt':'hasta €600',
 'legal.fine2.lbl':'Infracción grave','legal.fine2.amt':'€30.000',
 'legal.fines.note':'No registrar a un huésped es una infracción grave. El propietario es el responsable.',
-'legal.cta.txt':'Automossos lo gestiona todo automáticamente — tú no tienes que pensar en ningún formulario, ningún archivo, ningún plazo.',
+'legal.cta.txt':'Autoacull lo gestiona todo automáticamente — tú no tienes que pensar en ningún formulario, ningún archivo, ningún plazo.',
 'legal.cta.btn':'Empieza gratis →',
 'sticky.btn':'Prueba gratis 1 mes →',
 'foot.desc':'Herramienta de registro de viajeros para alojamientos turísticos de Cataluña. Cumple la normativa legal vigente (RD 933/2021).',
 'foot.col1.h':'Producto','foot.col1.l1':'Cómo funciona','foot.col1.l2':'El producto','foot.col1.l3':'Precios','foot.col1.l4':'Ir a la app →',
 'foot.col2.h':'Soporte','foot.col2.l1':'Preguntas frecuentes','foot.col2.l2':'Contacto','foot.col2.l3':'Estado del servicio',
 'foot.col3.h':'Legal','foot.col3.l1':'Política de privacidad','foot.col3.l2':'Aviso legal','foot.col3.l3':'Cookies',
-'foot.copy':'© 2026 Automossos · Hecho en Cataluña',
+'foot.copy':'© 2026 Autoacull · Hecho en Cataluña',
 },
 en:{
 'nav.how':'How it works','nav.product':'The product','nav.pricing':'Pricing','nav.faq':'FAQ','nav.login':'Log in','nav.app':'Go to app',
@@ -2157,33 +2157,33 @@ en:{
 'hero.li1':'No app for guests','hero.li2':'100% mobile-based','hero.li3':'Legally compliant','hero.li4':'Automatic official document',
 'hero.proof':'Property owners in Catalonia save hours every week','hero.pain':'No more chasing IDs on WhatsApp or entering data by hand.','hero.loginLabel':'Already a customer?',
 'compat.lbl':'Compatible with','compat.etc':'or direct bookings by WhatsApp, phone or own website',
-'vs.kicker':'Today vs. with Automossos','vs.h':'Without Automossos: your job every time. With Automossos: <em>done once.</em>','vs.sub':'Friday nights sending WhatsApps asking for IDs are over.',
-'vs.bad.tag':'Without Automossos','vs.bad.h':'Every booking is a race against time',
+'vs.kicker':'Today vs. with Autoacull','vs.h':'Without Autoacull: your job every time. With Autoacull: <em>done once.</em>','vs.sub':'Friday nights sending WhatsApps asking for IDs are over.',
+'vs.bad.tag':'Without Autoacull','vs.bad.h':'Every booking is a race against time',
 'vs.bad.li1':'You message each guest asking for their ID','vs.bad.li2':'You wait for a reply (sometimes it never comes)','vs.bad.li3':'You transcribe data by hand, one by one',
 'vs.bad.li4':'You log into the Mossos portal and upload the file manually','vs.bad.li5':'One mistake or oversight can get you fined up to €30,000','vs.bad.li6':'And on top of that, guests ask you for the wifi, how to enter, where to park…','vs.swipe':'Swipe to see the alternative',
-'vs.good.tag':'With Automossos','vs.good.h':'Everything happens automatically. You just supervise.',
-'vs.good.li1':'Automossos automatically sends the link to the guest','vs.good.li2':'The guest fills in details from their phone in 2 minutes','vs.good.li3':'You get notified when everything is done','vs.good.li4':'You review and click "Send to Mossos" — done',
+'vs.good.tag':'With Autoacull','vs.good.h':'Everything happens automatically. You just supervise.',
+'vs.good.li1':'Autoacull automatically sends the link to the guest','vs.good.li2':'The guest fills in details from their phone in 2 minutes','vs.good.li3':'You get notified when everything is done','vs.good.li4':'You review and click "Send to Mossos" — done',
 'vs.good.li5':'The guest already knows the wifi, how to enter and where to park','vs.good.li6':'You haven\'t written a single message',
 'steps.kicker':'How it works','steps.h':'4 steps. No calls. <em>No paperwork.</em>','steps.sub':'You set up your property once. After that, everything happens automatically forever.',
 'step0.h':'You set up your property just once','step0.p':'You enter the house info: wifi, keys, parking, house rules and local recommendations. Once. Never again.','step0.tag':'5 minutes of work',
-'step1.h':'The guest books and receives an automatic message','step1.p':'When the guest confirms the booking, Automossos automatically sends them a message with the link to fill in their details. If it\'s a direct booking (WhatsApp or phone), you send the link with one click from your dashboard.','step1.tag':'0 work for the owner',
+'step1.h':'The guest books and receives an automatic message','step1.p':'When the guest confirms the booking, Autoacull automatically sends them a message with the link to fill in their details. If it\'s a direct booking (WhatsApp or phone), you send the link with one click from your dashboard.','step1.tag':'0 work for the owner',
 'step2.h':'The guest fills in their details from their phone','step2.p':'They open the link, fill in their details and see the house info. No app download. From any phone.','step2.tag':'Guest arrives prepared',
-'step3.h':'You get notified, generate the document and upload it to the portal','step3.p':'You get a notification, log into Automossos and generate the official document with one click. Then you upload it to the Mossos web portal — it\'s like attaching a file to an email. All in under 2 minutes.','step3.tag':'2 minutes total',
-'features.kicker':'Why Automossos','features.h':'Six features. <em>All necessary.</em>','features.sub':'Built for owners of rural houses, tourist apartments and small accommodations in Catalonia. Not for 200-room hotels.',
+'step3.h':'You get notified, generate the document and upload it to the portal','step3.p':'You get a notification, log into Autoacull and generate the official document with one click. Then you upload it to the Mossos web portal — it\'s like attaching a file to an email. All in under 2 minutes.','step3.tag':'2 minutes total',
+'features.kicker':'Why Autoacull','features.h':'Six features. <em>All necessary.</em>','features.sub':'Built for owners of rural houses, tourist apartments and small accommodations in Catalonia. Not for 200-room hotels.',
 'feat1.h':'No app for guests','feat1.p':'The guest opens a normal link from their phone. No downloads, no accounts. Works with any phone in the world.',
 'feat2.h':'You stay in control','feat2.p':'See all registrations in your dashboard. Review data anytime and send to Mossos with one click. 100% reliable because you have the final say.',
 'feat3.h':'Everything from your phone','feat3.p':'Your dashboard works perfectly from mobile or PC. Get notified when all guests have filled in their data. No need to keep checking.',
 'feat4.h':'Official document generated automatically','feat4.p':'Generates the official document required by law, with no formatting errors and no manual transcription. Always up to date with current regulations.',
-'feat5.h':'All records stored for 3 years','feat5.p':'The law requires keeping records for 3 years. Automossos stores everything for you — accessible at any time if there\'s an inspection.',
+'feat5.h':'All records stored for 3 years','feat5.p':'The law requires keeping records for 3 years. Autoacull stores everything for you — accessible at any time if there\'s an inspection.',
 'feat6.h':'Made in Catalonia, in Catalan','feat6.p':'Support in Catalan, Spanish and English. Built for the Mossos d\'Esquadra, not the national police. Specific to Catalan regulations.',
-'legal.safe.h':'Automossos solves it','legal.safe.list':'<li>Generates the official V24 file automatically</li><li>Stores the 3-year legal archive</li><li>Notifies you when you need to act</li><li>You keep control and peace of mind</li>','legal.safe.note':'<b>LO 4/2015 · RD 933/2021 · V24 Format</b>',
+'legal.safe.h':'Autoacull solves it','legal.safe.list':'<li>Generates the official V24 file automatically</li><li>Stores the 3-year legal archive</li><li>Notifies you when you need to act</li><li>You keep control and peace of mind</li>','legal.safe.note':'<b>LO 4/2015 · RD 933/2021 · V24 Format</b>',
 'demo.kicker':'In action','demo.h':'See it in <em>1 minute</em>','demo.sub':'The guest receives a message and fills in their details from their phone in 2 minutes. You get notified, generate the official document with one click and upload it to the Mossos portal. Done.','demo.soon':'Demo video · Coming soon',
 'faq.kicker':'Questions','faq.h':'What property owners ask us',
 'faq.q1':'What if the guest doesn\'t fill in the form?','faq.a1':'The system sends them an automatic reminder. If they still don\'t do it, we notify you so you can take action.',
-'faq.q2':'Does it work with Booking.com and Airbnb?','faq.a2':'Yes. Automossos integrates with all major booking platforms. Setup takes under 5 minutes.',
+'faq.q2':'Does it work with Booking.com and Airbnb?','faq.a2':'Yes. Autoacull integrates with all major booking platforms. Setup takes under 5 minutes.',
 'faq.q3':'Is guest data secure?','faq.a3':'Yes. All data is stored encrypted and we comply with GDPR. We don\'t share information with third parties.',
-'faq.q4':'Who uploads the document to the police, me or the app?','faq.a4':'You do. Automossos generates the official document automatically and you review it. Then you upload it to the Mossos web portal (registreviatgers.mossos.gencat.cat) — it\'s an official website where you upload the file, like attaching a document to an email. The whole thing takes under 2 minutes.',
-'faq.q5':'Do I need an account on the Mossos portal?','faq.a5':'Yes, you need an account on the official Mossos portal (registreviatgers.mossos.gencat.cat). If you already have one, you keep using it exactly the same way. If not, you create it for free on the Mossos website. Automossos generates the document for you; you upload it to the portal with your usual account.',
+'faq.q4':'Who uploads the document to the police, me or the app?','faq.a4':'You do. Autoacull generates the official document automatically and you review it. Then you upload it to the Mossos web portal (registreviatgers.mossos.gencat.cat) — it\'s an official website where you upload the file, like attaching a document to an email. The whole thing takes under 2 minutes.',
+'faq.q5':'Do I need an account on the Mossos portal?','faq.a5':'Yes, you need an account on the official Mossos portal (registreviatgers.mossos.gencat.cat). If you already have one, you keep using it exactly the same way. If not, you create it for free on the Mossos website. Autoacull generates the document for you; you upload it to the portal with your usual account.',
 'faq.q6':'Do I need to purchase anything extra?','faq.a6':'No. Everything is included in the plan. No hidden costs, no extra payment integrations.',
 'faq.q7':'When do I have to pay?','faq.a7':'The first month is completely free, no credit card needed. When the trial ends, we\'ll explain the available plans and you decide whether to continue. We never charge you without notifying you first.',
 'pricing.kicker':'Pricing','pricing.h':'One month free, <em>no credit card</em>','pricing.sub':'Try the full product for 1 month. No commitment. When it\'s over, you decide if you want to continue — and which plan.',
@@ -2222,14 +2222,14 @@ en:{
 'legal.fine1.lbl':'Minor offence','legal.fine1.amt':'up to €600',
 'legal.fine2.lbl':'Serious offence','legal.fine2.amt':'€30,000',
 'legal.fines.note':'Failing to register a guest is a serious offence. The accommodation owner is responsible.',
-'legal.cta.txt':'Automossos manages everything automatically — you don\'t have to think about any form, any file, any deadline.',
+'legal.cta.txt':'Autoacull manages everything automatically — you don\'t have to think about any form, any file, any deadline.',
 'legal.cta.btn':'Start free →',
 'sticky.btn':'Try free for 1 month →',
 'foot.desc':'Traveler registration tool for tourist accommodations in Catalonia. Complies with current legal regulations (RD 933/2021).',
 'foot.col1.h':'Product','foot.col1.l1':'How it works','foot.col1.l2':'The product','foot.col1.l3':'Pricing','foot.col1.l4':'Go to app →',
 'foot.col2.h':'Support','foot.col2.l1':'FAQ','foot.col2.l2':'Contact','foot.col2.l3':'Service status',
 'foot.col3.h':'Legal','foot.col3.l1':'Privacy policy','foot.col3.l2':'Legal notice','foot.col3.l3':'Cookies',
-'foot.copy':'© 2026 Automossos · Made in Catalonia',
+'foot.copy':'© 2026 Autoacull · Made in Catalonia',
 }
 };
 
@@ -2256,6 +2256,7 @@ function setLang(lang){
   });
   document.documentElement.lang=lang==='en'?'en':lang==='es'?'es':'ca';
   try{localStorage.setItem('aut-lang',lang);}catch(e){}
+  try{var _f=document.getElementById('demo-iframe');if(_f&&_f.contentWindow)_f.contentWindow.postMessage({type:'aut-lang',lang:lang},'*');}catch(e){}
 }
 
 function init(){

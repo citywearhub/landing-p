@@ -1,0 +1,483 @@
+﻿<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Acord de Tractament de Dades — Autoacull</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  body{
+    font-family:'Inter',sans-serif;
+    font-size:13px;
+    line-height:1.7;
+    color:#1a1a1a;
+    background:#fff;
+    padding:48px 0;
+  }
+
+  .doc{
+    max-width:780px;
+    margin:0 auto;
+    padding:0 40px;
+  }
+
+  /* Header */
+  .doc-header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    border-bottom:2px solid #0C1F3F;
+    padding-bottom:24px;
+    margin-bottom:32px;
+    gap:24px;
+  }
+  .doc-brand{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+  .doc-brand-name{
+    font-size:20px;
+    font-weight:700;
+    color:#0C1F3F;
+    letter-spacing:-0.03em;
+  }
+  .doc-brand-sub{
+    font-size:11px;
+    color:#6b7280;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    font-weight:500;
+  }
+  .doc-meta{
+    text-align:right;
+    font-size:11.5px;
+    color:#6b7280;
+    line-height:1.6;
+  }
+  .doc-meta strong{
+    color:#0C1F3F;
+    font-weight:600;
+  }
+
+  /* Title */
+  .doc-title{
+    text-align:center;
+    margin-bottom:36px;
+  }
+  .doc-title h1{
+    font-size:17px;
+    font-weight:700;
+    color:#0C1F3F;
+    letter-spacing:-0.01em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .doc-title p{
+    font-size:12px;
+    color:#6b7280;
+  }
+
+  /* Sections */
+  h2{
+    font-size:12px;
+    font-weight:700;
+    color:#0C1F3F;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin:32px 0 12px;
+    padding-bottom:6px;
+    border-bottom:1px solid #e5e7eb;
+  }
+  h2 span{
+    color:#C9922A;
+    margin-right:8px;
+  }
+
+  p{
+    margin-bottom:10px;
+    color:#374151;
+  }
+
+  /* Parties block */
+  .parties{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-bottom:24px;
+  }
+  .party-box{
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+    padding:16px 18px;
+    background:#f9fafb;
+  }
+  .party-box.encarregat{
+    border-color:#0C1F3F;
+    background:#f0f4f8;
+  }
+  .party-role{
+    font-size:10px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:#6b7280;
+    margin-bottom:8px;
+  }
+  .party-box.encarregat .party-role{
+    color:#0C1F3F;
+  }
+  .party-name{
+    font-size:13px;
+    font-weight:600;
+    color:#0C1F3F;
+    margin-bottom:6px;
+  }
+  .party-data{
+    font-size:12px;
+    color:#4b5563;
+    line-height:1.8;
+  }
+
+  /* Fill-in blanks */
+  .blank{
+    display:inline-block;
+    min-width:120px;
+    border-bottom:1px solid #0C1F3F;
+    height:16px;
+    vertical-align:bottom;
+    margin:0 2px;
+  }
+  .blank-lg{
+    min-width:200px;
+  }
+  .blank-sm{
+    min-width:80px;
+  }
+
+  /* List */
+  ul, ol{
+    margin:8px 0 12px 20px;
+    color:#374151;
+  }
+  li{
+    margin-bottom:5px;
+  }
+
+  /* Table */
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:12px 0;
+    font-size:12.5px;
+  }
+  th{
+    background:#0C1F3F;
+    color:#fff;
+    font-weight:600;
+    padding:8px 12px;
+    text-align:left;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  td{
+    padding:8px 12px;
+    border-bottom:1px solid #e5e7eb;
+    vertical-align:top;
+    color:#374151;
+  }
+  tr:nth-child(even) td{background:#f9fafb;}
+
+  /* Signatures */
+  .signatures{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+    margin-top:40px;
+    page-break-inside:avoid;
+  }
+  .sig-block{
+    border-top:1px solid #d1d5db;
+    padding-top:16px;
+  }
+  .sig-label{
+    font-size:11px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:#6b7280;
+    margin-bottom:4px;
+  }
+  .sig-name{
+    font-size:12.5px;
+    font-weight:600;
+    color:#0C1F3F;
+    margin-bottom:2px;
+  }
+  .sig-role{
+    font-size:11px;
+    color:#6b7280;
+    margin-bottom:40px;
+  }
+  .sig-line{
+    border-bottom:1px solid #9ca3af;
+    margin-bottom:6px;
+  }
+  .sig-date{
+    font-size:11px;
+    color:#9ca3af;
+  }
+
+  /* Footer */
+  .doc-footer{
+    margin-top:48px;
+    padding-top:16px;
+    border-top:1px solid #e5e7eb;
+    font-size:10.5px;
+    color:#9ca3af;
+    text-align:center;
+    line-height:1.6;
+  }
+
+  /* Print */
+  @media print{
+    body{padding:0;}
+    .doc{padding:20px 32px;}
+    .no-print{display:none;}
+    @page{margin:15mm 15mm;size:A4;}
+  }
+
+  /* Action bar (screen only) */
+  .action-bar{
+    position:fixed;
+    bottom:24px;
+    right:24px;
+    display:flex;
+    gap:10px;
+    z-index:100;
+  }
+  .btn-print{
+    background:#0C1F3F;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    padding:10px 20px;
+    font:600 13px 'Inter',sans-serif;
+    cursor:pointer;
+    box-shadow:0 4px 12px rgba(0,0,0,0.2);
+  }
+  .btn-print:hover{background:#1a3a6b;}
+</style>
+</head>
+<body>
+
+<div class="doc">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="doc-brand">
+      <div class="doc-brand-name">Autoacull</div>
+      <div class="doc-brand-sub">by SPRAUT</div>
+    </div>
+    <div class="doc-meta">
+      <strong>ACORD DE TRACTAMENT DE DADES</strong><br>
+      Ref. ATD-<span class="blank blank-sm"></span><br>
+      Data: <span class="blank blank-sm"></span><br>
+      Versió 1.0 · Abril 2026
+    </div>
+  </div>
+
+  <!-- TITLE -->
+  <div class="doc-title">
+    <h1>Acord de Tractament de Dades</h1>
+    <p>En compliment de l'article 28 del Reglament (UE) 2016/679 (RGPD)</p>
+  </div>
+
+  <!-- PARTIES -->
+  <h2><span>0.</span>Les Parts</h2>
+
+  <div class="parties">
+    <div class="party-box">
+      <div class="party-role">Responsable del Tractament</div>
+      <div class="party-name"><span class="blank blank-lg"></span></div>
+      <div class="party-data">
+        NIF / CIF: <span class="blank"></span><br>
+        Adreça: <span class="blank blank-lg"></span><br>
+        Correu: <span class="blank blank-lg"></span><br>
+        Tel.: <span class="blank"></span>
+      </div>
+    </div>
+    <div class="party-box encarregat">
+      <div class="party-role">Encarregat del Tractament</div>
+      <div class="party-name">Joel Prat Turró</div>
+      <div class="party-data">
+        NIF: 49294932K<br>
+        Marca comercial: SPRAUT / Autoacull<br>
+        Web: Autoacull.cat<br>
+        Correu: hola@Autoacull.cat
+      </div>
+    </div>
+  </div>
+
+  <p>D'ara endavant, el <strong>Responsable</strong> i l'<strong>Encarregat</strong>, conjuntament les <strong>«Parts»</strong>.</p>
+
+  <!-- OBJECT -->
+  <h2><span>1.</span>Objecte i Durada</h2>
+  <p>L'Encarregat prestarà al Responsable el servei <strong>Autoacull</strong>, consistent en la recollida automatitzada de les dades d'identitat dels hostes de l'establiment turístic del Responsable i la generació dels fitxers en format V24 per al seu enviament al portal <em>registreviatgers.mossos.gencat.cat</em>, en compliment del RD 933/2021.</p>
+  <p>El present acord tindrà la mateixa vigència que el contracte de prestació de serveis entre les Parts i restarà en vigor fins a la seva resolució o la baixa del servei.</p>
+
+  <!-- DATA TABLE -->
+  <h2><span>2.</span>Dades Tractades</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Categoria</th>
+        <th>Dades concretes</th>
+        <th>Interessats</th>
+        <th>Finalitat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Identificació personal</td>
+        <td>Nom i cognoms, data i lloc de naixement, sexe, nacionalitat</td>
+        <td>Hostes de l'establiment</td>
+        <td>Registre obligatori RD 933/2021</td>
+      </tr>
+      <tr>
+        <td>Document d'identitat</td>
+        <td>Tipus de document, número, data d'expedició i caducitat, suport (NIF, passaport, NIE…)</td>
+        <td>Hostes de l'establiment</td>
+        <td>Registre obligatori RD 933/2021</td>
+      </tr>
+      <tr>
+        <td>Dades de contacte hoste</td>
+        <td>Telèfon o correu electrònic (opcional, si el Responsable el sol·licita)</td>
+        <td>Hostes de l'establiment</td>
+        <td>Comunicació pre-estada</td>
+      </tr>
+      <tr>
+        <td>Dades de la reserva</td>
+        <td>Data d'entrada, data de sortida, codi d'establiment Mossos</td>
+        <td>Hostes de l'establiment</td>
+        <td>Registre obligatori RD 933/2021</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>L'Encarregat <strong>no tractarà les dades per a cap altra finalitat</strong> que les descrites, ni les cedirà a tercers excepte per obligació legal.</p>
+
+  <!-- OBLIGATIONS ENCARREGAT -->
+  <h2><span>3.</span>Obligacions de l'Encarregat</h2>
+  <p>L'Encarregat es compromet a:</p>
+  <ol>
+    <li>Tractar les dades personals únicament seguint les instruccions documentades del Responsable.</li>
+    <li>Garantir la confidencialitat de les dades per part de tot el personal que hi tingui accés.</li>
+    <li>Implementar les mesures tècniques i organitzatives adequades (Art. 32 RGPD), incloent-hi xifrat en trànsit (HTTPS/TLS) i en repòs, control d'accés per autenticació i gestió de sessions segures.</li>
+    <li>No subcontractar el tractament a tercers sense informació prèvia al Responsable. Subencàrrecs actuals: <strong>Supabase Inc.</strong> (base de dades, UE-region) i <strong>Vercel Inc.</strong> (allotjament, UE-region).</li>
+    <li>Assistir el Responsable en el compliment dels drets dels interessats (accés, rectificació, supressió, portabilitat, oposició) en un termini màxim de <strong>72 hores</strong> des de la recepció de la sol·licitud.</li>
+    <li>Notificar al Responsable qualsevol violació de seguretat de les dades en un termini màxim de <strong>72 hores</strong> des que en tingui coneixement.</li>
+    <li>Suprimir o retornar les dades al Responsable un cop finalitzada la prestació del servei, i destruir les còpies que pugui conservar, excepte quan la normativa vigent en exigeixi la conservació.</li>
+    <li>Conservar les dades dels viatgers durant el termini legalment establert (3 anys des del registre), i procedir a la seva eliminació automàtica un cop transcorregut aquest termini.</li>
+    <li>Posar a disposició del Responsable tota la informació necessària per demostrar el compliment de les obligacions establertes al present acord.</li>
+  </ol>
+
+  <!-- OBLIGATIONS RESPONSABLE -->
+  <h2><span>4.</span>Obligacions del Responsable</h2>
+  <p>El Responsable es compromet a:</p>
+  <ol>
+    <li>Legalitzar la recollida de dades davant els seus hostes (informació RGPD en el formulari d'entrada).</li>
+    <li>No demanar a l'Encarregat que tracti les dades per a finalitats no previstes en aquest acord.</li>
+    <li>Notificar a l'Encarregat qualsevol canvi en les dades de l'establiment rellevants per al servei (codi Mossos, nom, etc.).</li>
+    <li>Mantenir les credencials d'accés al servei Autoacull en secret i sota el seu control exclusiu.</li>
+    <li>Informar l'Encarregat de qualsevol sol·licitud de drets rebuda d'un interessat relacionada amb dades tractades pel servei.</li>
+  </ol>
+
+  <!-- SECURITY -->
+  <h2><span>5.</span>Mesures de Seguretat</h2>
+  <p>L'Encarregat aplica, com a mínim, les mesures tècniques i organitzatives següents:</p>
+  <ul>
+    <li>Comunicacions xifrades mitjançant TLS 1.2+ en tots els accessos al servei.</li>
+    <li>Dades emmagatzemades a la UE (Supabase Frankfurt) amb xifrat en repòs AES-256.</li>
+    <li>Autenticació d'usuaris amb contrasenya segura i sessió tokenitzada (JWT).</li>
+    <li>Control d'accés per rol (RLS) — cada Responsable accedeix únicament a les seves dades.</li>
+    <li>Còpies de seguretat diàries automàtiques amb retenció de 7 dies.</li>
+    <li>Monitoratge d'errors i incidents en producció.</li>
+  </ul>
+
+  <!-- SUBENCÀRRECS -->
+  <h2><span>6.</span>Subencàrrecs de Tractament</h2>
+  <p>L'Encarregat utilitza els proveïdors tecnològics següents per a la prestació del servei, tots ells ubicats a la Unió Europea o amb garanties adequades (Clàusules Contractuals Tipus):</p>
+  <table>
+    <thead>
+      <tr><th>Proveïdor</th><th>Servei</th><th>País dades</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Supabase Inc.</td><td>Base de dades PostgreSQL i autenticació</td><td>Alemanya (UE)</td></tr>
+      <tr><td>Vercel Inc.</td><td>Allotjament de l'aplicació web</td><td>Frankfurt (UE)</td></tr>
+      <tr><td>Resend Inc.</td><td>Enviament de correus transaccionals</td><td>UE (CCT)</td></tr>
+    </tbody>
+  </table>
+
+  <!-- RESOLUTION -->
+  <h2><span>7.</span>Resolució i Supressió de Dades</h2>
+  <p>Un cop resolt el contracte de serveis, per qualsevol causa, l'Encarregat:</p>
+  <ol>
+    <li>Deixarà d'accedir a les dades del Responsable de forma immediata.</li>
+    <li>Posarà a disposició del Responsable un arxiu exportable de les seves dades en format CSV o JSON durant un termini de <strong>30 dies</strong> des de la baixa.</li>
+    <li>Procedirà a l'eliminació definitiva de les dades transcorregut aquest termini, llevat que una obligació legal en requereixi la conservació (en aquest cas, conservació fins al venciment del termini legal).</li>
+  </ol>
+
+  <!-- JURISDICTION -->
+  <h2><span>8.</span>Llei Aplicable i Jurisdicció</h2>
+  <p>El present acord es regeix per la legislació espanyola i el Reglament (UE) 2016/679. Les Parts se sotmeten als jutjats i tribunals de <strong>Barcelona</strong> per a la resolució de qualsevol controvèrsia derivada d'aquest acord, amb renúncia expressa a qualsevol altre fur que pogués correspondre'ls.</p>
+  <p>En cas de conflicte entre el present acord i les Condicions Generals del Servei Autoacull, preval el present acord en tot allò relatiu al tractament de dades personals.</p>
+
+  <!-- SIGNATURES -->
+  <h2><span>9.</span>Signatures</h2>
+  <p>Les Parts, en prova de conformitat amb el contingut del present acord, el signen en dos exemplars originals al lloc i data indicats.</p>
+
+  <div class="signatures">
+    <div class="sig-block">
+      <div class="sig-label">El Responsable del Tractament</div>
+      <div class="sig-name"><span class="blank blank-lg"></span></div>
+      <div class="sig-role"><span class="blank blank-lg"></span></div>
+      <br><br><br>
+      <div class="sig-line"></div>
+      <div class="sig-date">
+        Signatura i segell<br>
+        A <span class="blank"></span>, <span class="blank blank-sm"></span> de <span class="blank"></span> de 20<span class="blank blank-sm"></span>
+      </div>
+    </div>
+    <div class="sig-block">
+      <div class="sig-label">L'Encarregat del Tractament</div>
+      <div class="sig-name">Joel Prat Turró</div>
+      <div class="sig-role">SPRAUT / Autoacull · NIF 49294932K</div>
+      <br><br><br>
+      <div class="sig-line"></div>
+      <div class="sig-date">
+        Signatura<br>
+        A Barcelona, <span class="blank blank-sm"></span> de <span class="blank"></span> de 20<span class="blank blank-sm"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    Autoacull · SPRAUT · Joel Prat Turró · NIF 49294932K · hola@Autoacull.cat · Autoacull.cat<br>
+    Document ATD v1.0 — Redactat en compliment de l'Art. 28 RGPD (UE) 2016/679 i la LOPDGDD (LO 3/2018)
+  </div>
+
+</div>
+
+<!-- ACTION BAR -->
+<div class="action-bar no-print">
+  <button class="btn-print" onclick="window.print()">Imprimir / Exportar PDF</button>
+</div>
+
+</body>
+</html>
