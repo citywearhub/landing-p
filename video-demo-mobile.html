@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Autoacull — Demo</title>
+<title>Arriba — Demo</title>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -134,7 +134,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;
 .reg-dot.ok .reg-ic{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
 
 /* ══ S4 PANELL ADMIN ══ */
-.s4{background:var(--n900);padding:160px 15px 0;justify-content:flex-start;gap:7px;position:relative}
+.s4{background:var(--n900);padding:0 15px;justify-content:center;gap:7px}
 .s4-hdr{display:flex;align-items:flex-start;justify-content:space-between;width:100%}
 .s4-t{font-size:16px;font-weight:700;color:#fff;letter-spacing:-.02em}
 .s4-s{font-size:11px;color:rgba(255,255,255,.35);margin-top:2px}
@@ -173,10 +173,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;
 .steps-gen.show{opacity:1;transform:none}
 .gen-lbl{font-size:8px;font-weight:700;color:rgba(255,255,255,.28);
   text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
-.step-gen{display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,255,255,.3)}
+.step-gen{display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,255,255,.3);
+  max-height:0;overflow:hidden;transition:color .3s,max-height .35s ease}
 .step-gen .sgi{opacity:0;transition:opacity .2s}
 .step-gen .sgt{opacity:0;transform:translateX(-3px);transition:opacity .3s,transform .3s}
-.step-gen.ok{color:rgba(255,255,255,.78)}
+.step-gen.ok{color:rgba(255,255,255,.78);max-height:22px}
 .step-gen.ok .sgi,.step-gen.ok .sgt{opacity:1;transform:none}
 .step-gen.ok .sgi{color:var(--t300)}
 .dl-card{background:#fff;border-radius:8px;padding:9px 12px;
@@ -292,7 +293,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;
     <!-- S1 HOOK -->
     <div class="scene s1" id="s1">
       <span class="hl1 si d1" data-tx="s1h1">El registre de viatgers<br>és obligatori.</span>
-      <span class="hl2 si d3" data-tx="s1h2">Autoacull ho fa per tu.</span>
+      <span class="hl2 si d3" data-tx="s1h2">Arriba ho fa per tu.</span>
       <span class="hl3 si d5" data-tx="s1h3">Del formulari al portal Mossos.<br>Automàtic.</span>
     </div>
 
@@ -449,7 +450,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;
           <div class="s6-chip"><em class="s6-chip-ic">🔒</em> LO 4/2015 · RD 933/2021</div>
         </div>
         <div class="s6-btn" data-tx="s6btn">Prova gratis 1 mes →</div>
-        <div class="s6-url">Autoacull.cat</div>
+        <div class="s6-url">Arriba.cat</div>
       </div>
     </div>
 
@@ -473,7 +474,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;
 var TEXTS={
   ca:{
     s1h1:'El registre de viatgers<br>és obligatori.',
-    s1h2:'Autoacull ho fa per tu.',
+    s1h2:'Arriba ho fa per tu.',
     s1h3:'Del formulari al portal Mossos.<br>Automàtic.',
     s2title:'Arriba una reserva.<br>L\'enllaç ja ha <em>sortit.</em>',
     s2sub:'Booking l\'envia automàticament. Per reserves directes, 1 clic.',
@@ -494,7 +495,7 @@ var TEXTS={
   },
   es:{
     s1h1:'El registro de viajeros<br>es obligatorio.',
-    s1h2:'Autoacull lo hace por ti.',
+    s1h2:'Arriba lo hace por ti.',
     s1h3:'Del formulario al portal Mossos.<br>Automático.',
     s2title:'Llega una reserva.<br>El <em>enlace ya ha salido.</em>',
     s2sub:'Booking lo envía automáticamente. Para reservas directas, 1 clic.',
@@ -515,7 +516,7 @@ var TEXTS={
   },
   en:{
     s1h1:'Guest registration<br>is mandatory.',
-    s1h2:'Autoacull does it for you.',
+    s1h2:'Arriba does it for you.',
     s1h3:'From the form to the Mossos portal.<br>Automatic.',
     s2title:'Booking received.<br>The <em>link is already sent.</em>',
     s2sub:'Booking.com sends it automatically. For direct bookings, 1 click.',
