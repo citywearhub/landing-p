@@ -2,22 +2,22 @@
 <html lang="ca">
 <head>
 <meta charset="utf-8"/>
-<title>Arriba — Registre de viatgers automàtic per a allotjaments turístics de Catalunya</title>
+<title>Estada — Registre de viatgers automàtic per a allotjaments turístics de Catalunya</title>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<meta name="description" content="Arriba automatitza el registre obligatori de viatgers (RD 933/2021). Els hostes omplen el formulari des del mòbil en 2 minuts. Genera el fitxer oficial per als Mossos d'Esquadra automàticament."/>
-<link rel="canonical" href="https://www.automossos.cat"/>
+<meta name="description" content="Estada automatitza el registre obligatori de viatgers (RD 933/2021). Els hostes omplen el formulari des del mòbil en 2 minuts. Genera el fitxer oficial per als Mossos d'Esquadra automàticament."/>
+<link rel="canonical" href="https://www.estada.cat"/>
 <!-- Open Graph -->
 <meta property="og:type" content="website"/>
-<meta property="og:url" content="https://www.automossos.cat"/>
-<meta property="og:title" content="Arriba — Registre de viatgers automàtic per a allotjaments de Catalunya"/>
+<meta property="og:url" content="https://www.estada.cat"/>
+<meta property="og:title" content="Estada — Registre de viatgers automàtic per a allotjaments de Catalunya"/>
 <meta property="og:description" content="Els teus hostes s'autoregistren des del mòbil. Tu reps el document oficial llest per als Mossos en 2 minuts. Prova gratis 1 mes, sense targeta."/>
-<meta property="og:image" content="https://www.automossos.cat/og-image.png"/>
+<meta property="og:image" content="https://www.estada.cat/og-image.png"/>
 <meta property="og:locale" content="ca_ES"/>
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Arriba — Registre de viatgers automàtic"/>
+<meta name="twitter:title" content="Estada — Registre de viatgers automàtic"/>
 <meta name="twitter:description" content="Els teus hostes s'autoregistren des del mòbil. Document oficial per als Mossos en 2 minuts. Prova gratis."/>
-<meta name="twitter:image" content="https://www.automossos.cat/og-image.png"/>
+<meta name="twitter:image" content="https://www.estada.cat/og-image.png"/>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52' fill='none'%3E%3Crect width='52' height='52' rx='12' fill='%230B2748'/%3E%3Cpath d='M9 27L26 11L43 27' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='14' y='27' width='24' height='14' rx='2' fill='white' fill-opacity='.92'/%3E%3Crect x='21' y='32' width='10' height='9' rx='2' fill='%232A9B6E'/%3E%3C/svg%3E"/>
 
 <!-- Design tokens (inlined from colors_and_type.css) -->
@@ -218,6 +218,8 @@ html, body {
   .nav-links a:hover{color:var(--aut-primary-900);}
 
   .nav-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+  .nav-cta{font-size:13px;padding:8px 14px;border-radius:8px;}
+  @media(max-width:600px){.nav-cta{display:none;}}
   .lang-switch{
     display:flex;gap:2px;padding:3px;
     background:var(--aut-surface-sunk);
@@ -1481,7 +1483,7 @@ html, body {
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
-<body data-screen-label="Landing · Arriba">
+<body data-screen-label="Landing · Estada">
 
 <!-- NAV -->
 <nav class="nav">
@@ -1495,7 +1497,7 @@ html, body {
           <rect x="21" y="32" width="10" height="9" rx="2" fill="#2A9B6E"/>
         </svg>
       </span>
-      <span class="brand-name">Arriba</span>
+      <span class="brand-name">Estada</span>
     </a>
     <div class="nav-links">
       <a href="#contingut" data-t="nav.how">Com funciona</a>
@@ -1503,6 +1505,7 @@ html, body {
       <a href="#faq" data-t="nav.faq">Preguntes</a>
     </div>
     <div class="nav-right">
+      <a class="btn primary nav-cta" href="https://app.automossos.cat/registre" data-t="nav.cta">Comença gratis</a>
       <div class="lang-switch">
         <button class="on">CA</button>
         <button>ES</button>
@@ -1522,13 +1525,13 @@ html, body {
       </div>
       <h1 class="hero-h" data-th="hero.h">Reserva feta.<br/>Viatgers registrats.<br/><em>Tu? Dormint.</em></h1>
       <p class="hero-sub" data-th="hero.sub">
-        Envia el formulari legal i la info de la casa en el mateix missatge de Booking. L'hoste arriba preparat. Tu revises, aproves amb un clic,
+        Envia el formulari legal i la info de la casa en el mateix missatge de Booking. L'hoste Estada preparat. Tu revises, aproves amb un clic,
         <b>i Mossos ho rep.</b>
       </p>
       <div class="hero-ctas">
-        <p class="hero-login-label" data-t="hero.loginLabel">Ja ets client de Arriba?</p>
+        <p class="hero-login-label" data-t="hero.loginLabel">Ja ets client de Estada?</p>
         <a class="btn dark lg" style="flex:0 0 100%;justify-content:center;" href="https://app.automossos.cat" data-t="hero.login">Entra al teu panell →</a>
-        <a class="btn primary lg" href="https://app.automossos.cat/admin/register">
+        <a class="btn primary lg" href="https://app.automossos.cat/registre">
           <span data-t="hero.cta1">Prova-ho gratis 1 mes →</span>
         </a>
         <a class="btn secondary lg" href="#contingut" data-t="hero.cta2">Com funciona ↓</a>
@@ -1566,7 +1569,7 @@ html, body {
           <div class="adm-hd">
             <div class="adm-logo">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-              Arriba
+              Estada
             </div>
             <div class="adm-status"><div class="adm-dot"></div>En línia</div>
           </div>
@@ -1617,32 +1620,32 @@ html, body {
 <section class="section warm">
   <div class="wrap">
     <div class="section-head center">
-      <p class="section-kicker" data-t="vs.kicker">Avui vs. amb Arriba</p>
-      <h2 class="section-h" data-th="vs.h">Sense Arriba: feina teva cada cop. Amb Arriba: <em>una sola vegada.</em></h2>
+      <p class="section-kicker" data-t="vs.kicker">Avui vs. amb Estada</p>
+      <h2 class="section-h" data-th="vs.h">Sense Estada: feina teva cada cop. Amb Estada: <em>una sola vegada.</em></h2>
       <p class="section-sub" data-t="vs.sub">Els vespres de divendres fent WhatsApps per demanar DNIs s'han acabat.</p>
     </div>
     <!-- Toggle control -->
     <div class="vs-toggle-ctrl">
       <button class="vstb is-good active" data-vs="good">
-        <span class="vstb-m">✓</span><span data-t="vs.good.tag">Amb Arriba</span>
+        <span class="vstb-m">✓</span><span data-t="vs.good.tag">Amb Estada</span>
       </button>
       <button class="vstb is-bad" data-vs="bad">
-        <span class="vstb-m">×</span><span data-t="vs.bad.tag">Sense Arriba</span>
+        <span class="vstb-m">×</span><span data-t="vs.bad.tag">Sense Estada</span>
       </button>
     </div>
     <!-- Panels (grid-stacked, one visible at a time) -->
     <div class="vs-panels">
       <div class="vs-panel good active">
-        <div class="vs-tag"><span class="m">✓</span> <span data-t="vs.good.tag">Amb Arriba</span></div>
+        <div class="vs-tag"><span class="m">✓</span> <span data-t="vs.good.tag">Amb Estada</span></div>
         <h3 data-t="vs.good.h">Tot passa sol. Tu només supervises.</h3>
         <ul>
-          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="vs.good.li1">Arriba envia l'enllaç a l'hoste automàticament</span></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="vs.good.li1">Estada envia l'enllaç a l'hoste automàticament</span></li>
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="vs.good.li3">Tu reps un avís quan tot és llest</span></li>
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span data-t="vs.good.li6">Tu no has escrit ni un sol missatge</span></li>
         </ul>
       </div>
       <div class="vs-panel bad">
-        <div class="vs-tag"><span class="m">×</span> <span data-t="vs.bad.tag">Sense Arriba</span></div>
+        <div class="vs-tag"><span class="m">×</span> <span data-t="vs.bad.tag">Sense Estada</span></div>
         <h3 data-t="vs.bad.h">Cada reserva és una cursa contra el rellotge</h3>
         <ul>
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span><span data-t="vs.bad.li1">Escrius tu a cada hoste per demanar-li el DNI</span></li>
@@ -1679,7 +1682,7 @@ html, body {
           <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M11 18h2"/></svg>
         </div>
         <h3 data-t="step1.h">L'hoste reserva i rep un missatge automàtic</h3>
-        <p data-t="step1.p">Quan l'hoste confirma la reserva, Arriba li envia automàticament un missatge amb l'enllaç per omplir les dades. Si la reserva és directa (WhatsApp o telèfon), tu li envies l'enllaç amb un clic des del teu panell.</p>
+        <p data-t="step1.p">Quan l'hoste confirma la reserva, Estada li envia automàticament un missatge amb l'enllaç per omplir les dades. Si la reserva és directa (WhatsApp o telèfon), tu li envies l'enllaç amb un clic des del teu panell.</p>
         <span class="step-tag" data-t="step1.tag">0 feina del propietari</span>
         <div class="step-arrow"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
       </div>
@@ -1690,7 +1693,7 @@ html, body {
         </div>
         <h3 data-t="step2.h">L'hoste omple les seves dades des del mòbil</h3>
         <p data-t="step2.p">Obre l'enllaç, omple les dades i veu la info de la casa. Sense baixar cap app. Des de qualsevol telèfon.</p>
-        <span class="step-tag" data-t="step2.tag">L'hoste arriba preparat</span>
+        <span class="step-tag" data-t="step2.tag">L'hoste Estada preparat</span>
         <div class="step-arrow"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
       </div>
       <div class="step">
@@ -1699,7 +1702,7 @@ html, body {
           <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
         </div>
         <h3 data-t="step3.h">Tu reps l'avís, generes el document i el puges al portal</h3>
-        <p data-t="step3.p">Reps un avís, entres a Arriba i generes el document oficial amb un clic. Llavors l'adjuntes al portal web dels Mossos — és com adjuntar un arxiu a un email. Tot en menys de 2 minuts.</p>
+        <p data-t="step3.p">Reps un avís, entres a Estada i generes el document oficial amb un clic. Llavors l'adjuntes al portal web dels Mossos — és com adjuntar un arxiu a un email. Tot en menys de 2 minuts.</p>
         <span class="step-tag" data-t="step3.tag">2 minuts en total</span>
         <div class="step-arrow"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
       </div>
@@ -1719,7 +1722,7 @@ html, body {
       <div class="demo-phone-wrap">
         <div class="demo-phone-notch"></div>
         <iframe class="demo-iframe" id="demo-iframe" scrolling="no"
-                title="Demo Arriba" allow="fullscreen"></iframe>
+                title="Demo Estada" allow="fullscreen"></iframe>
       </div>
     </div>
   </div>
@@ -1772,7 +1775,7 @@ html, body {
 <section class="section" id="funcionalitats">
   <div class="wrap">
     <div class="section-head center">
-      <p class="section-kicker" data-t="features.kicker">Per què Arriba</p>
+      <p class="section-kicker" data-t="features.kicker">Per què Estada</p>
       <h2 class="section-h" data-th="features.h">Sis funcions. <em>Totes necessàries.</em></h2>
       <p class="section-sub" data-t="features.sub">Pensat per a propietaris de cases rurals, pisos turístics i petits allotjaments de Catalunya. No per a hotels de 200 habitacions.</p>
     </div>
@@ -1805,7 +1808,7 @@ html, body {
         <span class="feat-emoji">🗂️</span>
         <h3 data-t="feat5.h">Tots els registres guardats 3 anys</h3>
         <span class="feat-hint">Llegir més +</span>
-        <p data-t="feat5.p">La llei obliga a guardar el registre 3 anys. Arriba ho guarda tot per tu — accessible en qualsevol moment si vénen a inspeccionar.</p>
+        <p data-t="feat5.p">La llei obliga a guardar el registre 3 anys. Estada ho guarda tot per tu — accessible en qualsevol moment si vénen a inspeccionar.</p>
       </div>
       <div class="feature-card">
         <span class="feat-emoji">🏡</span>
@@ -1839,7 +1842,7 @@ html, body {
           <span class="q-t" data-t="faq.q2">Funciona amb Booking.com i Airbnb?</span>
           <span class="q-c"><svg viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg></span>
         </summary>
-        <div class="ans" data-t="faq.a2">Sí. Arriba s'integra amb les principals plataformes de reserves. La connexió es configura en menys de 5 minuts.</div>
+        <div class="ans" data-t="faq.a2">Sí. Estada s'integra amb les principals plataformes de reserves. La connexió es configura en menys de 5 minuts.</div>
       </details>
       <details class="faq-item">
         <summary>
@@ -1855,7 +1858,7 @@ html, body {
           <span class="q-t" data-t="faq.q4">Qui puja el document als Mossos, jo o el programa?</span>
           <span class="q-c"><svg viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg></span>
         </summary>
-        <div class="ans" data-t="faq.a4">Tu. Arriba genera el document oficial automàticament i tu el revises. Llavors l'adjuntes al portal web dels Mossos (registreviatgers.mossos.gencat.cat) — és una web oficial on pengis l'arxiu, com adjuntar un document a un email. Tota l'operació dura menys de 2 minuts.</div>
+        <div class="ans" data-t="faq.a4">Tu. Estada genera el document oficial automàticament i tu el revises. Llavors l'adjuntes al portal web dels Mossos (registreviatgers.mossos.gencat.cat) — és una web oficial on pengis l'arxiu, com adjuntar un document a un email. Tota l'operació dura menys de 2 minuts.</div>
       </details>
       <details class="faq-item">
         <summary>
@@ -1863,7 +1866,7 @@ html, body {
           <span class="q-t" data-t="faq.q5">Haig de tenir compte al portal dels Mossos?</span>
           <span class="q-c"><svg viewBox="0 0 24 24"><path d="m7 9 5 5 5-5"/></svg></span>
         </summary>
-        <div class="ans" data-t="faq.a5">Sí, necessites un compte al portal oficial dels Mossos (registreviatgers.mossos.gencat.cat). Si ja en tens un, el continues usant exactament igual. Si no, el crees gratuïtament a la web dels Mossos. Arriba et genera el document; tu el puges al portal amb el teu compte habitual.</div>
+        <div class="ans" data-t="faq.a5">Sí, necessites un compte al portal oficial dels Mossos (registreviatgers.mossos.gencat.cat). Si ja en tens un, el continues usant exactament igual. Si no, el crees gratuïtament a la web dels Mossos. Estada et genera el document; tu el puges al portal amb el teu compte habitual.</div>
       </details>
       <details class="faq-item">
         <summary>
@@ -1917,7 +1920,7 @@ html, body {
           <li class="no"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></span><span class="tx" data-t="plan1.li6">Pàgina d'informació per a l'hoste</span></li>
         </ul>
         <div style="flex:1;min-height:16px;"></div>
-        <a class="plan-cta secondary" href="#beta" data-t="plan1.cta">Prova-ho gratis 1 mes</a>
+        <a class="plan-cta secondary" href="https://app.automossos.cat/registre" data-t="plan1.cta">Prova-ho gratis 1 mes</a>
         <p class="plan-fine" data-t="plan1.fine">Al mes acabar, tries si continues — nosaltres t'ajudem.</p>
       </div>
 
@@ -1941,7 +1944,7 @@ html, body {
           <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><span class="tx" data-th="plan2.li6"><b>Suport prioritari</b> per email</span></li>
         </ul>
         <div style="flex:1;min-height:16px;"></div>
-        <a class="plan-cta primary" href="#beta" data-t="plan2.cta">Comença gratis 1 mes</a>
+        <a class="plan-cta primary" href="https://app.automossos.cat/registre" data-t="plan2.cta">Comença gratis 1 mes</a>
       </div>
 
       <!-- PLAN 3 · ANTIFRICCIÓ -->
@@ -1949,7 +1952,7 @@ html, body {
         <div class="plan-ribbon alt" data-t="plan3.ribbon">Per a professionals</div>
         <p class="plan-name" data-t="plan3.name">Pla Professional</p>
         <p class="plan-tagline pro" data-t="plan3.tagline">Zero WhatsApps, zero problemes</p>
-        <p class="plan-tag" data-th="plan3.tag">L'hoste arriba informat. <b>Tu deixes de respondre WhatsApps.</b> Els dos marxen contents.</p>
+        <p class="plan-tag" data-th="plan3.tag">L'hoste Estada informat. <b>Tu deixes de respondre WhatsApps.</b> Els dos marxen contents.</p>
         <div class="plan-price">
           <span class="cur">€</span>
           <span class="amt">19,99</span>
@@ -1966,7 +1969,7 @@ html, body {
           <li><span class="ic plus"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span class="tx" data-th="plan3.li6"><b>Suport prioritari 24h</b></span></li>
         </ul>
         <div style="flex:1;min-height:16px;"></div>
-        <a class="plan-cta secondary" href="#beta" data-t="plan3.cta">Comença gratis 1 mes</a>
+        <a class="plan-cta secondary" href="https://app.automossos.cat/registre" data-t="plan3.cta">Comença gratis 1 mes</a>
       </div>
 
     </div>
@@ -2033,7 +2036,7 @@ html, body {
 
       <div class="legal-card safe collapsible">
         <div class="legal-card-icon">✅</div>
-        <h3 data-t="legal.safe.h">Arriba ho resol</h3>
+        <h3 data-t="legal.safe.h">Estada ho resol</h3>
         <ul data-th="legal.safe.list">
           <li>Genera el fitxer V24 oficial automàticament</li>
           <li>Guarda l'historial 3 anys per llei</li>
@@ -2053,18 +2056,8 @@ html, body {
     <h2 data-th="beta.h">Comença ara. <em>1 mes gratis.</em></h2>
     <p data-t="beta.p">Sense targeta. Sense compromís. Si no t'és útil, esborres el compte i prou.</p>
 
-    <div class="beta-alt">
-      <p data-t="beta.alt.p">Vols ser dels primers propietaris? Deixa el teu correu i en parlem.</p>
-      <form class="beta-form" id="betaForm" onsubmit="handleSubmit(event)">
-        <input type="email" id="emailInput" placeholder="el.teu@email.com" data-tph="beta.ph" required/>
-        <button type="submit" id="submitBtn">
-          <span data-t="beta.alt.btn">M'apunto</span>
-          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-      </form>
-      <div class="beta-success" id="successMsg" style="display:none" data-t="beta.ok">Rebut! T'escriurem aviat per parlar-ne.</div>
-      <div class="beta-error" id="errorMsg" style="display:none" data-t="beta.err">Alguna cosa ha fallat. Torna-ho a intentar.</div>
-    </div>
+    <a class="beta-cta-btn" href="https://app.automossos.cat/registre" data-t="beta.cta">Crear compte gratis →</a>
+    <p class="beta-fine" data-t="beta.sub">Sense targeta · 1 mes gratis · Cancel·la quan vulguis</p>
 
     <p class="beta-login-hint" data-th="beta.login">Ja t'has donat d'alta? <a href="https://app.automossos.cat">Entra →</a></p>
   </div>
@@ -2083,7 +2076,7 @@ html, body {
             <rect x="21" y="32" width="10" height="9" rx="2" fill="#2A9B6E"/>
           </svg>
         </span>
-        <span class="brand-name">Arriba</span>
+        <span class="brand-name">Estada</span>
       </a>
       <p data-t="foot.desc">Eina de registre de viatgers per a allotjaments turístics de Catalunya. Compleix la normativa legal vigent (RD 933/2021).</p>
       <div class="foot-legal">
@@ -2106,7 +2099,7 @@ html, body {
       <h4 data-t="foot.col2.h">Suport</h4>
       <ul>
         <li><a href="#faq" data-t="foot.col2.l1">Preguntes freqüents</a></li>
-        <li><a href="mailto:hola@automossos.cat" data-t="foot.col2.l2">Contacte</a></li>
+        <li><a href="mailto:hola@estada.cat" data-t="foot.col2.l2">Contacte</a></li>
         <li><a href="/ajuda" data-t="foot.col2.l3">Ajuda</a></li>
         <li><a href="https://stats.uptimerobot.com/t26p38xR6W" target="_blank" rel="noopener" data-t="foot.col2.l4">Estat del servei</a></li>
       </ul>
@@ -2114,14 +2107,14 @@ html, body {
     <div class="foot-col">
       <h4 data-t="foot.col3.h">Legal</h4>
       <ul>
-        <li><a href="https://www.automossos.cat/privacitat" data-t="foot.col3.l1">Política de privacitat</a></li>
-        <li><a href="https://www.automossos.cat/avis-legal" data-t="foot.col3.l2">Avís legal</a></li>
+        <li><a href="https://www.estada.cat/privacitat" data-t="foot.col3.l1">Política de privacitat</a></li>
+        <li><a href="https://www.estada.cat/avis-legal" data-t="foot.col3.l2">Avís legal</a></li>
         <li><a href="#" data-t="foot.col3.l3">Cookies</a></li>
       </ul>
     </div>
   </div>
   <div class="foot-bottom">
-    <span data-t="foot.copy">© 2026 Arriba · Fet a Catalunya</span>
+    <span data-t="foot.copy">© 2026 Estada · Fet a Catalunya</span>
     <span>Powered by <a href="https://spraut.co">SPRAUT</a></span>
   </div>
 </footer>
@@ -2131,7 +2124,7 @@ html, body {
 (function(){
 var T={
 es:{
-'nav.how':'Cómo funciona','nav.product':'El producto','nav.pricing':'Precios','nav.faq':'Preguntas','nav.login':'Entrar','nav.app':'Ir a la app',
+'nav.how':'Cómo funciona','nav.product':'El producto','nav.pricing':'Precios','nav.faq':'Preguntas','nav.login':'Entrar','nav.app':'Ir a la app','nav.cta':'Empieza gratis',
 'hero.eyebrow':'Obligatorio por ley · Cataluña',
 'hero.h':'Reserva hecha.<br/>Viajeros registrados.<br/><em>¿Tú? Durmiendo.</em>',
 'hero.sub':'Envía el formulario legal y la info de la casa en el mismo mensaje de Booking. El huésped llega preparado. Tú revisas, apruebas con un clic, <b>y los Mossos lo reciben.</b>',
@@ -2139,35 +2132,35 @@ es:{
 'hero.floatBot':'4 de 4 huéspedes registrados<small>Reserva AAR02.003 · lista</small>','hero.floatTop':'Documento oficial generado<small>Can Cuní · 23 jun, 10:24</small>',
 'hero.chatOnline':'en línea','hero.chatDay':'Hoy · 14:32','hero.chatBubble':'Bienvenido/a a <b>Casavella del Cuní</b>.<br/>Completa el registro obligatorio. Tarda menos de 2 minutos.','hero.chatLink':'Completar el registro →',
 'hero.li1':'Sin app para el huésped','hero.li2':'100% desde el móvil','hero.li3':'Cumple la ley','hero.li4':'Documento oficial automático',
-'hero.proof':'Propietarios de Cataluña se ahorran horas cada semana','hero.pain':'Basta de pedir DNIs por WhatsApp y apuntarlos a mano.','hero.loginLabel':'¿Ya eres cliente de Arriba?',
+'hero.proof':'Propietarios de Cataluña se ahorran horas cada semana','hero.pain':'Basta de pedir DNIs por WhatsApp y apuntarlos a mano.','hero.loginLabel':'¿Ya eres cliente de Estada?',
 'compat.lbl':'Compatible con','compat.etc':'o reservas directas por WhatsApp, teléfono o web propia',
-'vs.kicker':'Hoy vs. con Arriba','vs.h':'Sin Arriba: trabajo tuyo cada vez. Con Arriba: <em>una sola vez.</em>','vs.sub':'Los viernes por la noche enviando WhatsApps para pedir DNIs se acabaron.',
-'vs.bad.tag':'Sin Arriba','vs.bad.h':'Cada reserva es una carrera contra el reloj',
+'vs.kicker':'Hoy vs. con Estada','vs.h':'Sin Estada: trabajo tuyo cada vez. Con Estada: <em>una sola vez.</em>','vs.sub':'Los viernes por la noche enviando WhatsApps para pedir DNIs se acabaron.',
+'vs.bad.tag':'Sin Estada','vs.bad.h':'Cada reserva es una carrera contra el reloj',
 'vs.bad.li1':'Tú escribes a cada huésped para pedirle el DNI','vs.bad.li2':'Esperas que te responda (a veces no lo hace)','vs.bad.li3':'Transcribes los datos a mano, uno por uno',
 'vs.bad.li4':'Entras al portal de Mossos y subes el archivo manualmente','vs.bad.li5':'Si te equivocas u olvidas, puedes recibir una multa de hasta 30.000€','vs.bad.li6':'Y encima, el huésped te pregunta el wifi, cómo entrar, dónde aparcar…','vs.swipe':'Desliza para ver la alternativa',
-'vs.good.tag':'Con Arriba','vs.good.h':'Todo pasa solo. Tú solo supervisas.',
-'vs.good.li1':'Arriba envía el enlace al huésped automáticamente','vs.good.li2':'El huésped rellena los datos desde el móvil en 2 minutos','vs.good.li3':'Tú recibes un aviso cuando todo está listo','vs.good.li4':'Revisas los datos y haces clic en "Enviar a los Mossos" — hecho',
+'vs.good.tag':'Con Estada','vs.good.h':'Todo pasa solo. Tú solo supervisas.',
+'vs.good.li1':'Estada envía el enlace al huésped automáticamente','vs.good.li2':'El huésped rellena los datos desde el móvil en 2 minutos','vs.good.li3':'Tú recibes un aviso cuando todo está listo','vs.good.li4':'Revisas los datos y haces clic en "Enviar a los Mossos" — hecho',
 'vs.good.li5':'El huésped ya sabe el wifi, cómo entrar y dónde aparcar','vs.good.li6':'Tú no has escrito ni un solo mensaje',
 'steps.kicker':'Cómo funciona','steps.h':'4 pasos. Sin llamadas. <em>Sin papeles.</em>','steps.sub':'Configuras tu propiedad una sola vez. Después, todo pasa solo para siempre.',
 'step0.h':'Configuras tu propiedad una sola vez','step0.p':'Pones la info de la casa: wifi, llaves, dónde aparcar, normas y recomendaciones locales. Una vez. Nunca más.','step0.tag':'5 minutos de trabajo',
-'step1.h':'El huésped reserva y recibe un mensaje automático','step1.p':'Cuando el huésped confirma la reserva, Arriba le envía automáticamente un mensaje con el enlace para rellenar sus datos. Si la reserva es directa (WhatsApp o teléfono), tú le envías el enlace con un clic desde tu panel.','step1.tag':'0 trabajo del propietario',
+'step1.h':'El huésped reserva y recibe un mensaje automático','step1.p':'Cuando el huésped confirma la reserva, Estada le envía automáticamente un mensaje con el enlace para rellenar sus datos. Si la reserva es directa (WhatsApp o teléfono), tú le envías el enlace con un clic desde tu panel.','step1.tag':'0 trabajo del propietario',
 'step2.h':'El huésped rellena sus datos desde el móvil','step2.p':'Abre el enlace, rellena los datos y ve la info de la casa. Sin descargar ninguna app. Desde cualquier teléfono.','step2.tag':'El huésped llega preparado',
-'step3.h':'Tú recibes el aviso, generas el documento y lo subes al portal','step3.p':'Recibes un aviso, entras en Arriba y generas el documento oficial con un clic. Luego lo adjuntas al portal web de los Mossos — es como adjuntar un archivo a un correo. Todo en menos de 2 minutos.','step3.tag':'2 minutos en total',
-'features.kicker':'Por qué Arriba','features.h':'Seis funciones. <em>Todas necesarias.</em>','features.sub':'Pensado para propietarios de casas rurales, pisos turísticos y pequeños alojamientos de Cataluña. No para hoteles de 200 habitaciones.',
+'step3.h':'Tú recibes el aviso, generas el documento y lo subes al portal','step3.p':'Recibes un aviso, entras en Estada y generas el documento oficial con un clic. Luego lo adjuntas al portal web de los Mossos — es como adjuntar un archivo a un correo. Todo en menos de 2 minutos.','step3.tag':'2 minutos en total',
+'features.kicker':'Por qué Estada','features.h':'Seis funciones. <em>Todas necesarias.</em>','features.sub':'Pensado para propietarios de casas rurales, pisos turísticos y pequeños alojamientos de Cataluña. No para hoteles de 200 habitaciones.',
 'feat1.h':'Sin app para el huésped','feat1.p':'El huésped abre un enlace desde el móvil. Sin descargar nada, sin crear ninguna cuenta. Funciona con cualquier teléfono del mundo.',
 'feat2.h':'Tú tienes el control','feat2.p':'Ves todos los registros en tu panel. Revisas los datos cuando quieres y envías a los Mossos con un clic. 100% fiable porque tú tienes la última palabra.',
 'feat3.h':'Todo desde el móvil','feat3.p':'Tu panel funciona perfectamente desde el móvil o PC. Recibes aviso cuando todos los huéspedes han rellenado los datos. Sin entrar a revisar.',
 'feat4.h':'Documento oficial generado automáticamente','feat4.p':'Genera el documento oficial que exige la ley, sin errores de formato y sin transcripciones manuales. Siempre actualizado con la normativa vigente.',
-'feat5.h':'Todos los registros guardados 3 años','feat5.p':'La ley obliga a guardar el registro 3 años. Arriba lo guarda todo por ti — accesible en cualquier momento si vienen a inspeccionar.',
+'feat5.h':'Todos los registros guardados 3 años','feat5.p':'La ley obliga a guardar el registro 3 años. Estada lo guarda todo por ti — accesible en cualquier momento si vienen a inspeccionar.',
 'feat6.h':'Hecho en Cataluña, en catalán','feat6.p':'Soporte en catalán, castellano e inglés. Pensado para los Mossos d\'Esquadra, no para la Policía Nacional. Específico para la normativa catalana.',
-'legal.safe.h':'Arriba lo resuelve','legal.safe.list':'<li>Genera el archivo V24 oficial automáticamente</li><li>Guarda el historial 3 años por ley</li><li>Te avisa cuando debes actuar</li><li>Tú tienes el control y la tranquilidad</li>','legal.safe.note':'<b>LO 4/2015 · RD 933/2021 · Formato V24</b>',
+'legal.safe.h':'Estada lo resuelve','legal.safe.list':'<li>Genera el archivo V24 oficial automáticamente</li><li>Guarda el historial 3 años por ley</li><li>Te avisa cuando debes actuar</li><li>Tú tienes el control y la tranquilidad</li>','legal.safe.note':'<b>LO 4/2015 · RD 933/2021 · Formato V24</b>',
 'demo.kicker':'En acción','demo.h':'Vélo en <em>1 minuto</em>','demo.sub':'El huésped recibe un mensaje, rellena los datos desde el móvil en 2 minutos. Tú recibes el aviso, generas el documento oficial con un clic y lo subes al portal de los Mossos. Hecho.','demo.soon':'Vídeo demostración · Disponible pronto',
 'faq.kicker':'Dudas','faq.h':'Lo que nos preguntan los propietarios',
 'faq.q1':'¿Y si el huésped no rellena el formulario?','faq.a1':'El sistema le envía un recordatorio automático. Si aun así no lo hace, te avisamos a ti para que puedas actuar.',
-'faq.q2':'¿Funciona con Booking.com y Airbnb?','faq.a2':'Sí. Arriba se integra con las principales plataformas de reservas. La conexión se configura en menos de 5 minutos.',
+'faq.q2':'¿Funciona con Booking.com y Airbnb?','faq.a2':'Sí. Estada se integra con las principales plataformas de reservas. La conexión se configura en menos de 5 minutos.',
 'faq.q3':'¿Los datos de los huéspedes están seguros?','faq.a3':'Sí. Todos los datos se guardan cifrados y cumplimos el RGPD. No compartimos información con terceros.',
-'faq.q4':'¿Quién sube el documento a la Policía, yo o el programa?','faq.a4':'Tú. Arriba genera el documento oficial automáticamente y tú lo revisas. Luego lo adjuntas al portal web de los Mossos (registreviatgers.mossos.gencat.cat) — es una web oficial donde subes el archivo, como adjuntar un documento a un correo. Toda la operación dura menos de 2 minutos.',
-'faq.q5':'¿Necesito cuenta en el portal de los Mossos?','faq.a5':'Sí, necesitas una cuenta en el portal oficial de los Mossos (registreviatgers.mossos.gencat.cat). Si ya tienes una, la sigues usando exactamente igual. Si no, la creas gratuitamente en la web de los Mossos. Arriba te genera el documento; tú lo subes al portal con tu cuenta habitual.',
+'faq.q4':'¿Quién sube el documento a la Policía, yo o el programa?','faq.a4':'Tú. Estada genera el documento oficial automáticamente y tú lo revisas. Luego lo adjuntas al portal web de los Mossos (registreviatgers.mossos.gencat.cat) — es una web oficial donde subes el archivo, como adjuntar un documento a un correo. Toda la operación dura menos de 2 minutos.',
+'faq.q5':'¿Necesito cuenta en el portal de los Mossos?','faq.a5':'Sí, necesitas una cuenta en el portal oficial de los Mossos (registreviatgers.mossos.gencat.cat). Si ya tienes una, la sigues usando exactamente igual. Si no, la creas gratuitamente en la web de los Mossos. Estada te genera el documento; tú lo subes al portal con tu cuenta habitual.',
 'faq.q6':'¿Necesito contratar algo adicional?','faq.a6':'No. Todo está incluido en el plan. Sin costes ocultos, sin integraciones de pago adicionales.',
 'faq.q7':'¿Cuándo tendré que pagar?','faq.a7':'El primer mes es completamente gratis, sin tarjeta. Cuando acabe el mes de prueba, te explicaremos los planes disponibles y tú decides si quieres continuar. No te cobramos nada sin avisarte antes.',
 'pricing.kicker':'Precios','pricing.h':'Un mes gratis, <em>sin tarjeta</em>','pricing.sub':'Prueba el producto completo durante 1 mes. Sin compromiso. Cuando acabes, decides si continuar — y con qué plan.',
@@ -2190,9 +2183,8 @@ es:{
 'pricing.faq.txt':'¿Tienes dudas sobre los precios? ','pricing.faq.link':'Mira las preguntas frecuentes →',
 'beta.h':'Empieza ahora. <em>1 mes gratis.</em>','beta.p':'Sin tarjeta. Sin compromiso. Si no te es útil, borras la cuenta y listo.',
 'beta.ph':'tu@email.com','beta.btn':'Regístrate gratis →','beta.fine':'Sin spam · Sin tarjeta de crédito',
-'beta.alt.p':'¿Quieres ser de los primeros propietarios? Deja tu correo y hablamos.','beta.alt.btn':'Me apunto',
+'beta.cta':'Crear cuenta gratis →','beta.sub':'Sin tarjeta · 1 mes gratis · Cancela cuando quieras',
 'beta.login':'¿Ya te has registrado? <a href="https://app.automossos.cat">Accede →</a>',
-'beta.ok':'¡Recibido! Te escribiremos pronto para hablar.','beta.err':'Algo ha fallado. Inténtalo de nuevo.',
 'legal.kicker':'La ley vigente',
 'legal.h':'Registro obligatorio de viajeros<br/>— <em>no es opcional</em>',
 'legal.sub':'Desde 2021, todos los alojamientos turísticos de España deben registrar a los huéspedes en el portal policial en menos de 24 horas. Te multan a ti, el propietario.',
@@ -2206,17 +2198,17 @@ es:{
 'legal.fine1.lbl':'Infracción leve','legal.fine1.amt':'hasta €600',
 'legal.fine2.lbl':'Infracción grave','legal.fine2.amt':'€30.000',
 'legal.fines.note':'No registrar a un huésped es una infracción grave. El propietario es el responsable.',
-'legal.cta.txt':'Arriba lo gestiona todo automáticamente — tú no tienes que pensar en ningún formulario, ningún archivo, ningún plazo.',
+'legal.cta.txt':'Estada lo gestiona todo automáticamente — tú no tienes que pensar en ningún formulario, ningún archivo, ningún plazo.',
 'legal.cta.btn':'Empieza gratis →',
 'sticky.btn':'Prueba gratis 1 mes →',
 'foot.desc':'Herramienta de registro de viajeros para alojamientos turísticos de Cataluña. Cumple la normativa legal vigente (RD 933/2021).',
 'foot.col1.h':'Producto','foot.col1.l1':'Cómo funciona','foot.col1.l2':'El producto','foot.col1.l3':'Precios','foot.col1.l4':'Ir a la app →',
 'foot.col2.h':'Soporte','foot.col2.l1':'Preguntas frecuentes','foot.col2.l2':'Contacto','foot.col2.l3':'Estado del servicio',
 'foot.col3.h':'Legal','foot.col3.l1':'Política de privacidad','foot.col3.l2':'Aviso legal','foot.col3.l3':'Cookies',
-'foot.copy':'© 2026 Arriba · Hecho en Cataluña',
+'foot.copy':'© 2026 Estada · Hecho en Cataluña',
 },
 en:{
-'nav.how':'How it works','nav.product':'The product','nav.pricing':'Pricing','nav.faq':'FAQ','nav.login':'Log in','nav.app':'Go to app',
+'nav.how':'How it works','nav.product':'The product','nav.pricing':'Pricing','nav.faq':'FAQ','nav.login':'Log in','nav.app':'Go to app','nav.cta':'Start free',
 'hero.eyebrow':'Required by law · Catalonia',
 'hero.h':'Booking done.<br/>Guests registered.<br/><em>You? Sleeping.</em>',
 'hero.sub':'Send the legal form and house info in the same Booking message. The guest arrives ready. You review, approve with a click, <b>and Mossos receive it.</b>',
@@ -2226,33 +2218,33 @@ en:{
 'hero.li1':'No app for guests','hero.li2':'100% mobile-based','hero.li3':'Legally compliant','hero.li4':'Automatic official document',
 'hero.proof':'Property owners in Catalonia save hours every week','hero.pain':'No more chasing IDs on WhatsApp or entering data by hand.','hero.loginLabel':'Already a customer?',
 'compat.lbl':'Compatible with','compat.etc':'or direct bookings by WhatsApp, phone or own website',
-'vs.kicker':'Today vs. with Arriba','vs.h':'Without Arriba: your job every time. With Arriba: <em>done once.</em>','vs.sub':'Friday nights sending WhatsApps asking for IDs are over.',
-'vs.bad.tag':'Without Arriba','vs.bad.h':'Every booking is a race against time',
+'vs.kicker':'Today vs. with Estada','vs.h':'Without Estada: your job every time. With Estada: <em>done once.</em>','vs.sub':'Friday nights sending WhatsApps asking for IDs are over.',
+'vs.bad.tag':'Without Estada','vs.bad.h':'Every booking is a race against time',
 'vs.bad.li1':'You message each guest asking for their ID','vs.bad.li2':'You wait for a reply (sometimes it never comes)','vs.bad.li3':'You transcribe data by hand, one by one',
 'vs.bad.li4':'You log into the Mossos portal and upload the file manually','vs.bad.li5':'One mistake or oversight can get you fined up to €30,000','vs.bad.li6':'And on top of that, guests ask you for the wifi, how to enter, where to park…','vs.swipe':'Swipe to see the alternative',
-'vs.good.tag':'With Arriba','vs.good.h':'Everything happens automatically. You just supervise.',
-'vs.good.li1':'Arriba automatically sends the link to the guest','vs.good.li2':'The guest fills in details from their phone in 2 minutes','vs.good.li3':'You get notified when everything is done','vs.good.li4':'You review and click "Send to Mossos" — done',
+'vs.good.tag':'With Estada','vs.good.h':'Everything happens automatically. You just supervise.',
+'vs.good.li1':'Estada automatically sends the link to the guest','vs.good.li2':'The guest fills in details from their phone in 2 minutes','vs.good.li3':'You get notified when everything is done','vs.good.li4':'You review and click "Send to Mossos" — done',
 'vs.good.li5':'The guest already knows the wifi, how to enter and where to park','vs.good.li6':'You haven\'t written a single message',
 'steps.kicker':'How it works','steps.h':'4 steps. No calls. <em>No paperwork.</em>','steps.sub':'You set up your property once. After that, everything happens automatically forever.',
 'step0.h':'You set up your property just once','step0.p':'You enter the house info: wifi, keys, parking, house rules and local recommendations. Once. Never again.','step0.tag':'5 minutes of work',
-'step1.h':'The guest books and receives an automatic message','step1.p':'When the guest confirms the booking, Arriba automatically sends them a message with the link to fill in their details. If it\'s a direct booking (WhatsApp or phone), you send the link with one click from your dashboard.','step1.tag':'0 work for the owner',
+'step1.h':'The guest books and receives an automatic message','step1.p':'When the guest confirms the booking, Estada automatically sends them a message with the link to fill in their details. If it\'s a direct booking (WhatsApp or phone), you send the link with one click from your dashboard.','step1.tag':'0 work for the owner',
 'step2.h':'The guest fills in their details from their phone','step2.p':'They open the link, fill in their details and see the house info. No app download. From any phone.','step2.tag':'Guest arrives prepared',
-'step3.h':'You get notified, generate the document and upload it to the portal','step3.p':'You get a notification, log into Arriba and generate the official document with one click. Then you upload it to the Mossos web portal — it\'s like attaching a file to an email. All in under 2 minutes.','step3.tag':'2 minutes total',
-'features.kicker':'Why Arriba','features.h':'Six features. <em>All necessary.</em>','features.sub':'Built for owners of rural houses, tourist apartments and small accommodations in Catalonia. Not for 200-room hotels.',
+'step3.h':'You get notified, generate the document and upload it to the portal','step3.p':'You get a notification, log into Estada and generate the official document with one click. Then you upload it to the Mossos web portal — it\'s like attaching a file to an email. All in under 2 minutes.','step3.tag':'2 minutes total',
+'features.kicker':'Why Estada','features.h':'Six features. <em>All necessary.</em>','features.sub':'Built for owners of rural houses, tourist apartments and small accommodations in Catalonia. Not for 200-room hotels.',
 'feat1.h':'No app for guests','feat1.p':'The guest opens a normal link from their phone. No downloads, no accounts. Works with any phone in the world.',
 'feat2.h':'You stay in control','feat2.p':'See all registrations in your dashboard. Review data anytime and send to Mossos with one click. 100% reliable because you have the final say.',
 'feat3.h':'Everything from your phone','feat3.p':'Your dashboard works perfectly from mobile or PC. Get notified when all guests have filled in their data. No need to keep checking.',
 'feat4.h':'Official document generated automatically','feat4.p':'Generates the official document required by law, with no formatting errors and no manual transcription. Always up to date with current regulations.',
-'feat5.h':'All records stored for 3 years','feat5.p':'The law requires keeping records for 3 years. Arriba stores everything for you — accessible at any time if there\'s an inspection.',
+'feat5.h':'All records stored for 3 years','feat5.p':'The law requires keeping records for 3 years. Estada stores everything for you — accessible at any time if there\'s an inspection.',
 'feat6.h':'Made in Catalonia, in Catalan','feat6.p':'Support in Catalan, Spanish and English. Built for the Mossos d\'Esquadra, not the national police. Specific to Catalan regulations.',
-'legal.safe.h':'Arriba solves it','legal.safe.list':'<li>Generates the official V24 file automatically</li><li>Stores the 3-year legal archive</li><li>Notifies you when you need to act</li><li>You keep control and peace of mind</li>','legal.safe.note':'<b>LO 4/2015 · RD 933/2021 · V24 Format</b>',
+'legal.safe.h':'Estada solves it','legal.safe.list':'<li>Generates the official V24 file automatically</li><li>Stores the 3-year legal archive</li><li>Notifies you when you need to act</li><li>You keep control and peace of mind</li>','legal.safe.note':'<b>LO 4/2015 · RD 933/2021 · V24 Format</b>',
 'demo.kicker':'In action','demo.h':'See it in <em>1 minute</em>','demo.sub':'The guest receives a message and fills in their details from their phone in 2 minutes. You get notified, generate the official document with one click and upload it to the Mossos portal. Done.','demo.soon':'Demo video · Coming soon',
 'faq.kicker':'Questions','faq.h':'What property owners ask us',
 'faq.q1':'What if the guest doesn\'t fill in the form?','faq.a1':'The system sends them an automatic reminder. If they still don\'t do it, we notify you so you can take action.',
-'faq.q2':'Does it work with Booking.com and Airbnb?','faq.a2':'Yes. Arriba integrates with all major booking platforms. Setup takes under 5 minutes.',
+'faq.q2':'Does it work with Booking.com and Airbnb?','faq.a2':'Yes. Estada integrates with all major booking platforms. Setup takes under 5 minutes.',
 'faq.q3':'Is guest data secure?','faq.a3':'Yes. All data is stored encrypted and we comply with GDPR. We don\'t share information with third parties.',
-'faq.q4':'Who uploads the document to the police, me or the app?','faq.a4':'You do. Arriba generates the official document automatically and you review it. Then you upload it to the Mossos web portal (registreviatgers.mossos.gencat.cat) — it\'s an official website where you upload the file, like attaching a document to an email. The whole thing takes under 2 minutes.',
-'faq.q5':'Do I need an account on the Mossos portal?','faq.a5':'Yes, you need an account on the official Mossos portal (registreviatgers.mossos.gencat.cat). If you already have one, you keep using it exactly the same way. If not, you create it for free on the Mossos website. Arriba generates the document for you; you upload it to the portal with your usual account.',
+'faq.q4':'Who uploads the document to the police, me or the app?','faq.a4':'You do. Estada generates the official document automatically and you review it. Then you upload it to the Mossos web portal (registreviatgers.mossos.gencat.cat) — it\'s an official website where you upload the file, like attaching a document to an email. The whole thing takes under 2 minutes.',
+'faq.q5':'Do I need an account on the Mossos portal?','faq.a5':'Yes, you need an account on the official Mossos portal (registreviatgers.mossos.gencat.cat). If you already have one, you keep using it exactly the same way. If not, you create it for free on the Mossos website. Estada generates the document for you; you upload it to the portal with your usual account.',
 'faq.q6':'Do I need to purchase anything extra?','faq.a6':'No. Everything is included in the plan. No hidden costs, no extra payment integrations.',
 'faq.q7':'When do I have to pay?','faq.a7':'The first month is completely free, no credit card needed. When the trial ends, we\'ll explain the available plans and you decide whether to continue. We never charge you without notifying you first.',
 'pricing.kicker':'Pricing','pricing.h':'One month free, <em>no credit card</em>','pricing.sub':'Try the full product for 1 month. No commitment. When it\'s over, you decide if you want to continue — and which plan.',
@@ -2275,9 +2267,8 @@ en:{
 'pricing.faq.txt':'Questions about pricing? ','pricing.faq.link':'Check the FAQ →',
 'beta.h':'Start now. <em>1 month free.</em>','beta.p':'No card. No commitment. If it\'s not useful, delete the account and that\'s it.',
 'beta.ph':'your@email.com','beta.btn':'Register free →','beta.fine':'No spam · No credit card',
-'beta.alt.p':'Want to be one of the first owners? Leave your email and we\'ll have a chat.','beta.alt.btn':'Count me in',
+'beta.cta':'Create free account →','beta.sub':'No card required · 1 month free · Cancel anytime',
 'beta.login':'Already signed up? <a href="https://app.automossos.cat">Log in →</a>',
-'beta.ok':'Got it! We\'ll write to you soon.','beta.err':'Something went wrong. Please try again.',
 'legal.kicker':'Current law',
 'legal.h':'Mandatory traveller registration<br/>— <em>not optional</em>',
 'legal.sub':'Since 2021, all tourist accommodations in Spain must register guests on the police portal within 24 hours. You — the owner — get fined.',
@@ -2291,14 +2282,14 @@ en:{
 'legal.fine1.lbl':'Minor offence','legal.fine1.amt':'up to €600',
 'legal.fine2.lbl':'Serious offence','legal.fine2.amt':'€30,000',
 'legal.fines.note':'Failing to register a guest is a serious offence. The accommodation owner is responsible.',
-'legal.cta.txt':'Arriba manages everything automatically — you don\'t have to think about any form, any file, any deadline.',
+'legal.cta.txt':'Estada manages everything automatically — you don\'t have to think about any form, any file, any deadline.',
 'legal.cta.btn':'Start free →',
 'sticky.btn':'Try free for 1 month →',
 'foot.desc':'Traveler registration tool for tourist accommodations in Catalonia. Complies with current legal regulations (RD 933/2021).',
 'foot.col1.h':'Product','foot.col1.l1':'How it works','foot.col1.l2':'The product','foot.col1.l3':'Pricing','foot.col1.l4':'Go to app →',
 'foot.col2.h':'Support','foot.col2.l1':'FAQ','foot.col2.l2':'Contact','foot.col2.l3':'Service status',
 'foot.col3.h':'Legal','foot.col3.l1':'Privacy policy','foot.col3.l2':'Legal notice','foot.col3.l3':'Cookies',
-'foot.copy':'© 2026 Arriba · Made in Catalonia',
+'foot.copy':'© 2026 Estada · Made in Catalonia',
 }
 };
 
@@ -2358,29 +2349,6 @@ if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded'
   },{passive:true});
 })();
 
-async function handleSubmit(e){
-  e.preventDefault();
-  var btn=document.getElementById('submitBtn');
-  var origHTML=btn.innerHTML;
-  btn.innerHTML='<span>...</span>';
-  btn.disabled=true;
-  var email=document.getElementById('emailInput').value;
-  try{
-    var res=await fetch('https://formspree.io/f/xvzdpyow',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({email:email})
-    });
-    if(res.ok){
-      document.getElementById('betaForm').style.display='none';
-      document.getElementById('successMsg').style.display='block';
-    }else{throw new Error();}
-  }catch(err){
-    btn.innerHTML=origHTML;
-    btn.disabled=false;
-    document.getElementById('errorMsg').style.display='block';
-  }
-}
 </script>
 
 <script>
@@ -2511,3 +2479,4 @@ function admDownload(){
 </script>
 </body>
 </html>
+
